@@ -1,0 +1,7 @@
+[extend]
+useDefault = true
+
+# source_sha256 values are SHA-256 hashes of source files, not Bitbucket client secrets.
+[[allowlists]]
+targetRules = ["bitbucket-client-secret"]
+paths = ['''^skills/linear-workflow/evals/.*/environment\.json$''']
