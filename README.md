@@ -7,8 +7,8 @@ travel with their skill; historical observations do not qualify this package or 
 Prepared from the tracked sources at dotfiles revision
 [`89307efa`](https://github.com/SebastienElet/dotfiles/tree/89307efadc512f6021696bdf7ebb8249c820a2ff).
 
-This is an unpublished local preparation for version `1.0.0`. No registry installation, provenance,
-Claude, Codex or Cursor activation has been qualified. Dotfiles keeps its current sources and
+The release target is version `0.0.1`. Registry installation, provenance and Claude, Codex or Cursor
+activation require independent verification. Dotfiles keeps its current sources and
 consumers until publication, independent installation and rollback have been verified.
 
 ## Acquisition and selection
@@ -16,7 +16,7 @@ consumers until publication, independent installation and rollback have been ver
 After publication, acquire an exact version in a durable consumer-owned directory:
 
 ```sh
-bun add --exact @sebastienelet/agent-skills@1.0.0
+bun install --exact --ignore-scripts @sebastienelet/agent-skills@0.0.1
 ```
 
 The package does not install tools, hooks or agent configuration. The consumer selects individual
@@ -64,8 +64,8 @@ to each skill's declared scope; the collection makes no uniform platform or acti
 The manual `publish.yml` workflow uses npm only for publishing, with OIDC and provenance, after
 repository and trusted-publisher setup. Its owner/repository/workflow identity must match npm's
 [trusted publisher configuration](https://docs.npmjs.com/trusted-publishers/).
-No token fallback is configured. GitHub creation, trusted-publisher configuration, remote creation
-and publication are awaiting Sébastien's agreement. No workflow has been executed remotely.
+No token fallback is configured. Dispatch publication from `main` after configuring the trusted
+publisher. Local checks do not establish registry installation, provenance or host activation.
 
 The root MIT license covers original contributions. Skill-local licenses and attributions retain
 their own applicability, including Matt Pocock, Ayoub Ghriss and the visual explanation references.
