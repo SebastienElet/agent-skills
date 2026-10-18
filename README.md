@@ -1,7 +1,7 @@
 # Agent Skills
 
 Reusable agent workflows distributed as `@sebastienelet/agent-skills`. The [derived index](skills/README.md)
-lists the 41 skills and their purposes. Resources, attribution notices and historical evaluations
+lists the 40 skills and their purposes. Resources, attribution notices and historical evaluations
 travel with their skill; historical observations do not qualify this package or current agent versions.
 
 Prepared from the tracked sources at dotfiles revision
@@ -27,7 +27,7 @@ in this repository's `skills/`, never through a deployed link or `node_modules`.
 
 `code-review-fix` and `claude-development` are the canonical names; old skill aliases are not shipped.
 Independent final Codex review is optional unless requested. User instructions supply preferences,
-including excluded PARA roots, note naming and the default Obsidian corpus. This package supplies
+including note naming and the default Obsidian corpus. This package supplies
 no personal instructions, corpus, agent/model selection, credentials or service configuration.
 
 ## Optional companions
