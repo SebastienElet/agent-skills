@@ -372,3 +372,11 @@ published, or an unreadable body as unknown; never infer the visible state from 
 **Bitbucket placement:** The same marker is present in a Cloud inline comment or reply. Expected:
 never update it as the general verdict. An owned or unknown-author occurrence stops publication;
 a known foreign occurrence does not block a new general verdict by the current account.
+
+## Case M — execution environment assumptions (class 21)
+
+The [environment scenarios](../evals/environment-assumptions.md) cover a hard-coded Git base,
+an executable missing from the command's PATH and inherited flags conflicting with a fresh
+bootstrap, plus verified-environment counterexamples. A traced failure of a promised workflow
+requires changes; absent execution evidence alone remains `unproven`. These are decision scenarios,
+not a historical PR replay or execution evidence.

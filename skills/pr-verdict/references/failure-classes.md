@@ -1,6 +1,6 @@
 # Failure classes
 
-Seventeen questions to put to the diff in phase 3. Each is a question, not a checklist item to tick: the
+Questions to put to the diff in phase 3. Each is a question, not a checklist item to tick: the
 answer is a sentence about _this_ diff. Record one of four outcomes per class.
 
 - **not applicable** — the diff does not touch that concern; say why in one clause.
@@ -281,6 +281,21 @@ letting the same failed probe abort replacement. Skip installation silently for 
 version; propagate preparation failures. Exercise these failure paths, successful repair and an
 offline replay with the matching CLI through native or existing checks.
 
+## 21. The execution environment is assumed
+
+**Ask:** does each suggested or executed command derive or verify its Git remote and branch,
+executable lookup path and inherited variables before relying on them?
+
+**Broken when:** an unverified ref such as `origin/main` makes a valid checkout fail, a tool is
+unreachable on the command's PATH, or inherited flags change bootstrap behavior in a fresh tool
+home. Success in the author's shell does not establish those prerequisites elsewhere.
+
+**Lift:** derive the intended ref from repository or forge configuration and verify it resolves;
+establish the required executable's lookup path in the actual execution context. Explicitly set
+or unset inherited variables that alter bootstrap behavior, scoped to that invocation. Exercise
+an alternate remote/branch, a minimal PATH and a fresh tool home with conflicting inherited flags
+through native or existing checks; diagnose genuinely unavailable prerequisites without guessing.
+
 ## Reporting
 
 Classes 1, 2, 3, 4, 5, 7, 9, 11 and 12 name mechanisms that lose data, corrupt state or cross a security
@@ -301,11 +316,13 @@ Class 16 blocks when a proposed weakening defeats a required security or authori
 Class 17 blocks when an unusable tool skips a required check or prevents a promised workflow;
 redundant installation with a bounded consequence is a reservation. Missing independence or usability
 evidence remains `unproven`; apply phase 5's essential-evidence rule rather than inventing a bypass.
+Class 21 blocks when an assumed environment skips a required check or prevents a promised workflow;
+bounded inconvenience is a reservation. Missing environment evidence remains `unproven` under phase 5.
 
 The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
-user action blocks, even outside these seventeen classes.
+user action blocks, even outside these classes.
 
-Other findings outside these seventeen classes are legitimate but non-blocking by default: report at most three
+Other findings outside these classes are legitimate but non-blocking by default: report at most three
 of them, one line each, labelled non-blocking, or drop them. The cap is what stops the sweep from
 turning into a second review that competes with the verdict — rank them by whether they would change
 a reviewer's decision and keep the top three. If the verdict runs past about thirty lines, that is
