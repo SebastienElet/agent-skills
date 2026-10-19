@@ -1,6 +1,6 @@
 # Failure classes
 
-Seventeen questions to put to the diff in phase 3. Each is a question, not a checklist item to tick: the
+Questions to put to the diff in phase 3. Each is a question, not a checklist item to tick: the
 answer is a sentence about _this_ diff. Record one of four outcomes per class.
 
 - **not applicable** — the diff does not touch that concern; say why in one clause.
@@ -281,6 +281,22 @@ letting the same failed probe abort replacement. Skip installation silently for 
 version; propagate preparation failures. Exercise these failure paths, successful repair and an
 offline replay with the matching CLI through native or existing checks.
 
+## 20. A filesystem path follows an unvalidated symlink
+
+**Ask:** does checking, reading or writing a path preserve the intended file type, repository
+boundary and symlink identity through the actual operation?
+
+**Broken when:** a following check such as `is_file()` accepts a symlink as a regular witness,
+a repository-relative path escapes through a symlinked ancestor, or a checked path is replaced
+before it is reopened. Saving by renaming a regular file over a symlink silently destroys the link.
+
+**Lift:** inspect entries without following links (`lstat` or Git tree modes), including relevant
+ancestors, or canonicalize and verify containment within the canonical repository root. Consume the
+validated object or handle; reopening the original path forfeits that validation. When saving through
+an allowed existing symlink, preserve the link and update its validated target. Exercise regular
+files, leaf and ancestor symlinks, outside and dangling targets, replacement between check and use,
+and link-preserving saves. Missing executed cases are `unproven`, not a demonstrated escape.
+
 ## Reporting
 
 Classes 1, 2, 3, 4, 5, 7, 9, 11 and 12 name mechanisms that lose data, corrupt state or cross a security
@@ -301,11 +317,14 @@ Class 16 blocks when a proposed weakening defeats a required security or authori
 Class 17 blocks when an unusable tool skips a required check or prevents a promised workflow;
 redundant installation with a bounded consequence is a reservation. Missing independence or usability
 evidence remains `unproven`; apply phase 5's essential-evidence rule rather than inventing a bypass.
+Class 20 blocks when following or replacing a symlink crosses the repository boundary, defeats a
+required file-type check or loses data or link identity. Missing symlink evidence remains `unproven`;
+apply phase 5's essential-evidence rule without inventing an escape or race.
 
 The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
-user action blocks, even outside these seventeen classes.
+user action blocks, even outside these classes.
 
-Other findings outside these seventeen classes are legitimate but non-blocking by default: report at most three
+Other findings outside these classes are legitimate but non-blocking by default: report at most three
 of them, one line each, labelled non-blocking, or drop them. The cap is what stops the sweep from
 turning into a second review that competes with the verdict — rank them by whether they would change
 a reviewer's decision and keep the top three. If the verdict runs past about thirty lines, that is
