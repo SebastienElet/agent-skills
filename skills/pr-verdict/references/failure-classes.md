@@ -283,18 +283,19 @@ offline replay with the matching CLI through native or existing checks.
 
 ## 21. The execution environment is assumed
 
-**Ask:** does each suggested or executed command derive or verify its Git remote and branch,
-executable lookup path and inherited variables before relying on them?
+**Ask:** does each suggested or executed command establish its Git remote and branch, executable
+lookup path and inherited variables against an independently established contract, preserving
+declared, supported environment settings?
 
-**Broken when:** an unverified ref such as `origin/main` makes a valid checkout fail, a tool is
-unreachable on the command's PATH, or inherited flags change bootstrap behavior in a fresh tool
-home. Success in the author's shell does not establish those prerequisites elsewhere.
+**Broken when:** undeclared or unsupported inherited state contradicts that contract: an assumed
+ref such as `origin/main` makes a valid checkout fail, PATH prevents required executable lookup,
+or an inherited flag defeats a promised bootstrap. Success in the author's shell alone does not
+establish those prerequisites elsewhere.
 
-**Lift:** derive the intended ref from repository or forge configuration and verify it resolves;
-establish the required executable's lookup path in the actual execution context. Explicitly set
-or unset inherited variables that alter bootstrap behavior, scoped to that invocation. Exercise
-an alternate remote/branch, a minimal PATH and a fresh tool home with conflicting inherited flags
-through native or existing checks; diagnose genuinely unavailable prerequisites without guessing.
+**Lift:** resolve the conflicting state within the command's contract and verify the intended ref,
+executable lookup or bootstrap in the actual execution context through native or existing checks.
+Preserve declared, supported settings such as offline mode, proxy or registry; diagnose genuinely
+unavailable prerequisites without guessing.
 
 ## Reporting
 
@@ -316,8 +317,9 @@ Class 16 blocks when a proposed weakening defeats a required security or authori
 Class 17 blocks when an unusable tool skips a required check or prevents a promised workflow;
 redundant installation with a bounded consequence is a reservation. Missing independence or usability
 evidence remains `unproven`; apply phase 5's essential-evidence rule rather than inventing a bypass.
-Class 21 blocks when an assumed environment skips a required check or prevents a promised workflow;
-bounded inconvenience is a reservation. Missing environment evidence remains `unproven` under phase 5.
+Class 21 blocks when undeclared or unsupported inherited state contradicts the command's independent
+contract and skips a required check or prevents a promised workflow; declared, supported settings
+are not defects. Bounded inconvenience is a reservation; missing evidence remains `unproven` under phase 5.
 
 The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
 user action blocks, even outside these classes.
