@@ -1,6 +1,6 @@
 # Failure classes
 
-Seventeen questions to put to the diff in phase 3. Each is a question, not a checklist item to tick: the
+Questions to put to the diff in phase 3. Each is a question, not a checklist item to tick: the
 answer is a sentence about _this_ diff. Record one of four outcomes per class.
 
 - **not applicable** — the diff does not touch that concern; say why in one clause.
@@ -281,6 +281,23 @@ letting the same failed probe abort replacement. Skip installation silently for 
 version; propagate preparation failures. Exercise these failure paths, successful repair and an
 offline replay with the matching CLI through native or existing checks.
 
+## 19. An inconclusive probe authorizes a decision
+
+**Ask:** does every probe protecting a decision require a verified exit status and a complete,
+relevant result before reporting success, keeping confirmed failure and inconclusive distinct?
+
+**Broken when:** an error, timeout, unchecked child exit or incomplete output falls through to
+exit 0 or `ok: true`. A shell's final status hides the failed probe, a no-match replacement is
+published as configured, or a first page, public repository or empty repository stands in for
+proof of a different property. The caller then acts on a conclusion the probe never established.
+
+**Lift:** trace the probe result through the caller's decision. Fail closed on errors, timeouts,
+unchecked statuses and incomplete results, with an explicit inconclusive diagnostic; retain
+confirmed failure separately. Verify the intended postcondition and fetch all required pages.
+Exercise those failure paths and successful controls through native or existing checks, including
+legitimate empty results and public/private access distinctions where relevant. A probe failure
+alone leaves the property `unproven`; a traced decision based on it is `broken by` its mechanism.
+
 ## Reporting
 
 Classes 1, 2, 3, 4, 5, 7, 9, 11 and 12 name mechanisms that lose data, corrupt state or cross a security
@@ -301,11 +318,14 @@ Class 16 blocks when a proposed weakening defeats a required security or authori
 Class 17 blocks when an unusable tool skips a required check or prevents a promised workflow;
 redundant installation with a bounded consequence is a reservation. Missing independence or usability
 evidence remains `unproven`; apply phase 5's essential-evidence rule rather than inventing a bypass.
+Class 19 blocks when an unsupported probe conclusion authorizes a protected operation, skips a
+required check or prevents a promised workflow. Otherwise bound its consequence as a reservation;
+missing essential probe evidence follows phase 5's `unproven` rule.
 
 The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
-user action blocks, even outside these seventeen classes.
+user action blocks, even outside these classes.
 
-Other findings outside these seventeen classes are legitimate but non-blocking by default: report at most three
+Other findings outside these classes are legitimate but non-blocking by default: report at most three
 of them, one line each, labelled non-blocking, or drop them. The cap is what stops the sweep from
 turning into a second review that competes with the verdict — rank them by whether they would change
 a reviewer's decision and keep the top three. If the verdict runs past about thirty lines, that is
