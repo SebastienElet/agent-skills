@@ -60,8 +60,8 @@ preserved decisions, not an effectiveness gain. G is the safe counterexample to 
 input. Its software test and faulty variant are supplied facts; the observed negative witness
 here is the candidate reviewer rejecting A, not an executed hook test.
 
-Input SHA-256 fingerprints of the evaluated sources before the merge with the execution
-environment guidance; these historical observations do not qualify the merged wording:
+Input SHA-256 fingerprints bind the evaluated snapshots before integration with the symlink
+and execution environment guidance; these historical observations do not qualify the combined wording:
 
 | Input                     | SHA-256                                                            |
 | ------------------------- | ------------------------------------------------------------------ |

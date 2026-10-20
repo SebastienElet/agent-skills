@@ -1,6 +1,7 @@
 # Execution environment scenarios
 
-These fixtures exercise phase-3 decisions, not forge anchoring, tool installation or publication.
+These fixtures expand [Case O](../references/cases.md#case-o--execution-environment-assumptions-class-21)
+and exercise phase-3 decisions, not forge anchoring, tool installation or publication.
 They are not evidence that the initial head of any historical PR was replayed.
 
 ## Evaluation prompt

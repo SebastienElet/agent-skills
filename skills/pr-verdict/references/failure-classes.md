@@ -298,6 +298,22 @@ Exercise those failure paths and successful controls through native or existing 
 legitimate empty results and public/private access distinctions where relevant. A probe failure
 alone leaves the property `unproven`; a traced decision based on it is `broken by` its mechanism.
 
+## 20. A filesystem path follows an unvalidated symlink
+
+**Ask:** does checking, reading or writing a path preserve the intended file type, repository
+boundary and symlink identity through the actual operation?
+
+**Broken when:** a following check such as `is_file()` accepts a symlink as a regular witness,
+a repository-relative path escapes through a symlinked ancestor, or a checked path is replaced
+before it is reopened. Saving by renaming a regular file over a symlink silently destroys the link.
+
+**Lift:** inspect entries without following links (`lstat` or Git tree modes), including relevant
+ancestors, or canonicalize and verify containment within the canonical repository root. Consume the
+validated object or handle; reopening the original path forfeits that validation. When saving through
+an allowed existing symlink, preserve the link and update its validated target. Exercise regular
+files, leaf and ancestor symlinks, outside and dangling targets, replacement between check and use,
+and link-preserving saves. Missing executed cases are `unproven`, not a demonstrated escape.
+
 ## 21. The execution environment is assumed
 
 **Ask:** does each suggested or executed command establish its Git remote and branch, executable
@@ -337,6 +353,10 @@ evidence remains `unproven`; apply phase 5's essential-evidence rule rather than
 Class 19 blocks when an unsupported probe conclusion authorizes a protected operation, skips a
 required check or prevents a promised workflow. Otherwise bound its consequence as a reservation;
 missing essential probe evidence follows phase 5's `unproven` rule.
+
+Class 20 blocks when following or replacing a symlink crosses the repository boundary, defeats a
+required file-type check or loses data or link identity. Missing symlink evidence remains `unproven`;
+apply phase 5's essential-evidence rule without inventing an escape or race.
 
 Class 21 blocks when undeclared or unsupported inherited state contradicts the command's independent
 contract and skips a required check or prevents a promised workflow; declared, supported settings
