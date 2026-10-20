@@ -273,7 +273,7 @@ says to post directly.
 
 - [references/forges.md](references/forges.md) — forge detection and the GitHub/Bitbucket command
   parity table. Read in phase 1, before the first CLI call.
-- [references/failure-classes.md](references/failure-classes.md) — failure classes as
+- [references/failure-classes.md](references/failure-classes.md) — the failure classes as
   questions to put to the diff. Read in phase 3.
 - [assets/verdict-template.md](assets/verdict-template.md) — the verdict skeleton with its required
   slots. Filled in phase 6.
