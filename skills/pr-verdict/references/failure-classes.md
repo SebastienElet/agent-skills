@@ -314,6 +314,22 @@ an allowed existing symlink, preserve the link and update its validated target. 
 files, leaf and ancestor symlinks, outside and dangling targets, replacement between check and use,
 and link-preserving saves. Missing executed cases are `unproven`, not a demonstrated escape.
 
+## 21. The execution environment is assumed
+
+**Ask:** does each suggested or executed command establish its Git remote and branch, executable
+lookup path and inherited variables against an independently established contract, preserving
+declared, supported environment settings?
+
+**Broken when:** undeclared or unsupported inherited state contradicts that contract: an assumed
+ref such as `origin/main` makes a valid checkout fail, PATH prevents required executable lookup,
+or an inherited flag defeats a promised bootstrap. Success in the author's shell alone does not
+establish those prerequisites elsewhere.
+
+**Lift:** resolve the conflicting state within the command's contract and verify the intended ref,
+executable lookup or bootstrap in the actual execution context through native or existing checks.
+Preserve declared, supported settings such as offline mode, proxy or registry; diagnose genuinely
+unavailable prerequisites without guessing.
+
 ## Reporting
 
 Classes 1, 2, 3, 4, 5, 7, 9, 11 and 12 name mechanisms that lose data, corrupt state or cross a security
@@ -341,6 +357,10 @@ missing essential probe evidence follows phase 5's `unproven` rule.
 Class 20 blocks when following or replacing a symlink crosses the repository boundary, defeats a
 required file-type check or loses data or link identity. Missing symlink evidence remains `unproven`;
 apply phase 5's essential-evidence rule without inventing an escape or race.
+
+Class 21 blocks when undeclared or unsupported inherited state contradicts the command's independent
+contract and skips a required check or prevents a promised workflow; declared, supported settings
+are not defects. Bounded inconvenience is a reservation; missing evidence remains `unproven` under phase 5.
 
 The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
 user action blocks, even outside these classes.

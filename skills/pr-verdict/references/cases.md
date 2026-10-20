@@ -425,3 +425,13 @@ Expected: `unproven`, naming the missing cases; block only when essential under 
 scenarios are an evaluation specification, not an executed historical-PR replay.
 See the [bounded decision comparison](../evals/2026-10-19-symlink-paths.md) for observed synthetic
 results and their limits.
+
+## Case O — execution environment assumptions (class 21)
+
+The [environment scenarios](../evals/environment-assumptions.md) cover a hard-coded Git base,
+an executable missing from the command's PATH and undeclared or unsupported inherited state that
+contradicts the command's independent contract. They also cover verified environments and an
+intentional, declared and supported offline setting that must be preserved. A traced failure of a
+promised workflow requires changes; a supported environment choice is not a defect, and absent
+execution evidence alone remains `unproven`. These are decision scenarios, not a historical PR
+replay or execution evidence.

@@ -61,7 +61,7 @@ input. Its software test and faulty variant are supplied facts; the observed neg
 here is the candidate reviewer rejecting A, not an executed hook test.
 
 Input SHA-256 fingerprints bind the evaluated snapshots before integration with the symlink
-failure class; they do not fingerprint the combined skill text:
+and execution environment guidance; these historical observations do not qualify the combined wording:
 
 | Input                     | SHA-256                                                            |
 | ------------------------- | ------------------------------------------------------------------ |
