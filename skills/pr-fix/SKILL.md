@@ -73,6 +73,12 @@ explicit correction request above. This distinction does not change any push or 
    checkout and uncommitted work remain untouched. Preserve all author commits and unrelated changes.
    Keep the worktree when a failed push or unresolved conflict leaves local commits the user may need.
 
+   Fetch and integrate the resolved destination before the barrier, following `pr-verdict`'s
+   integration and consumer checks. Resolve conflicts by preserving the intended behavior, not by
+   selecting one side wholesale. Recheck sequential identifiers against the destination and open PR
+   heads as required by failure class 3. If integration needs an unresolved architectural decision,
+   retain the work and report that blocker without claiming readiness.
+
 4. **Prove each correction.** Add the cheapest failure-path test that reproduces each mechanism,
    observe it fail for the expected reason, then correct the cause. A declarative change with no
    useful behavioral test gets the repository's relevant smoke or validation check. Do not turn
@@ -101,6 +107,11 @@ explicit correction request above. This distinction does not change any push or 
 
 6. **Re-anchor, then land the whole slate in one push.** Query the forge again and validate that the
    source repository, source ref and head SHA are all present and still identify the anchored head.
+   Recheck the destination SHA too; if it advanced beyond the integrated base, integrate it and
+   refresh affected evidence before pushing. Apply `pr-verdict`'s commit-scope review to the complete
+   destination-to-head range, not only the repair commits.
+   Create no temporary `wip` or nonconforming outgoing commits. Report existing author-history
+   violations rather than using an unauthorized rewrite to remove them.
    If the head moved, do not push: anchor the new head, inspect the overlap, and reapply only
    corrections that remain valid. Push every correction of the slate together, normally, to the
    resolved source ref; never use a force option. A rejected push or missing permission leaves the
@@ -109,6 +120,9 @@ explicit correction request above. This distinction does not change any push or 
 
    Record prepared commits before pushing and mark them pushed only after verifying the remote
    result. On interruption or an ambiguous push result, reconcile remote commits before resuming.
+   In the same push step, refresh the PR description's evidence under `pr-verdict` phase 4: current
+   head/base, commands, statuses and environment, or explicit historical/unproven labels. This
+   factual update is distinct from publishing a verdict or the cumulative repair comment.
 
 7. **Judge the pushed head independently.** Resolve the SHA now shown by the PR and delegate a full
    `pr-verdict` review of that exact head to a distinct auditor in a fresh context with no inherited

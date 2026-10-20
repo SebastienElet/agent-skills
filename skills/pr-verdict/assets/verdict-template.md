@@ -13,7 +13,8 @@ the PR.
 
 <Anchor sentence — REQUIRED. Whose work, on which head SHA, against which base: the real one,
 naming the parent PR when the branch is stacked. Then the CI state, open tasks and conflicts,
-or "none observed".>
+or "none observed". Record the fetched destination SHA and whether it is integrated; a conflict-free
+merge preview alone does not establish readiness.>
 
 <Merge enforcement — REQUIRED. Name the forge, repository and destination branch. For GitHub,
 name the review state and effective rules examined; state whether the verdict is advisory or cite
@@ -47,8 +48,10 @@ invariant it breaks; for an `unproven` essential guarantee, the missing proof an
 it. Do not invent an invariant violation from missing evidence. Close with one sentence stating
 what must become true to lift the blockers. Omit this paragraph entirely when the verdict is "approved".>
 
-<Barrier paragraph — REQUIRED. Name the execution origin and relevant candidate inputs
-and give counts, never adjectives. Then, in the same paragraph, REQUIRED: what this evidence does
+<Barrier paragraph — REQUIRED. Name the tested head and integrated destination SHA, execution origin,
+command, exit status, environment and output artifact or excerpt, with counts rather than adjectives.
+Attribute reused observations to their original SHA and document the relevant-input comparison;
+identify remote checks' actual tested SHA separately. Then, in the same paragraph, REQUIRED: what this evidence does
 not cover. The verdict is invalid without that second half. Evidence the author supplied — an
 attachment, a pasted output — is named as theirs: never counted as measured here, never reported
 as absent.>
@@ -79,8 +82,9 @@ gives numbers, then immediately spends a sentence dismantling its own green.
 <!-- pr-verdict:1042:a1b2c3d4e5f6 -->
 ## Independent verdict — changes required
 
-Review of PR <number> on <head-sha>, stacked base <parent-branch>@<parent-sha>.
-Pipeline <run-id> green, no task and no conflict observed.
+Review of PR <number> on <head-sha>, stacked base <parent-branch>@<parent-sha>,
+with fetched destination <destination-sha> integrated. Pipeline <run-id> tested <head-sha>;
+no task and no conflict observed. Retarget and reintegrate after the parent merges.
 
 Merge enforcement: Bitbucket example/workflows, destination main; this skill has no verified `bkt`
 command for request changes. The comment is advisory and does not block merging.
@@ -96,10 +100,11 @@ retry never re-reads the winning result and the uniqueness constraints that woul
 one do not exist. Lift: concurrent tests against PostgreSQL, an explicit contract for the deferred
 controls and for tenant authorization, then a rebase once the parent PR merges.
 
-Authenticated local validation on this exact head: global lint green (18/18 builds, 0 errors, the
-145-warning threshold respected), typecheck green on both touched packages, 7/7 close unit tests
-green. Those tests remain sequential: they cover none of the concurrent interleaving that motivates
-the blockers above.
+Local macOS arm64 validation on <head-sha> with <destination-sha> integrated: `bun run lint`
+exit 0 (18/18 builds, 0 errors, the 145-warning threshold respected), `bun run typecheck` exit 0
+on both touched packages, `bun test close` exit 0 (7/7 tests). Output:
+https://ci.example/artifacts/<run-id>. Those tests remain sequential: they cover none of the
+concurrent interleaving that motivates the blockers above.
 
 Non-blocking: the documented 409/412 codes no longer match the real behavior.
 

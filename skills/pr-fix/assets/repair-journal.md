@@ -13,6 +13,7 @@ PR: <canonical URL>
 Source: <repository and ref>
 Initial head: <SHA>
 Current head: <SHA>
+Integrated destination: <resolved ref and SHA>
 Status: <in progress | pending validation | pending approval | pending publication | published>
 Pending: <remaining correction, check, decision or publication error; none when complete>
 Independent verdict: <result and reviewed SHA, or pending>
@@ -25,13 +26,13 @@ Published head: <SHA, or not published>
 
 - <problem>: <failure mechanism and broken invariant> → <final behavior>.
   Commits: <SHAs>; delivery: <prepared | pushed | reverted | superseded>.
-  Evidence: <failing observation, then passing command and counts; tested SHA and environment>.
+  Evidence: <failing observation, then passing command, exit status, output artifact and counts; tested head/base and environment>.
   Limits: <what the evidence does not cover>.
 
 ## Passes
 
 - <date, starting SHA → resulting SHA>: <corrections and any superseded attempts>.
-  Barrier: <tier, commands, counts, environment and evidence limits>.
+  Barrier: <tier, tested head/base, commands, exit statuses, output artifacts, counts, environment and evidence limits>.
   Independent verdict: <result and reviewed SHA, or pending>.
   Required remote CI: <result URL and SHA, pending, unavailable or none required>.
   Native approval: <each state reached in this pass, with account, SHA and time, or not reached>.

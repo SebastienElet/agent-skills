@@ -46,8 +46,18 @@ alias, the `--no-verify` and the second remote).
    skipped: compound command, duplicate flags, a second invocation, an alias or a function, a
    missing interpreter, another host, a subshell, a renamed file. Keep the list in the commit body
    or the test file.
+   State the exact forms the guard claims to refuse. Match syntactic command boundaries rather
+   than assembling a supposed command from unrelated shell lines. Unsupported forms weaken the
+   claim; they do not authorize making the guard exhaustive or adding a declaration mirror gate.
 6. **Turn each entry of that list into a test case** wired into the project's automated checks. A
    manual self-test does not count: it disappears with the session that ran it.
+   Include a permitted control and an observed assertion failure with the guard deliberately broken.
+   Derive cache inputs from the same canonical file selection as the scanner; verify with native or
+   existing inspection that every read input, including hidden directories and alternate extensions,
+   invalidates the cache. A narrower cache key can replay success without reading changed input.
+   Trace the actual CI entry point and prove execution from its log or a controlled failing witness.
+   A planning-only run, early success exit, duplicate script key or decoy step is not execution of
+   the required guard. Use native parsing to reject ambiguous configuration where supported.
 7. **When a bypass is cheap and its consequence real, run an adversarial pass.** Dispatch a
    fresh-context subagent whose mandate is to break the guard, not to review it; its output is the
    list of attempts and their results. Skip this for a control whose worst case is a warning.
