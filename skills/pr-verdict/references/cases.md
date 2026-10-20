@@ -392,3 +392,36 @@ Expected: no class 19 finding within that supplied evidence's scope.
 The [decision evaluation](../evals/2026-10-19-inconclusive-probes/README.md) extends this case to
 installer results, shell status, no-match replacements, pagination and public/empty repositories.
 It records the distinction between supplied facts, observed decisions and a historical PR replay.
+
+## Case N — symlink traversal and identity (class 20)
+
+**Repository escape.** A checker promises to read only regular files inside `/repo`. Git records
+`linked/alpha` with mode `120000` and content `../../outside/secret`. The file
+`/outside/secret` exists. The checker accepts the lexical `/repo/linked/alpha` prefix, follows
+`is_file()` and reads the original path. Expected: _changes required_; trace the symlink to the
+outside read, even though the Git entry and lexical path are inside the repository. The same
+decision applies to a regular leaf reached through an ancestor symlink pointing outside.
+
+**Witness substitution.** A required regular witness is replaced by a symlink to an unrelated
+existing file. A following `is_file()` check accepts it. Expected: a class 20 blocker naming the
+defeated file-type requirement, even when the target stays inside the repository.
+
+**Check/use replacement.** A path resolves inside the repository at validation, then its ancestor
+is replaced by an outside symlink before the original path is reopened. Expected: a blocker naming
+that interleaving; an earlier `lstat` or containment check does not bind the later read.
+
+**Saving through a link.** A supported symlinked configuration is saved by renaming a temporary
+regular file over the link. Expected: a blocker naming the lost link identity and unchanged target.
+Lift: update the validated target while preserving the existing link, with observed save evidence.
+
+**Safe counterexamples.** Executed cases reject leaf and ancestor symlinks under a no-links policy,
+or allow an inside symlink after canonical containment and read through the validated handle despite
+replacement of the original path. Outside and dangling targets fail explicitly; an ordinary inside
+file succeeds. An allowed symlinked configuration retains its link and updates the validated target
+on save. Expected: no class 20 finding within these observed paths; do not ban all symlinks.
+
+**Missing evidence.** Only ordinary-file tests are supplied, with no traced symlink failure.
+Expected: `unproven`, naming the missing cases; block only when essential under phase 5. These
+scenarios are an evaluation specification, not an executed historical-PR replay.
+See the [bounded decision comparison](../evals/2026-10-19-symlink-paths.md) for observed synthetic
+results and their limits.

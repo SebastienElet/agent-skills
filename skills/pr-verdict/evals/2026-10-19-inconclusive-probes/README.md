@@ -60,7 +60,8 @@ preserved decisions, not an effectiveness gain. G is the safe counterexample to 
 input. Its software test and faulty variant are supplied facts; the observed negative witness
 here is the candidate reviewer rejecting A, not an executed hook test.
 
-Input SHA-256 fingerprints (candidate sources match the final skill text):
+Input SHA-256 fingerprints bind the evaluated snapshots before integration with the symlink
+failure class; they do not fingerprint the combined skill text:
 
 | Input                     | SHA-256                                                            |
 | ------------------------- | ------------------------------------------------------------------ |
