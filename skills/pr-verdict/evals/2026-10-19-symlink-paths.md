@@ -6,7 +6,7 @@ Decision-only comparison observed on 2026-10-19 in Codex on macOS ARM64, with Bu
 zsh. Two distinct subagents received fresh contexts (`fork_turns=none`), one per wording. Model
 and reasoning settings were inherited, not independently recorded. Each initially read only its
 `SKILL.md` and `references/failure-classes.md` snapshots, without expected answers, the issue,
-Case M or the other response. The candidate evaluator's subsequent specification review is separate.
+Case M (now Case N) or the other response. The candidate evaluator's subsequent specification review is separate.
 
 The base is commit `0ca04f50840105f3ac4ae9ad9a9ac3ed429e521d`. Candidate snapshots contain the
 class 20 addition and count-neutral routing. SHA-256 fingerprints bind the exact evaluated text:
@@ -41,8 +41,8 @@ evidence, and lift; no forge operation or execution of the represented software 
 
 ## Criterion and observed decisions
 
-Before either run, [Case M](../references/cases.md#case-m--symlink-traversal-and-identity-class-20)
-fixed the criterion: refuse the four demonstrated failures, accept the two supplied safe policies
+Before either run, [Case N](../references/cases.md#case-n--symlink-traversal-and-identity-class-20)
+(then Case M) fixed the criterion: refuse the four demonstrated failures, accept the two supplied safe policies
 within their observed scope, and retain missing evidence as `unproven` with phase-5 essentiality.
 The following are normalized observations from one response per wording, not software test counts.
 

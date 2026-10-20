@@ -373,7 +373,27 @@ published, or an unreadable body as unknown; never infer the visible state from 
 never update it as the general verdict. An owned or unknown-author occurrence stops publication;
 a known foreign occurrence does not block a new general verdict by the current account.
 
-## Case M — symlink traversal and identity (class 20)
+## Case M — inconclusive probes (class 19)
+
+A hook must refuse protected operations in a repository with an enabled guard declaration. It
+initializes `guarded = false`, probes Git before reading that declaration, catches the probe's
+timeout and returns `guarded ? 2 : 0`. Exit 0 authorizes the operation.
+
+Expected: _changes required_. Class 19 traces timeout → declaration unread → default false →
+exit 0 → protected operation authorized. Lift: distinguish inconclusive from confirmed failure
+and success, refuse on the timeout with a diagnostic, and exercise that path plus a complete,
+verified allow result. Never equate a failed probe with proof that the guard is disabled.
+
+Counterexample: observed error, timeout and incomplete-output paths refuse as inconclusive, an
+enabled guard refuses, and a complete successful probe proving the guard disabled allows. A
+controlled variant allowing on timeout fails the existing check, which passes after restoration.
+Expected: no class 19 finding within that supplied evidence's scope.
+
+The [decision evaluation](../evals/2026-10-19-inconclusive-probes/README.md) extends this case to
+installer results, shell status, no-match replacements, pagination and public/empty repositories.
+It records the distinction between supplied facts, observed decisions and a historical PR replay.
+
+## Case N — symlink traversal and identity (class 20)
 
 **Repository escape.** A checker promises to read only regular files inside `/repo`. Git records
 `linked/alpha` with mode `120000` and content `../../outside/secret`. The file

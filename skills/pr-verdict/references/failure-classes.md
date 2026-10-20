@@ -281,6 +281,23 @@ letting the same failed probe abort replacement. Skip installation silently for 
 version; propagate preparation failures. Exercise these failure paths, successful repair and an
 offline replay with the matching CLI through native or existing checks.
 
+## 19. An inconclusive probe authorizes a decision
+
+**Ask:** does every probe protecting a decision require a verified exit status and a complete,
+relevant result before reporting success, keeping confirmed failure and inconclusive distinct?
+
+**Broken when:** an error, timeout, unchecked child exit or incomplete output falls through to
+exit 0 or `ok: true`. A shell's final status hides the failed probe, a no-match replacement is
+published as configured, or a first page, public repository or empty repository stands in for
+proof of a different property. The caller then acts on a conclusion the probe never established.
+
+**Lift:** trace the probe result through the caller's decision. Fail closed on errors, timeouts,
+unchecked statuses and incomplete results, with an explicit inconclusive diagnostic; retain
+confirmed failure separately. Verify the intended postcondition and fetch all required pages.
+Exercise those failure paths and successful controls through native or existing checks, including
+legitimate empty results and public/private access distinctions where relevant. A probe failure
+alone leaves the property `unproven`; a traced decision based on it is `broken by` its mechanism.
+
 ## 20. A filesystem path follows an unvalidated symlink
 
 **Ask:** does checking, reading or writing a path preserve the intended file type, repository
@@ -317,6 +334,10 @@ Class 16 blocks when a proposed weakening defeats a required security or authori
 Class 17 blocks when an unusable tool skips a required check or prevents a promised workflow;
 redundant installation with a bounded consequence is a reservation. Missing independence or usability
 evidence remains `unproven`; apply phase 5's essential-evidence rule rather than inventing a bypass.
+Class 19 blocks when an unsupported probe conclusion authorizes a protected operation, skips a
+required check or prevents a promised workflow. Otherwise bound its consequence as a reservation;
+missing essential probe evidence follows phase 5's `unproven` rule.
+
 Class 20 blocks when following or replacing a symlink crosses the repository boundary, defeats a
 required file-type check or loses data or link identity. Missing symlink evidence remains `unproven`;
 apply phase 5's essential-evidence rule without inventing an escape or race.
