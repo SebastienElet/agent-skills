@@ -65,8 +65,8 @@ violation rather than succeeding.
 ## 4. Authorization as a side effect
 
 **Ask:** is the access check named in a dedicated call, or obtained incidentally through a function
-called for another reason? For exempt objects, apply `code-enforcement`'s exemption rule to every
-mutation path, not only initial eligibility.
+called for another reason? For exempt objects, keep the attributes that make them harmless fixed
+across every mutation path.
 
 **Broken when:** authorization happens because some loader happens to filter by the caller's scope. A
 refactor that swaps that loader for a cheaper query removes the check, every test stays green, and
@@ -340,11 +340,11 @@ ref such as `origin/main` makes a valid checkout fail, PATH prevents required ex
 or an inherited flag defeats a promised bootstrap. Success in the author's shell alone does not
 establish those prerequisites elsewhere.
 
-Use `tdd/references/tests.md`'s environment fixtures for consumed values and timestamp semantics.
+Use observed environment values and test timestamp semantics with explicit offsets in a non-UTC database session.
 For a CI commit identifier, verify the actual supplied abbreviation against the resolved commit under
 the platform contract; an invented full-length SHA does not qualify that path. A fallback disabling
 the promised feature needs an explicit diagnostic and a test proving the observed valid value avoids
-it. Inspect tracked executable modes and actual invocation as `pr-fix` requires before a push.
+it. Before a push, verify tracked executable bits and successful execution through the actual invocation.
 
 **Lift:** resolve the conflicting state within the command's contract and verify the intended ref,
 executable lookup or bootstrap in the actual execution context through native or existing checks.
