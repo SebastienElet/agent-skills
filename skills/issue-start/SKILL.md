@@ -65,8 +65,9 @@ it does not require a tracker or create an issue.
    outcome, eligibility, branch/PR, acceptance criteria, decisions, available checks, remaining
    limits and next action under `orchestrate`. Route a bug through `diagnosing-bugs`, design needs
    through `plan`, and owned executable changes through `tdd` as applicable. Continue the existing
-   authorized development; do not invent a new implementation skill, require Claude, or end the
-   user's task because startup finished. Existing specialist invocation limits still apply.
+   authorized development through `implement` when applicable, preserving the existing owner;
+   do not require Claude or end the user's task because startup finished. Existing specialist
+   invocation limits still apply.
 
 7. **Associate a PR when publication is authorized.** Search again by exact source repository and
    branch across PR states before creation. Reuse the existing PR; terminal or ambiguous results
