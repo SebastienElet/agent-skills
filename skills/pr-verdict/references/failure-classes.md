@@ -100,7 +100,8 @@ neighbors: `route/use case → permission → access scope → refusal test`. In
 the PR description. Require explicit permission and scope, or a documented intentionally public
 contract; authentication and a permissive global guard are insufficient. Use minimally privileged
 subjects, with separate missing-permission and out-of-scope cases, rather than administrator-only
-tests. Apply the discriminating-predicate and red-witness rules in `tdd` to those refusal tests.
+tests. Arrange each refusal case so only the targeted predicate can reject it, and observe an
+assertion failure when that predicate is removed or broken, followed by success after restoration.
 
 ## 5. Tenant scope
 
@@ -389,7 +390,8 @@ returns unused personal fields and aggregate views retain anonymized records con
 
 **Lift:** inventory fields before adding persistence, redact unnecessary fields and justify retained
 ones with the applicable policy. Assert the exact stored body independently of the caller's response,
-using `tdd`'s redaction witness. Reconcile export/erasure coverage with the integrated schema and
+with an observed assertion failure when redaction is removed or broken, followed by success after
+restoration. Reconcile export/erasure coverage with the integrated schema and
 actual storage paths, not another closed list. Exercise an uncovered personal reference and all
 affected anonymized reads/aggregates. Missing retention decisions require owner validation; code
 alone establishes neither policy approval nor legal compliance. Class 6 governs public API changes.

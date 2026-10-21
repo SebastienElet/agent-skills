@@ -120,9 +120,9 @@ explicit correction request above. This distinction does not change any push or 
 
    Record prepared commits before pushing and mark them pushed only after verifying the remote
    result. On interruption or an ambiguous push result, reconcile remote commits before resuming.
-   In the same push step, refresh the PR description's evidence under `pr-verdict` phase 4: current
-   head/base, commands, statuses and environment, or explicit historical/unproven labels. This
-   factual update is distinct from publishing a verdict or the cumulative repair comment.
+   In the same push step, refresh evidence in the journal under `pr-verdict` phase 4: current
+   head/base, commands, statuses and environment, or explicit historical/unproven labels. Keep this
+   refresh local through step 7, including composed reviews; do not update the remote description.
 
 7. **Judge the pushed head independently.** Resolve the SHA now shown by the PR and delegate a full
    `pr-verdict` review of that exact head to a distinct auditor in a fresh context with no inherited
@@ -178,6 +178,10 @@ explicit correction request above. This distinction does not change any push or 
      remote read by marker settles it.
    - **Approve only:** approve without publishing the verdict.
    - **Do nothing:** publish and approve nothing; record `Native approval: not performed — user declined`.
+
+   Use the journal's evidence for the publications permitted by this step. Update the PR description
+   only if the user explicitly authorized the presented evidence update on this same head; permission
+   to publish a verdict or approve alone does not authorize that description change.
 
    Approve by applying `references/native-approval.md`. Record each approval state in the journal
    with account, SHA and time. A confirmed or already present approval, a refusal, a user decline
