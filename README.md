@@ -7,7 +7,7 @@ travel with their skill; historical observations do not qualify this package or 
 Prepared from the tracked sources at dotfiles revision
 [`89307efa`](https://github.com/SebastienElet/dotfiles/tree/89307efadc512f6021696bdf7ebb8249c820a2ff).
 
-The release target is version `0.0.1`. Registry installation, provenance and Claude, Codex or Cursor
+The release target is version `0.1.0`. Registry installation, provenance and Claude, Codex or Cursor
 activation require independent verification. Dotfiles keeps its current sources and
 consumers until publication, independent installation and rollback have been verified.
 
@@ -16,7 +16,7 @@ consumers until publication, independent installation and rollback have been ver
 After publication, acquire an exact version in a durable consumer-owned directory:
 
 ```sh
-bun install --exact --ignore-scripts @sebastienelet/agent-skills@0.0.1
+bun install --exact --ignore-scripts @sebastienelet/agent-skills@0.1.0
 ```
 
 The package does not install tools, hooks or agent configuration. The consumer selects individual
