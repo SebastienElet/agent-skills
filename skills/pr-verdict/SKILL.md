@@ -113,7 +113,10 @@ says to post directly.
    reservation. A demonstrated defect needs its named mechanism; missing proof does not establish
    one. When applicable, classes 11, 14 and 15 require Git-remote identity and hostile-input
    evidence, accounting for every selection input, and base/head measurements of performance or
-   rewritten instructions. When the head under review was written in this session, delegate the review to a distinct auditor in a fresh context with no inherited
+   rewritten instructions. For class 14, check that every behavior-changing manifest, lockfile,
+   tool configuration and pinned version is in the relevant task inputs, that file removal carries
+   its role over to those inputs, and that a required job cannot silently pass with an empty
+   affected-task selection on such changes. When the head under review was written in this session, delegate the review to a distinct auditor in a fresh context with no inherited
    conversation history, scoped to the diff. Every review requires an auditor distinct from the author
    in a fresh context with no inherited conversation history and an independent first analysis:
    withhold prior verdicts and author conclusions until
