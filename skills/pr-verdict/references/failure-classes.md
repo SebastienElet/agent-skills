@@ -272,11 +272,16 @@ state the precise evidence gap.
 
 **Ask:** can every input occurrence be traced to a retained element or a diagnosed rejection?
 Do eligibility and destination follow an independently established contract?
+Does every file that changes a task's behavior — manifest, lockfile, tool configuration or pinned
+version — belong to that task's inputs? When a file is removed, is its role carried over to the
+relevant task inputs? Can a required job silently pass with no affected tasks on such a change?
 
 **Broken when:** a candidate disappears before classification, an unavailable dependency is silent,
 or a missing expected project becomes a successful empty selection. Filtering before counting hides
 loss; equal counts still hide wrong eligibility or routing. For example, a selector keeps a parent
 with an unfinished child despite a rule excluding it, or sends an update to a creation-only handler.
+A behavior-changing file is absent from task inputs, so its change selects no affected tasks and
+a required job succeeds without running the checks it owes.
 
 **Lift:** observe `input = retained + diagnosed rejections` by identity and occurrence, with no loss
 or double-counting and all required diagnostic reasons. Keep ambiguity visible until resolution or
@@ -285,6 +290,15 @@ filtering. Derive eligibility, required prerequisites and authorized destination
 contract, then exercise valid, empty, ambiguous, unavailable and wrongly routed cases. A successful
 empty result accounts for every exclusion. Native inspection, task graphs and existing diagnostics
 suffice when they expose this proof; do not require a new mirror gate or validator.
+Include every behavior-changing file in the relevant task inputs and carry over a removed file's
+role to its replacements. Observe affected-task selection for changes to those files and verify
+that a required job cannot silently succeed with an empty selection on those changes.
+
+**Recurrences:** [dotfiles#604](https://github.com/SebastienElet/dotfiles/pull/604#pullrequestreview-5588717443)
+— removing `.prototools` left the setup-moon manifest and `bun.lock` outside Harness task inputs;
+a `@moonrepo/cli` update selected no tasks and the required job passed without validation.
+[dotfiles#466](https://github.com/SebastienElet/dotfiles/pull/466#discussion_r4224027414)
+— `/tsconfig.json` was missing from Bun-backed test inputs, so changes could skip those suites.
 
 Missing accounting is `unproven`; observed loss, wrong eligibility or routing is `broken by` its
 traced mechanism. The Reporting section determines whether its consequence blocks.
