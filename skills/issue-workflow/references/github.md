@@ -17,7 +17,8 @@ the target host. A command being installed does not establish write permission.
 
 ## Existing pull requests
 
-Inspect an attached canonical URL or exact PR number with `gh pr view --repo <target> --json <fields>`.
+Inspect an attached canonical URL or exact PR number with
+`gh pr view <number-or-url> --repo <target> --json <fields>`.
 Read state, mergedAt, headRefName, headRepository, headRepositoryOwner, baseRefName and canonical URL.
 A closed PR without a merge is terminal without landing; missing or inaccessible is unknown.
 
