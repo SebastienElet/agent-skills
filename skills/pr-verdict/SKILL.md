@@ -68,6 +68,14 @@ says to post directly.
    anticipates a PR that is not open yet, poll until it exists and anchor on it; reviewing the
    branch instead is a review of something the team has not proposed to merge.
 
+   Fetch the resolved destination and record its SHA. Run `git merge-tree --write-tree` with that
+   ref and the head; absence of textual conflicts does not prove integration compatibility. Before
+   declaring readiness, require the current destination to be integrated into the candidate and
+   replay the relevant barrier on that tree. A read-only review does not authorize updating the
+   source branch: report the required integration instead. Search the integrated tree for every
+   consumer of a new mandatory contract, including consumers added on the destination; after
+   conflict resolution, rerun the controls whose rejected behavior could have been restored.
+
 2. **Understand before judging.** Read the PR description, the design documents it cites, and the
    whole diff. The attachments are part of the description: a screenshot or an uploaded log is
    evidence the author supplied, and the forge returns it as raw markup that a text pass slides
@@ -75,6 +83,12 @@ says to post directly.
    Restate the invariant the code claims to hold, in one sentence. Producing a blocking defect
    before the flow is traced end to end is forbidden: its mechanism must demonstrate the violated
    invariant, and you cannot name a mechanism you have not followed.
+
+   Inspect every commit against the resolved destination and map it to the stated PR outcome.
+   Unrelated changes must be removed under development authority or explicitly disclosed in the
+   description. Verification tooling accompanying functional changes needs a separate PR or an
+   explicit coupling rationale. Coherent subtasks may share a PR. Flag temporary `wip` subjects and
+   violations of the repository's commit convention before publication or an update.
 
    Inventory every externally observable behavior added, removed or changed by the diff. Start a
    changed-behavior ledger with one row per behavior: the behavior, positive evidence on the exact
@@ -143,6 +157,14 @@ says to post directly.
    inputs. Preserve original provenance and the comparison that justifies reuse; a new head need not
    invalidate an unchanged mechanism's evidence. Reproduce only essential missing or invalidated
    evidence. Unverifiable evidence remains unproven, not fictitiously reproduced.
+
+   Each description evidence entry records its tested head and integrated destination SHA, exact
+   command, exit status, environment and output excerpt or artifact. After each push, recheck the
+   description: rerun invalidated evidence or label it historical and unproven on the new head.
+   Retained observations keep their original SHA; a documented relevant-input comparison permits
+   reuse, never relabeling an old run as executed on the current head. Required remote checks must
+   identify their actual tested SHA; a queue or synthetic merge candidate is a separate tree.
+   Preserve the forge's native merge title when a required control consumes its branch marker.
 
 5. **Return a verdict.** Exactly one of _changes required_, _approved with reservations_,
    _approved_. Write the phase-5 verdict in the order defined by `assets/verdict-template.md`, with

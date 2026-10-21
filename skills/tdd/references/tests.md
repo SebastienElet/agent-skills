@@ -39,6 +39,23 @@ independent meaning and the review can detect a wrong result.
 - Name tests according to the boundary actually assembled. In-process application integration with
   a real database and substituted external services is not automatically end-to-end testing.
 
+## Discriminating security tests
+
+For isolation, authorization and redaction, arrange a case where only the targeted predicate can
+prevent the forbidden result. An empty access scope can conceal a missing tenant filter; give the
+foreign subject access to the candidate resource so only tenant isolation excludes it. Pair the
+refusal with an authorized control to rule out a path that always rejects.
+
+Observe a red witness by removing or breaking the intended predicate in a disposable copy: the
+test must fail by assertion, not by setup error or crash. Restore it and observe green. An existing
+test-first red suffices when it demonstrates that same missing predicate; no duplicate mutation
+campaign is required. Delivery evidence names the targeted test, faulty variant, observed assertion
+failure and restored result for each added security test.
+
+For redaction and sensitive persistence, assert exact stored values, including absent or cleared
+personal fields; a partial object match accepts extra sensitive fields. Read the persisted body
+separately from the response so response cleanup cannot conceal an unredacted stored copy.
+
 ## Failures that invalidate the evidence
 
 Setup exceptions, syntax errors and a missing runtime are not the expected behavioral failure.

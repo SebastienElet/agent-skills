@@ -33,6 +33,16 @@ afterwards — the write is authorized by a state that no longer exists.
 **Lift:** the read moves inside the transaction, at an isolation level that actually prevents the
 interleaving, or the invariant is enforced by a constraint the concurrent write cannot satisfy.
 
+Separate read-only planning from execution: complete all domain and authorization refusals before
+the first irreversible effect, including permanent derived creation, consumption of a non-reusable
+identifier or an external call. Admit each referenced entity's existence and relationship to the
+authenticated scope before deriving anything from it; retain formerly related entities when the
+authoritative contract permits them. Keep state-dependent checks within the atomic boundary above;
+planning must not become a stale precheck. For each refusal path, assert that no derived resource
+was persisted, no non-reusable identifier was consumed and no external effect occurred. Preflight
+checks do not eliminate later storage or protocol failures; do not claim rollback covers effects
+it cannot undo.
+
 ## 2. Retry idempotence
 
 **Ask:** after a conflict, does the retry re-read the winning state, or does it replay the decision
@@ -44,6 +54,14 @@ error anywhere.
 
 **Lift:** the retry re-enters the whole read-decide-write unit, or the write is keyed so that the
 duplicate is rejected by the database.
+
+For each transition of an existing resource, including later workflow stages, require an expected
+version or equivalent concurrency precondition checked atomically with the mutation. Creation needs
+its own uniqueness/replay key, not a nonexistent prior version. Name the replay contract: refuse a
+duplicate before any effect or return the prior result without repeating it. Exercise replay and,
+where required, stale and missing versions through each action, observing unchanged state and no
+additional external effect on refusal.
+After a successful UI write, close or refresh the form so it cannot resubmit the consumed version.
 
 ## 3. Invariant without a constraint
 
@@ -62,6 +80,16 @@ the upgrade that survives afterwards, and a diagnostic or upgrade report for exc
 **Lift:** the constraint exists in a migration, and a test proves the second writer receives the
 violation rather than succeeding.
 
+For sequential or timestamped identifiers, compare the proposed value with the fetched destination,
+relevant open PR heads including drafts, and relevant remote branches without a PR, not only the
+local maximum. Check ADR and other decision/document numbers, migration order and module/permission
+manifest versions bound to content. Recheck after each destination integration and record the chosen
+values and inspected refs in delivery evidence. A conflict-free merge is no uniqueness proof; use
+the existing registry or migration validation when available. Do not renumber already applied
+migrations or silently combine independently owned manifest contents. Disclose parallel changes to
+the same versioned manifest in delivery evidence and coordinate their integration so a fresh version
+preserves the intended union of keys instead of overwriting an earlier addition.
+
 ## 4. Authorization as a side effect
 
 **Ask:** is the access check named in a dedicated call, or obtained incidentally through a function
@@ -73,6 +101,14 @@ refactor that swaps that loader for a cheaper query removes the check, every tes
 nothing in the diff looks like a security change.
 
 **Lift:** an explicit authorization call whose removal fails a test written against it.
+
+Inventory every route and use case in the touched module on the integrated tree, including existing
+neighbors: `route/use case → permission → access scope → refusal test`. Include the inventory in
+the PR description. Require explicit permission and scope, or a documented intentionally public
+contract; authentication and a permissive global guard are insufficient. Use minimally privileged
+subjects, with separate missing-permission and out-of-scope cases, rather than administrator-only
+tests. Arrange each refusal case so only the targeted predicate can reject it, and observe an
+assertion failure when that predicate is removed or broken, followed by success after restoration.
 
 ## 5. Tenant scope
 
@@ -98,6 +134,11 @@ change is a silent behavioral break in every consumer.
 CI. This class alone is usually a reservation, not a block — unless a consumer's retry path depends
 on the code that changed.
 
+A changed observable response on a versioned public API is a compatibility decision, including a
+new blanket refusal where deletion previously succeeded. Preserve the published contract, introduce
+a new version, or obtain an explicit owner-approved contract amendment before delivery. A newly
+proposed retention policy alone does not authorize breaking existing clients.
+
 ## 7. Deferred functionality
 
 **Ask:** is the absent regulatory or business control declared as an explicit contract — what is
@@ -121,6 +162,14 @@ which is strictly worse than rejecting the input.
 
 **Lift:** the value is parsed into the type it claims to be, and the unparseable case is an error
 with a message naming what was received.
+
+For values committed as valid at entry, enforce the downstream domain required by the workflow,
+including amounts and open periods, so accepted objects cannot become permanently unprocessable.
+An explicitly editable draft may be incomplete; validate its transition before it enters a stage
+that promises finalization, and make its repair path explicit.
+For multiple candidate sources, preserve an explicit unknown/ambiguous result instead of choosing
+the first. Shared amounts need an explicit allocation whose total is conserved, not one full
+amount per holder. Exercise out-of-domain input, ambiguity and allocation through the owning boundary.
 
 ## 9. Upstream control as a trust boundary
 
@@ -351,6 +400,54 @@ executable lookup or bootstrap in the actual execution context through native or
 Preserve declared, supported settings such as offline mode, proxy or registry; diagnose genuinely
 unavailable prerequisites without guessing.
 
+## 22. Personal data outlives its declared lifecycle
+
+**Ask:** where can personal fields be persisted or exposed, and does export/erasure cover every
+copy and reference on the integrated schema?
+
+**Broken when:** an idempotency response, cache, log or queue copies personal labels without a
+retention/erasure path; a handwritten context list omits a newly integrated reference; or a read
+returns unused personal fields and aggregate views retain anonymized records contrary to contract.
+
+**Lift:** inventory fields before adding persistence, redact unnecessary fields and justify retained
+ones with the applicable policy. Assert the exact stored body independently of the caller's response,
+with an observed assertion failure when redaction is removed or broken, followed by success after
+restoration. Reconcile export/erasure coverage with the integrated schema and
+actual storage paths, not another closed list. Exercise an uncovered personal reference and all
+affected anonymized reads/aggregates. Missing retention decisions require owner validation; code
+alone establishes neither policy approval nor legal compliance. Class 6 governs public API changes.
+
+## 23. A dependency upgrade bypasses a compatibility restriction
+
+**Ask:** do touched pins, overrides, patches and their recorded reasons permit this upgrade, and
+do the dependency-installing images still build and start?
+
+**Broken when:** an upgrade contradicts a recorded restriction, leaves a version-bound patch unused,
+selects an unapproved prerelease or branch build, or breaks frozen installation in an image copying
+only part of a workspace while application tests pass.
+
+**Lift:** read the attached rationale, verify current upstream documentation and local configuration,
+and retain restrictions until their lift condition is demonstrated. Verify patch application and
+resolved versions; prereleases and branch builds require explicit approval. Build and start every
+affected image that installs dependencies, exercising its actual copied manifests and frozen
+lockfile. Report image names, commands and environment; unit tests do not establish image usability.
+
+## 24. A supervisor reports success before cleanup completes
+
+**Ask:** are process ownership, waits, cleanup and subprocess output checked through completion?
+
+**Broken when:** a second signal interrupts cleanup, a child ignoring termination survives, a worker
+wait is unbounded, cleanup failure leaves a success receipt, or a zero exit status hides a subprocess
+error or truncated output.
+
+**Lift:** preserve the original status before cleanup, prevent reentrant exit and ignore further
+handled signals while cleaning up. Bound every wait, escalate termination for owned process groups
+and verify exit. Cleanup failure makes an otherwise successful command fail without masking an
+earlier nonzero status; success receipts wait for successful cleanup. Check execution errors and
+output completeness as well as status. Exercise a second signal, a termination-resistant child,
+an unresponsive worker, truncated output with status zero and cleanup failure after success/failure
+using bounded offline tests. State direct uncatchable-kill and detached-descendant limits in delivery.
+
 ## Reporting
 
 Classes 1, 2, 3, 4, 5, 7, 9, 11 and 12 name mechanisms that lose data, corrupt state or cross a security
@@ -382,6 +479,10 @@ apply phase 5's essential-evidence rule without inventing an escape or race.
 Class 21 blocks when undeclared or unsupported inherited state contradicts the command's independent
 contract and skips a required check or prevents a promised workflow; declared, supported settings
 are not defects. Bounded inconvenience is a reservation; missing evidence remains `unproven` under phase 5.
+
+Class 22 blocks demonstrated unauthorized retention, disclosure or incomplete promised erasure.
+Classes 23 and 24 block a demonstrated contract violation or failure of a required build, workflow
+or cleanup guarantee. Missing evidence follows phase 5; do not invent a leak or surviving process.
 
 The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
 user action blocks, even outside these classes.

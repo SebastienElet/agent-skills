@@ -13,7 +13,7 @@ Corrections completed on `<final-head-sha>`.
 
 - <problem corrected and resulting behavior>.
 
-Validation: <environment, tier, principal checks and counts>; required CI: <linked result on this SHA, or none required>.
+Validation: <tested head/base, environment, tier, principal commands, exit statuses, output artifacts and counts>; required CI: <linked result on this SHA, or none required>.
 Independent review: `approved` on `<final-head-sha>`, no remaining actionable defect.
 Native approval: <confirmed for <account> on `<final-head-sha>` | already present for <account>, not bound to a SHA on Bitbucket | not granted: <refusal, user decline or prohibition, or own PR>>; PR state: <forge state, e.g. OPEN>.
 Limits: <material evidence gaps or deliberately excluded findings and reasons; omit this line when none>.
