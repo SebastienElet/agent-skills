@@ -25,6 +25,9 @@ The upstream license is preserved in [LICENSE](LICENSE).
 Use `$diagnosing-bugs <symptom>` or `/diagnosing-bugs <symptom>` when investigating a failure.
 For example: `Diagnose why concurrent invoice creation sometimes succeeds twice.` Inspect source
 and existing probes freely; permission to diagnose does not authorize production mutation.
+Diagnosis alone ends with the evidence and next action, without applying a repair. In `bug-fix`,
+return the diagnosis to the same owner before correction; that path continues authorized repair
+through `implement` without a new user go-ahead.
 
 ## Steps
 
@@ -44,9 +47,11 @@ and existing probes freely; permission to diagnose does not authorize production
 5. Rank plausible hypotheses with a prediction for each. Test one variable at a time, using a
    debugger, focused temporary instrumentation or bisection. For performance, measure a baseline
    and compare the same workload. Keep instrumentation bounded and remove it after diagnosis.
-6. Once execution confirms the cause, use `tdd` to turn the reproduction into the smallest
-   regression test at the boundary owning the failure. If a temporary code or fixture mutation
-   forces the red result, diff against a pristine pre-mutation copy to confirm the mutation landed
+6. Once execution confirms the cause, return the evidence when the scope is diagnosis-only or
+   `bug-fix` owns the continuation. Otherwise, for an authorized repair, use `tdd` to turn the
+   reproduction into the smallest regression test at the boundary owning the failure. If a
+   temporary code or fixture mutation forces the red result, diff against a pristine pre-mutation
+   copy to confirm the mutation landed
    before trusting that result. Preserve existing edits and undo only the temporary mutation after
    the probe, then apply the repair. If no adequate test boundary exists, report that gap and the
    available direct reproduction evidence explicitly.
