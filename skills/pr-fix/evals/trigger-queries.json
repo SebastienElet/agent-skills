@@ -1,6 +1,6 @@
 {
   "skill": "pr-fix",
-  "version": "1.0",
+  "version": "1.1",
   "queries": [
     {
       "query": "/pr-fix 1042",
@@ -13,7 +13,7 @@
       "reason": "The request combines a merge review with authorized branch corrections"
     },
     {
-      "query": "Nous avons le droit de pousser sur sa PR, corrige aussi les petits problèmes objectifs",
+      "query": "Nous avons le droit de pousser sur sa PR, corrige aussi les petits probl\u00e8mes objectifs",
       "should_activate": true,
       "reason": "Direct fixes to another contributor's PR are explicitly authorized"
     },
@@ -51,6 +51,21 @@
       "query": "Add a new feature locally on this branch, which already has a PR. I am not asking to repair PR review findings; do not commit, push or publish.",
       "should_activate": false,
       "reason": "An existing PR does not turn ordinary local development into a PR repair request"
+    },
+    {
+      "query": "Resume the authorized GitHub PR repair from its journal. Both correction passes are consumed and the independent review still rejects it.",
+      "should_activate": true,
+      "reason": "Resume the existing owner to report incomplete; do not reset the counter or start local repair"
+    },
+    {
+      "query": "Correct the confirmed findings on this Bitbucket PR. We have the required Bitbucket access and no GitHub credentials.",
+      "should_activate": true,
+      "reason": "Only the selected forge is required for its repair workflow"
+    },
+    {
+      "query": "Correct this GitHub PR locally, but do not commit, push, approve or publish.",
+      "should_activate": true,
+      "reason": "The explicit repair retains stricter limits and returns prepared local work with remote stages incomplete"
     }
   ]
 }

@@ -20,7 +20,7 @@ This directory is the canonical source for user-scoped agent skills.
 | `claude-development`            | Run Claude Code development through implementation, checks and optional Codex review.                               |
 | `code-enforcement`              | Write code whose purpose is to refuse: hook, guard, validator, permission check, lint rule, CI gate.                |
 | `code-review`                   | Review a local diff for standards and requirement compliance.                                                       |
-| `code-review-fix`               | Repair local code-review findings with Codex before delivery.                                                       |
+| `code-review-fix`               | Repair local code-review findings before delivery.                                                                  |
 | `code-simplify`                 | Simplify code to reduce understanding and maintenance costs.                                                        |
 | `codebase-design`               | Design cohesive modules with simple public interfaces.                                                              |
 | `design-claim-audit`            | Audit architectural and domain guarantees.                                                                          |

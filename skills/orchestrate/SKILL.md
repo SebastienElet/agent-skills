@@ -90,10 +90,18 @@ authority.
    | Reserved decision or missing authorization (`decision-required`)                    | Use `requirements-clarification` to prepare the permitted result and ask the smallest material question; pause only dependent actions. Silence is not approval.                                                                          |
    | ADR contradiction, exhausted budget or unavailable essential capability (`blocked`) | Preserve the candidate, evidence and exact missing condition; report the limit and continue independent authorized work.                                                                                                                 |
 
-   Review is optional unless requested or already required. When authorized corrections use
-   `code-review-fix` or `pr-fix`, consume that workflow's result and retain its loop owner; do not
-   nest or restart its review/correction sequence. Failed or incomplete required review remains
-   unfinished. Existing publication and approval checkpoints still apply.
+   Independent review is optional unless requested or already required. Route review-only work
+   to read-only `code-review`; local review corrections to `code-review-fix`; explicit open-PR
+   repair to `pr-fix`. An attached PR alone does not change that choice. `pr-feedback` collects
+   retrospective evidence from merged PRs, not current repair findings. Verify human and bot
+   findings against the candidate before treating them as defects; preferences alone authorize
+   no cleanup. Continue confirmed corrections under existing repair authority without asking
+   again. Consume the repair workflow's result and retain its loop owner, ledger and counters;
+   neither a delegated writer nor its caller starts another repair sequence. Reuse a review only
+   with its candidate, independence and evidence basis still applicable. Failed or incomplete
+   required review remains unfinished. Verdict publication, native approval and merge are
+   separate actions: only explicit invocation or authorized `pr-fix` composition can select
+   `pr-verdict`, and its existing checkpoints still apply.
 
 5. **Bound recovery across relays.** Apply the task's investigation budget and each specialist's
    correction limits. If no applicable limit exists, name a finite attempt or time limit before
