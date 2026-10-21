@@ -171,7 +171,7 @@ its correction and evidence here without starting another workflow.
    receipts only when the structured path was explicitly required. Keep ordinary review work scoped to the
    correction where appropriate. Negative witnesses are required for modified oracles and critical
    guarantees; other missing evidence blocks only when essential to the decision.
-   Record the verdict, SHA, policy and evidence basis as a new dated journal entry. Preserve older
+   Record dated review evidence with its verdict, SHA and policy, linked from the pass. Preserve older
    verdicts, including a rejection on the same SHA; policy correction never approves them retroactively.
    Keep corrections within step 2's remaining budget; unresolved findings at exhaustion, failed or
    empty reviewer output, material disagreement or missing essential evidence is incomplete, never approval.
@@ -208,14 +208,15 @@ its correction and evidence here without starting another workflow.
      in the journal, then approve. A failed or uncertain publication pauses the approval until a
      remote read by marker settles it.
    - **Approve only:** approve without publishing the verdict.
-   - **Do nothing:** publish and approve nothing; record `Native approval: not performed — user declined`.
+   - **Do nothing:** publish and approve nothing; record `approval: not performed — user declined` in `Delivery`.
 
    Use the journal's evidence for the publications permitted by this step. Update the PR description
    only if the user explicitly authorized the presented evidence update on this same head; permission
    to publish a verdict or approve alone does not authorize that description change.
 
-   Approve by applying `references/native-approval.md`. Record each approval state in the journal
-   with account, SHA and time. A confirmed or already present approval, a refusal, a user decline
+   Approve by applying `references/native-approval.md`. Keep the current approval state in `Delivery`
+   and each transition in its linked evidence with account, SHA and time. A confirmed or already
+   present approval, a refusal, a user decline
    or prohibition, or an own PR lets publication continue with that outcome stated; an uncertain or
    withdrawn approval pauses it.
    The approval never authorizes merging or adding the PR to a merge queue; each requires a
@@ -234,7 +235,7 @@ its correction and evidence here without starting another workflow.
    the ownership conflict. Create one only when none exists. For legacy `<pr>:<sha>` markers, reuse
    the latest repair comment owned by the publishing account and replace its marker, preserving other comments
    and replies. Pass the body through a file using `pr-verdict/references/forges.md` and save the
-   returned comment ID, URL and published SHA in the journal. After a timeout or uncertain response,
+   returned comment ID, URL and published SHA in `Delivery`. After a timeout or uncertain response,
    re-read remote comments before retrying; if lookup fails, keep publication pending.
 
 9. **Close or pause the repair.** Report the final SHA, verdict, native approval state, journal path
