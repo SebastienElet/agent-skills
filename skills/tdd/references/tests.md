@@ -28,6 +28,12 @@ independent meaning and the review can detect a wrong result.
   invariant, direct database inspection or constraint exercise is a legitimate integration boundary.
 - Use a real database for uniqueness, transactions and ORM mapping. An in-memory application
   dependency does not establish database semantics.
+- For consumed environment values, derive fixtures from observed runtime values or current platform
+  documentation and record their provenance; invented values alone cannot establish the format.
+  For date-sensitive tests, use explicit offsets for instants and run at least once outside UTC.
+  For timezone-aware database columns, set and verify the database session timezone itself: changing
+  the application timezone alone does not prove session behavior. Keep business dates as dates when
+  their contract is a calendar date rather than an instant.
 - Test pure domain behavior directly when the invariant belongs there. Broader integration tests
   do not automatically make focused domain tests redundant.
 - Name tests according to the boundary actually assembled. In-process application integration with

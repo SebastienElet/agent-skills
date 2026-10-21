@@ -118,6 +118,11 @@ explicit correction request above. This distinction does not change any push or 
    commits local and becomes an explicit delivery blocker. One repair produces one judged head:
    every extra push discards a verdict already delegated and buys another review pass.
 
+   Before each push, inspect `git diff --summary <resolved-destination>...HEAD` and indexed file modes
+   for unintended changes, especially after edits on another host or mount. Restore an unintended
+   executable-bit loss; verify directly invoked CI scripts remain executable in Git and the checkout.
+   Justify intentional mode changes against their actual invocation, using existing checks.
+
    Record prepared commits before pushing and mark them pushed only after verifying the remote
    result. On interruption or an ambiguous push result, reconcile remote commits before resuming.
    In the same push step, refresh evidence in the journal under `pr-verdict` phase 4: current
