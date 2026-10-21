@@ -38,7 +38,7 @@ requirements. Other skills own their specialized steps; this skill owns when dev
    Verify the required checks are available. If independent Codex review is requested, verify
    `code-review-fix` and its declared runtime before that stage. Keep automatic Stop review gates
    disabled; missing optional review tooling does not block implementation or ordinary delivery.
-2. **Respect the enclosing workflow.** For a Linear task, let `linear-start` and `linear-workflow`
+2. **Respect the enclosing workflow.** For an issue-backed task, let `issue-start` and `issue-workflow`
    own eligibility, branch, tracker and PR state. Other specialized workflows retain their own
    authority and boundaries. When this task repairs an open PR, use the authorized `pr-fix`
    workflow for repair and independent review; do not start a concurrent local repair loop.

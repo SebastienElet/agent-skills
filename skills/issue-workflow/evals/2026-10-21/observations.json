@@ -1,0 +1,138 @@
+{
+  "scope": "Current issue family only: synthetic read-only resumption and reconciliation, one fresh Codex CLI process per provider combination. This is not full development, native trigger-rate, live provider-write, race-safety or cross-host qualification.",
+  "environment": {
+    "platform": "Darwin",
+    "machine": "arm64",
+    "codex": "0.163.0",
+    "bun": "1.4.3",
+    "model": "CLI default; resolved revision and seed unavailable",
+    "configuration": "--ephemeral --ignore-user-config --ignore-rules --skip-git-repo-check --sandbox read-only; existing user authentication retained; user skill discovery not independently isolated",
+    "evaluation_interface": "agent-experiments unavailable; observations inspected manually, no runner or validator added"
+  },
+  "source_sha256": {
+    "skills/issue-start/SKILL.md": "dd037d123cba7f8c364cda4b991c08fd867eb6261c5b4f14a6d532a83ac88c74",
+    "skills/issue-workflow/SKILL.md": "7cdd97e8695b28b8422ec1a659d77e319b860ce6821b31d048b9a43c3b980350",
+    "skills/issue-workflow/references/bitbucket.md": "5cf33060a4f265b9947035c8267feda2f688a5573e5868c69f57fa64e3887d99",
+    "skills/issue-workflow/references/completion-evidence.md": "2e0b9d29adb41285a9c397c8d66c9f05fd90ff6b03a727618688fcae479ba5d0",
+    "skills/issue-workflow/references/github.md": "6f1b4c0428d0900f3ccb55a10582416dd3b1dbafa9b59d3c3d0db07d756eed1a",
+    "skills/issue-workflow/references/linear-guard-observation-2026-09-09.md": "b97d96737739028a41ad41c92743c59028801033b9e1a530a7aea995c73c4296",
+    "skills/issue-workflow/references/linear-guard-observation-2026-09-10.json": "a3ca438177d6fabadadfb45c68c3278d8dac2a1627dbf4ed414ec930b232a480",
+    "skills/issue-workflow/references/linear-guard-observation-2026-09-10.md": "0c3877cabd0089770c6a8cec97d638ec53b319805ab1ccecc2429a250242916c",
+    "skills/issue-workflow/references/transports.md": "83c6de4477929619ddc59178e6bfb0a13bc53cc8a095c79ba38a5ce7222d1016",
+    "skills/issue-sync/SKILL.md": "c67027e9352031702fa380d27111b3c24588e39770ebed6630f9d8a042dea580",
+    "skills/issue-spec/SKILL.md": "61daf09c05d18b7a4911f2151b774212e404b386e6d4f4367645a4fbfbe43220",
+    "skills/orchestrate/SKILL.md": "a40fd5f86b191a1784c6cb523dd00306a06b17055ed7fdf047dfff80c6a9005d",
+    "skills/plan/SKILL.md": "d19ed01b7375c3a1f0b5647e3d4dd28e9ff14f3d068709dfc95c19927f6ff2a6"
+  },
+  "runs": [
+    {
+      "case": "github-github",
+      "exit_code": 0,
+      "duration_seconds": 24.46,
+      "prompt": "This is a synthetic read-only rehearsal. Use only the supplied snapshot; do not contact real services, run provider CLIs, change files, start implementation, or launch other agents. Read the relevant project skills, then answer the requested startup/reconciliation decisions. The snapshot fields and provider capabilities are complete unless explicitly missing.\n\nImplement my assigned GitHub issue https://github.com/fixture/invoices/issues/42 in the verified GitHub repository. First state the startup/resumption action from snapshot A. Then synchronize that same issue from snapshot B and report the lifecycle decision and remaining work.\n\nA: tracker identity developer; issue open and assigned to developer under repository policy; parent absent, no children, no blockers, every page exhausted. Git fetch/push identify github.com/fixture/invoices. Github authentication and required reads/writes verified. No Bitbucket or Linear client/credentials exist. Structured association points to open PR https://github.com/fixture/invoices/pull/8, head repository fixture/invoices, branch issue-42-export, base main; clean local tree. No other matching PR/branch exists.\nB: that PR is now merged; issue is still open. Acceptance: - [ ] CSV preserves active filters. No check covers this criterion. No conditional description/state write or safe body-patch capability is available. No new publication is authorized.\n",
+      "prompt_sha256": "39b7359ab34b243574535c0d96380fb7de450152c1dd495f1ceffc9c4cde62e3",
+      "invocation": "codex exec --json --ephemeral --ignore-user-config --ignore-rules --skip-git-repo-check --sandbox read-only --cd /fixture - (prompt on stdin)",
+      "commands": [
+        {
+          "command": "/bin/zsh -lc 'cat .agents/skills/issue-start/SKILL.md .agents/skills/issue-sync/SKILL.md .agents/skills/issue-workflow/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "5ef50aa61d015c83de1237c5c1d63592fe112c597f02b18c0218a8bd490f1594",
+          "output_bytes": 19549
+        },
+        {
+          "command": "/bin/zsh -lc 'cat .agents/skills/issue-workflow/references/transports.md .agents/skills/issue-workflow/references/github.md .agents/skills/issue-workflow/references/completion-evidence.md .agents/skills/orchestrate/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "b57d16dcb4f8f6e24a96278d8a8717da433d2f18c0ede00af80a533b683e731e",
+          "output_bytes": 45682
+        }
+      ],
+      "messages": [
+        "Je vais lire les skills du projet, puis déduire les décisions de démarrage et de synchronisation uniquement des snapshots fournis.",
+        "**A — Reprise :** l’issue `fixture/invoices#42` est éligible. Reprendre la PR existante `#8`, sur `fixture/invoices:issue-42-export`, cible `main`. Ne créer ni branche ni PR supplémentaire ; l’issue GitHub reste ouverte. Aucun client Linear ou Bitbucket n’est requis.\n\n**B — Synchronisation :** la PR est fusionnée, mais la vérification reste en attente. L’issue reste ouverte et la case « CSV preserves active filters » reste décochée : aucun contrôle ne prouve ce critère. La fusion seule ne suffit pas.\n\n**Travail restant :** lors d’une vérification explicitement demandée, produire une preuve couvrant les filtres actifs, puis consigner cette preuve et traiter la clôture via une opération sûre ou une intervention humaine. Les capacités fournies ne permettent ni modification sûre de la case ni clôture conditionnelle.\n\nSimulation uniquement : aucune modification, publication ou vérification exécutée."
+      ],
+      "usage": {
+        "input_tokens": 90500,
+        "cached_input_tokens": 53632,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 392,
+        "reasoning_output_tokens": 0
+      },
+      "manual_verdict": "PASS within stated scope",
+      "verdict_reason": "Observed successful reads of current startup/sync/workflow and GitHub/evidence adapters. Reuses exact PR/head branch, no unrelated forge requirement, preserves open state and unchecked residue, reports missing safe edits/closure.",
+      "recorded_at_utc": "2026-10-21T13:30:23.572092+00:00"
+    },
+    {
+      "case": "linear-github",
+      "exit_code": 0,
+      "duration_seconds": 17.86,
+      "prompt": "This is a synthetic read-only rehearsal. Use only the supplied snapshot; do not contact real services, run provider CLIs, change files, start implementation, or launch other agents. Read the relevant project skills, then answer the requested startup/reconciliation decisions. The snapshot fields and provider capabilities are complete unless explicitly missing.\n\nResume implementation of my assigned Linear issue ENG-482 in its GitHub repository. First state the startup/resumption action from snapshot A. Then synchronize the same issue from snapshot B and report lifecycle decision and remaining work.\n\nA: Linear workspace fixture, authenticated identity developer; ENG-482 assigned to developer and In Progress, no parent, children or blockers, every page exhausted. Git fetch/push identify github.com/fixture/invoices. Both provider identities/rights verified independently. No Bitbucket client/credentials exist. Linear structured attachment identifies open PR https://github.com/fixture/invoices/pull/8, head fixture/invoices, branch ENG-482-export, base main, clean tree, no other matching work. Team states enumerate Todo, In Progress, In Review, Done.\nB: PR is merged, Linear issue still In Review. Acceptance: CSV preserves active filters (plain prose, no recorded verification state). No check covers that criterion. No verified conditional state-write mechanism. No new publication is authorized.\n",
+      "prompt_sha256": "bcf712faa6b53b5760264658c890c9d6cb88b6ae794db2057344b2efe1204170",
+      "invocation": "codex exec --json --ephemeral --ignore-user-config --ignore-rules --skip-git-repo-check --sandbox read-only --cd /fixture - (prompt on stdin)",
+      "commands": [
+        {
+          "command": "/bin/zsh -lc 'cat .agents/skills/issue-start/SKILL.md .agents/skills/issue-sync/SKILL.md .agents/skills/issue-workflow/SKILL.md .agents/skills/orchestrate/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "9e92e2c175ac71910a33c2725d723fd7fc37cf83fa2ca582cc344c908d3a7213",
+          "output_bytes": 36391
+        },
+        {
+          "command": "/bin/zsh -lc 'cat .agents/skills/issue-workflow/references/transports.md .agents/skills/issue-workflow/references/github.md .agents/skills/issue-workflow/references/completion-evidence.md'",
+          "exit_code": 0,
+          "output_sha256": "94c2eb5dc702af72bdd48cd05f0b0f8cb1b25b18fff303aff1992b947e06a167",
+          "output_bytes": 28840
+        }
+      ],
+      "messages": [
+        "I’ll read the project workflow skills, then use only snapshots A and B to determine the resumption and reconciliation decisions.",
+        "**A — Resume existing work.** ENG-482 is eligible. Select Linear as tracker and GitHub as forge; missing Bitbucket credentials are irrelevant. Reuse PR [#8](https://github.com/fixture/invoices/pull/8) and its exact branch `ENG-482-export` in `fixture/invoices`, targeting `main`. Keep `In Progress`; create no duplicate branch or PR. Actual checkout and implementation are excluded by this rehearsal.\n\n**B — Verification pending; state unchanged.** The merge proves landing only. “CSV preserves active filters” is acceptance prose with no recorded verification state, and no check proves it. The policy destination is `In Progress`, but the missing verified conditional write prevents applying that transition. ENG-482 therefore remains `In Review`; `Done` is not justified.\n\nRemaining work: explicitly request verification of filter preservation, produce criterion-specific evidence, then resolve lifecycle state through a verified conditional mechanism or human action. Synchronization does not run that verification, edit acceptance text, or authorize new publication.\n\nOnly local skill files were read; no services, provider CLIs, writes, tests, or other agents were used."
+      ],
+      "usage": {
+        "input_tokens": 94360,
+        "cached_input_tokens": 63488,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 418,
+        "reasoning_output_tokens": 0
+      },
+      "manual_verdict": "PASS within stated scope",
+      "verdict_reason": "Observed current skill and GitHub adapter reads. Reuses exact GitHub PR with Linear identity separate; prose acceptance remains unproven; distinguishes intended In Progress destination from unchanged In Review without conditional write.",
+      "recorded_at_utc": "2026-10-21T13:30:16.963492+00:00"
+    },
+    {
+      "case": "linear-bitbucket",
+      "exit_code": 0,
+      "duration_seconds": 27.61,
+      "prompt": "This is a synthetic read-only rehearsal. Use only the supplied snapshot; do not contact real services, run provider CLIs, change files, start implementation, or launch other agents. Read the relevant project skills, then answer the requested startup/reconciliation decisions. The snapshot fields and provider capabilities are complete unless explicitly missing.\n\nStart implementing my assigned Linear issue ENG-482 in its Bitbucket repository. First state the startup/resumption action from snapshot A. Then reconcile the same issue from snapshot B and report lifecycle decision and remaining work.\n\nA: Linear workspace fixture, identity developer, issue assigned to developer and In Progress; no parent, children, blockers; every page exhausted. Git fetch/push identify bitbucket.org/fixture/invoices. Linear and bkt identities, explicit workspace/repository and required permissions independently verified. GitHub forge access/client is unavailable. No PR attachment exists, but exhaustive Bitbucket discovery finds one open PR https://bitbucket.org/fixture/invoices/pull-requests/8 with exact source ENG-482-export in fixture/invoices, target main, clean tree, no other exact matches. Team states enumerate Todo, In Progress, In Review, Done. Tracker supports reading attachments and safely adding the missing canonical URL, and independent reads.\nB: that PR is merged. Acceptance: - [ ] CSV preserves active filters. No check covers it; no verified conditional state write is available. Adding the tracker link timed out; subsequent independent read shows the link was stored. No new publication is authorized.\n",
+      "prompt_sha256": "36eba05b6fd7cabb3fa7d6608a9df9f5d786ba0f5a7ce41abdfc783ba2cfcccb",
+      "invocation": "codex exec --json --ephemeral --ignore-user-config --ignore-rules --skip-git-repo-check --sandbox read-only --cd /fixture - (prompt on stdin)",
+      "commands": [
+        {
+          "command": "/bin/zsh -lc 'cat .agents/skills/issue-start/SKILL.md .agents/skills/issue-sync/SKILL.md .agents/skills/issue-workflow/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "5ef50aa61d015c83de1237c5c1d63592fe112c597f02b18c0218a8bd490f1594",
+          "output_bytes": 19549
+        },
+        {
+          "command": "/bin/zsh -lc 'cat .agents/skills/issue-workflow/references/transports.md .agents/skills/issue-workflow/references/bitbucket.md .agents/skills/issue-workflow/references/completion-evidence.md .agents/skills/orchestrate/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "a2e67345b2ff4c938edb079ea3a335b9434efbb18ac20b37738b633eaf5906a6",
+          "output_bytes": 45446
+        }
+      ],
+      "messages": [
+        "I’ll read the project workflow skills, then apply them to snapshots A and B without contacting services or changing files.",
+        "**A — Resume existing work.** ENG-482 is eligible. Reuse [PR #8](https://bitbucket.org/fixture/invoices/pull-requests/8) and its exact branch `ENG-482-export`, targeting `main`; create neither a branch nor a PR. Retain `In Progress` for startup. The missing canonical tracker link can be safely repaired and independently verified. GitHub access is irrelevant to this Linear/Bitbucket workflow.\n\n**B — Verification pending.** The merge proves landing, but “CSV preserves active filters” remains unchecked and uncovered. The lifecycle destination is `In Progress`, not `In Review` or `Done`. Without a verified conditional state write, leave the stored state untouched.\n\nThe independent read confirms the timed-out link operation succeeded: do not retry it. Remaining work is an explicitly requested verification pass producing evidence for the CSV criterion, followed by safe evidence recording and lifecycle reconciliation. No new publication is authorized.\n\nRehearsal only: skills read locally; no services contacted, writes made, implementation started, or checks run."
+      ],
+      "usage": {
+        "input_tokens": 90649,
+        "cached_input_tokens": 53760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 403,
+        "reasoning_output_tokens": 0
+      },
+      "manual_verdict": "PASS within stated scope",
+      "verdict_reason": "Observed current skill and Bitbucket adapter reads. Recovers existing unlinked PR, requires no GitHub forge access, preserves unchecked residue and refuses unguarded state write; readback confirms timed-out link succeeded, so no retry.",
+      "recorded_at_utc": "2026-10-21T13:30:26.720583+00:00"
+    }
+  ],
+  "source_base_revision": "b650dc66643eb4ffa60a4a26f238a87515dae516"
+}

@@ -1,6 +1,6 @@
 {
-  "skill": "linear-workflow",
-  "version": "1.0",
+  "skill": "issue-workflow",
+  "version": "1.1",
   "queries": [
     {
       "query": "Verify whether the merged Linear issue LIN-246 can be completed. Its acceptance section says \"- [ ] Export completes within two seconds for 10,000 invoices.\" No performance measurement has been made, the representative dataset is unavailable, and CI only ran formatting. Use the supplied snapshot and give the verification verdict and next action.",
@@ -31,6 +31,26 @@
       "query": "Prepare a Linear development issue for an operator to export the currently filtered invoice list as CSV. Use the supplied product facts, expose missing decisions, and give a functional draft for review before implementation.",
       "should_activate": false,
       "reason": "Product issue preparation is outside execution policy."
+    },
+    {
+      "query": "Start GitHub issue https://github.com/example/invoices/issues/42 in its GitHub repository.",
+      "should_activate": true,
+      "reason": "Startup composes provider-independent policy."
+    },
+    {
+      "query": "Resume my assigned Linear issue ENG-482 from its GitHub pull request.",
+      "should_activate": true,
+      "reason": "Linear tracker with GitHub forge is a distinct supported combination."
+    },
+    {
+      "query": "Synchronize GitHub issue https://github.com/example/invoices/issues/42 with a merged PR; the acceptance checks have not run.",
+      "should_activate": true,
+      "reason": "Report pending verification without writing boxes or inventing progress states."
+    },
+    {
+      "query": "Implement the requested change on Bitbucket without a ticket.",
+      "should_activate": false,
+      "reason": "Ticketless work does not require issue policy or tracker access."
     }
   ]
 }

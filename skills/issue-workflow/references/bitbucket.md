@@ -1,7 +1,9 @@
 # Bitbucket Operations
 
 Use Git for local and remote branch state, and `bkt` for Bitbucket Cloud repository and pull-request
-state. The active `bkt` context is not repository discovery.
+state. The active `bkt` context is not repository discovery. Verify current local help, authentication
+and required read/write permissions before use. This path does not require GitHub forge access;
+any tracker authentication is separate.
 
 ## Repository identity
 
@@ -28,8 +30,8 @@ mutation.
 
 ## Existing pull request by branch
 
-`bkt pr list` has no source-branch filter. List open and merged pull requests with explicit
-repository identity using `bkt pr list --state <OPEN-or-MERGED> --limit 0 --workspace <workspace>
+`bkt pr list` has no source-branch filter. List open, merged and declined pull requests with explicit
+repository identity using `bkt pr list --state <OPEN-or-MERGED-or-DECLINED> --limit 0 --workspace <workspace>
 --repo <repository> --json`, then select an exact source branch match locally. Treat zero, one, and
 multiple matches as distinct outcomes.
 
@@ -37,9 +39,16 @@ multiple matches as distinct outcomes.
 
 Current local help exposes `bkt pr create` with explicit `--workspace`, `--repo`, `--source`, and
 `--target` arguments. Verify the remote branch exists, create once, then retrieve the new pull
-request independently to obtain its canonical URL before attaching it to Linear. A successful
-Bitbucket creation followed by a failed Linear link is a partial success, not permission to create
+request independently to obtain its canonical URL before attaching it to the selected tracker. A successful
+Bitbucket creation followed by a failed tracker link is a partial success, not permission to create
 again.
+
+## Pull-request checks
+
+Read check/build status for the exact source revision through the current verified `bkt` surface
+or authenticated Bitbucket API. Probe available schemas first. A successful merge or absent status
+list is not a green pipeline; report pending, failed, missing or inaccessible checks and their
+revision. Do not invent command flags or require GitHub checks for Bitbucket work.
 
 ## Limits
 

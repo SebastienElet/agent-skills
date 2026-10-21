@@ -34,17 +34,17 @@ in the user's language and retain the project's vocabulary and issue conventions
    when overlap, dependencies, or conflicting scope can change the interpretation. Report failed,
    truncated, or inaccessible reads and their impact; never invent their contents. Continue with
    the available draft, marking material gaps as unresolved.
-2. **Compose existing responsibilities.** For a Linear product issue, use `linear-issue-spec` for
+2. **Compose existing responsibilities.** For a Linear or GitHub product issue, use `issue-spec` for
    product evidence, functional slicing, visible states, and its existing draft structure. Keep a
    coherent functional increment; proposals to split or combine work need recognizable standalone
    value or a concrete coordination benefit. `issue-creation` owns lifecycle coherence and new
    publication; compose its draft/review checks when applicable, without entering publication.
-   Before restructuring Linear criteria or evidence, open `linear-workflow` and read its
+   Before restructuring issue criteria or evidence, open `issue-workflow` and read its
    completion-evidence reference for evidence semantics only, not its mutation procedures.
 3. **Separate facts from suggestions.** Identify the problem, promised outcome, established
    constraints, proposals, suggested technical means, and open questions. Preserve the source and
-   decision status of important requirements. For Linear, retain `Requested`, `Established`, and
-   `Proposed` labels from `linear-issue-spec`; existing issue prose alone does not establish a
+   decision status of important requirements. Retain `Requested`, `Established`, and
+   `Proposed` labels from `issue-spec`; existing issue prose alone does not establish a
    decision. Surface material contradictions and the smallest decision needed before the draft;
    do not finalize the affected scope while that decision remains open.
 4. **Simplify at unchanged scope.** Remove repetition, session narration, speculative solutions,
@@ -65,7 +65,7 @@ in the user's language and retain the project's vocabulary and issue conventions
    report unavailable evidence without treating its absence as disproof.
 7. **Present and verify the proposal.** Provide material gaps or contradictions, the proposed
    title/body at preserved scope, and a short semantic diff naming what is kept, removed, grouped,
-   and awaiting decision. Respect the Linear specialist's structure; impose no universal issue
+   and awaiting decision. Respect the specialist's structure; impose no universal issue
    template. Trace each promised outcome to a relevant observable acceptance criterion, and check
    that no original requirement disappeared. If a criterion is missing, expose the gap and label
    any suggested criterion as proposed rather than silently asserting a new requirement.
@@ -78,7 +78,7 @@ in the user's language and retain the project's vocabulary and issue conventions
 
 - **Treating every technical detail as clutter** — removing an accepted compatibility constraint
   changes the contract; retain its provenance and separate it from speculative implementation.
-- **Letting Linear slicing rewrite scope silently** — useful regrouping becomes an unapproved
+- **Letting functional slicing rewrite scope silently** — useful regrouping becomes an unapproved
   transfer of deliverables; keep the equivalent draft intact and present slicing for decision.
 - **Grouping checked and unchecked criteria** — the combined line implies evidence that does not
   exist; preserve distinct statuses and proof references.
