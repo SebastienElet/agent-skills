@@ -42,9 +42,8 @@ launch agents, change tracker fields or apply a readiness label.
    tracker. Exhaust the relevant pages before claiming a project-wide selection. Retain open,
    unblocked, available tickets consistent with the project's assignment and start policy. Exclude
    completed, canceled or already active work and parents with any open sub-issue, including blocked
-   children. For
-   Linear/Bitbucket, compose `linear-workflow` for shared policy and its read-only transports; only
-   issues assigned to the current user are eligible. Use structured fields for eligibility. A missing
+   children. For Linear or GitHub Issues, compose `issue-workflow` for shared policy and its read-only
+   transports, including the selected tracker's ownership requirements. Use structured fields for eligibility. A missing
    field is not evidence that a blocker or owner is absent. Dependencies that are themselves eligible
    are candidates. Keep excluded and blocked-ticket inventories out of the response; if none qualify,
    say that no available ticket was found.
@@ -74,8 +73,8 @@ launch agents, change tracker fields or apply a readiness label.
    without adding a list of blocked backlog tickets.
 
 6. **Consolidate the result.** Preserve the intended outcome and propose only the ticket amendments
-   needed to record settled decisions, constraints and observable acceptance criteria. For a Linear
-   product ticket requiring functional shaping, compose `linear-issue-spec` for the substantive draft.
+   needed to record settled decisions, constraints and observable acceptance criteria. For a Linear or GitHub
+   product ticket requiring functional shaping, compose `issue-spec` for the substantive draft.
    Keep amendments to existing tickets in the conversation. Tracker updates require a separately
    authorized workflow that supports editing. Do not invoke `to-spec` or `grill-me` implicitly; their
    direct invocation contracts remain separate. Keep implementation architecture, files, libraries

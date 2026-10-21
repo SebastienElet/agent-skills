@@ -1,16 +1,16 @@
 ---
-name: linear-issue-spec
+name: issue-spec
 description: >
-  Prepare implementation-ready Linear development issues as functional specifications. Use when
+  Prepare Linear or GitHub development issues as functional specifications. Use when
   scoping, drafting, splitting, or refining product work before implementation. Make sure to use
-  this skill whenever the user asks to shape or clean up a Linear ticket, even if they do not call
+  this skill whenever the user asks to shape or clean up a development ticket, even if they do not call
   it a specification.
-compatibility: Requires access to the relevant Linear workspace and product or design sources.
+compatibility: Requires product or design sources; existing-issue research also needs the selected tracker.
 metadata:
   category: product
 ---
 
-# Linear Issue Preparation
+# Issue Specification
 
 ## Overview
 
@@ -26,7 +26,7 @@ publication authority, the external write, and verification of the stored issue.
 
 ## Usage
 
-`/linear-issue-spec <request, draft, or Linear issue>`
+`/issue-spec <request, draft, or Linear or GitHub issue>`
 
 Examples: "Prepare the issue for adding invoice export", "refine ENG-482 before handing it to an
 implementation agent", or "should these two adjacent onboarding tickets be merged?"
@@ -35,7 +35,9 @@ Provide the draft in the user's language. Preserve canonical product terms from 
 
 ## Workflow
 
-1. **Anchor the request and evidence.** Read the request or existing issue and identify its stated
+1. **Anchor the request and evidence.** Resolve the tracker from the issue or explicit target,
+   independently of the repository forge; drafting alone requires neither a forge client nor a
+   tracker write. Read the request or existing issue and identify its stated
    outcome, constraints, links, and unresolved questions. Locate the relevant personas, journey
    maps, specifications, decisions, research, analytics, and release plans. Record each source's
    status and recency; a proposal, draft, planned issue, shipped screen, and decision in force do not
@@ -48,7 +50,7 @@ Provide the draft in the user's language. Preserve canonical product terms from 
    persona. If the persona or intended outcome cannot be established, list it as missing information
    before drafting the issue.
 
-3. **Map adjacent planned work.** Search open, planned, and recently completed Linear issues that
+3. **Map adjacent planned work.** Search open, planned, and recently completed issues in the selected tracker that
    affect the same journey, including issues using neighboring product vocabulary. Record overlaps,
    dependencies, sequencing assumptions, and potential duplicates. Treat issue descriptions as
    claims to reconcile with current product decisions, not as authority by themselves.
@@ -149,8 +151,8 @@ Provide the draft in the user's language. Preserve canonical product terms from 
 - Never optimize a slice solely for minimal code change; require independently usable and
   verifiable product value.
 - Never defer a known journey state without an explicit product rationale or dependency.
-- Never claim inaccessible Linear, design, or specification evidence was inspected.
-- Never publish or modify a Linear issue from this procedure; route lifecycle writes through
+- Never claim inaccessible tracker, design, or specification evidence was inspected.
+- Never publish or modify a tracker issue from this procedure; route lifecycle writes through
   `issue-creation`, which evaluates the user's publication authority.
-- Never activate solely because implementation starts from an existing Linear issue;
-  `linear-start` owns that workflow and routes here only when shaping is explicitly requested.
+- Never activate solely because implementation starts from an existing issue;
+  `issue-start` owns that workflow and routes here only when shaping is explicitly requested.

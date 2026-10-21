@@ -1,6 +1,6 @@
 {
-  "skill": "linear-start",
-  "version": "1.0",
+  "skill": "issue-start",
+  "version": "1.1",
   "queries": [
     {
       "query": "Start implementing my assigned Linear issue LIN-246 in its Bitbucket repository. Use the supplied snapshot for this isolated rehearsal and describe the first actionable step and any blocker.",
@@ -15,7 +15,22 @@
     {
       "query": "Prepare a Linear development issue for an operator to export the currently filtered invoice list as CSV. Use the supplied product facts, expose missing decisions, and give a functional draft for review before implementation.",
       "should_activate": false,
-      "reason": "Drafting belongs to linear-issue-spec."
+      "reason": "Drafting belongs to issue-spec."
+    },
+    {
+      "query": "Implement GitHub issue https://github.com/example/invoices/issues/42 in its GitHub repository; bkt is not installed.",
+      "should_activate": true,
+      "reason": "GitHub tracker and forge need only their own verified capabilities."
+    },
+    {
+      "query": "Resume my assigned Linear issue ENG-482 from its open GitHub PR; preserve the existing branch.",
+      "should_activate": true,
+      "reason": "Linear identity is independent of GitHub forge identity; resume exact work."
+    },
+    {
+      "query": "Implement this change in the Bitbucket repository without creating a ticket.",
+      "should_activate": false,
+      "reason": "Ticketless development stays with its existing task owner."
     }
   ]
 }

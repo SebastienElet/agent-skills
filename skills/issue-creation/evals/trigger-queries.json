@@ -15,7 +15,7 @@
     {
       "query": "Create a Linear product issue for the onboarding journey and make it ready for an implementation agent",
       "should_activate": true,
-      "reason": "Issue publication applies while linear-issue-spec supplies the product specification"
+      "reason": "Issue publication applies while issue-spec supplies the product specification"
     },
     {
       "query": "Draft a GitHub issue about the flaky backup but do not publish it",

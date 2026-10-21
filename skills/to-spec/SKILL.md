@@ -37,7 +37,7 @@ file destination; tracker publication follows the authority and lifecycle in `is
    and missing material decisions as open questions. An unresolved contradiction affecting the
    outcome or scope prevents a final or implementation-ready spec; return the useful draft and
    identify the blocker instead of inventing a choice.
-3. For a Linear development issue, use `linear-issue-spec` for product content, evidence, journey,
+3. For a Linear or GitHub development issue, use `issue-spec` for product content, evidence, journey,
    visible states and functional slicing. Pass the settled conversation and mark unresolved points;
    do not duplicate its preparation procedure or turn synthesis into a new grilling session.
 4. For other targets, use the requested or established project format. Otherwise write:
@@ -74,8 +74,8 @@ file destination; tracker publication follows the authority and lifecycle in `is
   stale choices; state observable behavior and existing constraints instead.
 - **Publishing on a bare command invocation** — a draft request creates an external issue; retain
   the draft default and let `issue-creation` evaluate the user's publication authority.
-- **Copying Linear content preparation here** — two specification procedures diverge; compose with
-  `linear-issue-spec` for that target and keep this skill focused on conversation synthesis.
+- **Copying issue content preparation here** — two specification procedures diverge; compose with
+  `issue-spec` for that target and keep this skill focused on conversation synthesis.
 
 ## Constraints
 

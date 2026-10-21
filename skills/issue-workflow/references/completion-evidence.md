@@ -1,8 +1,17 @@
-# Completion Evidence in Linear Issues
+# Completion Evidence in Issues
 
-Read this before checking, unchecking, or restructuring any checkbox or evidence section in a Linear
+Read this before checking, unchecking, or restructuring any checkbox or evidence section in a tracker
 issue, and before completing an issue from merged work. Transport selection stays in
-[transport adapters](transports.md).
+[tracker transports](transports.md). The evidence rules below apply to both trackers. Linear
+state names and its dated guard observations remain provider-specific; GitHub Issues stays open
+while work is under review or awaiting verification, with the queue reported rather than stored
+as an invented workflow state.
+
+Any description-dependent lifecycle write requires a verified conditional mechanism at the write
+boundary, including completion based on the absence of an evidence section. No GitHub mechanism
+is qualified here; ordinary close/edit operations do not qualify. Classify and report when that
+capability is missing. Parent completion separately requires a condition over every direct child.
+A named user decision can accept residue but does not turn unchecked boxes into proven criteria.
 
 ## What a checked box asserts
 
@@ -36,7 +45,7 @@ They are two axes, and converging them destroys the only record of what is still
 1. Never check a box because the issue is being completed, and never hold an issue open merely to
    drive a list to 100%. Routing merged work by its boxes, below, is a separate rule with its own
    destination.
-2. `Done` with unchecked boxes is a legitimate outcome, but it is an explicit human decision to
+2. Completion (`Done` in Linear, closed in GitHub) with unchecked boxes is a legitimate outcome, but it is an explicit human decision to
    accept unproven residue. An agent routing lifecycle state never takes it alone.
 3. When a transition leaves boxes unchecked, record the residue explicitly in the same exchange:
    name each unchecked line and why it is unproven — measurement never taken, environment out of
@@ -66,42 +75,48 @@ A merge proves the code landed. It proves nothing about a line the merge did not
    and implementation to-do boxes are not verification boxes. When a box's nature is genuinely
    ambiguous, list it and ask rather than deciding the lifecycle on a guess; in a queue that leaves
    this one issue untouched and does not stop the others.
-2. Every verification box checked completes the issue: the merge is then the last missing fact.
-3. At least one unchecked box sends the issue to `In Progress` instead of `Done`, with the unchecked
-   lines named. The work is not undone; it is unverified. Never send it to the review state: that
+2. Every verification box checked makes completion eligible: the merge is then the last missing
+   fact. Applying the state still requires the conditional write and authority described below.
+3. At least one unchecked box leaves verification pending, with the unchecked lines named. Linear
+   uses `In Progress` instead of `Done`; GitHub stays open. The work is not undone; it is unverified. Never send it to the review state: that
    state means the pull request is open and code review is in progress.
 4. A section carrying acceptance criteria, completion evidence, or validation scenarios gates the
    transition whatever its syntax. Written as plain bullets it holds no state, so no line in it is
-   proven: route the issue to `In Progress` and report that the section tracks nothing. Only an
+   recorded as proven: report pending verification (Linear `In Progress`, GitHub open) and that the
+   section tracks nothing. Only an
    issue with no such section at all leaves the merge as the completion oracle. The skills in this
    harness draft acceptance criteria as prose, so the bulleted case is the common one — never the
    permissive branch.
-5. Resolve `In Progress`, and the review state an open pull request calls for, by enumerating the
-   issue's own team's workflow states and matching by name; the review state is observed as
-   `In Review` across this workspace's teams. Never pass a state _type_: several states share
-   `started`, so the type lands the issue in an arbitrary one of them while the post-write read
-   still reports a successful transition. Never carry one team's name over to another. When the
-   transport cannot enumerate a team's states, or that team exposes no state of the required name,
-   stop and report it: the routing rule is not executable there.
+5. Resolve lifecycle destinations through [tracker transports](transports.md). For Linear,
+   enumerate the issue team's states and match the configured exact names, never the state type;
+   several states can share `started`. Missing enumeration or the required name blocks the write.
+   For GitHub, do not introduce `In Progress`, `In Review` or `Done`, or require Projects. An open
+   PR means review pending, and merged unproven work means verification pending; report those queues.
 
-## Verifying merged issues that wait in `In Progress`
+## Verifying merged issues awaiting evidence
 
-This is the pass that turns unverified merged work into a defensible `Done`, and it is the only one
+This is the pass that turns unverified merged work into a defensible completion, and it is the only one
 allowed to produce the missing evidence.
 
 Enter it only on an explicit request to verify. A workflow reconciling lifecycle state never enters
-it: routing merged work into `In Progress` ends that workflow's authority, and the boxes wait for a
-later pass. Establish the current Linear identity first and mutate only issues assigned to it.
+it: reporting merged work as awaiting verification ends that workflow's authority, and the boxes wait for a
+later pass. Establish the current tracker identity and apply its ownership policy first. For Linear, mutate
+only issues assigned to that identity. A GitHub issue closed automatically with unproven criteria
+is a reported inconsistency, not evidence; include it in verification only within explicit scope.
 
-1. Select the assigned issues in `In Progress` whose pull request is merged and that still carry
+1. Select eligible issues awaiting verification (Linear `In Progress`, GitHub open) whose PR is
+   merged and that still carry
    unproven verification evidence: unchecked verification boxes or an evidence section that holds
    no state. That set is the queue. An issue whose pull request is still open belongs to code review
-   in the review state, not here.
+   in the review queue, not here.
 2. For each issue, take its verification boxes one by one and produce the missing oracle: run the
    check, point at the CI run that actually covers the line, take the measurement.
-3. Check only what the run you just named proves, in one anchored edit per issue.
-4. Move an issue to `Done` once every verification box holds.
-5. Leave an issue in `In Progress` when a box stays unproven, and report what is missing: the
+3. Check only what the run you just named proves, in one verified anchored or conditional edit
+   per issue. If the transport lacks a safe edit, report per-line verdicts without writing the body.
+4. Classify completion as eligible once every verification box holds. Apply a completion transition
+   only with the conditional mechanism below and the selected tracker's authority; otherwise report
+   the eligible issue without writing state.
+5. Keep verification pending when a box stays unproven, and report what is missing: the
    oracle nobody has run, and what running it would take. Do not check it, and do not close around
    it without an explicit decision.
 6. Report the queue as a whole — issues completed, issues still waiting, and the unproven line
@@ -114,7 +129,7 @@ one, so a reader assumes the whole section is proven. Treat it as untracked pros
 
 1. Give the per-line verdict in your response rather than relying on the issue text to carry it.
 2. When the section is meant to gate completion and the request authorizes editing the issue,
-   convert its lines to checkbox items, unchecked, in one anchored edit. Preserve the wording: this
+   convert its lines to checkbox items, unchecked, in one verified anchored or conditional edit. Preserve the wording: this
    is a structural change, not a rewrite.
 3. Then check only the lines the evidence rule above authorizes. Converting a section never
    authorizes checking a line the conversion itself did not prove.
@@ -122,6 +137,12 @@ one, so a reader assumes the whole section is proven. Treat it as untracked pros
    instead of asking anyone to trust it.
 
 ## Editing boxes without breaking the issue
+
+Apply only a verified anchored or version-conditional description edit that preserves concurrent
+changes, and independently read the stored result. GitHub's ordinary full-body issue edit has no
+qualified guard here; leave the body unchanged and report verdicts. An authorized future conditional
+mechanism needs a current provider contract and an isolated check, not an assumed read/write pair.
+The following concrete recipe and marker normalization apply only to Linear.
 
 Writing a box requires either an explicit request to reconcile the description or the verification
 pass above. Reconciling lifecycle state on its own authorizes inspecting and reporting, never
@@ -166,6 +187,11 @@ writing.
    read, decide, and write again — never replay the decision you already made.
 
 ## Guarding a state write with the boxes it rests on
+
+This requirement applies to both trackers: a conditional write must cover the classified evidence
+and state together. Until a provider mechanism is verified, report eligibility rather than
+writing. The experiments and disabled candidate below concern Linear only and do not establish
+GitHub semantics.
 
 A workflow state decided from checkboxes must not be written from a classification that has since
 gone stale. A pre-write read only narrows that window; a valid payload does not close it.

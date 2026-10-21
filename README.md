@@ -45,7 +45,7 @@ versions are exact `1.0.0`; availability and their consumer paths still require 
 
 Missing measurement never changes a verdict. Evaluation CI remains pending the qualified
 `agent-experiments` interface; its validator is not copied here. Each skill declares its own other
-prerequisites, including forge access or third-party tools. `linear-sync` remains a manual assigned-issue
+prerequisites, including forge access or third-party tools. `issue-sync` remains a manual tracker reconciliation
 workflow; it neither calls nor replaces the retired Bitbucket–Linear synchronization CLI.
 
 `output-discipline-hook` belongs to `output-discipline` and requires Bun. Its

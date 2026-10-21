@@ -27,9 +27,9 @@ This directory is the canonical source for user-scoped agent skills.
 | `harness-reflection`            | Turn repeated agent failures into evidence-backed harness improvements.                              |
 | `improve-codebase-architecture` | Survey architectural friction and present improvement candidates.                                    |
 | `issue-creation`                | Draft, validate, review, and publish tracker issues across forges.                                   |
-| `linear-start`                  | Start or resume implementation of an assigned Linear issue in a Bitbucket repository.                |
-| `linear-sync`                   | Reconcile assigned Linear issues with Bitbucket pull-request reality without reviewing code.         |
-| `linear-workflow`               | Apply the shared Linear and Bitbucket work invariants.                                               |
+| `issue-start`                   | Start or resume implementation from a Linear or GitHub issue.                                        |
+| `issue-sync`                    | Reconcile Linear or GitHub Issues with GitHub or Bitbucket pull-request facts.                       |
+| `issue-workflow`                | Apply shared issue execution and completion policy.                                                  |
 | `orchestrate`                   | Preserve task ownership and state across skill transitions.                                          |
 | `plan`                          | Prepare an architecture or actionable development plan.                                              |
 | `pr-feedback`                   | Collect evidence-backed review feedback and reviewer-authored fixes from merged pull requests.       |
@@ -42,14 +42,14 @@ This directory is the canonical source for user-scoped agent skills.
 
 ## Product
 
-| Skill               | Description                                                                          |
-| ------------------- | ------------------------------------------------------------------------------------ |
-| `grill-me`          | Challenge an idea through a requested design interview.                              |
-| `grilling`          | Run a design interview by dependent decisions.                                       |
-| `issue-simplify`    | Simplify GitHub or Linear issues and drafts.                                         |
-| `linear-issue-spec` | Prepare implementation-ready Linear development issues as functional specifications. |
-| `to-spec`           | Synthesize the current conversation into a functional specification.                 |
-| `wayfinder`         | Map a large effort as dependent decisions across sessions.                           |
+| Skill            | Description                                                               |
+| ---------------- | ------------------------------------------------------------------------- |
+| `grill-me`       | Challenge an idea through a requested design interview.                   |
+| `grilling`       | Run a design interview by dependent decisions.                            |
+| `issue-simplify` | Simplify GitHub or Linear issues and drafts.                              |
+| `issue-spec`     | Prepare Linear or GitHub development issues as functional specifications. |
+| `to-spec`        | Synthesize the current conversation into a functional specification.      |
+| `wayfinder`      | Map a large effort as dependent decisions across sessions.                |
 
 ## Ops
 

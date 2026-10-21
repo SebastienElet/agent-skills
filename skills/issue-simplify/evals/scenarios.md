@@ -31,7 +31,7 @@ Fixture:
 > unchecked: timeout is explained and retry available (not tested). Design link inaccessible;
 > neighboring BILL-2 says download requires selecting date range; is that mandatory?
 
-Expect the `linear-issue-spec` product structure without invented personas, designs, or data;
+Expect the `issue-spec` product structure without invented personas, designs, or data;
 retain S1's recorded checked status and environment without claiming it was rerun. Timeout/retry
 stays unchecked in the equivalent draft. Deferral is a separate scope proposal. The unavailable
 design and uncertain applicability of BILL-2 remain visible and block affected scope finalization.

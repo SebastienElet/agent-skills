@@ -42,7 +42,7 @@ user's language and the target project's canonical vocabulary and issue conventi
    capability from a binary name, stale configuration, or historical usage.
 
 3. **Compose specialist work by responsibility.** Activate any domain skill whose trigger applies
-   and let it prepare the substantive content. For a Linear product issue, `linear-issue-spec` owns
+   and let it prepare the substantive content. For a Linear or GitHub product issue, `issue-spec` owns
    product evidence, personas, journey, functional slicing, visible states, and product acceptance
    criteria; this skill still owns the lifecycle gate and external publication. Composition is
    responsibility-based: either skill may activate first, and neither assumes that the other has
