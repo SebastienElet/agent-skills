@@ -32,6 +32,10 @@ alias, the `--no-verify` and the second remote).
 
 1. **Name the sink.** Write down the exact value that reaches what you protect: the expanded argv,
    the request body, the SQL parameter, the resolved path. Validate that value.
+   Expanding an allowlist must preserve content validation: a declared type, text-like prefix or
+   single archive signature is insufficient. Validate the actual format and archive contents under
+   the declared policy, with a disguised-content refusal and a valid boundary case for each added
+   type, including empty or variant forms when the format permits them.
 2. **Check whether you can actually see it.** If the code only has a representation of the value — a
    shell command string, a diff, a log line, a commit message — the decision is a heuristic, not a
    check. Say so in a comment and in the delivery note, and label that layer advisory. Do not let a
@@ -52,6 +56,10 @@ alias, the `--no-verify` and the second remote).
 6. **Turn each entry of that list into a test case** wired into the project's automated checks. A
    manual self-test does not count: it disappears with the session that ran it.
    Include a permitted control and an observed assertion failure with the guard deliberately broken.
+   Keep allow/deny lists in one canonical source; application defaults, service constructors and
+   deployment values consume it or derived projections. Use existing inspection or behavioral tests
+   to detect a divergent projection; equal handwritten copies are not a single source and do not
+   justify a new declaration mirror gate.
    Derive cache inputs from the same canonical file selection as the scanner; verify with native or
    existing inspection that every read input, including hidden directories and alternate extensions,
    invalidates the cache. A narrower cache key can replay success without reading changed input.

@@ -33,6 +33,16 @@ afterwards — the write is authorized by a state that no longer exists.
 **Lift:** the read moves inside the transaction, at an isolation level that actually prevents the
 interleaving, or the invariant is enforced by a constraint the concurrent write cannot satisfy.
 
+Separate read-only planning from execution: complete all domain and authorization refusals before
+the first irreversible effect, including permanent derived creation, consumption of a non-reusable
+identifier or an external call. Admit each referenced entity's existence and relationship to the
+authenticated scope before deriving anything from it; retain formerly related entities when the
+authoritative contract permits them. Keep state-dependent checks within the atomic boundary above;
+planning must not become a stale precheck. For each refusal path, assert that no derived resource
+was persisted, no non-reusable identifier was consumed and no external effect occurred. Preflight
+checks do not eliminate later storage or protocol failures; do not claim rollback covers effects
+it cannot undo.
+
 ## 2. Retry idempotence
 
 **Ask:** after a conflict, does the retry re-read the winning state, or does it replay the decision
@@ -64,12 +74,15 @@ exclusion constraint or a serializable transaction is the only thing that surviv
 **Lift:** the constraint exists in a migration, and a test proves the second writer receives the
 violation rather than succeeding.
 
-For sequential or timestamped identifiers, compare the proposed value with the fetched destination
-and relevant open PR heads, not only the local maximum. Check decision/document numbers,
-migration order and manifest versions bound to content. Recheck after each destination integration
-and record the chosen values and inspected refs in delivery evidence. A conflict-free merge is no
-uniqueness proof; use the existing registry or migration validation when available. Do not renumber
-already applied migrations or silently combine independently owned manifest contents.
+For sequential or timestamped identifiers, compare the proposed value with the fetched destination,
+relevant open PR heads including drafts, and relevant remote branches without a PR, not only the
+local maximum. Check ADR and other decision/document numbers, migration order and module/permission
+manifest versions bound to content. Recheck after each destination integration and record the chosen
+values and inspected refs in delivery evidence. A conflict-free merge is no uniqueness proof; use
+the existing registry or migration validation when available. Do not renumber already applied
+migrations or silently combine independently owned manifest contents. Disclose parallel changes to
+the same versioned manifest in delivery evidence and coordinate their integration so a fresh version
+preserves the intended union of keys instead of overwriting an earlier addition.
 
 ## 4. Authorization as a side effect
 
