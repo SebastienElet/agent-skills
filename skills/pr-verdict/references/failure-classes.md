@@ -397,11 +397,16 @@ and link-preserving saves. Missing executed cases are `unproven`, not a demonstr
 **Ask:** does each suggested or executed command establish its Git remote and branch, executable
 lookup path, inherited values, database session timezone and file modes against an independently
 established contract, preserving declared, supported environment settings?
+Does each command or wrapper receive its target (repository, worktree, PR) explicitly, without
+inferring it from the current directory or branch? Are target options (`-C`, `--cd`, etc.) resolved
+before any other processing, wherever they appear on the command line?
 
 **Broken when:** undeclared or unsupported inherited state contradicts that contract: an assumed
 ref such as `origin/main` makes a valid checkout fail, PATH prevents required executable lookup,
 or an inherited flag defeats a promised bootstrap. Success in the author's shell alone does not
 establish those prerequisites elsewhere.
+A command selects a PR from the current branch despite an explicit repository, or a wrapper reads
+Git metadata before resolving its target option, including when that option follows a subcommand.
 
 Use observed environment values and test timestamp semantics with explicit offsets in a non-UTC database session.
 For a CI commit identifier, verify the actual supplied abbreviation against the resolved commit under
@@ -411,6 +416,9 @@ it. Before a push, verify tracked executable bits and successful execution throu
 
 **Lift:** resolve the conflicting state within the command's contract and verify the intended ref,
 executable lookup or bootstrap in the actual execution context through native or existing checks.
+Pass the target explicitly and resolve target options before any other processing. Exercise
+different current directories and branches, with target options before and after a subcommand,
+and verify that only the explicit target is used.
 Preserve declared, supported settings such as offline mode, proxy or registry; diagnose genuinely
 unavailable prerequisites without guessing.
 
