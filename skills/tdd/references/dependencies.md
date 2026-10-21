@@ -21,5 +21,11 @@ A substitute for a third-party service can test the owned application's decision
 prove that the service accepts its requests or behaves as assumed. Name that limitation and use
 existing integration or contract checks when the change affects that external boundary.
 
+When an adapter double supplies lifecycle states, run the same observable contract cases against
+the double and the real adapter, at least for the states and defaults it produces. A double that
+creates an already-active object cannot prove a workflow whose real adapter creates a draft.
+Use the supported integration environment for the real implementation; a passing in-memory suite
+alone leaves its fidelity unproven. Keep the shared cases limited to the contract the tests consume.
+
 Avoid global module patches and test-only flags in production APIs. Add only the state and behavior
 the in-memory implementation needs under test pressure; do not build a second production system.
