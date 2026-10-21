@@ -18,7 +18,8 @@ Approve only when every condition holds on one freshly read head SHA:
 Approving additionally requires the user's explicit "publish and approve" or "approve only" answer
 to the step 8 question, given for this SHA. A moved head voids the answer.
 
-A failed condition records `Native approval: not performed — <condition>` and skips the forge call.
+A failed condition records `approval: not performed — <condition>` in the journal's `Delivery` line
+and skips the forge call.
 `approved with reservations`, pending or failed CI and a moved head keep the repair pending exactly
 as step 8 requires; a user prohibition, a user decline or own PR is a final outcome, not a pending
 one.
@@ -52,7 +53,7 @@ pointing to the repair record; it is not a verdict. Bitbucket approval carries n
    head was confirmed unchanged — is `already present`: record it and do not call the forge again.
    Bitbucket does not bind an approval to a SHA; record that the approval may predate this head.
    A GitHub approval on an older `commit_id` does not count; submit a new one.
-3. Record `Native approval: requested on <SHA>` in the journal before the forge call.
+3. Set `approval: requested on <SHA>` in `Delivery` before the forge call.
 4. Call the native approve command once.
 5. Read approvals and the head again, whatever the exit code. Record `confirmed` only when the
    authenticated account's approval is present and the head is still the approved SHA. On
@@ -62,7 +63,7 @@ pointing to the repair record; it is not a verdict. Bitbucket approval carries n
    merge check. Never publish a comment, task or reaction as a substitute for the refused action.
 7. An ambiguous result — timeout, network error, unparseable output — is resolved by reading
    approvals before any retry. Retry the approve call only when the read shows no approval. If the
-   read itself fails, keep `Native approval: uncertain` and pause publication; never report it.
+   read itself fails, keep `approval: uncertain` in `Delivery` and pause publication; never report it.
 8. If the head moved between the gate and the confirmation, the approval may attach to a
    head no one reviewed. On Bitbucket, withdraw it, verify `approved: false` and re-anchor; a
    failed withdrawal or unreadable result is `uncertain` and is reported to the user as an approval
@@ -73,5 +74,6 @@ pointing to the repair record; it is not a verdict. Bitbucket approval carries n
 
 `requested`, `confirmed`, `already present`, `not performed — <reason>`, `refused — <forge
 message>`, `uncertain — <failed read>` and `withdrawn — <reason>`. Each entry carries the account,
-the SHA and the observation time. Only `confirmed` and `already present` may appear as an approval
+the SHA and the observation time in the evidence linked from `Delivery`; keep its current state on
+that line. Only `confirmed` and `already present` may appear as an approval
 in the repair record; every other state is stated as the absence of a native approval.

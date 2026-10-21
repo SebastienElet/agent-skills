@@ -1,56 +1,37 @@
 # PR repair journal template
 
 Keep one local journal per canonical PR URL at the path defined in `SKILL.md`. Reload it across
-sessions, update it after each correction or external result, and retain it after publication.
-This is operational state, not durable agent memory or a file to commit to the contributor's branch.
+sessions and retain it outside Git after publication. Link raw evidence rather than copying it:
+commands, exit statuses, counts, tested head/base refs and SHAs, environment, limits, review policy and history,
+and approval transitions with account, SHA and time. Keep linked evidence available across sessions.
 
 ## Skeleton
 
 ```markdown
 # Repair journal
 
-PR: <canonical URL>
-Source: <repository and ref>
-Initial head: <SHA>
+PR: <canonical URL; source repository:ref>
+Owner: <single repair owner>
+Authority: <request source and limits on edits, commits, push, publication, approval and merge>
 Current head: <SHA>
-Integrated destination: <resolved ref and SHA>
 Status: <in progress | pending validation | pending approval | pending publication | published>
-Pending: <remaining correction, check, decision or publication error; none when complete>
-Independent verdict: <result and reviewed SHA, or pending>
-Native approval: <state from references/native-approval.md, account, SHA and time>
-PR state: <forge state read with the approval, e.g. OPEN>
-Comment: <ID and URL, or not published>
-Published head: <SHA, or not published>
+Pending: <remaining work, disagreements, decisions or history gaps; none when complete>
+Correction passes: <consumed>/2
 
 ## Corrections
 
-- <problem>: <failure mechanism and broken invariant> → <final behavior>.
-  Commits: <SHAs>; delivery: <prepared | pushed | reverted | superseded>.
-  Evidence: <failing observation, then passing command, exit status, output artifact and counts; tested head/base and environment>.
-  Limits: <what the evidence does not cover>.
+- <SHA; prepared | pushed | reverted | superseded | skipped> — <failure mechanism → outcome, or omission reason>; proof: <red → green or refutation, evidence link>.
 
 ## Passes
 
-- <date, starting SHA → resulting SHA>: <corrections and any superseded attempts>.
-  Barrier: <tier, tested head/base, commands, exit statuses, output artifacts, counts, environment and evidence limits>.
-  Independent verdict: <result and reviewed SHA, or pending>.
-  Required remote CI: <result URL and SHA, pending, unavailable or none required>.
-  Native approval: <each state reached in this pass, with account, SHA and time, or not reached>.
+- <pass number, date, starting SHA → resulting SHA> — <barrier tier and review result>; proof: <one-sentence result, evidence link>.
 
-## Deliberate omissions
-
-- <finding and reason, or none>
+Delivery: <SHA; verdict; CI result/link or none required; approval state/account/time; PR state; comment ID/URL@published SHA or pending; evidence link>
 ```
 
 ## Resume checks
 
-- Match the stored PR URL and source to forge metadata before using the journal.
-- Reconcile prepared commits with the remote after an interrupted push; local preparation is not
-  proof of delivery.
-- Preserve earlier evidence with its original SHA; a new head requires a current verdict and checks.
-- After an uncertain publication, find the stable PR marker remotely before retrying; a missing
-  local comment ID does not prove that the comment was never created.
-- If history is incomplete, record the gap and recover only verifiable facts before summarizing.
-- After `requested` or `uncertain`, read the forge's approvals before calling approve again; a
-  missing local confirmation does not prove that the approval was never recorded.
-- A new head invalidates `confirmed` for the record: renew verdict, CI and native approval on it.
+- Verify PR/source/head against the forge; recover authority, pending work and consumed passes.
+  Charge a pass when writing starts; missing history never resets the budget or grants authority.
+- Reconcile uncertain pushes, comments by stable marker, and approvals before retrying.
+- Retain evidence on its original head/base; a new head needs current review, CI and approval.

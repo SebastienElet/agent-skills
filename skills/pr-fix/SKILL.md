@@ -6,8 +6,8 @@ description: >
   authorized, even if unnamed. Ordinary local implementation on a PR branch belongs to its
   development workflow and grants no PR repair or publication authority.
 compatibility: >
-  Requires the `pr-verdict` skill, authenticated `gh` or `bkt`, write access to the PR source branch,
-  reviewer permission to approve it, and the repository's validation toolchain.
+  Requires the `pr-verdict` skill, authenticated access to the selected forge through `gh` or `bkt`,
+  permissions for the authorized operations, and the repository's validation toolchain.
 metadata:
   category: dev
 ---
@@ -43,31 +43,52 @@ An existing PR alone does not select this repair workflow for an ordinary local 
 The development workflow owns that task and its local final review; PR repair requires the
 explicit correction request above. This distinction does not change any push or approval gate.
 
+Apply `orchestrate` with this workflow as the sole repair-loop owner. Stricter user limits on
+commits, pushes or publication still win: prepare permitted local corrections and report dependent
+remote stages as incomplete when delivery is excluded. Missing approval permission does not block
+authorized repairs. Never compose `code-review-fix` inside this loop; a delegated writer returns
+its correction and evidence here without starting another workflow.
+
 ## Steps
 
-1. **Draft the verdict.** Activate `pr-verdict`, read its routed references, and run phases 1 through
-   5 on the exact head SHA. Return the verdict to this workflow without opening a ticket or
-   publishing it. Resolve the source repository and source ref from forge metadata; never infer the
-   push target from the local branch name or `origin`.
+1. **Recover the repair and draft the verdict.** Verify the canonical PR URL, destination and
+   source repository, source ref, full head SHA and destination SHA through the selected forge.
+   Use only that provider's adapter in `issue-workflow` and the routed `pr-verdict` references;
+   the other forge's client or credentials are not prerequisites. Never infer the push target
+   from the local branch name or `origin`.
 
-   `pr-verdict` owns conditional activation of `proof-integrity-review`; do not start a second
-   parallel proof audit from this workflow. Carry its findings and evidence locations into the
-   repair journal with the head they concern.
-
-   Before repairing, open or create
+   Before another review or correction, open or create
    `~/.local/state/pr-fix/<forge-host>/<destination-owner>/<destination-repository>/<pr>/journal.md`
    from `assets/repair-journal.md`. Derive the identity from the canonical PR URL, verify the URL
    stored in an existing journal, and encode path separators inside individual identity components.
    Keep this operational journal outside Git, any temporary worktree and durable agent memory.
    Read earlier passes before planning; reconcile them against the current diff and commits.
    If the journal is missing or damaged, recover only verifiable history from the forge and report
-   any gap; never invent prior corrections. One repair session owns a PR journal at a time.
+   any gap; never invent prior corrections. Recover authorizations, pass count, unresolved
+   disagreements and pending actions too; an unknown consumed budget blocks another correction.
+   One repair session owns a PR journal at a time.
+
+   Activate `pr-verdict`, read its routed references, and run phases 1 through 5 on the exact head
+   SHA when a current applicable review is absent. Reuse traceable review and check evidence only
+   after comparing candidate, scope, requirements, policy, source, oracle, configuration,
+   dependencies, environment and integration inputs; record why each retained result still applies.
+   Refresh affected evidence rather than replaying unaffected stages. Return the verdict here
+   without opening a ticket or publishing it. `pr-verdict` owns conditional activation of
+   `proof-integrity-review`; do not start a second parallel audit. Carry its findings and evidence
+   locations into the journal with the head they concern.
 
 2. **Bound the repair.** Present one repair slate before editing: every blocker has its failure
    mechanism, broken invariant and lift test; at most three non-blocking items may follow, and only
    when they are objective, localized and observable. Continue without another confirmation because
    invoking this workflow authorized the repair. Stop before editing when a correction requires an
    unresolved product, architecture, migration or public-contract decision.
+
+   Verify human and bot findings against the anchored candidate; record confirmed defects,
+   evidence-backed refutations and unresolved decisions separately. Allow at most two correction
+   passes for this repair, including corrections to corrections. Count a pass when its slate
+   starts writing and retain it through interruptions, head changes and delegates. Once exhausted,
+   preserve unresolved findings and disagreements, report incomplete and stop dependent repair;
+   do not route them into a fresh local loop.
 
 3. **Isolate the work.** Create a clean temporary worktree at the anchored SHA so the caller's
    checkout and uncommitted work remain untouched. Preserve all author commits and unrelated changes.
@@ -129,7 +150,10 @@ explicit correction request above. This distinction does not change any push or 
    head/base, commands, statuses and environment, or explicit historical/unproven labels. Keep this
    refresh local through step 7, including composed reviews; do not update the remote description.
 
-7. **Judge the pushed head independently.** Resolve the SHA now shown by the PR and delegate a full
+7. **Judge the pushed head independently.** If no correction was needed and step 1 already supplies
+   an independent review covering this exact candidate and all required evidence, retain it after
+   verifying the same input basis; no duplicate review is needed. Otherwise resolve the SHA now
+   shown by the PR and delegate a full
    `pr-verdict` review of that exact head to a distinct auditor in a fresh context with no inherited
    conversation history, including its barrier. Withhold earlier verdicts and author conclusions until the auditor records its
    independent first analysis; then reconcile earlier findings and traceable evidence. Verify the
@@ -147,8 +171,10 @@ explicit correction request above. This distinction does not change any push or 
    receipts only when the structured path was explicitly required. Keep ordinary review work scoped to the
    correction where appropriate. Negative witnesses are required for modified oracles and critical
    guarantees; other missing evidence blocks only when essential to the decision.
-   Record the verdict, SHA, policy and evidence basis as a new dated journal entry. Preserve older
+   Record dated review evidence with its verdict, SHA and policy, linked from the pass. Preserve older
    verdicts, including a rejection on the same SHA; policy correction never approves them retroactively.
+   Keep corrections within step 2's remaining budget; unresolved findings at exhaustion, failed or
+   empty reviewer output, material disagreement or missing essential evidence is incomplete, never approval.
    All delegated passes stop after phase 5 without publishing comments or opening tickets.
    Return only the final head's verdict as current. Repair authority alone adds only the factual
    summary in step 8; verdict publication and native approval follow the user's answer there.
@@ -182,14 +208,15 @@ explicit correction request above. This distinction does not change any push or 
      in the journal, then approve. A failed or uncertain publication pauses the approval until a
      remote read by marker settles it.
    - **Approve only:** approve without publishing the verdict.
-   - **Do nothing:** publish and approve nothing; record `Native approval: not performed — user declined`.
+   - **Do nothing:** publish and approve nothing; record `approval: not performed — user declined` in `Delivery`.
 
    Use the journal's evidence for the publications permitted by this step. Update the PR description
    only if the user explicitly authorized the presented evidence update on this same head; permission
    to publish a verdict or approve alone does not authorize that description change.
 
-   Approve by applying `references/native-approval.md`. Record each approval state in the journal
-   with account, SHA and time. A confirmed or already present approval, a refusal, a user decline
+   Approve by applying `references/native-approval.md`. Keep the current approval state in `Delivery`
+   and each transition in its linked evidence with account, SHA and time. A confirmed or already
+   present approval, a refusal, a user decline
    or prohibition, or an own PR lets publication continue with that outcome stated; an uncertain or
    withdrawn approval pauses it.
    The approval never authorizes merging or adding the PR to a merge queue; each requires a
@@ -208,7 +235,7 @@ explicit correction request above. This distinction does not change any push or 
    the ownership conflict. Create one only when none exists. For legacy `<pr>:<sha>` markers, reuse
    the latest repair comment owned by the publishing account and replace its marker, preserving other comments
    and replies. Pass the body through a file using `pr-verdict/references/forges.md` and save the
-   returned comment ID, URL and published SHA in the journal. After a timeout or uncertain response,
+   returned comment ID, URL and published SHA in `Delivery`. After a timeout or uncertain response,
    re-read remote comments before retrying; if lookup fails, keep publication pending.
 
 9. **Close or pause the repair.** Report the final SHA, verdict, native approval state, journal path
@@ -265,6 +292,8 @@ explicit correction request above. This distinction does not change any push or 
 ## Constraints
 
 - Never mutate a PR unless the user explicitly asked to correct it or invoked `pr-fix`.
+- Never override stricter task limits, start a concurrent local repair loop, exceed two correction
+  passes or reset their count on delegation, candidate changes or resumption.
 - Never force-push, overwrite a moved head or guess the PR source repository or ref.
 - Never publish a verdict, create an issue or open another PR from repair authority alone; the
   mandatory factual repair record is not a verdict and requires no confirmation. Publish a verdict

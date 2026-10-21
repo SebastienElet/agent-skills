@@ -1,6 +1,6 @@
 {
   "skill": "code-review-fix",
-  "version": "2.0",
+  "version": "2.1",
   "queries": [
     {
       "query": "/code-review-fix review and correct the current local changes before opening a PR",
@@ -64,13 +64,33 @@
     },
     {
       "query": "The development workflow has added a local feature on a branch with an existing PR. Review only the new task delta before delivery; no PR publication, push or merge is authorized.",
-      "should_activate": true,
-      "reason": "Ordinary local implementation differs from repairing existing PR review findings"
+      "should_activate": false,
+      "reason": "A local review-only request uses code-review even when a PR exists; it authorizes no repair"
     },
     {
       "query": "Implement this local feature in Claude and run the checks; I have not requested Codex review.",
       "should_activate": false,
       "reason": "Implementation alone does not request the optional final Codex review or repair workflow"
+    },
+    {
+      "query": "implement has finished the authorized local change and checks. Review and fix demonstrated defects before the authorized local commit; no push. Preserve the existing owner and candidate.",
+      "should_activate": true,
+      "reason": "Authorized local review corrections compose this stage and retain delivery authority"
+    },
+    {
+      "query": "Resume bug-fix at its authorized local review correction stage. One correction pass is already consumed; keep the ledger and do not restart diagnosis.",
+      "should_activate": true,
+      "reason": "Composition resumes the same bounded local repair rather than a new full path"
+    },
+    {
+      "query": "The pr-fix owner delegated one confirmed correction on this PR. Write only that fix and return evidence; the PR journal owns review and publication.",
+      "should_activate": false,
+      "reason": "PR repair has one loop owner and must not nest a local repair workflow"
+    },
+    {
+      "query": "Review and fix these local findings in Cursor using the available independent reviewers; no Codex integration is requested.",
+      "should_activate": true,
+      "reason": "Local review repair is agent-neutral unless the mandate specifically requires a runtime"
     }
   ]
 }
