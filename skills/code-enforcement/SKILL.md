@@ -32,6 +32,12 @@ alias, the `--no-verify` and the second remote).
 
 1. **Name the sink.** Write down the exact value that reaches what you protect: the expanded argv,
    the request body, the SQL parameter, the resolved path. Validate that value.
+   For an exemption or allowlist, name both the eligibility criterion and the attributes that make
+   the exempt object harmless. Trace updates, attachments and ownership transfers: lock those
+   attributes or reapply the mandatory control atomically before a mutation invalidates eligibility.
+   Test an exempt object subsequently repurposed for real effects: refuse the bypass without side
+   effects, while permitted edits and ordinary objects retain their contract. Removing the lock or
+   recheck must fail the refusal assertion. Name the exemption and its protection in the PR description.
 2. **Check whether you can actually see it.** If the code only has a representation of the value — a
    shell command string, a diff, a log line, a commit message — the decision is a heuristic, not a
    check. Say so in a comment and in the delivery note, and label that layer advisory. Do not let a

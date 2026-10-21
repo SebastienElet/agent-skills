@@ -53,13 +53,20 @@ duplicate is rejected by the database.
 not exist under concurrency: two processes both read "absent" and both insert. A unique index, an
 exclusion constraint or a serializable transaction is the only thing that survives.
 
+For upgrades or resynchronization from a reference model, identify the local derivations, invariants
+and user choices affecting each copied field. Exclude locally derived state from copying or recompute
+it with its canonical rule; a reference default cannot override that rule. Preserve user choices
+according to the established ownership contract. Require a regression case with derived state before
+the upgrade that survives afterwards, and a diagnostic or upgrade report for excluded copies.
+
 **Lift:** the constraint exists in a migration, and a test proves the second writer receives the
 violation rather than succeeding.
 
 ## 4. Authorization as a side effect
 
 **Ask:** is the access check named in a dedicated call, or obtained incidentally through a function
-called for another reason?
+called for another reason? For exempt objects, apply `code-enforcement`'s exemption rule to every
+mutation path, not only initial eligibility.
 
 **Broken when:** authorization happens because some loader happens to filter by the caller's scope. A
 refactor that swaps that loader for a cheaper query removes the check, every test stays green, and
@@ -137,6 +144,14 @@ an assurance that no mechanism delivers.
 
 **Lift:** the claim uses the weaker term the mechanism supports when no external obligation requires
 more; otherwise the missing mechanism, evidence or authority makes the stronger guarantee true.
+
+Before changing a factual assertion, warning or unresolved-gap entry, search the integrated tree's
+data and documentation for the underlying fact and all its mentions. Keep a warning while its fact
+holds; removing it requires cited evidence of the change. When the fact changes, update every affected
+mention in the same change, including gap tables, and repeat the search. Historical records may remain
+explicitly historical. For decisions on overlapping subjects, inspect relevant remote branches and
+open PRs: reconcile conflicting positions or declare the dependency and unresolved conflict. A pending
+proposal is not an accepted decision and cannot silently override one in force.
 
 ## 11. Hostile input in normalization and redaction
 
@@ -317,13 +332,19 @@ and link-preserving saves. Missing executed cases are `unproven`, not a demonstr
 ## 21. The execution environment is assumed
 
 **Ask:** does each suggested or executed command establish its Git remote and branch, executable
-lookup path and inherited variables against an independently established contract, preserving
-declared, supported environment settings?
+lookup path, inherited values, database session timezone and file modes against an independently
+established contract, preserving declared, supported environment settings?
 
 **Broken when:** undeclared or unsupported inherited state contradicts that contract: an assumed
 ref such as `origin/main` makes a valid checkout fail, PATH prevents required executable lookup,
 or an inherited flag defeats a promised bootstrap. Success in the author's shell alone does not
 establish those prerequisites elsewhere.
+
+Use `tdd/references/tests.md`'s environment fixtures for consumed values and timestamp semantics.
+For a CI commit identifier, verify the actual supplied abbreviation against the resolved commit under
+the platform contract; an invented full-length SHA does not qualify that path. A fallback disabling
+the promised feature needs an explicit diagnostic and a test proving the observed valid value avoids
+it. Inspect tracked executable modes and actual invocation as `pr-fix` requires before a push.
 
 **Lift:** resolve the conflicting state within the command's contract and verify the intended ref,
 executable lookup or bootstrap in the actual execution context through native or existing checks.
