@@ -1,5 +1,5 @@
 ---
-name: orchestration-contract
+name: orchestrate
 description: >
   Preserve task ownership and state across skill transitions. Use when composing specialist stages,
   delegating a bounded step, or resuming a composed task. Make sure to use this skill whenever a
@@ -9,7 +9,7 @@ metadata:
   category: dev
 ---
 
-# Orchestration Contract
+# Orchestrate
 
 ## Overview
 
@@ -20,7 +20,7 @@ playbook, tracker adapter or execution engine. Following these instructions is n
 
 ## Usage
 
-Use `$orchestration-contract <ongoing task>` or `/orchestration-contract <ongoing task>`, or compose
+Use `$orchestrate <ongoing task>` or `/orchestrate <ongoing task>`, or compose
 it at a skill transition. For example: `Plan then implement invoice export, verify it and commit
 locally; do not push.` The existing task owner applies the contract without launching another
 orchestrator. A standalone specialist returns its own requested deliverable.

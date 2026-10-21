@@ -1,6 +1,6 @@
 # Contract scenarios
 
-These cases specify transitions for `orchestration-contract`; they are not recorded executions.
+These cases specify transitions for `orchestrate`; they are not recorded executions.
 Use an existing qualified evaluation interface when available. Cross-host activation, composed
 implementation and bug runs require separate observed qualification. No runner or gate is added here.
 
