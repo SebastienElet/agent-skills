@@ -202,6 +202,10 @@ explicitly historical. For decisions on overlapping subjects, inspect relevant r
 open PRs: reconcile conflicting positions or declare the dependency and unresolved conflict. A pending
 proposal is not an accepted decision and cannot silently override one in force.
 
+A guarantee that a document attributes to a layer (database, constraint, trigger, permission) must be
+implemented at that layer and proven by a test that bypasses the layers above it, such as a direct
+statement against the store. A guard in the application alone is a weaker mechanism than the claim.
+
 ## 11. Hostile input in normalization and redaction
 
 **Ask:** does every normalization or redaction of an untrusted URL or path use a real parser or
@@ -434,7 +438,7 @@ alone establishes neither policy approval nor legal compliance. Class 6 governs 
 ## 23. A dependency upgrade bypasses a compatibility restriction
 
 **Ask:** do touched pins, overrides, patches and their recorded reasons permit this upgrade, and
-do the dependency-installing images still build and start?
+does every affected service still build and start?
 
 **Broken when:** an upgrade contradicts a recorded restriction, leaves a version-bound patch unused,
 selects an unapproved prerelease or branch build, or breaks frozen installation in an image copying
@@ -444,7 +448,11 @@ only part of a workspace while application tests pass.
 and retain restrictions until their lift condition is demonstrated. Verify patch application and
 resolved versions; prereleases and branch builds require explicit approval. Build and start every
 affected image that installs dependencies, exercising its actual copied manifests and frozen
-lockfile. Report image names, commands and environment; unit tests do not establish image usability.
+lockfile, then start every upgraded service, startup migration included, and observe its health probe
+green; an entrypoint run once in a throwaway container without its probe does not qualify. Then run
+the repository's complete suite rather than a partial subset, and record the command, output and exit
+status obtained on the head commit. Report image names, commands and environment; unit tests do not
+establish image usability.
 
 ## 24. A supervisor reports success before cleanup completes
 
