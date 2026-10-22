@@ -363,6 +363,21 @@ letting the same failed probe abort replacement. Skip installation silently for 
 version; propagate preparation failures. Exercise these failure paths, successful repair and an
 offline replay with the matching CLI through native or existing checks.
 
+## 18. A component is removed without retiring its footprint
+
+**Ask:** does removing, renaming or superseding a component update its active references while
+preserving cleanup of existing installations?
+
+**Broken when:** documentation, configuration or install, upgrade and runtime commands still point
+to the retired component, or its removal also deletes recognition of legacy hooks, links or
+artifacts from cleanup. A clean checkout hides the installed hook still invoking a deleted binary.
+
+**Lift:** search the former names and paths across docs, ADRs, READMEs, configuration, ignore rules
+and install, upgrade and runtime commands. Update active guidance, distinguish historical records
+and reconcile ignore rules with remaining artifacts. Retain owned legacy hooks, links and artifacts
+in the cleanup inventory after their installation entries disappear. Exercise cleanup on an existing
+installation, verifying removal of retired owned entries and preservation of foreign ones.
+
 ## 19. An inconclusive probe authorizes a decision
 
 **Ask:** does every probe protecting a decision require a verified exit status and a complete,
@@ -541,6 +556,8 @@ Class 16 blocks when a proposed weakening defeats a required security or authori
 Class 17 blocks when an unusable tool skips a required check or prevents a promised workflow;
 redundant installation with a bounded consequence is a reservation. Missing independence or usability
 evidence remains `unproven`; apply phase 5's essential-evidence rule rather than inventing a bypass.
+Class 18 blocks when stale references or missing legacy cleanup break a promised workflow or cleanup
+contract; documentation-only omissions with bounded consequences are reservations.
 Class 19 blocks when an unsupported probe conclusion authorizes a protected operation, skips a
 required check or prevents a promised workflow. Otherwise bound its consequence as a reservation;
 missing essential probe evidence follows phase 5's `unproven` rule.
