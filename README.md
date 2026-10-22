@@ -7,7 +7,7 @@ travel with their skill; historical observations do not qualify this package or 
 Prepared from the tracked sources at dotfiles revision
 [`89307efa`](https://github.com/SebastienElet/dotfiles/tree/89307efadc512f6021696bdf7ebb8249c820a2ff).
 
-The release target is version `0.2.0`. Registry installation, provenance and Claude, Codex or Cursor
+The release target is version `0.1.0`. Registry installation, provenance and Claude, Codex or Cursor
 activation require independent verification. Dotfiles keeps its current sources and
 consumers until publication, independent installation and rollback have been verified.
 
@@ -16,7 +16,7 @@ consumers until publication, independent installation and rollback have been ver
 After publication, acquire an exact version in a durable consumer-owned directory:
 
 ```sh
-bun install --exact --ignore-scripts @sebastienelet/agent-skills@0.2.0
+bun install --exact --ignore-scripts @sebastienelet/agent-skills@0.1.0
 ```
 
 The package does not install tools, hooks or agent configuration. The consumer selects individual
@@ -25,6 +25,7 @@ the whole skill directory, refuse divergent destinations, and keep project and u
 Do not install the whole collection indiscriminately or expose the same slug twice. Maintain source
 in this repository's `skills/`, never through a deployed link or `node_modules`.
 
+`claude-development` is retired without an alias.
 Use `implement` for changes, `bug-fix` for repairs and `plan` for planning, with `orchestrate` retaining
 the task across stages. `issue-start`, `issue-workflow`, `issue-spec` and `issue-sync` keep tracker
 (Linear or GitHub Issues) separate from forge (GitHub or Bitbucket): Linear + GitHub and
@@ -35,27 +36,6 @@ already required; `code-review` handles review alone, `code-review-fix` local co
 User instructions supply preferences,
 including note naming and the default Obsidian corpus. This package supplies
 no personal instructions, corpus, agent/model selection, credentials or service configuration.
-
-### Migration from 0.1.0
-
-Version `0.2.0` retires `claude-development` without an alias. The common paths above retain
-implementation, checks, requested review and delivery limits; the Claude-only orchestration is
-removed. The package's `skills/` export includes these replacements for selection on Claude Code,
-Codex and Cursor; their composed execution still requires qualification.
-
-Before updating, record the installed version, selected skills and projection targets for rollback.
-Remove the retired selection from the consumer manifest and remove its installed projections only
-after verifying they are managed links to that consumer's package; leave foreign destinations intact
-and resolve conflicts before proceeding. Then acquire exact `0.2.0` with the command above, commit
-the consumer lockfile, select the common paths and needed specialists, and redeploy through the
-consumer's existing mechanism. Verify discovery and absence of the retired entry on each selected
-host. Rollback restores the recorded version, manifest and managed links without overwriting foreign
-destinations.
-
-Dotfiles currently pins `0.1.0`: its `home/.arnes.yaml` selection, retired Claude link and ADR-040
-need a coordinated consumer update after publication and verification. This repository does not
-modify those sources or installations. Registry installation, rollback and host activation remain
-unqualified here.
 
 ## Optional companions
 
