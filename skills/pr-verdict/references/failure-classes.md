@@ -462,6 +462,49 @@ output completeness as well as status. Exercise a second signal, a termination-r
 an unresponsive worker, truncated output with status zero and cleanup failure after success/failure
 using bounded offline tests. State direct uncatchable-kill and detached-descendant limits in delivery.
 
+## 25. A reference is checked for existence only
+
+**Ask:** which attributes and states make each referenced object valid for this operation, and does
+the operation check every one of them?
+
+**Broken when:** a precondition reads "X must exist" while X may be rejected, withdrawn, expired or
+never granted, or may differ in unit, period, owner or scope from the object referencing it. The
+dependent object then freezes or feeds later computations on an invalid basis: an approval accepts
+any linked review that exists, or a count equals a stock quantity expressed in another unit.
+
+**Lift:** the design lists the validity attributes (status, unit, period, owner, withdrawal) before
+implementation. Each divergence is refused with its own error code and has a test that fails when the
+corresponding comparison is removed.
+
+## 26. A compound period is applied out of the rule's order
+
+**Ask:** is each period of a compound deadline applied as a successive step in the order of the
+rule's text, and does every expected value come from that text?
+
+**Broken when:** successive periods are added together. With end-of-month clamping, "2 months after
+the expiry of a one-month grace period" starting on January 31 gives February 28, then April 28;
+adding three months at once gives April 30. A decision document aligned on the wrong calculation
+hides the defect from review.
+
+**Lift:** the steps are chained in the rule's order, with the source rule cited beside the function.
+Tests start on days 28, 29, 30 and 31, cross short months and leap and non-leap years, and derive
+their expected values from the rule's text, not from the code or a document aligned on it.
+
+## 27. A schema change leaves existing rows and schema-walking routines behind
+
+**Ask:** after this migration, what do pre-existing rows contain, and which routines walk the schema
+(purge, archive, export, personal-data erasure, seed) now meet a new table or column?
+
+**Broken when:** a new nullable column stays null on old rows and a predicate such as
+`kind <> 'CLOSING'` evaluates to null, silently excluding them from a total; or a new table
+references existing entities through a `RESTRICT` foreign key and a routine deleting the referenced
+rows now fails.
+
+**Lift:** the migration backfills the column before constraining it, or the null is handled
+explicitly, proven by a test on a row inserted without the column. Every routine touching the related
+tables is found by search and updated, deleting dependents first, with a test that creates a
+dependent row and then runs the routine.
+
 ## Reporting
 
 Classes 1, 2, 3, 4, 5, 7, 9, 11 and 12 name mechanisms that lose data, corrupt state or cross a security
@@ -497,6 +540,9 @@ are not defects. Bounded inconvenience is a reservation; missing evidence remain
 Class 22 blocks demonstrated unauthorized retention, disclosure or incomplete promised erasure.
 Classes 23 and 24 block a demonstrated contract violation or failure of a required build, workflow
 or cleanup guarantee. Missing evidence follows phase 5; do not invent a leak or surviving process.
+
+Classes 25 to 27 block a demonstrated wrong result, accepted invalid reference or failing routine on
+existing data; missing evidence follows phase 5 without inventing a mechanism.
 
 The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
 user action blocks, even outside these classes.
