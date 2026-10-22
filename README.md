@@ -1,7 +1,7 @@
 # Agent Skills
 
 Reusable agent workflows distributed as `@sebastienelet/agent-skills`. The [derived index](skills/README.md)
-lists the 44 skills and their purposes. Resources, attribution notices and historical evaluations
+lists the 43 skills and their purposes. Resources, attribution notices and historical evaluations
 travel with their skill; historical observations do not qualify this package or current agent versions.
 
 Prepared from the tracked sources at dotfiles revision
@@ -25,8 +25,15 @@ the whole skill directory, refuse divergent destinations, and keep project and u
 Do not install the whole collection indiscriminately or expose the same slug twice. Maintain source
 in this repository's `skills/`, never through a deployed link or `node_modules`.
 
-`code-review-fix` and `claude-development` are the canonical names; old skill aliases are not shipped.
-Independent final Codex review is optional unless requested. User instructions supply preferences,
+`claude-development` is retired without an alias.
+Use `implement` for changes, `bug-fix` for repairs and `plan` for planning, with `orchestrate` retaining
+the task across stages. `issue-start`, `issue-workflow`, `issue-spec` and `issue-sync` keep tracker
+(Linear or GitHub Issues) separate from forge (GitHub or Bitbucket): Linear + GitHub and
+Linear + Bitbucket are both supported paths. Probe only the selected providers.
+`claude-developer` retains the manual handoff. Independent review is optional unless requested or
+already required; `code-review` handles review alone, `code-review-fix` local corrections and
+`pr-fix` authorized open-PR repair. No agent or Codex integration is mandatory for ordinary development.
+User instructions supply preferences,
 including note naming and the default Obsidian corpus. This package supplies
 no personal instructions, corpus, agent/model selection, credentials or service configuration.
 

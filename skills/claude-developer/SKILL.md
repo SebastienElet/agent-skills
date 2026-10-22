@@ -14,8 +14,9 @@ metadata:
 ## Overview
 
 Prepare a launch command and one self-contained prompt for a manual Claude Code handoff. The user
-runs the command, pastes the prompt, and returns with the result when ready. Implementation and
-correction prompts compose `claude-development`, which owns implementation, checks and any requested Codex review.
+runs the command, pastes the prompt, and returns with the result when ready. Prompts select the
+common implementation or bug-fix path under `orchestrate`, preserving checks, optional independent
+review and the user's delivery limits.
 
 ## Usage
 
@@ -35,13 +36,18 @@ Direct implementation requests without Claude stay with the current agent.
    report. Tell Claude to inspect before editing, preserve unrelated changes, and surface conflicts.
    Include the user's authorization limits; reserve consequential actions for the user unless
    explicitly authorized.
-4. For an implementation or correction handoff, explicitly require Claude to activate
-   `claude-development` on the authorized task. It owns implementation, checks and any explicitly requested
-   independent Codex review before delivery. Forward the original scope and bounded local correction authority,
+4. Select the common entry from the authorized intent: `implement` for a feature, refactoring or
+   configuration change; `bug-fix` for a bug repair. For ticket-backed implementation or bug repair
+   outside an existing correction workflow, compose `issue-start` and `issue-workflow` only if their
+   verified context is missing, keeping tracker and forge distinct. Require Claude to retain the task owner
+   through `orchestrate`, with implementation, checks and only requested or already required
+   independent review. Forward the original scope and bounded local correction authority,
    preserve stricter user limits, and require the report's candidate, dispositions, evidence and
-   incomplete outcomes. Do not duplicate that finishing procedure in the prompt. Planning-only
-   and review-only handoffs do not authorize development. Do not restart it inside a `code-review-fix`
-   correction or infer open-PR repair or publication authority from this handoff.
+   incomplete outcomes. Do not duplicate the finishing procedure. A planning-only handoff uses
+   `plan`; a local review-only handoff uses `code-review`; neither authorizes implementation.
+   A correction already owned by `code-review-fix` or an authorized `pr-fix` retains that owner
+   without restarting development or another repair loop. Infer no open-PR repair or publication
+   authority from the handoff.
 5. Return two fenced blocks in order: a `sh` block with the copyable one-line command
    `cd <shell-quoted absolute worktree path> && claude`, then a `text` block with the prompt to paste
    into that session. Substitute the verified path, quoting shell metacharacters safely. Repeat both
@@ -58,8 +64,8 @@ Direct implementation requests without Claude stay with the current agent.
   user's control; supply the two blocks and wait.
 - **Trusting a returned summary** — it may omit defects or failed checks; inspect the available diff
   and evidence before making a verification claim.
-- **Inventing a review requirement** — a handoff can impose unrequested Codex work; compose
-  `claude-development` once and preserve only the reviews and correction authority actually requested.
+- **Inventing a review requirement** — a handoff can impose an unrequested runtime or review;
+  preserve only requested or already required reviews and the existing correction authority.
 
 ## Constraints
 

@@ -1,6 +1,6 @@
 {
   "skill": "claude-developer",
-  "version": "1.0",
+  "version": "1.1",
   "queries": [
     {
       "query": "Delegate the approved authentication fix to Claude Code",
@@ -23,9 +23,24 @@
       "reason": "The skill must intercept automatic delegation and return a manual prompt instead"
     },
     {
+      "query": "Prepare a manual Claude prompt to fix this Linear bug in its GitHub repository; do not launch Claude or publish anything",
+      "should_activate": true,
+      "reason": "The handoff selects bug-fix with issue-start and issue-workflow, keeps tracker and forge distinct, and preserves manual launch and delivery limits"
+    },
+    {
+      "query": "Pass this configuration change to Claude with native checks and no independent review",
+      "should_activate": true,
+      "reason": "The manual handoff selects implement, retains verification and does not require Codex or another review"
+    },
+    {
       "query": "Implement the approved authentication fix",
       "should_activate": false,
       "reason": "A direct implementation request without Claude stays with the current agent"
+    },
+    {
+      "query": "Fix this bug and verify the result locally; no handoff is requested",
+      "should_activate": false,
+      "reason": "A direct repair belongs to bug-fix without a manual Claude handoff"
     },
     {
       "query": "Review whether this pull request is safe to merge",

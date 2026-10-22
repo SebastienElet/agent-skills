@@ -30,7 +30,7 @@ authorization from the surrounding task; this skill never approves or merges. Re
 open-PR findings routes to `pr-fix`. Ordinary local implementation on an existing PR branch can
 compose this local review without extending its authority to the PR. Do not compose `pr-verdict`.
 
-Development workflows, including `implement`, `bug-fix` and `claude-development`, may compose this
+Development workflows, including `implement` and `bug-fix`, may compose this
 stage when local review corrections are authorized. Preserve their mandate and stricter limits
 through `orchestrate`; implementation alone does not require independent review or this stage.
 The existing repair owner retains one ledger and a two-pass budget across calls and resumptions.
