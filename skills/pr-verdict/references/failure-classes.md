@@ -202,6 +202,10 @@ explicitly historical. For decisions on overlapping subjects, inspect relevant r
 open PRs: reconcile conflicting positions or declare the dependency and unresolved conflict. A pending
 proposal is not an accepted decision and cannot silently override one in force.
 
+A guarantee that a document attributes to a layer (database, constraint, trigger, permission) must be
+implemented at that layer and proven by a test that bypasses the layers above it, such as a direct
+statement against the store. A guard in the application alone is a weaker mechanism than the claim.
+
 ## 11. Hostile input in normalization and redaction
 
 **Ask:** does every normalization or redaction of an untrusted URL or path use a real parser or
@@ -434,7 +438,7 @@ alone establishes neither policy approval nor legal compliance. Class 6 governs 
 ## 23. A dependency upgrade bypasses a compatibility restriction
 
 **Ask:** do touched pins, overrides, patches and their recorded reasons permit this upgrade, and
-do the dependency-installing images still build and start?
+does every affected service still build and start?
 
 **Broken when:** an upgrade contradicts a recorded restriction, leaves a version-bound patch unused,
 selects an unapproved prerelease or branch build, or breaks frozen installation in an image copying
@@ -444,7 +448,11 @@ only part of a workspace while application tests pass.
 and retain restrictions until their lift condition is demonstrated. Verify patch application and
 resolved versions; prereleases and branch builds require explicit approval. Build and start every
 affected image that installs dependencies, exercising its actual copied manifests and frozen
-lockfile. Report image names, commands and environment; unit tests do not establish image usability.
+lockfile, then start every upgraded service, startup migration included, and observe its health probe
+green; an entrypoint run once in a throwaway container without its probe does not qualify. Then run
+the repository's complete suite rather than a partial subset, and record the command, output and exit
+status obtained on the head commit. Report image names, commands and environment; unit tests do not
+establish image usability.
 
 ## 24. A supervisor reports success before cleanup completes
 
@@ -461,6 +469,49 @@ earlier nonzero status; success receipts wait for successful cleanup. Check exec
 output completeness as well as status. Exercise a second signal, a termination-resistant child,
 an unresponsive worker, truncated output with status zero and cleanup failure after success/failure
 using bounded offline tests. State direct uncatchable-kill and detached-descendant limits in delivery.
+
+## 25. A reference is checked for existence only
+
+**Ask:** which attributes and states make each referenced object valid for this operation, and does
+the operation check every one of them?
+
+**Broken when:** a precondition reads "X must exist" while X may be rejected, withdrawn, expired or
+never granted, or may differ in unit, period, owner or scope from the object referencing it. The
+dependent object then freezes or feeds later computations on an invalid basis: an approval accepts
+any linked review that exists, or a count equals a stock quantity expressed in another unit.
+
+**Lift:** the design lists the validity attributes (status, unit, period, owner, withdrawal) before
+implementation. Each divergence is refused with its own error code and has a test that fails when the
+corresponding comparison is removed.
+
+## 26. A compound period is applied out of the rule's order
+
+**Ask:** is each period of a compound deadline applied as a successive step in the order of the
+rule's text, and does every expected value come from that text?
+
+**Broken when:** successive periods are added together. With end-of-month clamping, "2 months after
+the expiry of a one-month grace period" starting on January 31 gives February 28, then April 28;
+adding three months at once gives April 30. A decision document aligned on the wrong calculation
+hides the defect from review.
+
+**Lift:** the steps are chained in the rule's order, with the source rule cited beside the function.
+Tests start on days 28, 29, 30 and 31, cross short months and leap and non-leap years, and derive
+their expected values from the rule's text, not from the code or a document aligned on it.
+
+## 27. A schema change leaves existing rows and schema-walking routines behind
+
+**Ask:** after this migration, what do pre-existing rows contain, and which routines walk the schema
+(purge, archive, export, personal-data erasure, seed) now meet a new table or column?
+
+**Broken when:** a new nullable column stays null on old rows and a predicate such as
+`kind <> 'CLOSING'` evaluates to null, silently excluding them from a total; or a new table
+references existing entities through a `RESTRICT` foreign key and a routine deleting the referenced
+rows now fails.
+
+**Lift:** the migration backfills the column before constraining it, or the null is handled
+explicitly, proven by a test on a row inserted without the column. Every routine touching the related
+tables is found by search and updated, deleting dependents first, with a test that creates a
+dependent row and then runs the routine.
 
 ## Reporting
 
@@ -497,6 +548,9 @@ are not defects. Bounded inconvenience is a reservation; missing evidence remain
 Class 22 blocks demonstrated unauthorized retention, disclosure or incomplete promised erasure.
 Classes 23 and 24 block a demonstrated contract violation or failure of a required build, workflow
 or cleanup guarantee. Missing evidence follows phase 5; do not invent a leak or surviving process.
+
+Classes 25 to 27 block a demonstrated wrong result, accepted invalid reference or failing routine on
+existing data; missing evidence follows phase 5 without inventing a mechanism.
 
 The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
 user action blocks, even outside these classes.

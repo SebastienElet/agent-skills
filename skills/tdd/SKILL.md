@@ -48,7 +48,10 @@ tests are part of that authorization; do not ask again when the behavior and tes
    Run the affected tests again. Use `code-simplify` for a separately requested refactoring pass.
 7. Run the repository's required checks and report their actual environment, outcomes and limits.
    A missing integration environment is missing evidence; a passing unit substitute does not
-   prove the database or protocol contract.
+   prove the database or protocol contract. When CI enforces a coverage threshold, replay its exact
+   coverage command on each touched package and cite the figure against the threshold; every new
+   handler, mapper, controller or view needs a unit test at the level the gate measures, because a
+   test counted in another configuration, such as end-to-end, does not raise it.
 
 ## Gotchas
 
@@ -68,3 +71,4 @@ tests are part of that authorization; do not ask again when the behavior and tes
 - Never require additional permission for already authorized ordinary tests.
 - Never add speculative abstractions, unrelated refactors, mirror gates or retries hiding flakes.
 - Never claim a passing check covers an environment or boundary it did not exercise.
+- Never lower a coverage threshold to make a package pass.

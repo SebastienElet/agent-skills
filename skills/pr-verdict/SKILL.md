@@ -86,9 +86,10 @@ says to post directly.
 
    Inspect every commit against the resolved destination and map it to the stated PR outcome.
    Unrelated changes must be removed under development authority or explicitly disclosed in the
-   description. Verification tooling accompanying functional changes needs a separate PR or an
-   explicit coupling rationale. Coherent subtasks may share a PR. Flag temporary `wip` subjects and
-   violations of the repository's commit convention before publication or an update.
+   description. Verification tooling accompanying functional changes, including a correction to a
+   test oracle or a preflight, needs a separate PR or an explicit coupling rationale. Coherent
+   subtasks may share a PR. Flag temporary `wip` subjects and violations of the repository's commit
+   convention before publication or an update.
 
    Inventory every externally observable behavior added, removed or changed by the diff. Start a
    changed-behavior ledger with one row per behavior: the behavior, positive evidence on the exact
