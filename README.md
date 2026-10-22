@@ -7,7 +7,7 @@ travel with their skill; historical observations do not qualify this package or 
 Prepared from the tracked sources at dotfiles revision
 [`89307efa`](https://github.com/SebastienElet/dotfiles/tree/89307efadc512f6021696bdf7ebb8249c820a2ff).
 
-The release target is version `0.1.0`. Registry installation, provenance and Claude, Codex or Cursor
+The release target is version `0.2.0`. Registry installation, provenance and Claude, Codex or Cursor
 activation require independent verification. Dotfiles keeps its current sources and
 consumers until publication, independent installation and rollback have been verified.
 
@@ -16,7 +16,7 @@ consumers until publication, independent installation and rollback have been ver
 After publication, acquire an exact version in a durable consumer-owned directory:
 
 ```sh
-bun install --exact --ignore-scripts @sebastienelet/agent-skills@0.1.0
+bun install --exact --ignore-scripts @sebastienelet/agent-skills@0.2.0
 ```
 
 The package does not install tools, hooks or agent configuration. The consumer selects individual
@@ -36,6 +36,26 @@ already required; `code-review` handles review alone, `code-review-fix` local co
 User instructions supply preferences,
 including note naming and the default Obsidian corpus. This package supplies
 no personal instructions, corpus, agent/model selection, credentials or service configuration.
+
+### Migration from 0.1.0
+
+Version `0.2.0` removes `claude-development` without an alias. Select the new `implement`, `bug-fix`,
+`plan` and `orchestrate` paths described above; `claude-developer` remains the manual Claude handoff.
+The four tracker workflows are renamed without aliases:
+
+| Version 0.1.0       | Version 0.2.0    |
+| ------------------- | ---------------- |
+| `linear-issue-spec` | `issue-spec`     |
+| `linear-start`      | `issue-start`    |
+| `linear-sync`       | `issue-sync`     |
+| `linear-workflow`   | `issue-workflow` |
+
+Record the installed version, selection and projection targets for rollback. Update the consumer
+manifest and lockfile to exact `0.2.0`, replace the retired selections, remove only their managed
+links and redeploy through the consumer's existing mechanism. Verify discovery on each selected
+host; rollback restores the recorded version, selection and managed links. Foreign destinations
+must remain intact. This release preparation does not update dotfiles or qualify registry
+installation, rollback or host activation.
 
 ## Optional companions
 
