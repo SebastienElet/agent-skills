@@ -39,6 +39,11 @@ tests are part of that authorization; do not ask again when the behavior and tes
    [references/dependencies.md](references/dependencies.md) when substituting dependencies.
    Exercise the real database or protocol when it owns the invariant; prefer in-memory application
    dependencies over mocks of internal calls.
+   Before RED, when the behavior touches a concern in the
+   [failure-class domain index](../pr-verdict/references/failure-classes.md#domain-index), read the
+   index, then only the useful classes to choose discriminating failure cases. Process supervision
+   calls for class 24; execution-environment assumptions call for class 21 and the boundary
+   assertions above. This does not invoke `pr-verdict` or apply its verdict policy.
 4. Write one failing test for the next behavior. Include the affected failure paths. Run it and
    confirm the expected assertion fails because of the missing or broken behavior, rather than a
    setup or syntax error. A test already passing does not demonstrate the regression.
@@ -46,12 +51,16 @@ tests are part of that authorization; do not ask again when the behavior and tes
    the changed boundary. Repeat one behavior at a time rather than writing a speculative suite.
 6. After green, simplify the code directly touched by the change while preserving its contract.
    Run the affected tests again. Use `code-simplify` for a separately requested refactoring pass.
-7. Run the repository's required checks and report their actual environment, outcomes and limits.
+7. Select only checks the repository already runs for affected files and consumers. Reuse evidence
+   after comparing relevant source, oracle, configuration, dependency, environment and integration
+   inputs; preserve its provenance and the reason for reuse. Run missing or invalidated affected
+   checks and report the selection, actual environment, outcomes and limits. If selection is
+   uncertain, investigate the affected scope and existing checks and state the evidence gap;
+   uncertainty does not require the complete suite.
    A missing integration environment is missing evidence; a passing unit substitute does not
-   prove the database or protocol contract. When CI enforces a coverage threshold, replay its exact
-   coverage command on each touched package and cite the figure against the threshold; every new
-   handler, mapper, controller or view needs a unit test at the level the gate measures, because a
-   test counted in another configuration, such as end-to-end, does not raise it.
+   prove the database or protocol contract. When an affected CI check enforces a coverage threshold,
+   run or reuse its exact coverage command and cite the figure against the threshold. Evidence
+   counted only by another configuration does not establish that threshold.
 
 ## Gotchas
 
