@@ -1,25 +1,22 @@
 # Failure classes
 
-Questions to put to the diff in phase 3. Each is a question, not a checklist item to tick: the
-answer is a sentence about _this_ diff. Record one of four outcomes per class.
+Use these questions when designing, implementing or verifying a change. Read the domain index
+first, then only the relevant classes; reading this reference does not invoke `pr-verdict`.
+Its verdict policy lives in [SKILL.md](../SKILL.md#verdict-policy).
 
-- **not applicable** — the diff does not touch that concern; say why in one clause.
-- **holds because `<evidence>`** — name the constraint, the transaction, the schema, the test.
-- **unproven** — the concern applies, but sufficient relevant evidence is missing; name the gap.
-- **broken by `<mechanism>`** — an ordered sequence of steps that ends with a violated invariant.
+For a design document, question what it authorizes someone to build; an unresolved failure path
+can become an implementation defect.
 
-`broken by` becomes a blocking defect only when its mechanism is written out.
-"This looks racy" is not a mechanism; "request A snapshots at T1, request B writes at T2, A commits
-at T3 and B's row is absent from the successor" is.
+## Domain index
 
-`unproven` becomes an evidence blocker only when the missing proof is essential to approval under
-phase 5: explain why it is essential and what would lift the gap. Otherwise retain a bounded
-reservation with its lift condition. Missing proof never establishes a violated invariant; do not
-invent a failure mechanism or record `holds` to fit the verdict.
-
-The same questions apply to a design document: the mechanism under review is what the document
-authorizes someone to build. A document that leaves a class open produces the defect during
-implementation instead of preventing it during review.
+| Concern                                                        | Classes                    |
+| -------------------------------------------------------------- | -------------------------- |
+| Transactions, retries, identifiers and existing data           | 1, 2, 3, 25, 27            |
+| Access, trust boundaries, input and display                    | 4, 5, 8, 9, 11, 12, 16, 20 |
+| Contracts, claims, immutability and data lifecycle             | 6, 7, 10, 13, 18, 22, 27   |
+| Selection, verification, measurements and upgrades             | 14, 15, 19, 23             |
+| Installed tools, execution environment and process supervision | 17, 21, 24                 |
+| Calendar rules and compound deadlines                          | 26                         |
 
 ## 1. Atomicity and ordering
 
@@ -305,7 +302,7 @@ a `@moonrepo/cli` update selected no tasks and the required job passed without v
 — `/tsconfig.json` was missing from Bun-backed test inputs, so changes could skip those suites.
 
 Missing accounting is `unproven`; observed loss, wrong eligibility or routing is `broken by` its
-traced mechanism. The Reporting section determines whether its consequence blocks.
+traced mechanism. The [verdict policy](../SKILL.md#verdict-policy) determines whether its consequence blocks.
 
 ## 15. Performance or rewritten instructions without comparison
 
@@ -535,53 +532,3 @@ rows now fails.
 explicitly, proven by a test on a row inserted without the column. Every routine touching the related
 tables is found by search and updated, deleting dependents first, with a test that creates a
 dependent row and then runs the routine.
-
-## Reporting
-
-Classes 1, 2, 3, 4, 5, 7, 9, 11 and 12 name mechanisms that lose data, corrupt state or cross a security
-boundary: when broken, they block. Class 14 blocks when its demonstrated loss, wrong eligibility or
-routing removes required checks or prevents a promised workflow; other diagnostic omissions are
-bounded reservations unless their evidence is essential under phase 5.
-Classes 6, 8, 10 and 13 are usually reservations — promote class 6
-when a concrete consumer's retry path depends on the changed code, class 8 when the degraded value
-reaches a person or a legal act, and class 10 when the claim is legal, evidentiary or contractual.
-For class 13, label the unchanged-contract claim `unproven` until the exported bytes are compared;
-block when the comparison exposes a promised compatibility break or when compatibility proof is
-essential to approval. Missing hostile-input or output coverage in classes 11 and 12 is an evidence
-gap, not an invented leak: apply phase 5's essential-evidence rule and name the missing proof.
-For class 15, retain `unproven` until a relevant base/head comparison satisfies the declared criterion;
-block installation or merge when rule adoption or a required performance budget depends on it.
-An optional unsupported claim can instead be removed or bounded; do not invent a measured defect.
-Class 16 blocks when a proposed weakening defeats a required security or authorization control.
-Class 17 blocks when an unusable tool skips a required check or prevents a promised workflow;
-redundant installation with a bounded consequence is a reservation. Missing independence or usability
-evidence remains `unproven`; apply phase 5's essential-evidence rule rather than inventing a bypass.
-Class 18 blocks when stale references or missing legacy cleanup break a promised workflow or cleanup
-contract; documentation-only omissions with bounded consequences are reservations.
-Class 19 blocks when an unsupported probe conclusion authorizes a protected operation, skips a
-required check or prevents a promised workflow. Otherwise bound its consequence as a reservation;
-missing essential probe evidence follows phase 5's `unproven` rule.
-
-Class 20 blocks when following or replacing a symlink crosses the repository boundary, defeats a
-required file-type check or loses data or link identity. Missing symlink evidence remains `unproven`;
-apply phase 5's essential-evidence rule without inventing an escape or race.
-
-Class 21 blocks when undeclared or unsupported inherited state contradicts the command's independent
-contract and skips a required check or prevents a promised workflow; declared, supported settings
-are not defects. Bounded inconvenience is a reservation; missing evidence remains `unproven` under phase 5.
-
-Class 22 blocks demonstrated unauthorized retention, disclosure or incomplete promised erasure.
-Classes 23 and 24 block a demonstrated contract violation or failure of a required build, workflow
-or cleanup guarantee. Missing evidence follows phase 5; do not invent a leak or surviving process.
-
-Classes 25 to 27 block a demonstrated wrong result, accepted invalid reference or failing routine on
-existing data; missing evidence follows phase 5 without inventing a mechanism.
-
-The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
-user action blocks, even outside these classes.
-
-Other findings outside these classes are legitimate but non-blocking by default: report at most three
-of them, one line each, labelled non-blocking, or drop them. The cap is what stops the sweep from
-turning into a second review that competes with the verdict — rank them by whether they would change
-a reviewer's decision and keep the top three. If the verdict runs past about thirty lines, that is
-the symptom that preferences have crept into the blocking section.

@@ -53,6 +53,11 @@ does not authorize launching Claude.
    continue authorized implementation. A reserved decision or confirmed ADR contradiction blocks
    dependent work; progress independent authorized units within the existing mandate.
 
+   When the change touches a concern in the
+   [failure-class domain index](../pr-verdict/references/failure-classes.md#domain-index), read the
+   index, then only the relevant classes to inform the design and its failure paths. This reads a
+   shared reference; it does not invoke `pr-verdict` or apply its verdict policy.
+
 4. **Realize verifiable units.** Identify each unit's observable result, genuine prerequisites
    and relevant oracle, including affected failure paths. Use the plan's units when still valid;
    do not require a ticket, commit, worktree or PR for each unit. Apply `tdd` to owned executable
@@ -61,6 +66,12 @@ does not authorize launching Claude.
    optional and follows `orchestrate`'s ownership and isolation rules; actual dependencies govern
    readiness. Inspect each returned delta and evidence before accepting the unit. A green test or
    completed delegate advances work; it does not establish the overall result.
+
+   For each unit touching an indexed concern, use the index above to select only the useful
+   classes before implementing and choosing failure-path checks. In particular, apply class 3
+   when choosing sequential or timestamped identifiers, class 24 when supervising processes, and
+   classes 10, 22 and 27 for immutability claims and their purge/erasure consequences. Exercise the
+   applicable failures at their owning boundary with existing or native checks and ordinary tests.
 
 5. **Verify the complete change.** Exercise the original acceptance criteria and affected
    consumers together, beyond individual units, at the boundary owning each invariant. Run the
@@ -92,6 +103,21 @@ does not authorize launching Claude.
    permitted tracker writes. Without one, omit tracker operations. Recover uncertain external
    effects through `orchestrate` before retrying, then independently read back the actual
    delivery result. Do not infer approval, merge or deployment permission from a push or PR.
+
+   Before publication, inspect each outgoing commit against the resolved destination: connect it
+   to the stated outcome, remove unrelated changes within authority or disclose them, and separate
+   verification tooling or explain its coupling. Follow the repository's commit convention;
+   do not publish temporary `wip` commits or rewrite shared history without authorization.
+   If identifiers were allocated, reread only class 3 via the domain index and refresh its
+   destination, open/draft PR and remote-branch comparison before publication and after destination
+   integration; preserve already applied migrations.
+   After changes or a push, compare evidence inputs, including source, oracle, configuration,
+   dependencies, environment and integration state. Reuse still-valid observations with their
+   original provenance and the comparison justifying reuse; a different SHA alone does not
+   invalidate them. Replay only invalidated affected checks or name the remaining evidence gap,
+   and align the delivery description with that evidence. Record tested head/base, command, exit
+   status and actual environment. When execution depends on inherited values, timezones or file
+   modes, use the index to read class 21 and verify the actual invocation before delivery.
 
 8. **Report the actual end state.** Assess the final candidate against the whole request through
    `orchestrate`. Report the changed behavior, checks and environment, supported targets not
