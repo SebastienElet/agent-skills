@@ -39,6 +39,11 @@ tests are part of that authorization; do not ask again when the behavior and tes
    [references/dependencies.md](references/dependencies.md) when substituting dependencies.
    Exercise the real database or protocol when it owns the invariant; prefer in-memory application
    dependencies over mocks of internal calls.
+   Before RED, when the behavior touches a concern in the
+   [failure-class domain index](../pr-verdict/references/failure-classes.md#domain-index), read the
+   index, then only the useful classes to choose discriminating failure cases. Process supervision
+   calls for class 24; execution-environment assumptions call for class 21 and the boundary
+   assertions above. This does not invoke `pr-verdict` or apply its verdict policy.
 4. Write one failing test for the next behavior. Include the affected failure paths. Run it and
    confirm the expected assertion fails because of the missing or broken behavior, rather than a
    setup or syntax error. A test already passing does not demonstrate the regression.

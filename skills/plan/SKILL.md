@@ -57,6 +57,10 @@ an ADR contradiction or a decision reserved to the user still bounds continuatio
    interfaces, invariant enforcement and relevant failure paths. Include inputs, results, ordering
    and errors beyond type signatures. For external writes, address partial failure, idempotence
    and safe retry; for a replacement, inventory existing guarantees and their oracles first.
+   When the design touches a concern in the
+   [failure-class domain index](../pr-verdict/references/failure-classes.md#domain-index), read the
+   index, then only the useful classes to challenge its invariants and failure paths. This does
+   not invoke `pr-verdict` or apply its verdict policy.
    When viable designs have materially different consequences, compare at least two distinct
    sketches against the same relevant criteria: caller effort, locality, testability, compatibility,
    operational risk or cost. State the chosen design, evidence, rejected alternative and remaining

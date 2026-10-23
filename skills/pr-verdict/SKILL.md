@@ -123,7 +123,8 @@ says to post directly.
 
 3. **Sweep the failure classes.** Put every question in `references/failure-classes.md` to the
    diff. Record, per class, one of: not applicable, holds because `<evidence>`, unproven, or broken by
-   `<mechanism>`. For unproven, name the missing evidence: block only when that proof is essential
+   `<mechanism>`. Explain non-applicability in one clause and name the constraint, transaction,
+   schema or executed test supporting `holds`. For unproven, name the missing evidence: block only when that proof is essential
    to approval under phase 5, explaining why and what would lift the gap; otherwise retain a bounded
    reservation. A demonstrated defect needs its named mechanism; missing proof does not establish
    one. When applicable, classes 11, 14 and 15 require Git-remote identity and hostile-input
@@ -230,6 +231,63 @@ says to post directly.
    A same-head reassessment under changed policy or new evidence is a new dated assessment with
    its policy and evidence references. Preserve the earlier verdict and append the reassessment
    inside the existing marked comment; never replace a historical rejection with an approval.
+
+## Verdict policy
+
+`broken by` becomes a blocking defect only when its ordered failure mechanism is written out.
+"This looks racy" is not a mechanism; "request A snapshots at T1, request B writes at T2, A commits
+at T3 and B's row is absent from the successor" is. Missing proof never establishes a violated
+invariant; do not invent a failure mechanism or record `holds` to fit the verdict. An `unproven`
+class blocks only when its proof is essential under phase 5; otherwise retain a bounded reservation
+with its lift condition.
+
+Classes 1, 2, 3, 4, 5, 7, 9, 11 and 12 name mechanisms that lose data, corrupt state or cross a security
+boundary: when broken, they block. Class 14 blocks when its demonstrated loss, wrong eligibility or
+routing removes required checks or prevents a promised workflow; other diagnostic omissions are
+bounded reservations unless their evidence is essential under phase 5.
+Classes 6, 8, 10 and 13 are usually reservations — promote class 6
+when a concrete consumer's retry path depends on the changed code, class 8 when the degraded value
+reaches a person or a legal act, and class 10 when the claim is legal, evidentiary or contractual.
+For class 13, label the unchanged-contract claim `unproven` until the exported bytes are compared;
+block when the comparison exposes a promised compatibility break or when compatibility proof is
+essential to approval. Missing hostile-input or output coverage in classes 11 and 12 is an evidence
+gap, not an invented leak: apply phase 5's essential-evidence rule and name the missing proof.
+For class 15, retain `unproven` until a relevant base/head comparison satisfies the declared criterion;
+block installation or merge when rule adoption or a required performance budget depends on it.
+An optional unsupported claim can instead be removed or bounded; do not invent a measured defect.
+Class 16 blocks when a proposed weakening defeats a required security or authorization control.
+Class 17 blocks when an unusable tool skips a required check or prevents a promised workflow;
+redundant installation with a bounded consequence is a reservation. Missing independence or usability
+evidence remains `unproven`; apply phase 5's essential-evidence rule rather than inventing a bypass.
+Class 18 blocks when stale references or missing legacy cleanup break a promised workflow or cleanup
+contract; documentation-only omissions with bounded consequences are reservations.
+Class 19 blocks when an unsupported probe conclusion authorizes a protected operation, skips a
+required check or prevents a promised workflow. Otherwise bound its consequence as a reservation;
+missing essential probe evidence follows phase 5's `unproven` rule.
+
+Class 20 blocks when following or replacing a symlink crosses the repository boundary, defeats a
+required file-type check or loses data or link identity. Missing symlink evidence remains `unproven`;
+apply phase 5's essential-evidence rule without inventing an escape or race.
+
+Class 21 blocks when undeclared or unsupported inherited state contradicts the command's independent
+contract and skips a required check or prevents a promised workflow; declared, supported settings
+are not defects. Bounded inconvenience is a reservation; missing evidence remains `unproven` under phase 5.
+
+Class 22 blocks demonstrated unauthorized retention, disclosure or incomplete promised erasure.
+Classes 23 and 24 block a demonstrated contract violation or failure of a required build, workflow
+or cleanup guarantee. Missing evidence follows phase 5; do not invent a leak or surviving process.
+
+Classes 25 to 27 block a demonstrated wrong result, accepted invalid reference or failing routine on
+existing data; missing evidence follows phase 5 without inventing a mechanism.
+
+The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
+user action blocks, even outside these classes.
+
+Other findings outside these classes are legitimate but non-blocking by default: report at most three
+of them, one line each, labelled non-blocking, or drop them. The cap is what stops the sweep from
+turning into a second review that competes with the verdict — rank them by whether they would change
+a reviewer's decision and keep the top three. If the verdict runs past about thirty lines, that is
+the symptom that preferences have crept into the blocking section.
 
 ## Gotchas
 
