@@ -55,8 +55,10 @@ an ADR contradiction or a decision reserved to the user still bounds continuatio
 
 4. **Sketch and choose.** Use `codebase-design` to describe caller usage, responsibilities,
    interfaces, invariant enforcement and relevant failure paths. Include inputs, results, ordering
-   and errors beyond type signatures. For external writes, address partial failure, idempotence
-   and safe retry; for a replacement, inventory existing guarantees and their oracles first.
+   and errors beyond type signatures. When encoding rules derived from text, apply `codebase-design`
+   step 2 to complete the rule's contract before implementation. For external writes, address partial
+   failure, idempotence and safe retry; for a replacement, inventory existing guarantees and their
+   oracles first.
    When the design touches a concern in the
    [failure-class domain index](../pr-verdict/references/failure-classes.md#domain-index), read the
    index, then only the useful classes to challenge its invariants and failure paths. This does
