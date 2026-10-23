@@ -39,9 +39,6 @@ tests are part of that authorization; do not ask again when the behavior and tes
    [references/dependencies.md](references/dependencies.md) when substituting dependencies.
    Exercise the real database or protocol when it owns the invariant; prefer in-memory application
    dependencies over mocks of internal calls.
-   For behavior depending on today, use the time/randomness strategy there: control the system's
-   clock and derive relative dates from it; a fixed calendar case must not silently depend on the
-   machine's current date. Exercise the rule's bounds with controlled dates beyond old fixtures.
    Before RED, when the behavior touches a concern in the
    [failure-class domain index](../pr-verdict/references/failure-classes.md#domain-index), read the
    index, then only the useful classes to choose discriminating failure cases. Process supervision
