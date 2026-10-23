@@ -69,6 +69,10 @@ alias, the `--no-verify` and the second remote).
    Derive cache inputs from the same canonical file selection as the scanner; verify with native or
    existing inspection that every read input, including hidden directories and alternate extensions,
    invalidates the cache. A narrower cache key can replay success without reading changed input.
+   Publish validation-cache success atomically, only after all selected checks have succeeded.
+   An error, interruption or incomplete result must publish nothing and must not replace an already
+   validated entry. Cover successful publication and each failure path through the cache's public
+   interface, including preservation of an existing validated entry.
    Trace the actual CI entry point and prove execution from its log or a controlled failing witness.
    A planning-only run, early success exit, duplicate script key or decoy step is not execution of
    the required guard. Use native parsing to reject ambiguous configuration where supported.
