@@ -28,11 +28,23 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
 
 ## Steps
 
-1. Locate the consumers, affected domain contract and ADRs in force. Bound the interface under
+1. Locate the producers, consumers, affected domain contract and ADRs in force. Before introducing
+   derived data or a precondition, inventory every source, including imports, background jobs and
+   historical data. State how each source is supported, migrated or excluded by the contract;
+   a new precondition must not silently block admissible historical data. Bound the interface under
    discussion. Use the project's canonical vocabulary; module, interface, adapter and test boundary
    are explanatory terms, not mandatory replacements for domain or framework names.
 2. Describe what callers must know: inputs, results, invariants, error modes, ordering, required
    configuration and relevant performance constraints. The type signature alone is not the contract.
+   For a referenced collection replacement, define the stable matching key, preserve retained
+   identities and specify how removals and duplicate keys are handled. For a fingerprint or
+   signature, define the covered fields from the protected content; exclude unrelated preferences
+   and metadata. For rules derived from text, verify the applicable source and version, then
+   specify temporal references, inclusive or exclusive bounds, exceptions and counting rules before
+   encoding them. A material ambiguity remains a decision for the rule's owner through
+   `requirements-clarification`. For database-backed contracts, include identified database
+   refusals, including at commit, translated at the adapter boundary into named application errors;
+   unexpected failures remain technical errors.
 3. Apply the deletion test: if the module disappeared, would its decisions spread across callers
    or would unnecessary delegation disappear? Keep functions and adapters with a real responsibility
    even when they have one caller or one implementation.
@@ -41,7 +53,9 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
    for the owned core. Avoid hypothetical ports, boolean switches and generic operation handlers.
 5. Read [references/dependencies.md](references/dependencies.md) when considering dependency
    boundaries or consolidation. State where each invariant is enforced and test it there. Do not
-   collapse domain, transport or transaction boundaries merely to make a module deeper.
+   collapse domain, transport or transaction boundaries merely to make a module deeper. For
+   database-owned invariants, prove identified refusals, their error translation and transaction
+   rollback on a real database, including commit-time failures when applicable.
 6. Compare alternatives only when a consequential design choice remains. State the gain in
    locality, caller effort and testability; separate a contract change from a behavior-preserving
    restructuring. Use `requirements-clarification` for unresolved material policy, and

@@ -55,8 +55,10 @@ an ADR contradiction or a decision reserved to the user still bounds continuatio
 
 4. **Sketch and choose.** Use `codebase-design` to describe caller usage, responsibilities,
    interfaces, invariant enforcement and relevant failure paths. Include inputs, results, ordering
-   and errors beyond type signatures. For external writes, address partial failure, idempotence
-   and safe retry; for a replacement, inventory existing guarantees and their oracles first.
+   and errors beyond type signatures. When encoding rules derived from text, apply `codebase-design`
+   step 2 to complete the rule's contract before implementation. For external writes, address partial
+   failure, idempotence and safe retry; for a replacement, inventory existing guarantees and their
+   oracles first.
    When viable designs have materially different consequences, compare at least two distinct
    sketches against the same relevant criteria: caller effort, locality, testability, compatibility,
    operational risk or cost. State the chosen design, evidence, rejected alternative and remaining
