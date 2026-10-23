@@ -42,6 +42,9 @@ alias, the `--no-verify` and the second remote).
    Test an exempt object subsequently repurposed for real effects: refuse the bypass without side
    effects, while permitted edits and ordinary objects retain their contract. Removing the lock or
    recheck must fail the refusal assertion. Name the exemption and its protection in the PR description.
+   For authorization, resolve the action's permission from the design in force; a general parent
+   edit permission cannot replace a dedicated action permission. With valid scope, test that the
+   parent-only subject is refused without writes and the action-authorized subject succeeds.
 2. **Check whether you can actually see it.** If the code only has a representation of the value — a
    shell command string, a diff, a log line, a commit message — the decision is a heuristic, not a
    check. Say so in a comment and in the delivery note, and label that layer advisory. Do not let a
@@ -69,6 +72,11 @@ alias, the `--no-verify` and the second remote).
    Derive cache inputs from the same canonical file selection as the scanner; verify with native or
    existing inspection that every read input, including hidden directories and alternate extensions,
    invalidates the cache. A narrower cache key can replay success without reading changed input.
+   Publish reusable success atomically only after every required check succeeds. Error,
+   interruption or incomplete execution must neither create success nor replace a validated entry.
+   Fail a later check after an earlier success, observe nonzero status and no publication, then
+   rerun from another worktree to prove checks execute; a complete success remains reusable for
+   identical inputs. Exercise interruption and preservation of an existing valid entry too.
    Trace the actual CI entry point and prove execution from its log or a controlled failing witness.
    A planning-only run, early success exit, duplicate script key or decoy step is not execution of
    the required guard. Use native parsing to reject ambiguous configuration where supported.

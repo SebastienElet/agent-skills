@@ -63,6 +63,13 @@ where required, stale and missing versions through each action, observing unchan
 additional external effect on refusal.
 After a successful UI write, close or refresh the form so it cannot resubmit the consumed version.
 
+Reservations need an owner, a failure exit and defined expiry or recovery. Reassignment must exclude
+an active write despite lease expiry; protect acquisition, holder authority and handoff to writing.
+A stale holder cannot release or finalize a successor's reservation. Do not hold a database
+connection during application-level waiting. Require real-database tests with a bounded pool for
+refusal then recovery, an old failure after reassignment, expiry during a slow write without
+reassignment, and contention beyond pool size without exhaustion from held waiting connections.
+
 ## 3. Invariant without a constraint
 
 **Ask:** which index or database constraint makes this invariant unfalsifiable?
@@ -84,7 +91,9 @@ For sequential or timestamped identifiers, compare the proposed value with the f
 relevant open PR heads including drafts, and relevant remote branches without a PR, not only the
 local maximum. Check ADR and other decision/document numbers, migration order and module/permission
 manifest versions bound to content. Recheck after each destination integration and record the chosen
-values and inspected refs in delivery evidence. A conflict-free merge is no uniqueness proof; use
+values and inspected refs in delivery evidence. Refresh the destination and parallel refs before
+publication; verify uniqueness and that every new migration follows the destination's latest one.
+A conflict-free merge is no uniqueness proof; use
 the existing registry or migration validation when available. Do not renumber already applied
 migrations or silently combine independently owned manifest contents. Disclose parallel changes to
 the same versioned manifest in delivery evidence and coordinate their integration so a fresh version
@@ -109,6 +118,9 @@ contract; authentication and a permissive global guard are insufficient. Use min
 subjects, with separate missing-permission and out-of-scope cases, rather than administrator-only
 tests. Arrange each refusal case so only the targeted predicate can reject it, and observe an
 assertion failure when that predicate is removed or broken, followed by success after restoration.
+Resolve the permission named for the action by the design in force: a general parent edit
+permission is insufficient where a dedicated action permission is required. With valid scope,
+test the parent-only subject's refusal without writes and the action-authorized subject's success.
 
 ## 5. Tenant scope
 
@@ -138,6 +150,15 @@ A changed observable response on a versioned public API is a compatibility decis
 new blanket refusal where deletion previously succeeded. Preserve the published contract, introduce
 a new version, or obtain an explicit owner-approved contract amendment before delivery. A newly
 proposed retention policy alone does not authorize breaking existing clients.
+
+For every added or expanded constraint, exclusion or trigger, name each expected refusal and its
+business translation. Match structured driver identifiers and codes at the adapter boundary,
+including errors raised at commit; do not parse free-form messages or turn unknown technical errors
+into business refusals. Early application checks do not replace database concurrency protection.
+Through the application and real database, assert exact status and stable business code and read
+back all transaction writes to prove rollback. Include deferred commit refusal, a concurrent change
+defeating the precheck, and an unknown technical error retaining generic handling. An expected
+refusal becoming a generic server error violates the promised business error contract.
 
 ## 7. Deferred functionality
 
@@ -297,6 +318,13 @@ suffice when they expose this proof; do not require a new mirror gate or validat
 Include every behavior-changing file in the relevant task inputs and carry over a removed file's
 role to its replacements. Observe affected-task selection for changes to those files and verify
 that a required job cannot silently succeed with an empty selection on those changes.
+
+For reusable verification caches, input coverage is insufficient if a partial run publishes success.
+Publish the complete success atomically only after all required checks succeed. Failure, interruption
+or incomplete results must create no success entry and must not replace an existing validated one.
+Require a later-check failure after an earlier success, nonzero status and no cache publication, then
+a run from another worktree that executes the checks rather than replaying false success. Also
+exercise interruption, preservation of a valid entry and reuse after complete success on equal inputs.
 
 **Recurrences:** [dotfiles#604](https://github.com/SebastienElet/dotfiles/pull/604#pullrequestreview-5588717443)
 — removing `.prototools` left the setup-moon manifest and `bun.lock` outside Harness task inputs;
@@ -503,9 +531,15 @@ never granted, or may differ in unit, period, owner or scope from the object ref
 dependent object then freezes or feeds later computations on an invalid basis: an approval accepts
 any linked review that exists, or a count equals a stock quantity expressed in another unit.
 
-**Lift:** the design lists the validity attributes (status, unit, period, owner, withdrawal) before
+**Lift:** the design lists the validity attributes (status, unit, period, owner, withdrawal, provenance,
+publication, source closure and current cycle where applicable) before
 implementation. Each divergence is refused with its own error code and has a test that fails when the
 corresponding comparison is removed.
+Exercise provisional results, open sources and favorable results from a previous cycle, plus a valid
+published result from the closed current cycle. Inspect reverse transitions too: where reopening a
+referenced source is forbidden, refuse before modifying tracking or evidence, with a named error.
+Protect the dependency check and transition atomically against a concurrent new association;
+test refused reopening without loss of dependents, tracking or evidence.
 
 ## 26. A compound period is applied out of the rule's order
 
@@ -535,6 +569,92 @@ rows now fails.
 explicitly, proven by a test on a row inserted without the column. Every routine touching the related
 tables is found by search and updated, deleting dependents first, with a test that creates a
 dependent row and then runs the routine.
+Populate every new relation in the routine test and assert the complete result. For new or widened
+constraints, detect incompatible old data in the migration and apply an owner-validated treatment,
+or refuse diagnostically before modification; never delete conflicting data arbitrarily. Exercise
+the migration on representative historical data and the authorized exit from a pending state that
+now blocks another operation.
+
+## 28. Tests silently expire with the machine clock
+
+**Ask:** does every date-sensitive assertion use time controlled in the system under test, and what
+happens after its fixed fixtures cease to be future dates?
+
+**Broken when:** an HTTP response expects the test's creation date, a literal event date is assumed
+future, or a maximum-duration fixture becomes invalid as today advances. Passing once hides expiry.
+
+**Lift:** search date literals in added or changed tests and explain each as a controlled-clock
+anchor, a relative date from that clock, or an independent calendar case. Inject or freeze time in
+the application; derive relative inputs from the same clock with the project's calendar operations.
+Exercise the exact boundary and first refused value, replay at several controlled dates including
+one beyond the old fixtures, and specify the timezone when crossing midnight matters. A fixed
+calendar case independent of today is valid; moving an expiry farther into the future is no fix.
+
+## 29. Append-only storage remains mutable or blocks authorized erasure
+
+**Ask:** which database mechanism protects every promised immutable collection, against which SQL
+role, and how do authorized purge and erasure still work?
+
+**Broken when:** application methods alone avoid edits, another version collection is forgotten,
+row triggers leave `TRUNCATE` open, or new protections also prevent the required purge/erasure path.
+A freely settable application flag makes an exception an ordinary-write bypass.
+
+**Lift:** inventory all collections and mechanisms. With existing rows and the protected role,
+exercise raw `UPDATE`, `DELETE` and `TRUNCATE` separately in independent transactions, asserting
+refusal and unchanged content. Specify and test any one-time transition and permitted fields,
+rejecting repeated transition or content mutation. Qualify claims against schema administrators.
+Make purge, erasure or demo reset required or permitted by the established contract explicit, proving
+success plus non-bypass by the ordinary role. Class 22 still governs personal-data policy; permanent refusal
+does not prove compatibility with erasure.
+
+## 30. A derived concept omits a producer or legitimate historical input
+
+**Ask:** have all producers and consumers of the new projection or precondition been accounted for,
+including imports, periodic jobs, opening data and paths integrated from parallel work?
+
+**Broken when:** only the new path feeds derived state, an import leaves completed work outstanding,
+an arbitrary open row receives another operation's allocation, or a precondition requires an object
+that admitted historical data never had.
+
+**Lift:** search writes and reads of the concept with `rg`; record each producer and consumer in
+the PR with its connection, migration, explicit historical handling or contract-backed exclusion.
+Converge writes sharing the invariant within its atomic boundary, preserving origin and target
+identity. Exercise every source, import replay without duplicates, allocation to the intended target
+and admitted historical operations without fabricated new-workflow objects. Verify consumer results,
+including that an imported completion suppresses the corresponding reminder.
+
+## 31. Collection replacement loses referenced identity or signs unrelated metadata
+
+**Ask:** which incoming references depend on retained IDs, and which fields actually belong to the
+signed content?
+
+**Broken when:** global delete/reinsert changes IDs of unchanged elements, or a fingerprint includes
+an unsigned default flag, display order or technical timestamp and needlessly invalidates approval.
+
+**Lift:** inventory incoming references and select a stable identity key; apply the difference in
+one transaction, retaining unchanged IDs, inserting additions and explicitly handling duplicate keys
+and referenced removals. A changed key is a removal plus an addition, with no undecided cascade.
+List signed fields justified by the content presented for signature, using the existing canonical
+serialization contract. Separately test addition, default change, signed-content change and
+referenced removal: retained IDs and current approval survive unsigned changes, signed changes
+invalidate approval, and removals follow the contract without dangling references.
+
+## 32. A dated rule loses its reference date, boundary, exception or counting mode
+
+**Ask:** which applicable source and version establish each effect's date, attribution, limits,
+exceptions and counting modes?
+
+**Broken when:** the common case substitutes an effective date for the required later notification,
+attributes a result at period end instead of approval, drops a maximum duration or decision-date
+bound, counts a participation mode incorrectly, or applies a minimum despite an established waiver.
+
+**Lift:** cite the source's applicable version and status in the design, explicitly recording
+reference dates, inclusive/exclusive bounds, exceptions and counting modes. Encode the established
+rule in the domain. Derive tests independently from the source: before/equal/after dates, attribution
+where candidate dates yield different holders, maximum and first excess, every counting mode and
+each waiver plus the ordinary case. Control today-dependent comparisons as in class 28; class 26
+still governs compound calendar arithmetic. Material ambiguity needs the rule owner's decision;
+a proposal, code-aligned document or passing fictional-policy test establishes no real authority.
 
 ## Reporting
 
@@ -545,6 +665,8 @@ bounded reservations unless their evidence is essential under phase 5.
 Classes 6, 8, 10 and 13 are usually reservations — promote class 6
 when a concrete consumer's retry path depends on the changed code, class 8 when the degraded value
 reaches a person or a legal act, and class 10 when the claim is legal, evidentiary or contractual.
+Class 6 also blocks a demonstrated violation of a promised business refusal, including a named
+database refusal escaping as a generic server error.
 For class 13, label the unchanged-contract claim `unproven` until the exported bytes are compared;
 block when the comparison exposes a promised compatibility break or when compatibility proof is
 essential to approval. Missing hostile-input or output coverage in classes 11 and 12 is an evidence
@@ -576,6 +698,9 @@ or cleanup guarantee. Missing evidence follows phase 5; do not invent a leak or 
 
 Classes 25 to 27 block a demonstrated wrong result, accepted invalid reference or failing routine on
 existing data; missing evidence follows phase 5 without inventing a mechanism.
+Classes 28 to 32 block a demonstrated expiring test, broken immutability or authorized erasure,
+omitted legitimate source, lost reference, incorrect signature validity or source-rule violation.
+Missing evidence follows phase 5; do not infer a runtime failure from an unexecuted scenario.
 
 The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
 user action blocks, even outside these classes.

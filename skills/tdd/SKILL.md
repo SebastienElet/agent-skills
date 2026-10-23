@@ -38,7 +38,9 @@ tests are part of that authorization; do not ask again when the behavior and tes
 3. Read [references/tests.md](references/tests.md) when choosing assertions and
    [references/dependencies.md](references/dependencies.md) when substituting dependencies.
    Exercise the real database or protocol when it owns the invariant; prefer in-memory application
-   dependencies over mocks of internal calls.
+   dependencies over mocks of internal calls. Search added or changed tests for date literals;
+   distinguish fixed calendar cases from assumptions about today and use the controlled-clock
+   procedure in `references/tests.md` for the latter.
 4. Write one failing test for the next behavior. Include the affected failure paths. Run it and
    confirm the expected assertion fails because of the missing or broken behavior, rather than a
    setup or syntax error. A test already passing does not demonstrate the regression.

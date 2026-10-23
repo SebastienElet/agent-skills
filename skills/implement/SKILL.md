@@ -45,6 +45,13 @@ does not authorize launching Claude.
    Locate the affected flow and consumers, then inspect current code, instructions, contracts,
    applicable ADRs in force and existing checks. A ticket or saved plan supplies constraints to
    verify, not a historical implementation recipe. Resolve discoverable facts from sources.
+   Before adding a projection, derived store or precondition, use `rg` to inventory the concept's
+   producers and consumers, including periodic jobs, imports, opening data, migrations and paths
+   integrated from parallel work. Record each in the PR or delivery note with its connection,
+   migration, explicit historical handling or contract-backed exclusion. Converge writes sharing
+   the invariant within its atomic boundary; retain origin and target identities rather than
+   allocating to an arbitrary available row. Test each source, import replay and admitted historical
+   data without fabricating a new-workflow object that those data legitimately lack.
 
 3. **Prepare only what is needed.** Use `requirements-clarification` for material unresolved
    requirements and `plan` for consequential design choices or a requested plan. Reuse settled
@@ -57,6 +64,8 @@ does not authorize launching Claude.
    and relevant oracle, including affected failure paths. Use the plan's units when still valid;
    do not require a ticket, commit, worktree or PR for each unit. Apply `tdd` to owned executable
    behavior and native or existing validation to declarative changes without owned behavior.
+   For persistence or lifecycle changes, consult `codebase-design` and its
+   [dependency guidance](../codebase-design/references/dependencies.md) before implementation.
    Compose other relevant specialists rather than reproducing their procedures. Delegation is
    optional and follows `orchestrate`'s ownership and isolation rules; actual dependencies govern
    readiness. Inspect each returned delta and evidence before accepting the unit. A green test or

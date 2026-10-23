@@ -33,6 +33,11 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
    are explanatory terms, not mandatory replacements for domain or framework names.
 2. Describe what callers must know: inputs, results, invariants, error modes, ordering, required
    configuration and relevant performance constraints. The type signature alone is not the contract.
+   For rules derived from a text, cite its applicable source, status and version in the design;
+   identify the reference date for each effect or attribution, inclusive/exclusive bounds,
+   exceptions and counting modes. Put the established rule in the domain and derive boundary and
+   exception tests from that source. Escalate material ambiguity to its owner; a proposal or a
+   document aligned on the code does not establish policy.
 3. Apply the deletion test: if the module disappeared, would its decisions spread across callers
    or would unnecessary delegation disappear? Keep functions and adapters with a real responsibility
    even when they have one caller or one implementation.
@@ -40,7 +45,7 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
    details, accept dependencies with effects at the appropriate boundary and prefer pure transformations
    for the owned core. Avoid hypothetical ports, boolean switches and generic operation handlers.
 5. Read [references/dependencies.md](references/dependencies.md) when considering dependency
-   boundaries or consolidation. State where each invariant is enforced and test it there. Do not
+   boundaries, persistence, lifecycle changes or consolidation. State where each invariant is enforced and test it there. Do not
    collapse domain, transport or transaction boundaries merely to make a module deeper.
 6. Compare alternatives only when a consequential design choice remains. State the gain in
    locality, caller effort and testability; separate a contract change from a behavior-preserving
