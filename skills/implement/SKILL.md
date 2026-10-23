@@ -71,7 +71,11 @@ does not authorize launching Claude.
    Contrary design evidence returns to `plan`; reproduction or cause questions return to
    `diagnosing-bugs`. Never weaken the oracle or replace missing essential evidence with a green
    substitute. Reassess affected units and consumers after changes without repeating unaffected
-   checks by default.
+   checks by default. Select only existing repository checks for affected files and consumers.
+   Reuse evidence when its relevant source, oracle, configuration, dependency, environment and
+   integration inputs remain valid; retain its provenance and the comparison justifying reuse.
+   If selection is uncertain, state the affected scope and evidence gap, investigate the existing
+   checks and leave essential missing proof explicit; do not default to the complete suite.
 
 6. **Honor the review boundary.** Independent review remains optional unless requested or
    already required. Use the existing review or correction workflow for that authorized scope

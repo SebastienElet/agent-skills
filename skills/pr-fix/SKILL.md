@@ -110,21 +110,18 @@ its correction and evidence here without starting another workflow.
    and mark reverted or superseded work. Write a sibling temporary file, then rename it over the
    journal; a failed write pauses the repair before another push or publication.
 
-5. **Run a barrier sized to the delta.** Take the merge-blocking commands from the CI configuration,
-   never from a same-named package script, then run the tier the corrections actually reach on the
-   repair worktree:
+5. **Select the affected checks.** Identify checks the repository already runs for the corrected
+   files and consumers. Take relevant merge-blocking commands from the CI configuration, never
+   infer them from a same-named package script. Reuse evidence after comparing relevant source,
+   oracle, configuration, dependency, environment and integration inputs; retain its provenance and
+   the comparison justifying reuse. Run only missing or invalidated affected checks on the repair
+   worktree in the required environment.
 
-   | Delta                                                 | Barrier                                                                            |
-   | ----------------------------------------------------- | ---------------------------------------------------------------------------------- |
-   | Comments, documentation or PR text only               | format, spellcheck, lint, typecheck                                                |
-   | Code that changes no observable behavior              | the above, plus the unit tests of every touched package                            |
-   | Behavior, a seam, a contract, a schema or a migration | the full merge-blocking barrier, failure-path tests and end-to-end suites included |
-
-   A tier is a floor, not a ceiling: run the full barrier whenever the delta's reach is uncertain,
-   and never let a tier excuse a gate the corrections do reach. Name the tier you ran in the report,
-   so a reader sees which gates were skipped and why. Record counts and evidence gaps as
-   `pr-verdict` requires. Keep independent mechanisms in separate commits and coupled corrections
-   together.
+   If selection is uncertain, investigate the affected scope and existing checks, then state the
+   uncertainty and evidence gap rather than defaulting to the complete barrier. Report selected
+   checks, reused evidence and reasoned omissions, with counts and evidence gaps as `pr-verdict`
+   requires; essential missing evidence remains a blocker. Keep independent mechanisms in separate
+   commits and coupled corrections together.
 
 6. **Re-anchor, then land the whole slate in one push.** Query the forge again and validate that the
    source repository, source ref and head SHA are all present and still identify the anchored head.
@@ -162,7 +159,7 @@ its correction and evidence here without starting another workflow.
    Do not delegate
    while a correction is still pending — a head you intend to amend is a head whose verdict you are
    about to throw away. When that review does find a defect in the repair itself, correct it, push
-   once, and scope the second delegation to the new delta and its barrier tier instead of repeating
+   once, and scope the second delegation to the new delta and its affected checks instead of repeating
    the whole sweep. Exception: if the aggregate PR diff changes a verification mechanism, require
    `pr-verdict` to renew its `proof-integrity-review` audit over the complete aggregate diff at the
    new head, even when the latest correction is editorial. An audit of the previous head cannot
@@ -287,7 +284,7 @@ its correction and evidence here without starting another workflow.
   something new every round. Freeze the slate, push once, then delegate.
 - **The full barrier is re-run for a reworded comment** — end-to-end suites cost minutes and prove
   nothing about a doc change, so each round lengthens the feedback loop without adding evidence.
-  Size the barrier to the delta and name the tier.
+  Select existing affected checks and reuse evidence whose relevant inputs remain valid.
 
 ## Constraints
 
@@ -313,7 +310,7 @@ its correction and evidence here without starting another workflow.
   preserve existing replies, and always pass the body through a file.
 - Keep every correction, its mechanism, evidence and reasoned omission in the journal; publish a
   concise cumulative account of final outcomes with numeric validation evidence and its limits.
-- Never claim a defect fixed before its failure-path test and the barrier tier its delta reaches
+- Never claim a defect fixed before its failure-path test and the existing affected checks
   both pass, and never report a gate you did not run.
 - Never let the context that wrote the repaired head perform its final failure-class sweep.
 - Never delegate a verdict on a head you still intend to amend; one repair lands one judged head.

@@ -142,9 +142,11 @@ says to post directly.
    the sweep can add findings, but cannot replace a row or turn absent behavior-level evidence into
    `holds`.
 
-4. **Establish the barrier, then declare its holes.** Run or reuse lint, typecheck and tests the way the project
-   runs them — including inside a container when the project requires it, since numbers from the
-   wrong runner are not evidence for this head. Read the CI configuration and effective target-branch
+4. **Establish the barrier, then declare its holes.** Select only checks the repository already runs
+   for affected files and consumers. Run or reuse them in the project's required environment;
+   numbers from the wrong runner are not evidence for this head. If selection is uncertain,
+   investigate the affected scope and existing checks, then state the uncertainty and evidence gap
+   rather than defaulting to the complete barrier. Read the CI configuration and effective target-branch
    rules to identify any required merge gate; a successful CI check is advisory if no rule requires
    it. The relevant command is often not the package script of the same name. Report counts: builds,
    errors, warnings against the project's threshold, tests passed over

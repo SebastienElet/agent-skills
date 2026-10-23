@@ -473,9 +473,13 @@ resolved versions; prereleases and branch builds require explicit approval. Buil
 affected image that installs dependencies, exercising its actual copied manifests and frozen
 lockfile, then start every upgraded service, startup migration included, and observe its health probe
 green; an entrypoint run once in a throwaway container without its probe does not qualify. Then run
-the repository's complete suite rather than a partial subset, and record the command, output and exit
-status obtained on the head commit. Report image names, commands and environment; unit tests do not
-establish image usability.
+only checks the repository already runs for files and consumers affected by the upgrade. Reuse
+evidence after comparing relevant source, oracle, configuration, dependency, environment and
+integration inputs; preserve its provenance and the comparison justifying reuse. State any
+uncertainty in the affected scope and investigate existing checks rather than defaulting to the
+complete suite. Record commands, output, exit statuses and tested revisions for new runs, and
+identify missing evidence. Report image names and environment; unit tests do not establish image
+usability.
 
 ## 24. A supervisor reports success before cleanup completes
 
