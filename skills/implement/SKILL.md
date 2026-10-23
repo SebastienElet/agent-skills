@@ -63,9 +63,14 @@ does not authorize launching Claude.
    completed delegate advances work; it does not establish the overall result.
 
 5. **Verify the complete change.** Exercise the original acceptance criteria and affected
-   consumers together, beyond individual units, at the boundary owning each invariant. Run the
-   repository's required checks on the complete intended candidate; index intended new files
-   before format, lint and typecheck. Retain commands or observations, candidate, environment and
+   consumers together, beyond individual units, at the boundary owning each invariant. Before
+   declaring a PR ready, resolve its real target branch, fetch it and record its SHA. Integrate it
+   into the candidate when authorized; otherwise state the missing integration in the readiness
+   declaration. A conflict-free `merge-tree` does not prove compatibility. Search the integrated
+   tree for all consumers of the changed contract, including those added by the target. Replay
+   only checks the repository already runs for the affected files and consumers (for example,
+   affected tasks), never a fixed checklist or all gates. Index intended new files before the
+   relevant checks. Retain commands or observations, candidate, environment and
    uncovered targets under `orchestrate`. For a failure, return to its owning stage with the new
    observations and remaining recovery budget, correct within scope and rerun affected checks.
    Contrary design evidence returns to `plan`; reproduction or cause questions return to
@@ -85,7 +90,10 @@ does not authorize launching Claude.
    [GitHub](../issue-workflow/references/github.md) or
    [Bitbucket](../issue-workflow/references/bitbucket.md), including when there is no ticket.
    Reuse the exact existing source branch and matching open PR; create a PR only when needed
-   and authorized, resolving ambiguous or terminal associations first. Verify the committed
+   and authorized, resolving ambiguous or terminal associations first. Before PR delivery,
+   fetch the resolved target again and compare its SHA with the verified
+   base; if it advanced, return to step 5 for integration, consumer discovery and affected checks
+   within existing authority. Verify the committed
    delta and, after an authorized push, the remote revision. Read CI for that exact revision;
    missing, pending, failed or inaccessible checks are not success. With a ticket, let
    `issue-start` own PR association and `issue-workflow` govern completion evidence and any
