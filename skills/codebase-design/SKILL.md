@@ -37,7 +37,11 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
 2. Describe what callers must know: inputs, results, invariants, error modes, ordering, required
    configuration and relevant performance constraints. The type signature alone is not the contract.
    For a referenced collection replacement, define the stable matching key, preserve retained
-   identities and specify how removals and duplicate keys are handled. For a fingerprint or
+   identities and specify how removals and duplicate keys are handled. Require bounded pagination
+   by default and a documented maximum for every exposed list; for each new creation endpoint,
+   apply [failure class 2](../pr-verdict/references/failure-classes.md#2-retry-idempotence) or document
+   why idempotence is unnecessary. Composite item keys must remain unique when a component is null
+   or empty; otherwise use a stable identifier. For a fingerprint or
    signature, define the covered fields from the protected content; exclude unrelated preferences
    and metadata. For rules derived from text, verify the applicable source and version, then
    specify temporal references, inclusive or exclusive bounds, exceptions and counting rules before
