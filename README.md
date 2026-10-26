@@ -96,3 +96,4 @@ publisher. Local checks do not establish registry installation, provenance or ho
 
 The root MIT license covers original contributions. Skill-local licenses and attributions retain
 their own applicability, including Matt Pocock, Ayoub Ghriss and the visual explanation references.
+
