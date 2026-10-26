@@ -73,6 +73,11 @@ alias, the `--no-verify` and the second remote).
    An error, interruption or incomplete result must publish nothing and must not replace an already
    validated entry. Cover successful publication and each failure path through the cache's public
    interface, including preservation of an existing validated entry.
+   Before activating a new blocking check, dry-run it on the target branch and every open branch,
+   include needed exceptions in the same PR, and apply
+   [class 16](../pr-verdict/references/failure-classes.md#16-a-control-trusts-configuration-from-the-pr-it-checks)
+   for configuration trust. Use an explicit scope (`merge-base..HEAD` or the whole pushed range,
+   never only the last commit) and verbose output to distinguish a genuine pass from a false green.
    Trace the actual CI entry point and prove execution from its log or a controlled failing witness.
    A planning-only run, early success exit, duplicate script key or decoy step is not execution of
    the required guard. Use native parsing to reject ambiguous configuration where supported.
