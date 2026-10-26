@@ -241,7 +241,8 @@ routing removes required checks or prevents a promised workflow; other diagnosti
 bounded reservations unless their evidence is essential under phase 5.
 Classes 6, 8, 10 and 13 are usually reservations — promote class 6
 when a concrete consumer's retry path depends on the changed code, class 8 when the degraded value
-reaches a person or a legal act, and class 10 when the claim is legal, evidentiary or contractual.
+reaches a person or a legal act, and class 10 when the claim is legal, evidentiary or contractual;
+a class 7 deferral stated with its lift condition is a reservation.
 For class 13, label the unchanged-contract claim `unproven` until the exported bytes are compared;
 block when the comparison exposes a promised compatibility break or when compatibility proof is
 essential to approval. Missing hostile-input or output coverage in classes 11 and 12 is an evidence

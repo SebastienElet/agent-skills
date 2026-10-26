@@ -4,6 +4,9 @@ description: >
   Write code whose purpose is to refuse: hook, guard, validator, permission check, lint rule, CI
   gate. Use when adding or changing any control that decides pass or fail. Make sure to use it
   whenever a check can be bypassed or fail to run, even if it is called a wrapper or a policy.
+compatibility: >
+  Requires the `pr-verdict` skill from the same package version for its failure-class catalogue;
+  report the reference unavailable when absent.
 metadata:
   category: dev
 ---
@@ -75,7 +78,8 @@ alias, the `--no-verify` and the second remote).
    interface, including preservation of an existing validated entry.
    Before activating a new blocking check, dry-run it on the target branch and every open branch,
    include needed exceptions in the same PR, and apply
-   [class 16](../pr-verdict/references/failure-classes.md#16-a-control-trusts-configuration-from-the-pr-it-checks)
+   class 16, "A control trusts configuration from the PR it checks", in the `pr-verdict` skill's
+   `pr-verdict/references/failure-classes.md`
    for configuration trust. Use an explicit scope (`merge-base..HEAD` or the whole pushed range,
    never only the last commit) and verbose output to distinguish a genuine pass from a false green.
    Trace the actual CI entry point and prove execution from its log or a controlled failing witness.

@@ -102,7 +102,7 @@ missing-permission and out-of-scope cases, not administrator-only tests. Isolate
 predicate and observe a failing assertion when it is removed or broken, then success after restoration.
 For two-step flows (propose/approve, prepare/sign), record the first step's author and test refusal
 of self-approval separately from permission. Enforce it with a deterministic database constraint and
-named domain error where possible; apply [codebase-design](../../codebase-design/SKILL.md#steps) step 5.
+named domain error where possible; apply step 5 of the `codebase-design` skill.
 
 ## 5. Tenant scope
 
@@ -125,8 +125,7 @@ failure is added and nothing says so. Clients build retry logic on these codes; 
 change is a silent behavioral break in every consumer.
 
 **Lift:** documentation and implementation agree, and the mapping is asserted somewhere that runs in
-CI. This class alone is usually a reservation, not a block — unless a consumer's retry path depends
-on the code that changed.
+CI.
 
 A changed observable response on a versioned public API is a compatibility decision, including a
 new blanket refusal where deletion previously succeeded. Preserve the published contract, introduce
@@ -143,7 +142,7 @@ then becomes invisible: it survives review, ships, and gets discovered by the pa
 protected.
 
 **Lift:** the contract is written down in the code and in the PR, with its lift condition. Silence is
-the defect; a stated deferral with a named condition is a reservation.
+the defect; a stated deferral with a named lift condition does not break this class.
 
 ## 8. Parsing versus assertion
 

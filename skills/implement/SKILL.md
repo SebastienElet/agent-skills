@@ -5,6 +5,10 @@ description: >
   verification and delivery. Use when asked to build a change, with or without a ticket.
   Make sure to use this skill whenever planning is followed by authorized implementation.
   Excludes plan-only requests, bug diagnosis and explicit open-PR repair.
+compatibility: >
+  Requires the `pr-verdict` and `issue-workflow` skills from the same package version for the
+  failure-class catalogue and forge adapters, respectively; report the reference unavailable when
+  its skill is absent.
 metadata:
   category: dev
 ---
@@ -54,8 +58,8 @@ does not authorize launching Claude.
    dependent work; progress independent authorized units within the existing mandate.
 
    When the change touches a concern in the
-   [failure-class domain index](../pr-verdict/references/failure-classes.md#domain-index), read the
-   index, then only the relevant classes to inform the design and its failure paths. This reads a
+   failure-class domain index in the `pr-verdict` skill's `pr-verdict/references/failure-classes.md`,
+   read the index, then only the relevant classes to inform the design and its failure paths. This reads a
    shared reference; it does not invoke `pr-verdict` or apply its verdict policy.
 
 4. **Realize verifiable units.** Identify each unit's observable result, genuine prerequisites
@@ -102,7 +106,8 @@ does not authorize launching Claude.
 7. **Complete authorized delivery.** Continue commits, pushes, PR work and further delivery
    included in the mandate without asking the user to relaunch each stage. For repository/PR
    operations select the forge from verified Git remotes and read only its adapter in `issue-workflow`:
-   `references/github.md` for GitHub or `references/bitbucket.md` for Bitbucket, even without a ticket.
+   `issue-workflow/references/github.md` for GitHub or `issue-workflow/references/bitbucket.md` for
+   Bitbucket, even without a ticket.
    Reuse the exact existing source branch and matching open PR; create a PR only when needed
    and authorized, resolving ambiguous or terminal associations first. Before PR delivery,
    fetch the resolved target again and compare its SHA with the verified
