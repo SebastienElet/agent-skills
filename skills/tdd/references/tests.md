@@ -50,10 +50,35 @@ Replay with several controlled dates, including one after the old fixed fixtures
 expiry. Make the timezone explicit when crossing midnight matters; retain the database-session
 checks above when storage interprets instants.
 
+Owned domain code consumes the injected clock: keep `new Date()` and `Date.now()` reads inside its
+clock adapter. Before restoring real timers, unmount consumers and drain pending fake-timer work.
+For a Vitest UI test, put `cleanup()`, `await vi.advanceTimersByTimeAsync(0)`, `vi.clearAllTimers()`,
+then `vi.useRealTimers()` in `finally`; clearing alone can discard an awaited notification.
+After finding this defect, search every matching teardown with `rg useRealTimers`, correct the same
+faulty pattern wherever it occurs and replay repeatedly and in randomized order. Do not hide it
+with retries or repair only the first neighboring test.
+
 For a rule derived from a dated text, take expected results from the applicable source and version:
 exercise each reference date, inclusive/exclusive bound, exception and counting mode. Include a case
 where candidate reference dates produce different outcomes; comparing identical dates hides a wrong
 choice. A passing invented-policy example establishes no real policy's validity.
+Use different manufacture and approval dates when the fictional rule names approval. For each
+date-order invariant test equality, the previous day and the next day through its owning boundaries;
+exercise missing expiry when duration is mandated as well as the accepted required or derived expiry.
+
+## Evidence and collection cases
+
+For warning-producing checks, cover every declared state separately: valid, expired, unknown,
+undated and absent required evidence. At minimum, missing and unknown must produce a warning or
+refusal; inspect the recorded examined evidence and distinguish unverifiable from verified compliant.
+Include the safe case where the applicable rule explicitly permits unlimited validity.
+
+For keyed creation, exercise concurrent identical requests against the real database: one row and
+the replayed response. Reuse the key with a different body and assert the named refusal without a
+second effect. For lists, seed more than the default limit; assert the bound, pagination continuation,
+stable traversal without duplicate or omitted IDs on unchanged data, terminal page and the named
+above-maximum behavior. For UI identity, include two elements with the same type and null or empty
+expiry; exercise independent selection or update so a colliding key cannot pass as a harmless render.
 
 ## Database refusals
 
@@ -69,6 +94,11 @@ For isolation, authorization and redaction, arrange a case where only the target
 prevent the forbidden result. An empty access scope can conceal a missing tenant filter; give the
 foreign subject access to the candidate resource so only tenant isolation excludes it. Pair the
 refusal with an authorized control to rule out a path that always rejects.
+
+For approval requiring independent actors, give the proposer approval permission so only actor
+separation can refuse self-approval. Assert the named `403` and no writes; accept another authorized actor
+and refuse an actor without permission. Exercise direct SQL self-approval against a real database
+as well as application error translation; neither proof substitutes for the other.
 
 Observe a red witness by removing or breaking the intended predicate in a disposable copy: the
 test must fail by assertion, not by setup error or crash. Restore it and observe green. An existing
