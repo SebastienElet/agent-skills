@@ -196,7 +196,7 @@ says to post directly.
    Do not publish a separate proof verdict or interpret a path-only `NOT_APPLICABLE` as an exemption.
 
    Complete the structured review summary from the phase-1 anchor, findings, changed-behavior
-   ledger and distinct evidence-gap inventory, then emit it with `agent-measure pr-verdict` as
+   ledger and distinct evidence-gap inventory, then emit it with `arnes measure pr-verdict` as
    specified in `references/measurement.md`. Do this before returning phase 5, including the
    pre-repair pass of `pr-fix` and an unpublished verdict. Report the measurement status separately;
    a measurement failure leaves the verdict unchanged and does not prevent its return.

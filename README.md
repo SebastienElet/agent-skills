@@ -59,14 +59,14 @@ installation, rollback or host activation.
 
 ## Optional companions
 
-These separately owned capabilities are not bundled or installed automatically. Their first target
-versions are exact `1.0.0`; availability and their consumer paths still require qualification:
+These separately owned capabilities are not bundled or installed automatically. Companion packages
+target exact `1.0.0`; availability and consumer paths still require qualification:
 
-| Capability                   | Package                                       | Consumer                                     |
+| Capability                   | Provider                                      | Consumer                                     |
 | ---------------------------- | --------------------------------------------- | -------------------------------------------- |
 | Context handoff              | `@sebastienelet/agent-handoff@1.0.0`          | Workflows requesting `handoff`               |
 | Proof integrity              | `@sebastienelet/proof-integrity-review@1.0.0` | Reviews changing verification mechanisms     |
-| PR measurement               | `@sebastienelet/agent-measure@1.0.0`          | `pr-verdict`, via `agent-measure pr-verdict` |
+| PR measurement               | Arnes (`arnes measure`)                       | `pr-verdict`, via `arnes measure pr-verdict` |
 | Scenario/evidence validation | `@sebastienelet/agent-experiments@1.0.0`      | Collection evaluation maintenance            |
 | Herdr issue launch           | `@sebastienelet/herdr-issue-worktree@1.0.0`   | Explicit Herdr issue workflows               |
 

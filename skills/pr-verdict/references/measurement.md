@@ -1,6 +1,6 @@
 # Local PR measurement
 
-At the end of phase 5, invoke `agent-measure pr-verdict` once from the structured review summary.
+At the end of phase 5, invoke `arnes measure pr-verdict` once from the structured review summary.
 This is a local measurement, independent of publication consent and the forge's comment marker.
 It also runs before returning the pre-repair verdict to `pr-fix`. Do not parse the final Markdown,
 transcript, a hook payload or a published comment to recover these values.
@@ -31,14 +31,14 @@ This synthetic example represents two blocking findings, one reservation, three 
 two distinct gaps; replace every value from the actual review before invocation:
 
 ```sh
-agent-measure pr-verdict \
+arnes measure pr-verdict \
   --forge github.com --repository example/project --pr-id 1042 \
   --head-sha aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa --agent codex \
   --verdict changes-required --blocking-findings 2 --non-blocking-findings 1 \
   --observable-behaviors 3 --evidence-gaps 2
 ```
 
-Agent Measure adds the schema version, event type, UTC Unix timestamp in milliseconds, operating system and
+Arnes adds the schema version, event type, UTC Unix timestamp in milliseconds, operating system and
 architecture. It does not infer the verdict from the counts, check the remote PR, inspect the diff
 or establish causal links. The phase-1 anchor remains the evidence for the declared PR and SHA.
 No network service, session identifier, personal hostname, prompt or verdict text is stored.
@@ -78,7 +78,7 @@ Handle the command result before returning the verdict:
   and surface the conflict. There is no replacement flag in this iteration. A maintenance error
   after emission explicitly says whether the PR event was recorded or found as a duplicate;
   it does not undo the write or change the verdict.
-- Missing Agent Measure or unsupported subcommand: report `Measurement: unavailable` with the diagnostic
+- Missing Arnes or unsupported subcommand: report `Measurement: unavailable` with the diagnostic
   and return the unchanged verdict; do not install tools or fall back to a parallel store.
 
 Keep a failed emission's structured summary in the current task for an explicit retry after the
