@@ -101,9 +101,8 @@ does not authorize launching Claude.
 
 7. **Complete authorized delivery.** Continue commits, pushes, PR work and further delivery
    included in the mandate without asking the user to relaunch each stage. For repository/PR
-   operations select the forge from verified Git remotes and read only its existing adapter:
-   [GitHub](../issue-workflow/references/github.md) or
-   [Bitbucket](../issue-workflow/references/bitbucket.md), including when there is no ticket.
+   operations select the forge from verified Git remotes and read only its adapter in `issue-workflow`:
+   `references/github.md` for GitHub or `references/bitbucket.md` for Bitbucket, even without a ticket.
    Reuse the exact existing source branch and matching open PR; create a PR only when needed
    and authorized, resolving ambiguous or terminal associations first. Before PR delivery,
    fetch the resolved target again and compare its SHA with the verified
