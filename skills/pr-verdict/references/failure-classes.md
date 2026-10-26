@@ -23,12 +23,11 @@ can become an implementation defect.
 **Ask:** is the read that grounds the decision inside the same transaction as the write it
 authorizes?
 
-**Broken when:** a snapshot, a count, or a set of validation checks runs before the transaction
-opens. Anything committed in that window is invisible to the decision but visible to everyone
-afterwards — the write is authorized by a state that no longer exists.
+**Broken when:** a snapshot, count or validation runs before the transaction opens. Intervening
+commits escape the decision, authorizing a write from stale state.
 
-**Lift:** the read moves inside the transaction, at an isolation level that actually prevents the
-interleaving, or the invariant is enforced by a constraint the concurrent write cannot satisfy.
+**Lift:** read inside the transaction at an isolation level preventing the interleaving, or enforce
+the invariant with a constraint rejecting the concurrent write.
 
 Separate read-only planning from execution: complete all domain and authorization refusals before
 the first irreversible effect, including permanent derived creation, consumption of a non-reusable
@@ -42,12 +41,10 @@ it cannot undo.
 
 ## 2. Retry idempotence
 
-**Ask:** after a conflict, does the retry re-read the winning state, or does it replay the decision
-it computed before the conflict?
+**Ask:** after a conflict, does retry re-read the winning state or replay the pre-conflict decision?
 
-**Broken when:** the retry loop wraps only the write. The second attempt re-applies a stale
-decision and produces a duplicate — a second successor, a second invoice, a second charge — with no
-error anywhere.
+**Broken when:** retrying only the write silently replays a stale decision, duplicating a successor,
+invoice or charge.
 
 **Lift:** the retry re-enters the whole read-decide-write unit, or the write is keyed so that the
 duplicate is rejected by the database.
@@ -64,9 +61,8 @@ After a successful UI write, close or refresh the form so it cannot resubmit the
 
 **Ask:** which index or database constraint makes this invariant unfalsifiable?
 
-**Broken when:** the answer is "the service checks it". Application-level uniqueness or ordering does
-not exist under concurrency: two processes both read "absent" and both insert. A unique index, an
-exclusion constraint or a serializable transaction is the only thing that survives.
+**Broken when:** only the service checks uniqueness or ordering: two processes read "absent" and
+both insert. Require a unique index, exclusion constraint or serializable transaction.
 
 For upgrades or resynchronization from a reference model, identify the local derivations, invariants
 and user choices affecting each copied field. Exclude locally derived state from copying or recompute
@@ -93,19 +89,20 @@ preserves the intended union of keys instead of overwriting an earlier addition.
 called for another reason? For exempt objects, keep the attributes that make them harmless fixed
 across every mutation path.
 
-**Broken when:** authorization happens because some loader happens to filter by the caller's scope. A
-refactor that swaps that loader for a cheaper query removes the check, every test stays green, and
-nothing in the diff looks like a security change.
+**Broken when:** authorization relies on a loader filtering by caller scope. Replacing it with a
+cheaper query removes the check while tests stay green and the security change goes unnoticed.
 
 **Lift:** an explicit authorization call whose removal fails a test written against it.
 
-Inventory every route and use case in the touched module on the integrated tree, including existing
-neighbors: `route/use case → permission → access scope → refusal test`. Include the inventory in
-the PR description. Require explicit permission and scope, or a documented intentionally public
-contract; authentication and a permissive global guard are insufficient. Use minimally privileged
-subjects, with separate missing-permission and out-of-scope cases, rather than administrator-only
-tests. Arrange each refusal case so only the targeted predicate can reject it, and observe an
-assertion failure when that predicate is removed or broken, followed by success after restoration.
+Inventory every route/use case in the touched module and its existing neighbors on the integrated
+tree in the PR description: `route/use case → permission → access scope → refusal test`.
+Require explicit permission and scope or a documented intentionally public contract; authentication
+and a permissive global guard do not suffice. Use minimally privileged subjects with separate
+missing-permission and out-of-scope cases, not administrator-only tests. Isolate each refusal's
+predicate and observe a failing assertion when it is removed or broken, then success after restoration.
+For two-step flows (propose/approve, prepare/sign), record the first step's author and test refusal
+of self-approval separately from permission. Enforce it with a deterministic database constraint and
+named domain error where possible; apply [codebase-design](../../codebase-design/SKILL.md#steps) step 5.
 
 ## 5. Tenant scope
 
@@ -496,17 +493,19 @@ using bounded offline tests. State direct uncatchable-kill and detached-descenda
 
 ## 25. A reference is checked for existence only
 
-**Ask:** which attributes and states make each referenced object valid for this operation, and does
-the operation check every one of them?
+**Ask:** which attributes and states make each reference valid for this operation, and are all checked?
 
-**Broken when:** a precondition reads "X must exist" while X may be rejected, withdrawn, expired or
-never granted, or may differ in unit, period, owner or scope from the object referencing it. The
-dependent object then freezes or feeds later computations on an invalid basis: an approval accepts
-any linked review that exists, or a count equals a stock quantity expressed in another unit.
+**Broken when:** "X must exist" accepts rejected, withdrawn, expired or never-granted X, or a mismatch
+in unit, period, owner or scope. The dependent object freezes or feeds computations on an invalid
+basis: approval accepts any existing linked review, or a count equals stock in another unit.
 
 **Lift:** the design lists the validity attributes (status, unit, period, owner, withdrawal) before
-implementation. Each divergence is refused with its own error code and has a test that fails when the
-corresponding comparison is removed.
+implementation. Refuse each divergence with its own error code and a test that fails when its
+comparison is removed.
+A check that can conclude "nothing to report" enumerates required items: missing items, unknown
+status or null expiry warn or refuse, never succeed (null means "no limit" only under an explicit
+domain rule). Test each input state separately and record the required items examined, distinguishing
+"verified compliant" from "not verifiable".
 
 ## 26. A compound period is applied out of the rule's order
 
