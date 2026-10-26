@@ -1,6 +1,6 @@
 {
   "skill": "obsidian-retrieval",
-  "version": "1.1",
+  "version": "2.0",
   "queries": [
     {
       "query": "Find the note titled Architecture Decision 183 and summarize the exact source.",
@@ -20,17 +20,17 @@
     {
       "query": "Which notes backlink to Architecture, and what do those sources say?",
       "should_activate": true,
-      "reason": "Backlinks depend on Obsidian semantics when its CLI is healthy"
+      "reason": "Incoming wikilinks are found in Markdown before reading the linked sources"
     },
     {
-      "query": "List the status property, incomplete tasks, and matching Base rows for Project Atlas.",
+      "query": "Use this vault's Index.md and folder layout to find notes about software architecture.",
       "should_activate": true,
-      "reason": "Properties, tasks, and Bases require the read-only Obsidian workflow"
+      "reason": "The index and Markdown paths orient local note retrieval"
     },
     {
-      "query": "Find themes in this vault even though no semantic search tool is installed.",
+      "query": "Find notes about reliability, including resilience and fault tolerance.",
       "should_activate": true,
-      "reason": "Missing optional tools require an explicit lexical fallback"
+      "reason": "Conceptual questions use case-insensitive lexical searches with several synonyms"
     },
     {
       "query": "Search my notes for event sourcing and summarize the sources.",
@@ -41,6 +41,21 @@
       "query": "Search this vault for Project Chimera and tell me what an empty result establishes.",
       "should_activate": true,
       "reason": "An empty or no-match result must be reported without claiming absence"
+    },
+    {
+      "query": "Which notes link to Architecture through an alias or a heading anchor?",
+      "should_activate": true,
+      "reason": "Wikilink backlinks include aliased and heading-qualified targets"
+    },
+    {
+      "query": "The configured vault path cannot be read; search my notes anyway.",
+      "should_activate": true,
+      "reason": "Retrieval stops on the invalid root without silently selecting another corpus"
+    },
+    {
+      "query": "Run the Project Atlas Base view and return its computed rows.",
+      "should_activate": false,
+      "reason": "Evaluating Bases is outside filesystem note retrieval"
     },
     {
       "query": "Search the web for tomorrow's weather in Paris.",
