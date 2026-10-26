@@ -68,13 +68,8 @@ says to post directly.
    anticipates a PR that is not open yet, poll until it exists and anchor on it; reviewing the
    branch instead is a review of something the team has not proposed to merge.
 
-   Fetch the resolved destination and record its SHA. Run `git merge-tree --write-tree` with that
-   ref and the head; absence of textual conflicts does not prove integration compatibility. Before
-   declaring readiness, require the current destination to be integrated into the candidate and
-   replay the relevant barrier on that tree. A read-only review does not authorize updating the
-   source branch: report the required integration instead. Search the integrated tree for every
-   consumer of a new mandatory contract, including consumers added on the destination; after
-   conflict resolution, rerun the controls whose rejected behavior could have been restored.
+   Before declaring readiness in phase 1, read the [integration checks](references/forges.md#integration-checks)
+   for destination integration and barrier replay requirements.
 
 2. **Understand before judging.** Read the PR description, the design documents it cites, and the
    whole diff. The attachments are part of the description: a screenshot or an uploaded log is
@@ -84,33 +79,12 @@ says to post directly.
    before the flow is traced end to end is forbidden: its mechanism must demonstrate the violated
    invariant, and you cannot name a mechanism you have not followed.
 
-   Inspect every commit against the resolved destination and map it to the stated PR outcome.
-   Unrelated changes must be removed under development authority or explicitly disclosed in the
-   description. Verification tooling accompanying functional changes, including a correction to a
-   test oracle or a preflight, needs a separate PR or an explicit coupling rationale. Coherent
-   subtasks may share a PR. Flag temporary `wip` subjects and violations of the repository's commit
-   convention before publication or an update.
+   In phase 2, read [commit scope](references/forges.md#commit-scope) before mapping every commit
+   against the resolved destination to the stated PR outcome.
 
-   Inventory every externally observable behavior added, removed or changed by the diff. Start a
-   changed-behavior ledger with one row per behavior: the behavior, positive evidence on the exact
-   head or traceably equivalent relevant inputs, a negative witness requirement with its rationale,
-   and the result. Require negative witnesses for modified oracles and critical guarantees, not
-   systematically for every label. A witness is an executed test-first RED or a controlled faulty
-   variant shown to fail when the guarantee is broken. Existing witnesses are reusable when their
-   relevant inputs are unchanged. Keep experiments in disposable copies and verify candidate stability. A
-   passing regression test without an observed failing counterpart is positive evidence only; a
-   green aggregate count proves no individual row by itself; map its actual tests to the behavior.
-   Record required missing evidence as `absent`, and justified unnecessary witnesses as `not required`.
-
-   Ground each changed user action's entry point in the PR contract or added/moved control.
-   Ground role/stage eligibility and intentional prerequisites in an independent product,
-   authorization or PR contract, never the control's own guards; investigate unclear intent.
-   A read-only diagnosis alone does not promise an editor there. Derive valid starting states,
-   including empty unrelated data. Trace parent rendering, routing and enablement guards to the
-   usable control. API tests and tests mounting the control alone do not prove that path. Respect
-   declared prerequisites and verify reachability once they hold. A guard making that promised
-   workflow impossible is a blocker: name its location, failure sequence and a lift criterion
-   exercising the enclosing screen in that state.
+   Inventory every externally observable behavior added, removed or changed by the diff and start
+   a changed-behavior ledger with one row per behavior. In phase 2, read
+   [behavior evidence](references/behavior-evidence.md) for ledger, witness and user-action checks.
 
    When the aggregate PR diff changes a verification mechanism (CI routing, test oracles, caches,
    proof policy, or agent review rules), activate `proof-integrity-review` on the same base and
@@ -154,24 +128,9 @@ says to post directly.
    tests run. Then enumerate what the barrier does not reach: sequential tests say nothing about a
    race, jsdom nothing about a browser, an in-memory database nothing about PostgreSQL, one platform
    nothing about the others. If nothing exercises the changed code, that absence is the review's
-   first finding, not a reason to announce green. Then attribute each piece of evidence: measured
-   here, supplied by the author and not reproduced here, or absent. The three are not
-   interchangeable — "not observed" written over evidence sitting in the description is a false
-   statement about the author's work, and a lift criterion asking for a run the PR already shows
-   asks them to repeat themselves. What is missing in that case is a control in the repository:
-   name the control, not the re-run. Accept traceable CI and retained observations after checking
-   their artifacts and relevant source, oracle, configuration, dependency, environment and integration
-   inputs. Preserve original provenance and the comparison that justifies reuse; a new head need not
-   invalidate an unchanged mechanism's evidence. Reproduce only essential missing or invalidated
-   evidence. Unverifiable evidence remains unproven, not fictitiously reproduced.
-
-   Each description evidence entry records its tested head and integrated destination SHA, exact
-   command, exit status, environment and output excerpt or artifact. After each push, recheck the
-   description: rerun invalidated evidence or label it historical and unproven on the new head.
-   Retained observations keep their original SHA; a documented relevant-input comparison permits
-   reuse, never relabeling an old run as executed on the current head. Required remote checks must
-   identify their actual tested SHA; a queue or synthetic merge candidate is a separate tree.
-   Preserve the forge's native merge title when a required control consumes its branch marker.
+   first finding, not a reason to announce green.
+   In phase 4, read [behavior evidence](references/behavior-evidence.md#evidence-attribution-and-reuse)
+   before attributing evidence, reusing observations or recording description evidence.
 
 5. **Return a verdict.** Exactly one of _changes required_, _approved with reservations_,
    _approved_. Write the phase-5 verdict in the order defined by `assets/verdict-template.md`, with
@@ -201,30 +160,10 @@ says to post directly.
    ticket solely to request or record a re-review: the new
    head-specific verdict comment is that record. Write one general comment from
    `assets/verdict-template.md`, prefixed with the idempotency marker
-   `<!-- pr-verdict:<pr>:<head-sha-12> -->` — not a rain of inline comments. Apply the
-   identity, exact-marker and ambiguity procedure in `references/forges.md` before any update or
-   new publication. GitHub issue comments and review summaries are separate lookup and update
-   surfaces. Update only the single matching verdict owned by the publishing account; a foreign
-   match does not prevent that account from publishing its own. Stop on an unknown author, multiple
-   owned matches or an incomplete lookup. A different SHA gets a new verdict and leaves the old one
-   intact. Re-read before publishing — past about thirty lines, non-blocking remarks are
-   posing as blockers; never truncate the required behavior ledger to meet that heuristic. On
-   GitHub, _changes required_ establishes `CHANGES_REQUESTED` through
-   `gh pr review --request-changes` on another author's PR. On an updated marked verdict, compare
-   the account's latest opinionated review and its SHA before deciding whether another native
-   review is needed. If a later approval verdict must clear this account's earlier change request,
-   name the native approval in the publication confirmation and submit it only with that
-   authorization. Keep state-only reviews marker-free and link the marked verdict, as specified in
-   `references/forges.md`.
-   GitHub refuses a request-changes review on your own PR, and this skill has no verified `bkt`
-   command for the analogous Bitbucket state. A recorded request for changes does not by itself
-   establish a mechanical merge block.
-   State the advisory scope in the verdict unless the GitHub procedure has demonstrated an actual
-   refusal for the applicable rules and account. For your own GitHub PR or Bitbucket, publish the
-   comment alone and state its advisory scope.
-   A same-head reassessment under changed policy or new evidence is a new dated assessment with
-   its policy and evidence references. Preserve the earlier verdict and append the reassessment
-   inside the existing marked comment; never replace a historical rejection with an approval.
+   `<!-- pr-verdict:<pr>:<head-sha-12> -->` — not a rain of inline comments.
+   Before any update or new publication in phase 6, read the
+   [publication policy](references/forges.md#publication-policy) for identity, marker, native-state
+   and reassessment procedures.
 
 ## Verdict policy
 

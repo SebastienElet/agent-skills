@@ -97,7 +97,7 @@ of the evidence rule. Refusal verdicts therefore rely on the agent's explicit ev
 classification, not on the absence of mutations. This is not a counterfactual experiment with a
 write-capable connector. No live Linear or Bitbucket request was made.
 
-The [#245 observation](../../references/linear-guard-observation-2026-09-10.md) remains unchanged:
+The [#245 observation](https://github.com/SebastienElet/agent-skills/blob/a343af4e491b252bf3f7885263935a7a1352a1c2/skills/issue-workflow/references/linear-guard-observation-2026-09-10.md) remains unchanged:
 the identity replacement is unusable on the observed transport. No identity guard was added,
 enabled, or retried, and no description-changing workaround was introduced.
 
