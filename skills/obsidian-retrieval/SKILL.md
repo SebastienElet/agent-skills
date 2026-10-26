@@ -2,7 +2,7 @@
 name: obsidian-retrieval
 description: >
   Retrieve read-only knowledge from Obsidian vaults or local Markdown corpora with rg. Use when
-  searching notes, following wikilinks, or finding tags. Make sure to use this skill whenever
+  searching notes or following wikilinks. Make sure to use this skill whenever
   local notes are evidence, even if Obsidian is not named. Excludes note editing and Bases queries.
 compatibility: Requires a POSIX shell, rg, and read access to local Markdown files.
 metadata:
@@ -31,15 +31,14 @@ Stop on an unreadable root or ambiguity; never guess another corpus.
    rg -n -i -g '*.md' -e 'term' -e 'synonym' -e 'related term' .
    ```
 
-3. Find backlinks and tags, replacing `Title` and `tag`:
+3. Find backlinks, replacing `Title`:
 
    ```sh
    rg -l -g '*.md' '\[\[Title(\||#|\])' .
-   rg -n -g '*.md' '#tag' .
    ```
 
 4. Read relevant notes in full with `nl -ba 'path/to/note.md'`, follow useful links, and
-   cite root-relative `path:line`. Inspect tag hits in context; fragments and prose can match.
+   cite root-relative `path:line`.
 
 ## Gotchas
 

@@ -1,6 +1,6 @@
 {
   "skill": "obsidian-retrieval",
-  "version": "2.0",
+  "version": "2.1",
   "queries": [
     {
       "query": "Find the note titled Architecture Decision 183 and summarize the exact source.",
@@ -8,9 +8,9 @@
       "reason": "A known title is an exact-anchor retrieval request"
     },
     {
-      "query": "Look through this Markdown vault for identifier ADR-183 and tag #retrieval.",
+      "query": "Look through this Markdown vault for identifier ADR-183.",
       "should_activate": true,
-      "reason": "Identifiers and tags require lexical retrieval followed by source reading"
+      "reason": "Identifiers require lexical retrieval followed by source reading"
     },
     {
       "query": "What ideas connect my notes about bounded contexts and team ownership?",
