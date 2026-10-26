@@ -25,7 +25,8 @@ runs actually read the clarification skill; five nevertheless omitted the conver
 The previous [autonomy trial](../2026-10-15-autonomy/README.md) contains another observable omission.
 Its `candidate-review-only-1` response recommends confirming the export permission matrix but asks
 no question. That trial reported the absence of source modification for the read-only case; it did
-not establish that clarification happened. The [continuation trial](../../../output-discipline/references/continuation-evaluation.md)
+not establish that clarification happened. The continuation trial in the `output-discipline` skill
+(`output-discipline/references/continuation-evaluation.md`)
 tested a later distribution authorization, not the unresolved prerequisites of an analysis.
 
 Reflection decision: **propose**, type `sequence-recipe`, classification `harness-gap`. The user
