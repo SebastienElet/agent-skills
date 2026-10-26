@@ -3,6 +3,7 @@
 Reusable agent workflows distributed as `@sebastienelet/agent-skills`. The [derived index](skills/README.md)
 lists the 43 skills and their purposes. Resources, attribution notices and historical evaluations
 travel with their skill; historical observations do not qualify this package or current agent versions.
+Choose the skills relevant to your task.
 
 Prepared from the tracked sources at dotfiles revision
 [`89307efa`](https://github.com/SebastienElet/dotfiles/tree/89307efadc512f6021696bdf7ebb8249c820a2ff).
