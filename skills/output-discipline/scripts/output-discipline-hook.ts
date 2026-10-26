@@ -29,6 +29,7 @@ try {
     if (!statSync(sourcePath).isFile())
       throw new Error(`${sourcePath}: not a regular file`);
     const source = readFileSync(sourcePath, "utf8");
+    // Keep skill frontmatter out of the rules injected into the session.
     const body = source
       .replace(/^---[\t ]*\r?\n[\s\S]*?\r?\n---[\t ]*(?:\r?\n|$)/u, "")
       .replace(/[\r\n]+$/u, "");
