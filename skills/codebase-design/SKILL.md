@@ -5,6 +5,9 @@ description: >
   boundary or test surface. Make sure to use this skill whenever another skill needs module-design
   guidance, even if architecture is unnamed. Excludes routine edits and separately requested cleanup.
 license: MIT
+compatibility: >
+  Requires the `pr-verdict` skill from the same package version for its failure-class catalogue;
+  report the reference unavailable when absent.
 metadata:
   category: dev
 ---
@@ -39,7 +42,8 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
    For a referenced collection replacement, define the stable matching key, preserve retained
    identities and specify how removals and duplicate keys are handled. Require bounded pagination
    by default and a documented maximum for every exposed list; for each new creation endpoint,
-   apply [failure class 2](../pr-verdict/references/failure-classes.md#2-retry-idempotence) or document
+   apply class 2, "Retry idempotence", in the `pr-verdict` skill's
+   `pr-verdict/references/failure-classes.md` or document
    why idempotence is unnecessary. Composite item keys must remain unique when a component is null
    or empty; otherwise use a stable identifier. For a fingerprint or
    signature, define the covered fields from the protected content; exclude unrelated preferences
