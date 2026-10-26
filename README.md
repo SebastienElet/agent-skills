@@ -62,15 +62,14 @@ installation, rollback or host activation.
 These separately owned capabilities are not bundled or installed automatically. Their first target
 versions are exact `1.0.0`; availability and their consumer paths still require qualification:
 
-| Capability                   | Package                                       | Consumer                                     |
-| ---------------------------- | --------------------------------------------- | -------------------------------------------- |
-| Context handoff              | `@sebastienelet/agent-handoff@1.0.0`          | Workflows requesting `handoff`               |
-| Proof integrity              | `@sebastienelet/proof-integrity-review@1.0.0` | Reviews changing verification mechanisms     |
-| PR measurement               | `@sebastienelet/agent-measure@1.0.0`          | `pr-verdict`, via `agent-measure pr-verdict` |
-| Scenario/evidence validation | `@sebastienelet/agent-experiments@1.0.0`      | Collection evaluation maintenance            |
-| Herdr issue launch           | `@sebastienelet/herdr-issue-worktree@1.0.0`   | Explicit Herdr issue workflows               |
+| Capability                   | Package                                       | Consumer                                 |
+| ---------------------------- | --------------------------------------------- | ---------------------------------------- |
+| Context handoff              | `@sebastienelet/agent-handoff@1.0.0`          | Workflows requesting `handoff`           |
+| Proof integrity              | `@sebastienelet/proof-integrity-review@1.0.0` | Reviews changing verification mechanisms |
+| Scenario/evidence validation | `@sebastienelet/agent-experiments@1.0.0`      | Collection evaluation maintenance        |
+| Herdr issue launch           | `@sebastienelet/herdr-issue-worktree@1.0.0`   | Explicit Herdr issue workflows           |
 
-Missing measurement never changes a verdict. Evaluation CI remains pending the qualified
+Evaluation CI remains pending the qualified
 `agent-experiments` interface; its validator is not copied here. Each skill declares its own other
 prerequisites, including forge access or third-party tools. `issue-sync` remains a manual tracker reconciliation
 workflow; it neither calls nor replaces the retired Bitbucket–Linear synchronization CLI.

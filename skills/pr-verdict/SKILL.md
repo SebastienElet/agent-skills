@@ -195,12 +195,6 @@ says to post directly.
    absence of an optional receipt alone does not.
    Do not publish a separate proof verdict or interpret a path-only `NOT_APPLICABLE` as an exemption.
 
-   Complete the structured review summary from the phase-1 anchor, findings, changed-behavior
-   ledger and distinct evidence-gap inventory, then emit it with `agent-measure pr-verdict` as
-   specified in `references/measurement.md`. Do this before returning phase 5, including the
-   pre-repair pass of `pr-fix` and an unpublished verdict. Report the measurement status separately;
-   a measurement failure leaves the verdict unchanged and does not prevent its return.
-
 6. **Trace and publish.** When running inside any review pass of `pr-fix`, return the phase 5
    verdict without a ticket or publication and let that workflow continue. Otherwise, open or reuse
    a fix ticket for blocking defects, and link the initial verdict if one exists. Never open a
@@ -365,5 +359,3 @@ the symptom that preferences have crept into the blocking section.
   slots. Filled in phase 6.
 - [references/cases.md](references/cases.md) — behavioral cases with their expected verdicts,
   forge coverage, and the record of what they have never validated.
-- [references/measurement.md](references/measurement.md) — structured local emission at the end of
-  phase 5, including duplicate and storage-failure handling.
