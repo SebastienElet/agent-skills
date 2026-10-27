@@ -42,6 +42,8 @@ tests are part of that authorization; do not ask again when the behavior and tes
    dependencies are installed. Replay in that context, using a commit archive without
    `node_modules` when that is how CI runs; module-level resolution of an installed CLI can fail
    before any assertion despite a green local preflight.
+   Establish whether the test runner checks types; if it only transpiles, run the project's separate
+   typecheck, including affected fixtures and port implementations, before declaring readiness.
 3. Read [references/tests.md](references/tests.md) when choosing assertions and
    [references/dependencies.md](references/dependencies.md) when substituting dependencies.
    Exercise the real database or protocol when it owns the invariant; prefer in-memory application

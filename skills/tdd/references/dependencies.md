@@ -31,3 +31,7 @@ alone leaves its fidelity unproven. Keep the shared cases limited to the contrac
 
 Avoid global module patches and test-only flags in production APIs. Add only the state and behavior
 the in-memory implementation needs under test pressure; do not build a second production system.
+
+Use shared typed factories for fixtures consuming the same contract and a shared compiler-checked
+test implementation for a common port. Contract additions must expose missing fields or methods
+through typecheck rather than leave dispersed handwritten copies silently stale.
