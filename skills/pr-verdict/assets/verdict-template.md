@@ -1,8 +1,9 @@
-# PR verdict template
+# Internal PR verdict audit
 
-Fill this into `verdict.md`, then publish with the commands in `references/forges.md`. A slot marked
+Complete this record in the review context or a local artifact; do not publish it by default.
+Build `verdict.md` separately using [comment-template.md](comment-template.md). A slot marked
 REQUIRED that cannot be filled means the phase it belongs to was not done — go back to it instead of
-publishing an incomplete verdict. This file is English; the verdict itself follows the language of
+issuing an incomplete verdict. This file is English; the verdict itself follows the language of
 the PR.
 
 ## Skeleton
@@ -71,7 +72,7 @@ When the verdict is advisory, say so in this line as well. A request-changes rev
 GitHub is not proof that the merge button is blocked.>
 ```
 
-## Filled example
+## Internal worked example
 
 A _changes required_ verdict. Every identifier and figure below is invented — a committed skill must
 carry nothing from the repositories it was exercised on. The example is English because these files
@@ -114,7 +115,7 @@ Initial review: https://forge.example/pull-requests/1042/comments/155
 Do not approve or merge this head; this verdict is advisory.
 ```
 
-## Self-check before publishing
+## Internal completeness check
 
 - The marker is the first line, and its SHA is the head you actually checked out.
 - Every changed observable behavior has one ledger row with applicable positive evidence and a

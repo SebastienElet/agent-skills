@@ -133,7 +133,7 @@ says to post directly.
    before attributing evidence, reusing observations or recording description evidence.
 
 5. **Return a verdict.** Exactly one of _changes required_, _approved with reservations_,
-   _approved_. Write the phase-5 verdict in the order defined by `assets/verdict-template.md`, with
+   _approved_. Complete the internal audit using `assets/verdict-template.md`, with
    the complete changed-behavior ledger before the blocking paragraph. Keep one row per inventoried
    behavior; a prose summary does not replace the rows. Both approval verdicts require every ledger
    row to have sufficient relevant positive evidence and required negative witnesses, with provenance
@@ -152,6 +152,9 @@ says to post directly.
    evidence gaps and behavior ledger, retaining its report as a linked review artifact. If a
    structured receipt was explicitly required, its missing, stale or rejected gate also blocks;
    absence of an optional receipt alone does not.
+   Retain the full audit and its evidence in the review context or a local artifact; return it to
+   `pr-fix` when composed. Use `assets/comment-template.md` for the public summary. A shorter comment
+   never waives an audit step, ledger row, negative witness or approval prerequisite.
    Do not publish a separate proof verdict or interpret a path-only `NOT_APPLICABLE` as an exemption.
 
 6. **Trace and publish.** When running inside any review pass of `pr-fix`, return the phase 5
@@ -159,13 +162,27 @@ says to post directly.
    a fix ticket for blocking defects, and link the initial verdict if one exists. Never open a
    ticket solely to request or record a re-review: the new
    head-specific verdict comment is that record. Write one general comment from
-   `assets/verdict-template.md`, prefixed with the idempotency marker
+   `assets/comment-template.md`, prefixed with the idempotency marker
    `<!-- pr-verdict:<pr>:<head-sha-12> -->` — not a rain of inline comments.
    Before any update or new publication in phase 6, read the
    [publication policy](references/forges.md#publication-policy) for identity, marker, native-state
    and reassessment procedures.
 
 ## Verdict policy
+
+Separate review completeness from publication length. For _approved_ with no reviewer changes or
+findings, publish at most eight lines: marker, verdict with short head and destination, one sentence
+linking decisive evidence with its actual tested candidate, and only material residual limits
+(at most two bullets). Omit the ledger, task counts, proof-audit codes, method narration and routine
+"no changes made" statements. State advisory scope once, as a verdict qualifier when applicable;
+do not repeat the conclusion. Do not invent limits to fill the template.
+
+For other verdicts or findings, put actionable findings and lift criteria first, followed by the
+relevant evidence and limits. Keep the public summary within about thirty lines; retain the full
+ledger internally rather than dropping audit rows to fit. Publish full audit details only when
+requested, still bounded and with findings first. A material limit, unresolved native review state,
+stacked-base requirement or actual synthetic CI candidate must remain explicit when it affects the
+decision; brevity cannot turn incomplete evidence into approval.
 
 `broken by` becomes a blocking defect only when its ordered failure mechanism is written out.
 "This looks racy" is not a mechanism; "request A snapshots at T1, request B writes at T2, A commits
@@ -268,7 +285,8 @@ the symptom that preferences have crept into the blocking section.
 ## Constraints
 
 - Never approve without sufficient traceable barrier evidence applicable to the reviewed candidate.
-- Never write "everything is green": report counts, or report that nothing ran.
+- Never write "everything is green": retain exact counts or non-execution in the internal audit;
+  publish only decisive traceable evidence and material limits using `assets/comment-template.md`.
 - Never report a count from a command the pipeline does not run; name the gate you executed.
 - Never publish a blocking defect without a named failure mechanism and a lift criterion.
 - Never publish an essential-evidence blocker without the missing proof, why approval needs it,
@@ -301,6 +319,8 @@ the symptom that preferences have crept into the blocking section.
 - [references/failure-classes.md](references/failure-classes.md) — the failure classes as
   questions to put to the diff. Read in phase 3.
 - [assets/verdict-template.md](assets/verdict-template.md) — the verdict skeleton with its required
-  slots. Filled in phase 6.
+  slots for the internal audit. Completed in phase 5.
 - [references/cases.md](references/cases.md) — behavioral cases with their expected verdicts,
   forge coverage, and the record of what they have never validated.
+- [assets/comment-template.md](assets/comment-template.md) — proportional public summaries;
+  the complete audit stays in `assets/verdict-template.md`.
