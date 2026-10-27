@@ -57,16 +57,8 @@ its correction and evidence here without starting another workflow.
    the other forge's client or credentials are not prerequisites. Never infer the push target
    from the local branch name or `origin`.
 
-   Before another review or correction, open or create
-   `~/.local/state/pr-fix/<forge-host>/<destination-owner>/<destination-repository>/<pr>/journal.md`
-   from `assets/repair-journal.md`. Derive the identity from the canonical PR URL, verify the URL
-   stored in an existing journal, and encode path separators inside individual identity components.
-   Keep this operational journal outside Git, any temporary worktree and durable agent memory.
-   Read earlier passes before planning; reconcile them against the current diff and commits.
-   If the journal is missing or damaged, recover only verifiable history from the forge and report
-   any gap; never invent prior corrections. Recover authorizations, pass count, unresolved
-   disagreements and pending actions too; an unknown consumed budget blocks another correction.
-   One repair session owns a PR journal at a time.
+   Before another review or correction in step 1, read [journal recovery](references/repair-journal.md#recovery)
+   to open or create the stable PR journal and reconcile its history and remaining budget.
 
    Activate `pr-verdict`, read its routed references, and run phases 1 through 5 on the exact head
    SHA when a current applicable review is absent. Reuse traceable review and check evidence only
@@ -105,26 +97,21 @@ its correction and evidence here without starting another workflow.
    useful behavioral test gets the repository's relevant smoke or validation check. Do not turn
    naming, style or speculative cleanup into repair work.
 
-   Update the journal after each correction and validation: problem, final behavior, commits,
-   failed-then-passing evidence, environment and limits. Preserve corrections to earlier corrections
-   and mark reverted or superseded work. Write a sibling temporary file, then rename it over the
-   journal; a failed write pauses the repair before another push or publication.
+   After each correction and validation in step 4, read [journal updates](references/repair-journal.md#updating-the-journal)
+   to record the outcome and evidence and replace the journal safely.
 
-5. **Run a barrier sized to the delta.** Take the merge-blocking commands from the CI configuration,
-   never from a same-named package script, then run the tier the corrections actually reach on the
-   repair worktree:
+5. **Select the affected checks.** Identify checks the repository already runs for the corrected
+   files and consumers. Take relevant merge-blocking commands from the CI configuration, never
+   infer them from a same-named package script. Reuse evidence after comparing relevant source,
+   oracle, configuration, dependency, environment and integration inputs; retain its provenance and
+   the comparison justifying reuse. Run only missing or invalidated affected checks on the repair
+   worktree in the required environment.
 
-   | Delta                                                 | Barrier                                                                            |
-   | ----------------------------------------------------- | ---------------------------------------------------------------------------------- |
-   | Comments, documentation or PR text only               | format, spellcheck, lint, typecheck                                                |
-   | Code that changes no observable behavior              | the above, plus the unit tests of every touched package                            |
-   | Behavior, a seam, a contract, a schema or a migration | the full merge-blocking barrier, failure-path tests and end-to-end suites included |
-
-   A tier is a floor, not a ceiling: run the full barrier whenever the delta's reach is uncertain,
-   and never let a tier excuse a gate the corrections do reach. Name the tier you ran in the report,
-   so a reader sees which gates were skipped and why. Record counts and evidence gaps as
-   `pr-verdict` requires. Keep independent mechanisms in separate commits and coupled corrections
-   together.
+   If selection is uncertain, investigate the affected scope and existing checks, then state the
+   uncertainty and evidence gap rather than defaulting to the complete barrier. Report selected
+   checks, reused evidence and reasoned omissions, with counts and evidence gaps as `pr-verdict`
+   requires; essential missing evidence remains a blocker. Keep independent mechanisms in separate
+   commits and coupled corrections together.
 
 6. **Re-anchor, then land the whole slate in one push.** Query the forge again and validate that the
    source repository, source ref and head SHA are all present and still identify the anchored head.
@@ -162,7 +149,7 @@ its correction and evidence here without starting another workflow.
    Do not delegate
    while a correction is still pending — a head you intend to amend is a head whose verdict you are
    about to throw away. When that review does find a defect in the repair itself, correct it, push
-   once, and scope the second delegation to the new delta and its barrier tier instead of repeating
+   once, and scope the second delegation to the new delta and its affected checks instead of repeating
    the whole sweep. Exception: if the aggregate PR diff changes a verification mechanism, require
    `pr-verdict` to renew its `proof-integrity-review` audit over the complete aggregate diff at the
    new head, even when the latest correction is editorial. An audit of the previous head cannot
@@ -189,54 +176,12 @@ its correction and evidence here without starting another workflow.
    `approved with reservations` keeps the journal pending and proposes no approval: list each
    reservation and the decision expected from the user, then stop.
 
-   When the approval gate in `references/native-approval.md` holds, present these three items and
-   wait for the answer:
-   1. the independent verdict (`approved`), the head SHA and the SHA of the CI run;
-   2. the draft verdict comment, built from `pr-verdict/assets/verdict-template.md` in the PR's
-      language, written to the scratchpad and carrying its marker
-      `<!-- pr-verdict:<pr>:<sha12> -->`;
-   3. the question "Publish this verdict, then approve?" in the user's language, with three
-      answers: publish and approve, approve only, do nothing.
-
+   After these checks pass, read and follow the [step 8 publication protocol](references/native-approval.md#step-8-publication-protocol)
+   even when native approval is not performed.
+   When the [approval gate](references/native-approval.md#gate) holds, present the verdict, draft
+   and question and wait for the explicit answer on this SHA.
    Never publish the verdict or approve before an explicit answer; the invocation of this workflow,
-   an earlier general authorization or silence is not one. The answer binds the presented SHA: after
-   it, re-read the head, and if it moved discard the answer and ask again on the new head. When no
-   user can answer, keep the journal pending, record the awaited answer and report it.
-
-   - **Publish and approve:** publish the draft through `pr-verdict/references/forges.md` (its
-     marker lookup updates a same-head verdict in place), read it back, record its comment ID and URL
-     in the journal, then approve. A failed or uncertain publication pauses the approval until a
-     remote read by marker settles it.
-   - **Approve only:** approve without publishing the verdict.
-   - **Do nothing:** publish and approve nothing; record `approval: not performed — user declined` in `Delivery`.
-
-   Use the journal's evidence for the publications permitted by this step. Update the PR description
-   only if the user explicitly authorized the presented evidence update on this same head; permission
-   to publish a verdict or approve alone does not authorize that description change.
-
-   Approve by applying `references/native-approval.md`. Keep the current approval state in `Delivery`
-   and each transition in its linked evidence with account, SHA and time. A confirmed or already
-   present approval, a refusal, a user decline
-   or prohibition, or an own PR lets publication continue with that outcome stated; an uncertain or
-   withdrawn approval pauses it.
-   The approval never authorizes merging or adding the PR to a merge queue; each requires a
-   separate explicit request.
-
-   Build `assets/repair-record.md` from all journal passes in the PR's language: one opening sentence
-   with the final SHA, one short bullet per corrected problem, validation counts and limits, then
-   the independent verdict and the verified native approval state as separate lines.
-   Consolidate repeated fixes by their final outcome and omit superseded attempts; retain their
-   history and detailed mechanisms in the journal. Block publication if missing history prevents
-   an accurate cumulative summary. If nothing was corrected, no repair comment is needed; the
-   native approval still applies and its state is reported in step 9.
-
-   Search all existing comments for the stable marker `<!-- pr-fix:<pr> -->`. Update the matching
-   comment only when owned by the publishing account; otherwise keep publication pending and report
-   the ownership conflict. Create one only when none exists. For legacy `<pr>:<sha>` markers, reuse
-   the latest repair comment owned by the publishing account and replace its marker, preserving other comments
-   and replies. Pass the body through a file using `pr-verdict/references/forges.md` and save the
-   returned comment ID, URL and published SHA in `Delivery`. After a timeout or uncertain response,
-   re-read remote comments before retrying; if lookup fails, keep publication pending.
+   an earlier general authorization or silence is not one. A moved head voids the answer.
 
 9. **Close or pause the repair.** Report the final SHA, verdict, native approval state, journal path
    and either the summary URL or the reason publication is pending. On Bitbucket, report the PR state
@@ -287,7 +232,7 @@ its correction and evidence here without starting another workflow.
   something new every round. Freeze the slate, push once, then delegate.
 - **The full barrier is re-run for a reworded comment** — end-to-end suites cost minutes and prove
   nothing about a doc change, so each round lengthens the feedback loop without adding evidence.
-  Size the barrier to the delta and name the tier.
+  Select existing affected checks and reuse evidence whose relevant inputs remain valid.
 
 ## Constraints
 
@@ -313,7 +258,7 @@ its correction and evidence here without starting another workflow.
   preserve existing replies, and always pass the body through a file.
 - Keep every correction, its mechanism, evidence and reasoned omission in the journal; publish a
   concise cumulative account of final outcomes with numeric validation evidence and its limits.
-- Never claim a defect fixed before its failure-path test and the barrier tier its delta reaches
+- Never claim a defect fixed before its failure-path test and the existing affected checks
   both pass, and never report a gate you did not run.
 - Never let the context that wrote the repaired head perform its final failure-class sweep.
 - Never delegate a verdict on a head you still intend to amend; one repair lands one judged head.
