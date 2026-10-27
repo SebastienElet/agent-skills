@@ -43,6 +43,30 @@ independent meaning and the review can detect a wrong result.
 - Name tests according to the boundary actually assembled. In-process application integration with
   a real database and substituted external services is not automatically end-to-end testing.
 
+## Controlled time
+
+Search date literals in added or changed tests. A literal may anchor a frozen clock or an
+independent calendar case; it must not silently mean "future" relative to the machine clock.
+Inject or freeze time in the system under test, not only in the assertion. Derive dates relative
+to today from that same clock with the project's calendar operations. Cover expected response dates,
+future events and maximum durations, including the exact boundary and the first rejected value.
+Replay with several controlled dates, including one after the old fixed fixtures, to expose hidden
+expiry. Make the timezone explicit when crossing midnight matters; retain the database-session
+checks above when storage interprets instants.
+
+For a rule derived from a dated text, take expected results from the applicable source and version:
+exercise each reference date, inclusive/exclusive bound, exception and counting mode. Include a case
+where candidate reference dates produce different outcomes; comparing identical dates hides a wrong
+choice. A passing invented-policy example establishes no real policy's validity.
+
+## Database refusals
+
+For each added or expanded constraint, exclusion or trigger, exercise its named refusal through
+the application with the real database. Assert the exact transport status and business code, then
+read back all transaction writes to prove rollback. Include deferred refusal at commit, an unknown
+technical error and a concurrent change defeating any early application check. A direct SQL refusal
+alone does not prove the adapter's translation; a mocked exception does not prove the database path.
+
 ## Discriminating security tests
 
 For isolation, authorization and redaction, arrange a case where only the targeted predicate can

@@ -47,11 +47,14 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
    why idempotence is unnecessary. Composite item keys must remain unique when a component is null
    or empty; otherwise use a stable identifier. For a fingerprint or
    signature, define the covered fields from the protected content; exclude unrelated preferences
-   and metadata. For rules derived from text, verify the applicable source and version, then
-   specify temporal references, inclusive or exclusive bounds, exceptions and counting rules before
-   encoding them. A material ambiguity remains a decision for the rule's owner through
-   `requirements-clarification`. For database-backed contracts, include identified database
-   refusals, including at commit, translated at the adapter boundary into named application errors;
+   and metadata.
+   For rules derived from a text, cite its applicable source, status and version in the design;
+   identify the reference date for each effect or attribution, inclusive/exclusive bounds,
+   exceptions and counting modes. Put the established rule in the domain and derive boundary and
+   exception tests from that source. Escalate material ambiguity to its owner through
+   `requirements-clarification`; a proposal or a document aligned on the code does not establish policy.
+   For database-backed contracts, include identified database refusals, including at commit,
+   translated at the adapter boundary into named application errors;
    unexpected failures remain technical errors.
 3. Apply the deletion test: if the module disappeared, would its decisions spread across callers
    or would unnecessary delegation disappear? Keep functions and adapters with a real responsibility
@@ -60,8 +63,8 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
    details, accept dependencies with effects at the appropriate boundary and prefer pure transformations
    for the owned core. Avoid hypothetical ports, boolean switches and generic operation handlers.
 5. Read [references/dependencies.md](references/dependencies.md) when considering dependency
-   boundaries or consolidation. State where each invariant is enforced and test it there. Do not
-   collapse domain, transport or transaction boundaries merely to make a module deeper. For
+   boundaries, persistence, lifecycle changes or consolidation. State where each invariant is enforced
+   and test it there. Do not collapse domain, transport or transaction boundaries merely to make a module deeper. For
    database-owned invariants, prove identified refusals, their error translation and transaction
    rollback on a real database, including commit-time failures when applicable.
 6. Compare alternatives only when a consequential design choice remains. State the gain in

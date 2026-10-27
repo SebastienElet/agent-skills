@@ -182,6 +182,8 @@ Classes 6, 8, 10 and 13 are usually reservations — promote class 6
 when a concrete consumer's retry path depends on the changed code, class 8 when the degraded value
 reaches a person or a legal act, and class 10 when the claim is legal, evidentiary or contractual;
 a class 7 deferral stated with its lift condition is a reservation.
+Class 6 also blocks a demonstrated violation of a promised business refusal, including a named
+database refusal escaping as a generic server error.
 For class 13, label the unchanged-contract claim `unproven` until the exported bytes are compared;
 block when the comparison exposes a promised compatibility break or when compatibility proof is
 essential to approval. Missing hostile-input or output coverage in classes 11 and 12 is an evidence
@@ -213,6 +215,9 @@ or cleanup guarantee. Missing evidence follows phase 5; do not invent a leak or 
 
 Classes 25 to 27 block a demonstrated wrong result, accepted invalid reference or failing routine on
 existing data; missing evidence follows phase 5 without inventing a mechanism.
+Classes 28 to 32 block a demonstrated expiring test, broken immutability or authorized erasure,
+omitted legitimate source, lost reference, incorrect signature validity or source-rule violation.
+Missing evidence follows phase 5; do not infer a runtime failure from an unexecuted scenario.
 
 The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
 user action blocks, even outside these classes.

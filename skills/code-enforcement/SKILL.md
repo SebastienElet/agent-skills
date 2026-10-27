@@ -45,6 +45,9 @@ alias, the `--no-verify` and the second remote).
    Test an exempt object subsequently repurposed for real effects: refuse the bypass without side
    effects, while permitted edits and ordinary objects retain their contract. Removing the lock or
    recheck must fail the refusal assertion. Name the exemption and its protection in the PR description.
+   For authorization, resolve the action's permission from the design in force; a general parent
+   edit permission cannot replace a dedicated action permission. With valid scope, test that the
+   parent-only subject is refused without writes and the action-authorized subject succeeds.
 2. **Check whether you can actually see it.** If the code only has a representation of the value — a
    shell command string, a diff, a log line, a commit message — the decision is a heuristic, not a
    check. Say so in a comment and in the delivery note, and label that layer advisory. Do not let a
@@ -76,6 +79,9 @@ alias, the `--no-verify` and the second remote).
    An error, interruption or incomplete result must publish nothing and must not replace an already
    validated entry. Cover successful publication and each failure path through the cache's public
    interface, including preservation of an existing validated entry.
+   Fail a later check after an earlier success, observe nonzero status and no publication, then
+   rerun from another worktree to prove checks execute; a complete success remains reusable for
+   identical inputs.
    Before activating a new blocking check, dry-run it on the target branch and every open branch,
    include needed exceptions in the same PR, and apply
    class 16, "A control trusts configuration from the PR it checks", in the `pr-verdict` skill's

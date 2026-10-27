@@ -41,7 +41,9 @@ tests are part of that authorization; do not ask again when the behavior and tes
 3. Read [references/tests.md](references/tests.md) when choosing assertions and
    [references/dependencies.md](references/dependencies.md) when substituting dependencies.
    Exercise the real database or protocol when it owns the invariant; prefer in-memory application
-   dependencies over mocks of internal calls.
+   dependencies over mocks of internal calls. Search added or changed tests for date literals;
+   distinguish fixed calendar cases from assumptions about today and use the controlled-clock
+   procedure in `references/tests.md` for the latter.
    Before RED, when the behavior touches a concern in the
    failure-class domain index in the `pr-verdict` skill's `pr-verdict/references/failure-classes.md`,
    read the index, then only the useful classes to choose discriminating failure cases. Process supervision
