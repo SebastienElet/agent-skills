@@ -79,6 +79,12 @@ this path does not authorize launching Claude.
    diagnosis through step 3; if it challenges the design, return to `plan` within the same budget.
    Rerun affected checks after correction and remove temporary instrumentation.
 
+   After RED/GREEN and stabilized committed revisions, use `assertledger` once for eligible
+   Git/JavaScript `node:test` regression qualification and manifest replay, then resume delivery.
+   Its protocol owns prerequisites and non-positive outcomes; report missing revisions, a neutral
+   control or execution authorization without inventing them. Skip forced campaigns for Rust,
+   ordinary Bun/TypeScript and declarative changes; do not requalify through `tdd` or `implement`.
+
 6. **Finish within the mandate.** Continue `implement`'s existing review and delivery stages
    without another human phase launch or a second review/correction loop. Review stays optional
    unless requested or already required. Its GitHub or Bitbucket adapter, selected from verified

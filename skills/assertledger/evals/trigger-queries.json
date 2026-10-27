@@ -1,0 +1,96 @@
+{
+  "skill": "assertledger",
+  "version": "1.0",
+  "queries": [
+    {
+      "query": "bug-fix has reproduced and repaired a dependency-free JavaScript node:test regression. RED/GREEN is recorded and the buggy, corrected and neutral Git revisions are committed and stable. Continue verification before the authorized local delivery.",
+      "should_activate": true,
+      "reason": "The bug-fix transition qualifies the compatible regression once, replays its manifest and returns to the existing delivery path"
+    },
+    {
+      "query": "$assertledger qualify tests/regression.test.mjs against these committed buggy, corrected and neutral revisions; the base tests are unchanged and trusted local execution is authorized for this reviewed fixture",
+      "should_activate": true,
+      "reason": "A direct qualification request retains the compatible Git node:test workflow and explicit execution scope"
+    },
+    {
+      "query": "Check whether this committed JavaScript node:test regression detects the declared bug. I supplied the three Git revisions, neutral rationale and execution authorization.",
+      "should_activate": true,
+      "reason": "A natural-language qualification request activates the skill without naming AssertLedger"
+    },
+    {
+      "query": "Replay .assertledger/evidence-001/manifest.json and report its validity; do not rerun tests or create a new campaign",
+      "should_activate": true,
+      "reason": "An existing artifact goes directly to replay and bounded reporting without new campaign prerequisites"
+    },
+    {
+      "query": "Run the supplied versioned AssertLedger Bun request using its documented adapter and existing authorization, then replay its manifest",
+      "should_activate": true,
+      "reason": "An explicit supported lower-level request remains available without extending Git check to ordinary Bun or TypeScript tests"
+    },
+    {
+      "query": "Qualify this JavaScript node:test regression, but the corrected code and candidate test are not committed and I have not supplied the buggy revision",
+      "should_activate": true,
+      "reason": "The direct request must report missing committed revisions without inventing them or qualifying ignored working-tree changes"
+    },
+    {
+      "query": "Qualify this committed Git node:test regression; I have supplied before and after but no neutral revision or rationale",
+      "should_activate": true,
+      "reason": "The missing neutral control and its meaning must be reported rather than fabricated"
+    },
+    {
+      "query": "Qualify this committed Git node:test regression; AssertLedger is installed but no execution backend has been authorized",
+      "should_activate": true,
+      "reason": "Installation supplies no execution permission; qualification reports the missing authorization without running a campaign"
+    },
+    {
+      "query": "The AssertLedger campaign returned REJECTED but its manifest replay is valid. Report the qualification result before delivery.",
+      "should_activate": true,
+      "reason": "Valid replay does not turn a rejected campaign into positive regression evidence"
+    },
+    {
+      "query": "The AssertLedger campaign returned INCONCLUSIVE. Report whether this regression is qualified.",
+      "should_activate": true,
+      "reason": "Inconclusive observations remain unproven and cannot support acceptance"
+    },
+    {
+      "query": "AssertLedger failed with an execution error and did not publish manifest.json. Continue the qualification report.",
+      "should_activate": true,
+      "reason": "An operational failure and incomplete artifacts must be retained as a limitation rather than evidence of detection"
+    },
+    {
+      "query": "The AssertLedger campaign says VERIFIED but replay returned valid: false. Can this support acceptance?",
+      "should_activate": true,
+      "reason": "Positive evidence requires both a verified decision and valid replay"
+    },
+    {
+      "query": "Fix this Rust regression using cargo test; RED/GREEN is recorded and the Git revisions are stable",
+      "should_activate": false,
+      "reason": "Rust keeps its native regression proof and does not trigger a forced AssertLedger campaign"
+    },
+    {
+      "query": "Fix this ordinary TypeScript regression with bun test and native expect assertions, then commit locally",
+      "should_activate": false,
+      "reason": "Ordinary Bun and TypeScript tests are outside Git node:test qualification"
+    },
+    {
+      "query": "Repair this declarative YAML configuration and validate it with the tool's native dry-run",
+      "should_activate": false,
+      "reason": "Declarative changes use native validation without a forced campaign or a text-checking substitute"
+    },
+    {
+      "query": "Use ordinary TDD to implement this JavaScript node:test feature; no declared regression needs qualification",
+      "should_activate": false,
+      "reason": "Runner compatibility alone does not turn routine TDD into a qualification request"
+    },
+    {
+      "query": "implement is finishing a repair owned by bug-fix. AssertLedger qualification and valid replay are already recorded for the unchanged candidate; continue the authorized local delivery.",
+      "should_activate": false,
+      "reason": "The existing owner consumes the current evidence without a second qualification through implement or tdd"
+    },
+    {
+      "query": "Review the current code and improve its coverage",
+      "should_activate": false,
+      "reason": "General review and coverage work do not request regression qualification"
+    }
+  ]
+}
