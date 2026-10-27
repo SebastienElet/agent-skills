@@ -64,6 +64,9 @@ this path does not authorize launching Claude.
    adequate automated boundary exists, name the gap and why direct replay is the relevant evidence;
    do not add a shallow substitute or a new harness by default. Missing essential evidence blocks
    demonstrated completion, even when independent preparation can continue.
+   Before concluding the repair, search for the faulty pattern (for example with `rg`) and fix
+   all occurrences together, beyond the failing test. Rerun the affected suite under step 5,
+   repeatedly and in randomized order when the defect depends on execution order.
 
 5. **Require the original replay before delivery.** Keep this as a verification condition of
    `implement`, before its review and delivery stages: rerun the unreduced original scenario on

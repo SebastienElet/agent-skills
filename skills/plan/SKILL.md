@@ -5,6 +5,9 @@ description: >
   consequential design choices need resolution before implementation. Make sure to use this skill
   whenever an ongoing task needs that preparation, even without a ticket. Excludes obvious changes,
   functional issue specification and codebase-wide improvement surveys.
+compatibility: >
+  Requires the `pr-verdict` skill from the same package version for its failure-class catalogue;
+  report the reference unavailable when absent.
 metadata:
   category: dev
 ---
@@ -55,8 +58,14 @@ an ADR contradiction or a decision reserved to the user still bounds continuatio
 
 4. **Sketch and choose.** Use `codebase-design` to describe caller usage, responsibilities,
    interfaces, invariant enforcement and relevant failure paths. Include inputs, results, ordering
-   and errors beyond type signatures. For external writes, address partial failure, idempotence
-   and safe retry; for a replacement, inventory existing guarantees and their oracles first.
+   and errors beyond type signatures. When encoding rules derived from text, apply `codebase-design`
+   step 2 to complete the rule's contract before implementation. For external writes, address partial
+   failure, idempotence and safe retry; for a replacement, inventory existing guarantees and their
+   oracles first.
+   When the design touches a concern in the
+   failure-class domain index in the `pr-verdict` skill's `pr-verdict/references/failure-classes.md`,
+   read the index, then only the useful classes to challenge its invariants and failure paths. This does
+   not invoke `pr-verdict` or apply its verdict policy.
    When viable designs have materially different consequences, compare at least two distinct
    sketches against the same relevant criteria: caller effort, locality, testability, compatibility,
    operational risk or cost. State the chosen design, evidence, rejected alternative and remaining

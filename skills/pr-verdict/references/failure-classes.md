@@ -1,37 +1,33 @@
 # Failure classes
 
-Questions to put to the diff in phase 3. Each is a question, not a checklist item to tick: the
-answer is a sentence about _this_ diff. Record one of four outcomes per class.
+Use these questions when designing, implementing or verifying a change. Read the domain index
+first, then only the relevant classes; reading this reference does not invoke `pr-verdict`.
+Its verdict policy lives in [SKILL.md](../SKILL.md#verdict-policy).
 
-- **not applicable** — the diff does not touch that concern; say why in one clause.
-- **holds because `<evidence>`** — name the constraint, the transaction, the schema, the test.
-- **unproven** — the concern applies, but sufficient relevant evidence is missing; name the gap.
-- **broken by `<mechanism>`** — an ordered sequence of steps that ends with a violated invariant.
+For a design document, question what it authorizes someone to build; an unresolved failure path
+can become an implementation defect.
 
-`broken by` becomes a blocking defect only when its mechanism is written out.
-"This looks racy" is not a mechanism; "request A snapshots at T1, request B writes at T2, A commits
-at T3 and B's row is absent from the successor" is.
+## Domain index
 
-`unproven` becomes an evidence blocker only when the missing proof is essential to approval under
-phase 5: explain why it is essential and what would lift the gap. Otherwise retain a bounded
-reservation with its lift condition. Missing proof never establishes a violated invariant; do not
-invent a failure mechanism or record `holds` to fit the verdict.
-
-The same questions apply to a design document: the mechanism under review is what the document
-authorizes someone to build. A document that leaves a class open produces the defect during
-implementation instead of preventing it during review.
+| Concern                                                        | Classes                              |
+| -------------------------------------------------------------- | ------------------------------------ |
+| Transactions, retries, identifiers and existing data           | 1, 2, 3, 25, 27, 30, 31              |
+| Access, trust boundaries, input and display                    | 4, 5, 8, 9, 11, 12, 16, 20           |
+| Contracts, claims, immutability and data lifecycle             | 6, 7, 10, 13, 18, 22, 27, 29, 30, 31 |
+| Selection, verification, measurements and upgrades             | 14, 15, 19, 23, 28                   |
+| Installed tools, execution environment and process supervision | 17, 21, 24                           |
+| Calendar rules and compound deadlines                          | 26, 28, 32                           |
 
 ## 1. Atomicity and ordering
 
 **Ask:** is the read that grounds the decision inside the same transaction as the write it
 authorizes?
 
-**Broken when:** a snapshot, a count, or a set of validation checks runs before the transaction
-opens. Anything committed in that window is invisible to the decision but visible to everyone
-afterwards — the write is authorized by a state that no longer exists.
+**Broken when:** a snapshot, count or validation runs before the transaction opens. Intervening
+commits escape the decision, authorizing a write from stale state.
 
-**Lift:** the read moves inside the transaction, at an isolation level that actually prevents the
-interleaving, or the invariant is enforced by a constraint the concurrent write cannot satisfy.
+**Lift:** read inside the transaction at an isolation level preventing the interleaving, or enforce
+the invariant with a constraint rejecting the concurrent write.
 
 Separate read-only planning from execution: complete all domain and authorization refusals before
 the first irreversible effect, including permanent derived creation, consumption of a non-reusable
@@ -45,12 +41,10 @@ it cannot undo.
 
 ## 2. Retry idempotence
 
-**Ask:** after a conflict, does the retry re-read the winning state, or does it replay the decision
-it computed before the conflict?
+**Ask:** after a conflict, does retry re-read the winning state or replay the pre-conflict decision?
 
-**Broken when:** the retry loop wraps only the write. The second attempt re-applies a stale
-decision and produces a duplicate — a second successor, a second invoice, a second charge — with no
-error anywhere.
+**Broken when:** retrying only the write silently replays a stale decision, duplicating a successor,
+invoice or charge.
 
 **Lift:** the retry re-enters the whole read-decide-write unit, or the write is keyed so that the
 duplicate is rejected by the database.
@@ -80,9 +74,8 @@ reassignment, and contention beyond pool size without exhaustion from held waiti
 
 **Ask:** which index or database constraint makes this invariant unfalsifiable?
 
-**Broken when:** the answer is "the service checks it". Application-level uniqueness or ordering does
-not exist under concurrency: two processes both read "absent" and both insert. A unique index, an
-exclusion constraint or a serializable transaction is the only thing that survives.
+**Broken when:** only the service checks uniqueness or ordering: two processes read "absent" and
+both insert. Require a unique index, exclusion constraint or serializable transaction.
 
 For upgrades or resynchronization from a reference model, identify the local derivations, invariants
 and user choices affecting each copied field. Exclude locally derived state from copying or recompute
@@ -114,19 +107,20 @@ adding another entry; coordinate overlapping changes rather than appending dupli
 called for another reason? For exempt objects, keep the attributes that make them harmless fixed
 across every mutation path.
 
-**Broken when:** authorization happens because some loader happens to filter by the caller's scope. A
-refactor that swaps that loader for a cheaper query removes the check, every test stays green, and
-nothing in the diff looks like a security change.
+**Broken when:** authorization relies on a loader filtering by caller scope. Replacing it with a
+cheaper query removes the check while tests stay green and the security change goes unnoticed.
 
 **Lift:** an explicit authorization call whose removal fails a test written against it.
 
-Inventory every route and use case in the touched module on the integrated tree, including existing
-neighbors: `route/use case → permission → access scope → refusal test`. Include the inventory in
-the PR description. Require explicit permission and scope, or a documented intentionally public
-contract; authentication and a permissive global guard are insufficient. Use minimally privileged
-subjects, with separate missing-permission and out-of-scope cases, rather than administrator-only
-tests. Arrange each refusal case so only the targeted predicate can reject it, and observe an
-assertion failure when that predicate is removed or broken, followed by success after restoration.
+Inventory every route/use case in the touched module and its existing neighbors on the integrated
+tree in the PR description: `route/use case → permission → access scope → refusal test`.
+Require explicit permission and scope or a documented intentionally public contract; authentication
+and a permissive global guard do not suffice. Use minimally privileged subjects with separate
+missing-permission and out-of-scope cases, not administrator-only tests. Isolate each refusal's
+predicate and observe a failing assertion when it is removed or broken, then success after restoration.
+For two-step flows (propose/approve, prepare/sign), record the first step's author and test refusal
+of self-approval separately from permission. Enforce it with a deterministic database constraint and
+named domain error where possible; apply step 5 of the `codebase-design` skill.
 Resolve the permission named for the action by the design in force: a general parent edit
 permission is insufficient where a dedicated action permission is required. With valid scope,
 test the parent-only subject's refusal without writes and the action-authorized subject's success.
@@ -161,8 +155,7 @@ failure is added and nothing says so. Clients build retry logic on these codes; 
 change is a silent behavioral break in every consumer.
 
 **Lift:** documentation and implementation agree, and the mapping is asserted somewhere that runs in
-CI. This class alone is usually a reservation, not a block — unless a consumer's retry path depends
-on the code that changed.
+CI.
 
 A changed observable response on a versioned public API is a compatibility decision, including a
 new blanket refusal where deletion previously succeeded. Preserve the published contract, introduce
@@ -188,7 +181,7 @@ then becomes invisible: it survives review, ships, and gets discovered by the pa
 protected.
 
 **Lift:** the contract is written down in the code and in the PR, with its lift condition. Silence is
-the defect; a stated deferral with a named condition is a reservation.
+the defect; a stated deferral with a named lift condition does not break this class.
 
 ## 8. Parsing versus assertion
 
@@ -361,7 +354,7 @@ a `@moonrepo/cli` update selected no tasks and the required job passed without v
 — `/tsconfig.json` was missing from Bun-backed test inputs, so changes could skip those suites.
 
 Missing accounting is `unproven`; observed loss, wrong eligibility or routing is `broken by` its
-traced mechanism. The Reporting section determines whether its consequence blocks.
+traced mechanism. The [verdict policy](../SKILL.md#verdict-policy) determines whether its consequence blocks.
 
 ## 15. Performance or rewritten instructions without comparison
 
@@ -544,9 +537,13 @@ resolved versions; prereleases and branch builds require explicit approval. Buil
 affected image that installs dependencies, exercising its actual copied manifests and frozen
 lockfile, then start every upgraded service, startup migration included, and observe its health probe
 green; an entrypoint run once in a throwaway container without its probe does not qualify. Then run
-the repository's complete suite rather than a partial subset, and record the command, output and exit
-status obtained on the head commit. Report image names, commands and environment; unit tests do not
-establish image usability.
+only checks the repository already runs for files and consumers affected by the upgrade. Reuse
+evidence after comparing relevant source, oracle, configuration, dependency, environment and
+integration inputs; preserve its provenance and the comparison justifying reuse. State any
+uncertainty in the affected scope and investigate existing checks rather than defaulting to the
+complete suite. Record commands, output, exit statuses and tested revisions for new runs, and
+identify missing evidence. Report image names and environment; unit tests do not establish image
+usability.
 
 ## 24. A supervisor reports success before cleanup completes
 
@@ -566,13 +563,11 @@ using bounded offline tests. State direct uncatchable-kill and detached-descenda
 
 ## 25. A reference is checked for existence only
 
-**Ask:** which attributes and states make each referenced object valid for this operation, and does
-the operation check every one of them?
+**Ask:** which attributes and states make each reference valid for this operation, and are all checked?
 
-**Broken when:** a precondition reads "X must exist" while X may be rejected, withdrawn, expired or
-never granted, or may differ in unit, period, owner or scope from the object referencing it. The
-dependent object then freezes or feeds later computations on an invalid basis: an approval accepts
-any linked review that exists, or a count equals a stock quantity expressed in another unit.
+**Broken when:** "X must exist" accepts rejected, withdrawn, expired or never-granted X, or a mismatch
+in unit, period, owner or scope. The dependent object freezes or feeds computations on an invalid
+basis: approval accepts any existing linked review, or a count equals stock in another unit.
 
 **Lift:** the design lists the validity attributes (status, unit, period, owner, withdrawal, provenance,
 publication, source closure and current cycle where applicable) before
@@ -583,8 +578,9 @@ published result from the closed current cycle. Inspect reverse transitions too:
 referenced source is forbidden, refuse before modifying tracking or evidence, with a named error.
 Protect the dependency check and transition atomically against a concurrent new association;
 test refused reopening without loss of dependents, tracking or evidence.
-
-For a warning-producing compliance check, first enumerate required evidence kinds. An expired-only
+A check that can conclude "nothing to report" first enumerates required evidence kinds: missing
+items, unknown status or null expiry warn or refuse, never succeed (null means "no limit" only under
+an explicit domain rule). For a warning-producing compliance check, an expired-only
 filter cannot prove compliance: a missing required item is `missing`, and `UNKNOWN` or undated
 evidence is `to_confirm`, not an empty warning list interpreted as verified. Null expiry means
 unlimited only when the applicable rule explicitly permits it. Require separate valid, expired,
@@ -719,58 +715,3 @@ identify established ordering relations and enforce them at the API, domain and 
 `CHECK (terminated_on >= started_on)`, and test equality, the previous day and the next day.
 A mandated duration requires or derives expiry; accepting null silently loses that bound. Class 25
 covers how missing or undated evidence affects the later compliance decision.
-
-## Reporting
-
-Classes 1, 2, 3, 4, 5, 7, 9, 11 and 12 name mechanisms that lose data, corrupt state or cross a security
-boundary: when broken, they block. Class 14 blocks when its demonstrated loss, wrong eligibility or
-routing removes required checks or prevents a promised workflow; other diagnostic omissions are
-bounded reservations unless their evidence is essential under phase 5.
-Classes 6, 8, 10 and 13 are usually reservations — promote class 6
-when a concrete consumer's retry path depends on the changed code, class 8 when the degraded value
-reaches a person or a legal act, and class 10 when the claim is legal, evidentiary or contractual.
-Class 6 also blocks a demonstrated violation of a promised business refusal, including a named
-database refusal escaping as a generic server error.
-For class 13, label the unchanged-contract claim `unproven` until the exported bytes are compared;
-block when the comparison exposes a promised compatibility break or when compatibility proof is
-essential to approval. Missing hostile-input or output coverage in classes 11 and 12 is an evidence
-gap, not an invented leak: apply phase 5's essential-evidence rule and name the missing proof.
-For class 15, retain `unproven` until a relevant base/head comparison satisfies the declared criterion;
-block installation or merge when rule adoption or a required performance budget depends on it.
-An optional unsupported claim can instead be removed or bounded; do not invent a measured defect.
-Class 16 blocks when a proposed weakening defeats a required security or authorization control.
-Class 17 blocks when an unusable tool skips a required check or prevents a promised workflow;
-redundant installation with a bounded consequence is a reservation. Missing independence or usability
-evidence remains `unproven`; apply phase 5's essential-evidence rule rather than inventing a bypass.
-Class 18 blocks when stale references or missing legacy cleanup break a promised workflow or cleanup
-contract; documentation-only omissions with bounded consequences are reservations.
-Class 19 blocks when an unsupported probe conclusion authorizes a protected operation, skips a
-required check or prevents a promised workflow. Otherwise bound its consequence as a reservation;
-missing essential probe evidence follows phase 5's `unproven` rule.
-
-Class 20 blocks when following or replacing a symlink crosses the repository boundary, defeats a
-required file-type check or loses data or link identity. Missing symlink evidence remains `unproven`;
-apply phase 5's essential-evidence rule without inventing an escape or race.
-
-Class 21 blocks when undeclared or unsupported inherited state contradicts the command's independent
-contract and skips a required check or prevents a promised workflow; declared, supported settings
-are not defects. Bounded inconvenience is a reservation; missing evidence remains `unproven` under phase 5.
-
-Class 22 blocks demonstrated unauthorized retention, disclosure or incomplete promised erasure.
-Classes 23 and 24 block a demonstrated contract violation or failure of a required build, workflow
-or cleanup guarantee. Missing evidence follows phase 5; do not invent a leak or surviving process.
-
-Classes 25 to 27 block a demonstrated wrong result, accepted invalid reference or failing routine on
-existing data; missing evidence follows phase 5 without inventing a mechanism.
-Classes 28 to 32 block a demonstrated expiring test, broken immutability or authorized erasure,
-omitted legitimate source, lost reference, incorrect signature validity or source-rule violation.
-Missing evidence follows phase 5; do not infer a runtime failure from an unexecuted scenario.
-
-The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
-user action blocks, even outside these classes.
-
-Other findings outside these classes are legitimate but non-blocking by default: report at most three
-of them, one line each, labelled non-blocking, or drop them. The cap is what stops the sweep from
-turning into a second review that competes with the verdict — rank them by whether they would change
-a reviewer's decision and keep the top three. If the verdict runs past about thirty lines, that is
-the symptom that preferences have crept into the blocking section.

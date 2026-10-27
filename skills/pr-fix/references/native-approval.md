@@ -77,3 +77,59 @@ message>`, `uncertain — <failed read>` and `withdrawn — <reason>`. Each entr
 the SHA and the observation time in the evidence linked from `Delivery`; keep its current state on
 that line. Only `confirmed` and `already present` may appear as an approval
 in the repair record; every other state is stated as the absence of a native approval.
+
+## Step 8 publication protocol
+
+Read this protocol whenever step 8 continues past its verdict, CI and pending-correction checks.
+The repair-record construction and publication rules below apply even when native approval is not
+performed for an own PR, a user prohibition or a user decline, and when approval is already present.
+
+When the [approval gate](#gate) holds, present these three items and
+wait for the answer:
+
+1. the independent verdict (`approved`), the head SHA and the SHA of the CI run;
+2. the draft verdict comment, built from `pr-verdict/assets/verdict-template.md` in the PR's
+   language, written to the scratchpad and carrying its marker
+   `<!-- pr-verdict:<pr>:<sha12> -->`;
+3. the question "Publish this verdict, then approve?" in the user's language, with three
+   answers: publish and approve, approve only, do nothing.
+
+Never publish the verdict or approve before an explicit answer; the invocation of this workflow,
+an earlier general authorization or silence is not one. The answer binds the presented SHA: after
+it, re-read the head, and if it moved discard the answer and ask again on the new head. When no
+user can answer, keep the journal pending, record the awaited answer and report it.
+
+- **Publish and approve:** publish the draft through `pr-verdict/references/forges.md` (its
+  marker lookup updates a same-head verdict in place), read it back, record its comment ID and URL
+  in the journal, then approve. A failed or uncertain publication pauses the approval until a
+  remote read by marker settles it.
+- **Approve only:** approve without publishing the verdict.
+- **Do nothing:** publish no verdict and do not approve; record `approval: not performed — user declined` in `Delivery`.
+
+Use the journal's evidence for the publications permitted by this step. Update the PR description
+only if the user explicitly authorized the presented evidence update on this same head; permission
+to publish a verdict or approve alone does not authorize that description change.
+
+Approve by applying the [native approval procedure](#procedure). Keep the current approval state in `Delivery`
+and each transition in its linked evidence with account, SHA and time. A confirmed or already
+present approval, a refusal, a user decline
+or prohibition, or an own PR lets publication continue with that outcome stated; an uncertain or
+withdrawn approval pauses it.
+The approval never authorizes merging or adding the PR to a merge queue; each requires a
+separate explicit request.
+
+Build `assets/repair-record.md` from all journal passes in the PR's language: one opening sentence
+with the final SHA, one short bullet per corrected problem, validation counts and limits, then
+the independent verdict and the verified native approval state as separate lines.
+Consolidate repeated fixes by their final outcome and omit superseded attempts; retain their
+history and detailed mechanisms in the journal. Block publication if missing history prevents
+an accurate cumulative summary. If nothing was corrected, no repair comment is needed; the
+native approval still applies and its state is reported in step 9.
+
+Search all existing comments for the stable marker `<!-- pr-fix:<pr> -->`. Update the matching
+comment only when owned by the publishing account; otherwise keep publication pending and report
+the ownership conflict. Create one only when none exists. For legacy `<pr>:<sha>` markers, reuse
+the latest repair comment owned by the publishing account and replace its marker, preserving other comments
+and replies. Pass the body through a file using `pr-verdict/references/forges.md` and save the
+returned comment ID, URL and published SHA in `Delivery`. After a timeout or uncertain response,
+re-read remote comments before retrying; if lookup fails, keep publication pending.

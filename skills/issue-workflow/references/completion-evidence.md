@@ -190,24 +190,22 @@ writing.
 
 This requirement applies to both trackers: a conditional write must cover the classified evidence
 and state together. Until a provider mechanism is verified, report eligibility rather than
-writing. The experiments and disabled candidate below concern Linear only and do not establish
+writing. The inspected transports and disabled candidate below concern Linear only and do not establish
 GitHub semantics.
 
 A workflow state decided from checkboxes must not be written from a classification that has since
 gone stale. A pre-write read only narrows that window; a valid payload does not close it.
 
-**Current evidence:** the [2026-09-10 live MCP experiment](linear-guard-observation-2026-09-10.md)
-executed both combined saves. Linear MCP 1.0.0 rejected both because `old_string` and `new_string`
-were identical, including the unique-anchor case. Independent reads found no state, description,
-`updatedAt`, or history change. This identity replacement is therefore not an executable state
-guard on the observed transport: do not use it for workflow state writes. The earlier
-[CLI/GraphQL inspection](linear-guard-observation-2026-09-09.md) did not exhaust available access;
-the official MCP was subsequently reached using existing authentication.
+**Transport limit:** the inspected official Linear MCP 1.0.0 `save_issue` rejects identical
+`old_string` and `new_string`, including with a unique anchor. Identity replacement is therefore
+not an executable state guard on that transport: do not use it for workflow state writes.
+The inspected CLI's full-description update and GraphQL `issueUpdate(id, input)` also expose no
+anchored or conditional guard; read-before-write does not supply one.
 
-The live tool contract documents whole-save abort, but the experiment establishes only the two
-observed identity-replacement rejections. It establishes neither rejection caused by non-uniqueness
-nor a successful identity-guarded transition, and does not establish isolation against concurrent
-writers. Until an alternative conditional mechanism is verified, classify and report; do not write
+The inspected MCP contract documents whole-save abort; the identity-replacement failures with
+unchanged stored values do not establish rollback at later failure stages, rejection caused by
+non-uniqueness, a successful identity-guarded transition or isolation against concurrent writers.
+Until an alternative conditional mechanism is verified, classify and report; do not write
 the state. Do not replace the identity operation with a description-changing workaround.
 
 1. Before enabling a transport for this guard, inspect its current schema and provider contract.
@@ -228,7 +226,7 @@ the state. Do not replace the identity operation with a description-changing wor
    mechanism; without one, do not write state. Never treat a rejected identity replacement, error,
    timeout, or null result alone as proof of rollback: independently read state and description,
    report partial or unknown outcomes, and stop instead of retrying the previous decision.
-4. The identity-replacement candidate tested in the linked experiment is rejected on the observed
+4. The identity-replacement candidate described above is rejected on the inspected
    transport; it is not an enabled recipe. If a future transport changes that behavior, verify its
    contract and both cases again before considering it. Never use a state type or `replace_all`.
    The intended anchor must cover one contiguous classified region, including newlines, widened

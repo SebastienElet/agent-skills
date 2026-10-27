@@ -34,6 +34,10 @@ independent meaning and the review can detect a wrong result.
   For timezone-aware database columns, set and verify the database session timezone itself: changing
   the application timezone alone does not prove session behavior. Keep business dates as dates when
   their contract is a calendar date rather than an instant.
+  For tests depending on today, freeze the injected clock and derive relative dates from it;
+  each date literal must be the frozen clock's origin or a fixed calendar case. Flag implicit
+  expiry: a future date that becomes past, a bound counted from today or an expected date copied
+  from the day the test was written.
 - Test pure domain behavior directly when the invariant belongs there. Broader integration tests
   do not automatically make focused domain tests redundant.
 - Name tests according to the boundary actually assembled. In-process application integration with

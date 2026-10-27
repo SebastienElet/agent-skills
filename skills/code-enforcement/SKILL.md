@@ -4,6 +4,9 @@ description: >
   Write code whose purpose is to refuse: hook, guard, validator, permission check, lint rule, CI
   gate. Use when adding or changing any control that decides pass or fail. Make sure to use it
   whenever a check can be bypassed or fail to run, even if it is called a wrapper or a policy.
+compatibility: >
+  Requires the `pr-verdict` skill from the same package version for its failure-class catalogue;
+  report the reference unavailable when absent.
 metadata:
   category: dev
 ---
@@ -86,11 +89,19 @@ alias, the `--no-verify` and the second remote).
    configuration. Use the task runner's affected dry-run with an isolated change to each input
    to prove the task is scheduled; align local preflight and CI configuration paths. Planning
    proves selection only, so retain the execution witness below.
-   Publish reusable success atomically only after every required check succeeds. Error,
-   interruption or incomplete execution must neither create success nor replace a validated entry.
+   Publish validation-cache success atomically, only after all selected checks have succeeded.
+   An error, interruption or incomplete result must publish nothing and must not replace an already
+   validated entry. Cover successful publication and each failure path through the cache's public
+   interface, including preservation of an existing validated entry.
    Fail a later check after an earlier success, observe nonzero status and no publication, then
    rerun from another worktree to prove checks execute; a complete success remains reusable for
-   identical inputs. Exercise interruption and preservation of an existing valid entry too.
+   identical inputs.
+   Before activating a new blocking check, dry-run it on the target branch and every open branch,
+   include needed exceptions in the same PR, and apply
+   class 16, "A control trusts configuration from the PR it checks", in the `pr-verdict` skill's
+   `pr-verdict/references/failure-classes.md`
+   for configuration trust. Use an explicit scope (`merge-base..HEAD` or the whole pushed range,
+   never only the last commit) and verbose output to distinguish a genuine pass from a false green.
    Trace the actual CI entry point and prove execution from its log or a controlled failing witness.
    A planning-only run, early success exit, duplicate script key or decoy step is not execution of
    the required guard. Use native parsing to reject ambiguous configuration where supported.

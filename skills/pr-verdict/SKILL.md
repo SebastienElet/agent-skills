@@ -68,13 +68,8 @@ says to post directly.
    anticipates a PR that is not open yet, poll until it exists and anchor on it; reviewing the
    branch instead is a review of something the team has not proposed to merge.
 
-   Fetch the resolved destination and record its SHA. Run `git merge-tree --write-tree` with that
-   ref and the head; absence of textual conflicts does not prove integration compatibility. Before
-   declaring readiness, require the current destination to be integrated into the candidate and
-   replay the relevant barrier on that tree. A read-only review does not authorize updating the
-   source branch: report the required integration instead. Search the integrated tree for every
-   consumer of a new mandatory contract, including consumers added on the destination; after
-   conflict resolution, rerun the controls whose rejected behavior could have been restored.
+   Before declaring readiness in phase 1, read the [integration checks](references/forges.md#integration-checks)
+   for destination integration and barrier replay requirements.
 
 2. **Understand before judging.** Read the PR description, the design documents it cites, and the
    whole diff. The attachments are part of the description: a screenshot or an uploaded log is
@@ -84,33 +79,12 @@ says to post directly.
    before the flow is traced end to end is forbidden: its mechanism must demonstrate the violated
    invariant, and you cannot name a mechanism you have not followed.
 
-   Inspect every commit against the resolved destination and map it to the stated PR outcome.
-   Unrelated changes must be removed under development authority or explicitly disclosed in the
-   description. Verification tooling accompanying functional changes, including a correction to a
-   test oracle or a preflight, needs a separate PR or an explicit coupling rationale. Coherent
-   subtasks may share a PR. Flag temporary `wip` subjects and violations of the repository's commit
-   convention before publication or an update.
+   In phase 2, read [commit scope](references/forges.md#commit-scope) before mapping every commit
+   against the resolved destination to the stated PR outcome.
 
-   Inventory every externally observable behavior added, removed or changed by the diff. Start a
-   changed-behavior ledger with one row per behavior: the behavior, positive evidence on the exact
-   head or traceably equivalent relevant inputs, a negative witness requirement with its rationale,
-   and the result. Require negative witnesses for modified oracles and critical guarantees, not
-   systematically for every label. A witness is an executed test-first RED or a controlled faulty
-   variant shown to fail when the guarantee is broken. Existing witnesses are reusable when their
-   relevant inputs are unchanged. Keep experiments in disposable copies and verify candidate stability. A
-   passing regression test without an observed failing counterpart is positive evidence only; a
-   green aggregate count proves no individual row by itself; map its actual tests to the behavior.
-   Record required missing evidence as `absent`, and justified unnecessary witnesses as `not required`.
-
-   Ground each changed user action's entry point in the PR contract or added/moved control.
-   Ground role/stage eligibility and intentional prerequisites in an independent product,
-   authorization or PR contract, never the control's own guards; investigate unclear intent.
-   A read-only diagnosis alone does not promise an editor there. Derive valid starting states,
-   including empty unrelated data. Trace parent rendering, routing and enablement guards to the
-   usable control. API tests and tests mounting the control alone do not prove that path. Respect
-   declared prerequisites and verify reachability once they hold. A guard making that promised
-   workflow impossible is a blocker: name its location, failure sequence and a lift criterion
-   exercising the enclosing screen in that state.
+   Inventory every externally observable behavior added, removed or changed by the diff and start
+   a changed-behavior ledger with one row per behavior. In phase 2, read
+   [behavior evidence](references/behavior-evidence.md) for ledger, witness and user-action checks.
 
    When the aggregate PR diff changes a verification mechanism (CI routing, test oracles, caches,
    proof policy, or agent review rules), activate `proof-integrity-review` on the same base and
@@ -123,7 +97,8 @@ says to post directly.
 
 3. **Sweep the failure classes.** Put every question in `references/failure-classes.md` to the
    diff. Record, per class, one of: not applicable, holds because `<evidence>`, unproven, or broken by
-   `<mechanism>`. For unproven, name the missing evidence: block only when that proof is essential
+   `<mechanism>`. Explain non-applicability in one clause and name the constraint, transaction,
+   schema or executed test supporting `holds`. For unproven, name the missing evidence: block only when that proof is essential
    to approval under phase 5, explaining why and what would lift the gap; otherwise retain a bounded
    reservation. A demonstrated defect needs its named mechanism; missing proof does not establish
    one. When applicable, classes 11, 14 and 15 require Git-remote identity and hostile-input
@@ -142,33 +117,20 @@ says to post directly.
    the sweep can add findings, but cannot replace a row or turn absent behavior-level evidence into
    `holds`.
 
-4. **Establish the barrier, then declare its holes.** Run or reuse lint, typecheck and tests the way the project
-   runs them — including inside a container when the project requires it, since numbers from the
-   wrong runner are not evidence for this head. Read the CI configuration and effective target-branch
+4. **Establish the barrier, then declare its holes.** Select only checks the repository already runs
+   for affected files and consumers. Run or reuse them in the project's required environment;
+   numbers from the wrong runner are not evidence for this head. If selection is uncertain,
+   investigate the affected scope and existing checks, then state the uncertainty and evidence gap
+   rather than defaulting to the complete barrier. Read the CI configuration and effective target-branch
    rules to identify any required merge gate; a successful CI check is advisory if no rule requires
    it. The relevant command is often not the package script of the same name. Report counts: builds,
    errors, warnings against the project's threshold, tests passed over
    tests run. Then enumerate what the barrier does not reach: sequential tests say nothing about a
    race, jsdom nothing about a browser, an in-memory database nothing about PostgreSQL, one platform
    nothing about the others. If nothing exercises the changed code, that absence is the review's
-   first finding, not a reason to announce green. Then attribute each piece of evidence: measured
-   here, supplied by the author and not reproduced here, or absent. The three are not
-   interchangeable — "not observed" written over evidence sitting in the description is a false
-   statement about the author's work, and a lift criterion asking for a run the PR already shows
-   asks them to repeat themselves. What is missing in that case is a control in the repository:
-   name the control, not the re-run. Accept traceable CI and retained observations after checking
-   their artifacts and relevant source, oracle, configuration, dependency, environment and integration
-   inputs. Preserve original provenance and the comparison that justifies reuse; a new head need not
-   invalidate an unchanged mechanism's evidence. Reproduce only essential missing or invalidated
-   evidence. Unverifiable evidence remains unproven, not fictitiously reproduced.
-
-   Each description evidence entry records its tested head and integrated destination SHA, exact
-   command, exit status, environment and output excerpt or artifact. After each push, recheck the
-   description: rerun invalidated evidence or label it historical and unproven on the new head.
-   Retained observations keep their original SHA; a documented relevant-input comparison permits
-   reuse, never relabeling an old run as executed on the current head. Required remote checks must
-   identify their actual tested SHA; a queue or synthetic merge candidate is a separate tree.
-   Preserve the forge's native merge title when a required control consumes its branch marker.
+   first finding, not a reason to announce green.
+   In phase 4, read [behavior evidence](references/behavior-evidence.md#evidence-attribution-and-reuse)
+   before attributing evidence, reusing observations or recording description evidence.
 
 5. **Return a verdict.** Exactly one of _changes required_, _approved with reservations_,
    _approved_. Write the phase-5 verdict in the order defined by `assets/verdict-template.md`, with
@@ -192,42 +154,79 @@ says to post directly.
    absence of an optional receipt alone does not.
    Do not publish a separate proof verdict or interpret a path-only `NOT_APPLICABLE` as an exemption.
 
-   Complete the structured review summary from the phase-1 anchor, findings, changed-behavior
-   ledger and distinct evidence-gap inventory, then emit it with `agent-measure pr-verdict` as
-   specified in `references/measurement.md`. Do this before returning phase 5, including the
-   pre-repair pass of `pr-fix` and an unpublished verdict. Report the measurement status separately;
-   a measurement failure leaves the verdict unchanged and does not prevent its return.
-
 6. **Trace and publish.** When running inside any review pass of `pr-fix`, return the phase 5
    verdict without a ticket or publication and let that workflow continue. Otherwise, open or reuse
    a fix ticket for blocking defects, and link the initial verdict if one exists. Never open a
    ticket solely to request or record a re-review: the new
    head-specific verdict comment is that record. Write one general comment from
    `assets/verdict-template.md`, prefixed with the idempotency marker
-   `<!-- pr-verdict:<pr>:<head-sha-12> -->` — not a rain of inline comments. Apply the
-   identity, exact-marker and ambiguity procedure in `references/forges.md` before any update or
-   new publication. GitHub issue comments and review summaries are separate lookup and update
-   surfaces. Update only the single matching verdict owned by the publishing account; a foreign
-   match does not prevent that account from publishing its own. Stop on an unknown author, multiple
-   owned matches or an incomplete lookup. A different SHA gets a new verdict and leaves the old one
-   intact. Re-read before publishing — past about thirty lines, non-blocking remarks are
-   posing as blockers; never truncate the required behavior ledger to meet that heuristic. On
-   GitHub, _changes required_ establishes `CHANGES_REQUESTED` through
-   `gh pr review --request-changes` on another author's PR. On an updated marked verdict, compare
-   the account's latest opinionated review and its SHA before deciding whether another native
-   review is needed. If a later approval verdict must clear this account's earlier change request,
-   name the native approval in the publication confirmation and submit it only with that
-   authorization. Keep state-only reviews marker-free and link the marked verdict, as specified in
-   `references/forges.md`.
-   GitHub refuses a request-changes review on your own PR, and this skill has no verified `bkt`
-   command for the analogous Bitbucket state. A recorded request for changes does not by itself
-   establish a mechanical merge block.
-   State the advisory scope in the verdict unless the GitHub procedure has demonstrated an actual
-   refusal for the applicable rules and account. For your own GitHub PR or Bitbucket, publish the
-   comment alone and state its advisory scope.
-   A same-head reassessment under changed policy or new evidence is a new dated assessment with
-   its policy and evidence references. Preserve the earlier verdict and append the reassessment
-   inside the existing marked comment; never replace a historical rejection with an approval.
+   `<!-- pr-verdict:<pr>:<head-sha-12> -->` — not a rain of inline comments.
+   Before any update or new publication in phase 6, read the
+   [publication policy](references/forges.md#publication-policy) for identity, marker, native-state
+   and reassessment procedures.
+
+## Verdict policy
+
+`broken by` becomes a blocking defect only when its ordered failure mechanism is written out.
+"This looks racy" is not a mechanism; "request A snapshots at T1, request B writes at T2, A commits
+at T3 and B's row is absent from the successor" is. Missing proof never establishes a violated
+invariant; do not invent a failure mechanism or record `holds` to fit the verdict. An `unproven`
+class blocks only when its proof is essential under phase 5; otherwise retain a bounded reservation
+with its lift condition.
+
+Classes 1, 2, 3, 4, 5, 7, 9, 11 and 12 name mechanisms that lose data, corrupt state or cross a security
+boundary: when broken, they block. Class 14 blocks when its demonstrated loss, wrong eligibility or
+routing removes required checks or prevents a promised workflow; other diagnostic omissions are
+bounded reservations unless their evidence is essential under phase 5.
+Classes 6, 8, 10 and 13 are usually reservations — promote class 6
+when a concrete consumer's retry path depends on the changed code, class 8 when the degraded value
+reaches a person or a legal act, and class 10 when the claim is legal, evidentiary or contractual;
+a class 7 deferral stated with its lift condition is a reservation.
+Class 6 also blocks a demonstrated violation of a promised business refusal, including a named
+database refusal escaping as a generic server error.
+For class 13, label the unchanged-contract claim `unproven` until the exported bytes are compared;
+block when the comparison exposes a promised compatibility break or when compatibility proof is
+essential to approval. Missing hostile-input or output coverage in classes 11 and 12 is an evidence
+gap, not an invented leak: apply phase 5's essential-evidence rule and name the missing proof.
+For class 15, retain `unproven` until a relevant base/head comparison satisfies the declared criterion;
+block installation or merge when rule adoption or a required performance budget depends on it.
+An optional unsupported claim can instead be removed or bounded; do not invent a measured defect.
+Class 16 blocks when a proposed weakening defeats a required security or authorization control.
+Class 17 blocks when an unusable tool skips a required check or prevents a promised workflow;
+redundant installation with a bounded consequence is a reservation. Missing independence or usability
+evidence remains `unproven`; apply phase 5's essential-evidence rule rather than inventing a bypass.
+Class 18 blocks when stale references or missing legacy cleanup break a promised workflow or cleanup
+contract; documentation-only omissions with bounded consequences are reservations.
+Class 19 blocks when an unsupported probe conclusion authorizes a protected operation, skips a
+required check or prevents a promised workflow. Otherwise bound its consequence as a reservation;
+missing essential probe evidence follows phase 5's `unproven` rule.
+
+Class 20 blocks when following or replacing a symlink crosses the repository boundary, defeats a
+required file-type check or loses data or link identity. Missing symlink evidence remains `unproven`;
+apply phase 5's essential-evidence rule without inventing an escape or race.
+
+Class 21 blocks when undeclared or unsupported inherited state contradicts the command's independent
+contract and skips a required check or prevents a promised workflow; declared, supported settings
+are not defects. Bounded inconvenience is a reservation; missing evidence remains `unproven` under phase 5.
+
+Class 22 blocks demonstrated unauthorized retention, disclosure or incomplete promised erasure.
+Classes 23 and 24 block a demonstrated contract violation or failure of a required build, workflow
+or cleanup guarantee. Missing evidence follows phase 5; do not invent a leak or surviving process.
+
+Classes 25 to 27 block a demonstrated wrong result, accepted invalid reference or failing routine on
+existing data; missing evidence follows phase 5 without inventing a mechanism.
+Classes 28 to 32 block a demonstrated expiring test, broken immutability or authorized erasure,
+omitted legitimate source, lost reference, incorrect signature validity or source-rule violation.
+Missing evidence follows phase 5; do not infer a runtime failure from an unexecuted scenario.
+
+The default below does not downgrade phase-2 defects: a demonstrated guard that prevents a promised
+user action blocks, even outside these classes.
+
+Other findings outside these classes are legitimate but non-blocking by default: report at most three
+of them, one line each, labelled non-blocking, or drop them. The cap is what stops the sweep from
+turning into a second review that competes with the verdict — rank them by whether they would change
+a reviewer's decision and keep the top three. If the verdict runs past about thirty lines, that is
+the symptom that preferences have crept into the blocking section.
 
 ## Gotchas
 
@@ -305,5 +304,3 @@ says to post directly.
   slots. Filled in phase 6.
 - [references/cases.md](references/cases.md) — behavioral cases with their expected verdicts,
   forge coverage, and the record of what they have never validated.
-- [references/measurement.md](references/measurement.md) — structured local emission at the end of
-  phase 5, including duplicate and storage-failure handling.

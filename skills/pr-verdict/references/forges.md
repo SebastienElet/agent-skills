@@ -330,3 +330,49 @@ test "$(gh pr view 1042 --json author --jq .author.login)" = "$(gh api user --jq
 
 When it is your own PR, publish the comment alone and state its advisory scope. In every GitHub
 case, separate the recorded review state from demonstrated merge enforcement.
+
+## Publication policy
+
+Apply the
+[identity, exact-marker and ambiguity procedure](#finding-a-previous-verdict) before any update or
+new publication. GitHub issue comments and review summaries are separate lookup and update
+surfaces. Update only the single matching verdict owned by the publishing account; a foreign
+match does not prevent that account from publishing its own. Stop on an unknown author, multiple
+owned matches or an incomplete lookup. A different SHA gets a new verdict and leaves the old one
+intact. Re-read before publishing — past about thirty lines, non-blocking remarks are
+posing as blockers; never truncate the required behavior ledger to meet that heuristic. On
+GitHub, _changes required_ establishes `CHANGES_REQUESTED` through
+`gh pr review --request-changes` on another author's PR. On an updated marked verdict, compare
+the account's latest opinionated review and its SHA before deciding whether another native
+review is needed. If a later approval verdict must clear this account's earlier change request,
+name the native approval in the publication confirmation and submit it only with that
+authorization. Keep state-only reviews marker-free and link the marked verdict, as specified under
+[finding a previous verdict](#finding-a-previous-verdict).
+GitHub refuses a request-changes review on your own PR, and this skill has no verified `bkt`
+command for the analogous Bitbucket state. A recorded request for changes does not by itself
+establish a mechanical merge block.
+State the advisory scope in the verdict unless the GitHub procedure has demonstrated an actual
+refusal for the applicable rules and account. For your own GitHub PR or Bitbucket, publish the
+comment alone and state its advisory scope.
+A same-head reassessment under changed policy or new evidence is a new dated assessment with
+its policy and evidence references. Preserve the earlier verdict and append the reassessment
+inside the existing marked comment; never replace a historical rejection with an approval.
+
+## Integration checks
+
+Fetch the resolved destination and record its SHA. Run `git merge-tree --write-tree` with that
+ref and the head; absence of textual conflicts does not prove integration compatibility. Before
+declaring readiness, require the current destination to be integrated into the candidate and
+replay the relevant barrier on that tree. A read-only review does not authorize updating the
+source branch: report the required integration instead. Search the integrated tree for every
+consumer of a new mandatory contract, including consumers added on the destination; after
+conflict resolution, rerun the controls whose rejected behavior could have been restored.
+
+## Commit scope
+
+Inspect every commit against the resolved destination and map it to the stated PR outcome.
+Unrelated changes must be removed under development authority or explicitly disclosed in the
+description. Verification tooling accompanying functional changes, including a correction to a
+test oracle or a preflight, needs a separate PR or an explicit coupling rationale. Coherent
+subtasks may share a PR. Flag temporary `wip` subjects and violations of the repository's commit
+convention before publication or an update.
