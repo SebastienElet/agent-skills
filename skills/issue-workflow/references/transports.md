@@ -83,10 +83,10 @@ command help. The installed CLI may expose fewer fields on a different host or v
 - If no integrated connector tool is exposed, the [official MCP authentication
   documentation](https://linear.app/docs/mcp) permits an existing API key or OAuth token in the
   bearer header to `https://mcp.linear.app/mcp`. Inspect that server's live `tools/list` before
-  declaring MCP unavailable; never expose or persist the credential. The
-  [2026-09-10 experiment](linear-guard-observation-2026-09-10.md) reached it this way, but found that
+  declaring MCP unavailable; never expose or persist the credential. The inspected official MCP
   `save_issue` rejects identity replacements even with a unique anchor: state writes using that
-  guard remain disabled. A valid schema and a whole-save contract do not override this observation.
+  guard remain disabled under [completion evidence](completion-evidence.md#guarding-a-state-write-with-the-boxes-it-rests-on).
+  A valid schema and a whole-save contract do not establish an executable identity guard.
 - Retrieve issue data and relations with structured fields. Resolve attachment URLs without
   inferring their meaning from prose.
 - After a state or link mutation, retrieve the issue independently and compare the stored value.
@@ -109,8 +109,7 @@ It also exposes `linear team states <team-key> --json` and full-description repl
 `linear issue update --description` or `--description-file`. Neither is an anchored edit.
 `linear api` provides GraphQL access, but the inspected `IssueUpdateInput` has `stateId` and
 `description` without a patch or condition field; `issueUpdate` takes only `id` and `input`.
-Evidence-based state writes remain uncovered on these inspected paths. See the
-[dated inspection and limits](linear-guard-observation-2026-09-09.md); command availability is not
+Evidence-based state writes remain uncovered on these inspected paths. Command availability is not
 proof of a successful mutation or whole-save atomicity.
 
 Run current local help again before use. This binary is a third-party Linear CLI, not an official

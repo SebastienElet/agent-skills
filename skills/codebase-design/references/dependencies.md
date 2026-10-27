@@ -14,6 +14,14 @@ domain and transaction boundaries.
 | Remote owned service            | Respect module ownership and the deployed contract; test owned decisions with an in-memory dependency and transport separately. |
 | Third-party service             | Inject the boundary; distinguish application evidence from evidence of the external protocol.                                   |
 
+The database adapter's contract includes identified refusals from constraints and triggers,
+including failures raised at transaction commit. Translate those refusals into named application
+errors using structured driver information; unknown refusals and unexpected failures remain
+technical errors. A useful early application check does not replace the database's enforcement
+under concurrency. Prove the translation and absence of persisted transaction writes on a real
+database, exercising commit-time refusals and concurrent changes when the affected invariant
+requires them.
+
 An existing architectural or security boundary can have one implementation and still be necessary.
 Conversely, having two implementations does not automatically justify an abstraction. Require a
 concrete responsibility, invariant or variation rather than counting adapters.

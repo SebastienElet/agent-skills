@@ -16,6 +16,8 @@ or a minimal in-memory implementation over mocks of internal collaborators.
 Accept dependencies instead of constructing them inside the tested operation. Keep application
 interfaces specific to their use case; a generic fetcher or conditional operation selector pushes
 policy into test doubles and makes unrelated calls hard to distinguish.
+Keep `new Date()` and `Date.now()` inside the clock adapter. Flush pending fake timers before
+restoring real timers.
 
 A substitute for a third-party service can test the owned application's decisions, but it cannot
 prove that the service accepts its requests or behaves as assumed. Name that limitation and use

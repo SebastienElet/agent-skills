@@ -1,0 +1,102 @@
+name: CI
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    env:
+      BUN_INSTALL_CACHE_DIR: /tmp/bun-install-cache
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - id: changes
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        shell: bash
+        run: |
+          if [[ "$BASE_SHA" == 0000000000000000000000000000000000000000 ]]; then
+            printf '%s\n' format=true typecheck=true test=true distribution=true publish=true >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git fetch --no-tags --depth=1 origin "$BASE_SHA"
+          gate() {
+            local name="$1" result=0
+            shift
+            git diff --quiet --no-renames "$BASE_SHA" HEAD -- "$@" || result=$?
+            case "$result" in
+              0) echo "$name=false" ;;
+              1) echo "$name=true" ;;
+              *) exit "$result" ;;
+            esac >> "$GITHUB_OUTPUT"
+          }
+          gate format ':(glob)**/*.md' ':(glob)**/*.json' ':(glob)**/*.yml' ':(glob)**/*.yaml' ':(glob)**/*.ts' bun.lock .prettierignore ':(glob).prettierrc*' ':(glob)prettier.config.*'
+          gate typecheck ':(glob)src/**' ':(glob)skills/output-discipline/scripts/*.ts' tsconfig.json ':(glob)tsconfig.*.json' package.json bun.lock
+          gate test ':(glob)src/**' ':(glob)skills/output-discipline/scripts/*.ts' tsconfig.json ':(glob)tsconfig.*.json' package.json bun.lock
+          gate distribution ':(glob)src/**' ':(glob)skills/**' package.json bun.lock
+          gate publish ':(glob).github/actions/setup-tools/**' .github/workflows/publish.yml .github/workflows/ci.yml package.json
+      - name: Prepare tools
+        if: steps.changes.outputs.format == 'true' || steps.changes.outputs.typecheck == 'true' || steps.changes.outputs.test == 'true' || steps.changes.outputs.distribution == 'true' || steps.changes.outputs.publish == 'true'
+        uses: ./.github/actions/setup-tools
+        with:
+          prepare-publish: ${{ steps.changes.outputs.publish }}
+      - name: Install dependencies
+        if: steps.changes.outputs.format == 'true' || steps.changes.outputs.typecheck == 'true' || steps.changes.outputs.test == 'true'
+        run: bun install --frozen-lockfile --ignore-scripts
+      - name: Selected checks in parallel
+        env:
+          FORMAT: ${{ steps.changes.outputs.format }}
+          TYPECHECK: ${{ steps.changes.outputs.typecheck }}
+          TEST: ${{ steps.changes.outputs.test }}
+        shell: bash
+        run: |
+          pids=()
+          if [[ "$FORMAT" == true ]]; then bun run format:check & pids+=("$!"); fi
+          if [[ "$TYPECHECK" == true ]]; then bun run typecheck & pids+=("$!"); fi
+          if [[ "$TEST" == true ]]; then bun test & pids+=("$!"); fi
+          result=0
+          for pid in "${pids[@]}"; do wait "$pid" || result=1; done
+          exit "$result"
+      - name: Installed package smoke
+        if: steps.changes.outputs.distribution == 'true'
+        shell: bash
+        run: |
+          scratch="$(mktemp -d "$RUNNER_TEMP/package.XXXXXX")"
+          trap 'rm -rf "$scratch"' EXIT
+          bun pm pack --ignore-scripts --destination "$scratch"
+          tarballs=("$scratch"/*.tgz)
+          [[ "${#tarballs[@]}" == 1 && -f "${tarballs[0]}" ]]
+          tarball="${tarballs[0]}"
+          mkdir "$scratch/consumer" "$scratch/config"
+          cd "$scratch/consumer"
+          printf '%s\n' '{"private":true}' > package.json
+          bun add --ignore-scripts --no-save "$tarball"
+          hook="$PWD/node_modules/.bin/output-discipline-hook"
+          test -x "$hook"
+          export CLAUDE_CONFIG_DIR="$scratch/config"
+          "$hook" > "$scratch/out" 2> "$scratch/err"
+          test ! -s "$scratch/out"
+          test ! -s "$scratch/err"
+          touch "$CLAUDE_CONFIG_DIR/.output-discipline-always"
+          "$hook" > "$scratch/out" 2> "$scratch/err"
+          test -s "$scratch/out"
+          test ! -s "$scratch/err"
+  ci:
+    if: always()
+    needs: [gates]
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: |
+          jq -e 'all(.[]; . != "failure" and . != "cancelled")' <<< "$RESULTS"

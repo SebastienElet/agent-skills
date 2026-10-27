@@ -5,6 +5,10 @@ description: >
   verification and delivery. Use when asked to build a change, with or without a ticket.
   Make sure to use this skill whenever planning is followed by authorized implementation.
   Excludes plan-only requests, bug diagnosis and explicit open-PR repair.
+compatibility: >
+  Requires the `pr-verdict` and `issue-workflow` skills from the same package version for the
+  failure-class catalogue and forge adapters, respectively; report the reference unavailable when
+  its skill is absent.
 metadata:
   category: dev
 ---
@@ -60,27 +64,47 @@ does not authorize launching Claude.
    continue authorized implementation. A reserved decision or confirmed ADR contradiction blocks
    dependent work; progress independent authorized units within the existing mandate.
 
+   When the change touches a concern in the
+   failure-class domain index in the `pr-verdict` skill's `pr-verdict/references/failure-classes.md`,
+   read the index, then only the relevant classes to inform the design and its failure paths. This reads a
+   shared reference; it does not invoke `pr-verdict` or apply its verdict policy.
+
 4. **Realize verifiable units.** Identify each unit's observable result, genuine prerequisites
    and relevant oracle, including affected failure paths. Use the plan's units when still valid;
    do not require a ticket, commit, worktree or PR for each unit. Apply `tdd` to owned executable
    behavior and native or existing validation to declarative changes without owned behavior.
    For persistence or lifecycle changes, consult `codebase-design` and its
-   [dependency guidance](../codebase-design/references/dependencies.md) before implementation.
+   `codebase-design/references/dependencies.md` dependency guidance before implementation.
    Compose other relevant specialists rather than reproducing their procedures. Delegation is
    optional and follows `orchestrate`'s ownership and isolation rules; actual dependencies govern
    readiness. Inspect each returned delta and evidence before accepting the unit. A green test or
    completed delegate advances work; it does not establish the overall result.
 
+   For each unit touching an indexed concern, use the index above to select only the useful
+   classes before implementing and choosing failure-path checks. In particular, apply class 3
+   when choosing sequential or timestamped identifiers, class 24 when supervising processes, and
+   classes 10, 22 and 27 for immutability claims and their purge/erasure consequences. Exercise the
+   applicable failures at their owning boundary with existing or native checks and ordinary tests.
+
 5. **Verify the complete change.** Exercise the original acceptance criteria and affected
-   consumers together, beyond individual units, at the boundary owning each invariant. Run the
-   repository's required checks on the complete intended candidate; index intended new files
-   before format, lint and typecheck. Retain commands or observations, candidate, environment and
+   consumers together, beyond individual units, at the boundary owning each invariant. Before
+   declaring a PR ready, resolve its real target branch, fetch it and record its SHA. Integrate it
+   into the candidate when authorized; otherwise state the missing integration in the readiness
+   declaration. A conflict-free `merge-tree` does not prove compatibility. Search the integrated
+   tree for all consumers of the changed contract, including those added by the target. Replay
+   only checks the repository already runs for the affected files and consumers (for example,
+   affected tasks), never a fixed checklist or all gates. Index intended new files before the
+   relevant checks. Retain commands or observations, candidate, environment and
    uncovered targets under `orchestrate`. For a failure, return to its owning stage with the new
    observations and remaining recovery budget, correct within scope and rerun affected checks.
    Contrary design evidence returns to `plan`; reproduction or cause questions return to
    `diagnosing-bugs`. Never weaken the oracle or replace missing essential evidence with a green
    substitute. Reassess affected units and consumers after changes without repeating unaffected
    checks by default.
+   Reuse evidence when its relevant source, oracle, configuration, dependency, environment and
+   integration inputs remain valid; retain its provenance and the comparison justifying reuse.
+   If selection is uncertain, state the affected scope and evidence gap, investigate the existing
+   checks and leave essential missing proof explicit; do not default to the complete suite.
 
 6. **Honor the review boundary.** Independent review remains optional unless requested or
    already required. Use the existing review or correction workflow for that authorized scope
@@ -90,17 +114,35 @@ does not authorize launching Claude.
 
 7. **Complete authorized delivery.** Continue commits, pushes, PR work and further delivery
    included in the mandate without asking the user to relaunch each stage. For repository/PR
-   operations select the forge from verified Git remotes and read only its existing adapter:
-   [GitHub](../issue-workflow/references/github.md) or
-   [Bitbucket](../issue-workflow/references/bitbucket.md), including when there is no ticket.
+   operations select the forge from verified Git remotes and read only its adapter in `issue-workflow`:
+   `issue-workflow/references/github.md` for GitHub or `issue-workflow/references/bitbucket.md` for
+   Bitbucket, even without a ticket.
    Reuse the exact existing source branch and matching open PR; create a PR only when needed
-   and authorized, resolving ambiguous or terminal associations first. Verify the committed
+   and authorized, resolving ambiguous or terminal associations first. Before PR delivery,
+   fetch the resolved target again and compare its SHA with the verified
+   base; if it advanced, return to step 5 for integration, consumer discovery and affected checks
+   within existing authority. Verify the committed
    delta and, after an authorized push, the remote revision. Read CI for that exact revision;
    missing, pending, failed or inaccessible checks are not success. With a ticket, let
    `issue-start` own PR association and `issue-workflow` govern completion evidence and any
    permitted tracker writes. Without one, omit tracker operations. Recover uncertain external
    effects through `orchestrate` before retrying, then independently read back the actual
    delivery result. Do not infer approval, merge or deployment permission from a push or PR.
+
+   Before publication, inspect each outgoing commit against the resolved destination: connect it
+   to the stated outcome, remove unrelated changes within authority or disclose them, and separate
+   verification tooling or explain its coupling. Follow the repository's commit convention;
+   do not publish temporary `wip` commits or rewrite shared history without authorization.
+   If identifiers were allocated, reread only class 3 via the domain index and refresh its
+   destination, open/draft PR and remote-branch comparison before publication and after destination
+   integration; preserve already applied migrations.
+   After changes or a push, compare evidence inputs, including source, oracle, configuration,
+   dependencies, environment and integration state. Reuse still-valid observations with their
+   original provenance and the comparison justifying reuse; a different SHA alone does not
+   invalidate them. Replay only invalidated affected checks or name the remaining evidence gap,
+   and align the delivery description with that evidence. Record tested head/base, command, exit
+   status and actual environment. When execution depends on inherited values, timezones or file
+   modes, use the index to read class 21 and verify the actual invocation before delivery.
 
 8. **Report the actual end state.** Assess the final candidate against the whole request through
    `orchestrate`. Report the changed behavior, checks and environment, supported targets not

@@ -63,5 +63,5 @@ saving, and exercise relevant failure and safe paths. Neither inferred a demonst
 The candidate met the declared decision criterion in this bounded run. The base already reached
 the same decisions through broader rules; no detection uplift or reliability rate is established.
 The represented filesystem operations and tests were supplied facts, not executed here. No historical
-PR head, complete six-phase review, host activation, measurement integration or publication was
+PR head, complete six-phase review, host activation or publication was
 replayed. This synthetic case substitutes for the historical replay without establishing its result.

@@ -153,7 +153,7 @@ The provider's resolved model revision and random seed are unavailable, not infe
 
 ## Historical observations and unverified platforms
 
-The [2026-08-24 report](../../../../../docs/requirements-clarification-validation.md) reported
+The [2026-08-24 report](https://github.com/SebastienElet/dotfiles/blob/89307efadc512f6021696bdf7ebb8249c820a2ff/docs/requirements-clarification-validation.md) reported
 unnecessary Claude questions and negative Cursor activations. Its aggregate rows were reread;
 its original individual raw traces were not re-executed or audited here. These remain historical
 observations, not measurements of the currently installed versions.
