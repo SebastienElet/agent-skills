@@ -1,0 +1,66 @@
+{
+  "skill": "bug-fix",
+  "version": "1.0",
+  "queries": [
+    {
+      "query": "Fix the JavaScript node:test regression that drops the last item from a list. This Git fixture has unchanged base tests and a documented neutral revision; local commits and trusted local execution of reviewed fixture code are authorized. Verify the repair and deliver locally without pushing.",
+      "should_activate": true,
+      "reason": "An authorized compatible repair keeps diagnosis and RED/GREEN, then qualifies and replays once after revisions stabilize before local delivery"
+    },
+    {
+      "query": "Repair the dependency-free node:test regression that rejects the inclusive lower bound in this Git repository. Use the supplied buggy and neutral revisions and unchanged base tests. Local commits and trusted local execution of reviewed fixture code are authorized; do not publish.",
+      "should_activate": true,
+      "reason": "A second compatible regression reaches the same targeted qualification transition without replacing original-symptom replay"
+    },
+    {
+      "query": "Fix the committed JavaScript node:test regression where looking up a stored zero returns the fallback. The Git fixture includes unchanged base tests and a documented neutral control. Local commits and trusted local execution of reviewed fixture code are authorized; finish the local task without pushing.",
+      "should_activate": true,
+      "reason": "A third compatible regression retains the full repair path and returns from qualification and manifest replay to delivery"
+    },
+    {
+      "query": "Resume this node:test bug repair after RED/GREEN; the buggy revision and neutral control have not been supplied and local commits are not authorized",
+      "should_activate": true,
+      "reason": "Resumption retains the repair owner and reports missing qualification prerequisites without inventing revisions or authorization"
+    },
+    {
+      "query": "Fix this Rust regression and verify it with cargo test before the authorized local commit",
+      "should_activate": true,
+      "reason": "Rust repairs retain the ordinary bug-fix path and native proof without a forced AssertLedger campaign"
+    },
+    {
+      "query": "Fix this ordinary Bun TypeScript regression with bun test and native expect assertions; verify and commit locally",
+      "should_activate": true,
+      "reason": "Ordinary Bun and TypeScript repairs retain native RED/GREEN without forcing Git node:test qualification"
+    },
+    {
+      "query": "Repair the broken declarative configuration and use its native validator and dry-run; do not add a test that checks its text",
+      "should_activate": true,
+      "reason": "Declarative repair retains existing native validation and skips a forced qualification campaign"
+    },
+    {
+      "query": "Check whether this committed node:test regression detects the supplied bug; I am requesting qualification only, not a code repair",
+      "should_activate": false,
+      "reason": "Direct qualification belongs to assertledger and does not start a new bug repair"
+    },
+    {
+      "query": "Replay the existing .assertledger/evidence-001/manifest.json without changing code or starting another campaign",
+      "should_activate": false,
+      "reason": "Artifact replay belongs directly to assertledger without entering diagnosis or repair"
+    },
+    {
+      "query": "Diagnose this failing test and explain its cause, but do not modify the code",
+      "should_activate": false,
+      "reason": "Diagnosis-only work belongs to diagnosing-bugs and authorizes no repair"
+    },
+    {
+      "query": "Use TDD to implement a new JavaScript feature with node:test",
+      "should_activate": false,
+      "reason": "Ordinary feature development belongs to implement and tdd and requires no regression qualification"
+    },
+    {
+      "query": "Correct the demonstrated review findings on this open pull request",
+      "should_activate": false,
+      "reason": "Explicit open-PR repair retains pr-fix and its existing loop owner"
+    }
+  ]
+}

@@ -1,10 +1,10 @@
 ---
 name: assertledger
 description: >
-  Qualify regression tests with AssertLedger. Use when asked to check whether a test detects a
-  declared bug or to replay AssertLedger evidence. Make sure to use this skill whenever that
-  qualification is requested, even if AssertLedger is unnamed. Excludes routine TDD, coverage,
-  general code review, and unsupported test runners.
+  Qualify committed Git/JS `node:test` regressions; replay AssertLedger evidence.
+  Excludes Rust, ordinary Bun/TS and declarative changes. Use when `bug-fix` reaches stable
+  RED/GREEN revisions or qualification or replay is requested. Make sure to use this skill
+  for those cases even if unnamed. Excludes routine TDD, coverage and general review.
 compatibility: Requires AssertLedger CLI, Git, and Node.js 22.15 or newer; container execution also requires a Linux Docker-compatible daemon and a locally available digest-pinned image.
 metadata:
   category: dev
@@ -27,7 +27,9 @@ This locally maintained workflow follows the published
 Use `$assertledger <repository and regression>` or `/assertledger <manifest to replay>`.
 For example: `Check whether the committed parity regression detects the supplied buggy revision.`
 Use `tdd` for ordinary implementation and `proof-integrity-review` when the verification mechanism
-itself changes. AssertLedger qualification is an additional requested workflow, not a blanket test gate.
+itself changes. AssertLedger runs once from `bug-fix` after RED/GREEN and stable committed
+revisions, or on a direct qualification or replay request. Routine `tdd` and `implement` do not
+start another campaign.
 
 Obtain the compatible CLI through the host's declared tool installation;
 the skill itself needs no dotfiles checkout at runtime. If the CLI is missing, report that prerequisite
@@ -35,9 +37,11 @@ instead of installing a package or modifying project configuration implicitly.
 
 ## Steps
 
-1. Run `assertledger --version` and `assertledger doctor /path/to/repository --json`. This diagnostic
-   is static and read-only. Inspect conflicts and framework support before planning execution;
-   detection of a test command does not demonstrate that an adapter can run it.
+1. For an existing manifest, go directly to replay and reporting in steps 5–6 without starting
+   a campaign or requiring new campaign inputs. Otherwise run `assertledger --version` and
+   `assertledger doctor /path/to/repository --json`. This diagnostic is static and read-only.
+   Inspect conflicts and framework support before planning execution; detection of a test command
+   does not demonstrate that an adapter can run it.
 2. For Git qualification, establish the buggy, corrected, and neutral committed revisions, the
    neutral reason, candidate path, unchanged base-test paths, and a new output directory relative
    to the repository. Retrieve supplied facts where possible; never invent missing control semantics.
