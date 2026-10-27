@@ -21,8 +21,9 @@ jobs:
       - run: bun test
       - run: bun run typecheck
       - run: bun run format:check
-      - run: bun pm pack --ignore-scripts
-      - run: npm publish ./sebastienelet-agent-skills-0.3.0.tgz --provenance --access public --registry https://registry.npmjs.org --ignore-scripts
+      - run: |
+          archive="$(bun pm pack --ignore-scripts --quiet)"
+          npm publish "./$archive" --provenance --access public --registry https://registry.npmjs.org --ignore-scripts
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
