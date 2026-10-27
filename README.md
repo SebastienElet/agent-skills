@@ -7,7 +7,7 @@ travel with their skill; historical observations do not qualify this package or 
 Prepared from the tracked sources at dotfiles revision
 [`89307efa`](https://github.com/SebastienElet/dotfiles/tree/89307efadc512f6021696bdf7ebb8249c820a2ff).
 
-The release target is version `0.2.0`. Registry installation, provenance and Claude, Codex or Cursor
+The release target is version `0.3.0`. Registry installation, provenance and Claude, Codex or Cursor
 activation require independent verification. Dotfiles keeps its current sources and
 consumers until publication, independent installation and rollback have been verified.
 
@@ -16,7 +16,7 @@ consumers until publication, independent installation and rollback have been ver
 After publication, acquire an exact version in a durable consumer-owned directory:
 
 ```sh
-bun install --exact --ignore-scripts @sebastienelet/agent-skills@0.2.0
+bun install --exact --ignore-scripts @sebastienelet/agent-skills@0.3.0
 ```
 
 The package does not install tools, hooks or agent configuration. The consumer selects individual
@@ -36,6 +36,13 @@ already required; `code-review` handles review alone, `code-review-fix` local co
 User instructions supply preferences,
 including note naming and the default Obsidian corpus. This package supplies
 no personal instructions, corpus, agent/model selection, credentials or service configuration.
+
+### Migration from 0.2.0
+
+Version `0.3.0` keeps the same 43 skills, with no additions, removals or renames. `pr-verdict` no
+longer runs PR measurement and no longer references `agent-measure`; consumers that relied on that
+step must call it separately. Update the consumer manifest and lockfile to exact `0.3.0` and
+redeploy through the existing mechanism; rollback restores the recorded `0.2.0` selection.
 
 ### Migration from 0.1.0
 

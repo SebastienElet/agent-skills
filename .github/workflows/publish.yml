@@ -22,4 +22,4 @@ jobs:
       - run: bun run typecheck
       - run: bun run format:check
       - run: bun pm pack --ignore-scripts
-      - run: npm publish ./sebastienelet-agent-skills-0.2.0.tgz --provenance --access public --registry https://registry.npmjs.org --ignore-scripts
+      - run: npm publish ./sebastienelet-agent-skills-0.3.0.tgz --provenance --access public --registry https://registry.npmjs.org --ignore-scripts
