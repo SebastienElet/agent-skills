@@ -38,6 +38,10 @@ tests are part of that authorization; do not ask again when the behavior and tes
 2. Choose the smallest relevant existing or native oracle. For configuration without owned
    behavior, use its parser, schema, dry-run or execution instead of a declaration mirror test.
    Consult `codebase-design` when the interface itself needs design, without expanding the scope.
+   Before adding a test, identify its actual CI step and prerequisites, including whether
+   dependencies are installed. Replay in that context, using a commit archive without
+   `node_modules` when that is how CI runs; module-level resolution of an installed CLI can fail
+   before any assertion despite a green local preflight.
 3. Read [references/tests.md](references/tests.md) when choosing assertions and
    [references/dependencies.md](references/dependencies.md) when substituting dependencies.
    Exercise the real database or protocol when it owns the invariant; prefer in-memory application

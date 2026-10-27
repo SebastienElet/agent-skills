@@ -56,6 +56,10 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
    For database-backed contracts, include identified database refusals, including at commit,
    translated at the adapter boundary into named application errors;
    unexpected failures remain technical errors.
+   For each entered date, identify established ordering relations with the object's other dates
+   and enforce them at the API, domain and database boundaries, for example
+   `CHECK (terminated_on >= started_on)`. A mandated duration makes expiry required or derived;
+   null means unlimited only under an explicit rule.
 3. Apply the deletion test: if the module disappeared, would its decisions spread across callers
    or would unnecessary delegation disappear? Keep functions and adapters with a real responsibility
    even when they have one caller or one implementation.
@@ -63,7 +67,7 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
    details, accept dependencies with effects at the appropriate boundary and prefer pure transformations
    for the owned core. Avoid hypothetical ports, boolean switches and generic operation handlers.
 5. Read [references/dependencies.md](references/dependencies.md) when considering dependency
-   boundaries, persistence, lifecycle changes or consolidation. State where each invariant is enforced
+   boundaries, persistence, lifecycle changes, collection APIs or consolidation. State where each invariant is enforced
    and test it there. Do not collapse domain, transport or transaction boundaries merely to make a module deeper. For
    database-owned invariants, prove identified refusals, their error translation and transaction
    rollback on a real database, including commit-time failures when applicable.

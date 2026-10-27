@@ -55,6 +55,9 @@ alias, the `--no-verify` and the second remote).
 3. **Fail closed.** Missing runtime, unreadable input, parser exception, unresolved variable, empty
    result: refuse, and name what was missing. A guard that exits 0 because it could not run is a
    disabled guard, and it stays disabled silently for months.
+   A no-warning result needs an enumerated required set and explicit outcomes for missing,
+   unknown and null evidence; follow `codebase-design`'s evidence contract rather than treating
+   an expired-only filter's empty output as verified compliance.
 4. **Keep the probe's failure visible.** No `2>/dev/null` on the command that decides whether the
    guard can run, and no branch that turns an empty result into success. If the probe is allowed to
    fail quietly, step 3 is unenforceable.
@@ -65,6 +68,13 @@ alias, the `--no-verify` and the second remote).
    State the exact forms the guard claims to refuse. Match syntactic command boundaries rather
    than assembling a supposed command from unrelated shell lines. Unsupported forms weaken the
    claim; they do not authorize making the guard exhaustive or adding a declaration mirror gate.
+   Before activating a new blocking CI control, trial its exact command on the target merged
+   separately with every relevant open PR, including drafts, in disposable repositories. Resolve
+   legitimate fixtures with narrowly scoped exceptions in the rollout change. Keep enforcing
+   configuration outside the candidate's authority, for example extracting `.scan.toml` from the
+   fetched trusted target with `git show`. For a history-scanning control, cover the complete PR
+   range from merge-base or the full pushed range on the target; `HEAD^..HEAD` misses earlier
+   commits in a multi-commit push. Tree-scoped checks still cover their complete declared inputs.
 6. **Turn each entry of that list into a test case** wired into the project's automated checks. A
    manual self-test does not count: it disappears with the session that ran it.
    Include a permitted control and an observed assertion failure with the guard deliberately broken.
@@ -75,6 +85,10 @@ alias, the `--no-verify` and the second remote).
    Derive cache inputs from the same canonical file selection as the scanner; verify with native or
    existing inspection that every read input, including hidden directories and alternate extensions,
    invalidates the cache. A narrower cache key can replay success without reading changed input.
+   When narrowing task inputs, inventory all runtime reads, including dynamically loaded test
+   configuration. Use the task runner's affected dry-run with an isolated change to each input
+   to prove the task is scheduled; align local preflight and CI configuration paths. Planning
+   proves selection only, so retain the execution witness below.
    Publish validation-cache success atomically, only after all selected checks have succeeded.
    An error, interruption or incomplete result must publish nothing and must not replace an already
    validated entry. Cover successful publication and each failure path through the cache's public
@@ -91,6 +105,12 @@ alias, the `--no-verify` and the second remote).
    Trace the actual CI entry point and prove execution from its log or a controlled failing witness.
    A planning-only run, early success exit, duplicate script key or decoy step is not execution of
    the required guard. Use native parsing to reject ambiguous configuration where supported.
+   For a shared history-scanning CI step with an allowlist, exercise the script actually called by
+   CI on a synthetic Git repository:
+   a finding in a non-final commit is refused, candidate allowlist expansion still refuses it,
+   a fixture authorized by the trusted base passes, and detailed scanner output is present.
+   Enable verbose diagnostics so skipped or empty execution cannot masquerade as a clean scan.
+   Test this behavior, not the YAML's text or a duplicate implementation of the step.
 7. **When a bypass is cheap and its consequence real, run an adversarial pass.** Dispatch a
    fresh-context subagent whose mandate is to break the guard, not to review it; its output is the
    list of attempts and their results. Skip this for a control whose worst case is a warning.

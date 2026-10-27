@@ -57,6 +57,12 @@ where required, stale and missing versions through each action, observing unchan
 additional external effect on refusal.
 After a successful UI write, close or refresh the form so it cannot resubmit the consumed version.
 
+Every new creation endpoint needs idempotence or an explicit justification for its absence. For
+keyed creation, inspect key scope, lifetime, database uniqueness and atomic persistence of request
+identity, effect and replayable response. Concurrent identical `Idempotency-Key` requests create
+one row and replay the response; reuse with a different body receives a named refusal such as
+`422`, without a second effect. Require these cases against the real database, not sequential mocks.
+
 Reservations need an owner, a failure exit and defined expiry or recovery. Reassignment must exclude
 an active write despite lease expiry; protect acquisition, holder authority and handoff to writing.
 A stale holder cannot release or finalize a successor's reservation. Do not hold a database
@@ -91,6 +97,9 @@ the existing registry or migration validation when available. Do not renumber al
 migrations or silently combine independently owned manifest contents. Disclose parallel changes to
 the same versioned manifest in delivery evidence and coordinate their integration so a fresh version
 preserves the intended union of keys instead of overwriting an earlier addition.
+Repository-wide singleton resources also need this comparison: a dependency patch, override or pin
+may already exist on the destination or an open PR. Inspect the relevant canonical list before
+adding another entry; coordinate overlapping changes rather than appending duplicate keys.
 
 ## 4. Authorization as a side effect
 
@@ -115,6 +124,15 @@ named domain error where possible; apply step 5 of the `codebase-design` skill.
 Resolve the permission named for the action by the design in force: a general parent edit
 permission is insufficient where a dedicated action permission is required. With valid scope,
 test the parent-only subject's refusal without writes and the action-authorized subject's success.
+
+In a workflow promising independent proposal and approval, permission does not establish actor
+independence. Persist the proposer, preparer or requester and refuse that actor's own approval or
+signature with a named business error.
+For `library-api`, an authorized proposer approving their own waiver receives `403` without writes;
+another authorized actor succeeds, and a subject without permission is a separate refusal case.
+Where possible, a named database check also enforces distinct actors with a required first actor;
+exercise direct SQL against a real database and application translation to the same self-approval
+error. If only one actor is eligible, require a policy decision rather than ignoring that case.
 
 ## 5. Tenant scope
 
@@ -311,6 +329,16 @@ suffice when they expose this proof; do not require a new mirror gate or validat
 Include every behavior-changing file in the relevant task inputs and carry over a removed file's
 role to its replacements. Observe affected-task selection for changes to those files and verify
 that a required job cannot silently succeed with an empty selection on those changes.
+When task inputs are narrowed, inventory every runtime read, including dynamically loaded
+architecture-test configuration. Change each input alone and observe the task in an affected
+dry-run; verify local preflight and CI read the same configuration. A lint cache omitting its
+configuration or a task selected only on unrelated changes has not covered the required input.
+
+For new exposed API lists, require a bounded default, documented default and maximum limits,
+stable ordering ending in a unique ID, and named behavior above the maximum. Default to cursor
+pagination without overriding an established alternative contract. With more rows than the default,
+exercise the bound and continuation through the terminal page without lost
+or duplicate IDs on unchanged data. A complete list belongs across pages, not in an unbounded response.
 
 For reusable verification caches, input coverage is insufficient if a partial run publishes success.
 Publish the complete success atomically only after all required checks succeed. Failure, interruption
@@ -366,6 +394,16 @@ source; assess proposed configuration separately. Derive role and eligibility ex
 independent product or authorization contract. Exercise a proposed weakening that still receives
 the trusted refusal, and a permitted change that passes. If the evaluator, tests or workflow also
 change, review them against the prior trusted policy; their own green result proves no independence.
+
+Before enabling a new blocking scan, audit or lint control, require a trial of its exact command
+on the target merged separately with every relevant open PR, including drafts, and narrow base
+exceptions for legitimate fixtures in the rollout change. For history-scanning controls, check the
+entire merge-base-to-head PR range or full pushed target range; scanning only `HEAD^..HEAD` misses
+a non-final finding. For a shared history scanner with an allowlist, require behavioral tests of
+the script actually called by CI on a synthetic Git repository: non-final
+finding refused, candidate allowlist expansion still refused, trusted-base fixture accepted and
+detailed diagnostics present. YAML text assertions do not exercise the step. Candidate-policy
+changes need independent assessment; successful enforcement still uses the trusted target policy.
 
 ## 17. An installed tool is assumed usable
 
@@ -461,6 +499,11 @@ different current directories and branches, with target options before and after
 and verify that only the explicit target is used.
 Preserve declared, supported settings such as offline mode, proxy or registry; diagnose genuinely
 unavailable prerequisites without guessing.
+For each added test, identify the CI step that runs it and whether dependencies are installed
+there. Module-level `createRequire(import.meta.url).resolve("some-lint-cli/package.json")` fails
+before assertions in a dependency-free job despite passing local preflight. Replay in the actual
+prerequisite state, for example from `git archive` without `node_modules`; requiring a package is
+valid when that step installs it, and an archive alone does not prove the rest of CI's environment.
 
 ## 22. Personal data outlives its declared lifecycle
 
@@ -535,10 +578,14 @@ published result from the closed current cycle. Inspect reverse transitions too:
 referenced source is forbidden, refuse before modifying tracking or evidence, with a named error.
 Protect the dependency check and transition atomically against a concurrent new association;
 test refused reopening without loss of dependents, tracking or evidence.
-A check that can conclude "nothing to report" enumerates required items: missing items, unknown
-status or null expiry warn or refuse, never succeed (null means "no limit" only under an explicit
-domain rule). Test each input state separately and record the required items examined, distinguishing
-"verified compliant" from "not verifiable".
+A check that can conclude "nothing to report" first enumerates required evidence kinds: missing
+items, unknown status or null expiry warn or refuse, never succeed (null means "no limit" only under
+an explicit domain rule). For a warning-producing compliance check, an expired-only
+filter cannot prove compliance: a missing required item is `missing`, and `UNKNOWN` or undated
+evidence is `to_confirm`, not an empty warning list interpreted as verified. Null expiry means
+unlimited only when the applicable rule explicitly permits it. Require separate valid, expired,
+unknown, undated and missing cases, plus the permitted unlimited control. Inspect the recorded
+examined evidence and outcomes: verified compliant and unverifiable must remain distinguishable.
 
 ## 26. A compound period is applied out of the rule's order
 
@@ -588,6 +635,12 @@ the application; derive relative inputs from the same clock with the project's c
 Exercise the exact boundary and first refused value, replay at several controlled dates including
 one beyond the old fixtures, and specify the timezone when crossing midnight matters. A fixed
 calendar case independent of today is valid; moving an expiry farther into the future is no fix.
+Trace domain time reads to the injected clock; `new Date()` or `Date.now()` outside its adapter
+must not bypass it. Before restoring real timers, unmount consumers, drain pending fake work and
+clear timers in `finally`. For Vitest UI tests this can be `cleanup()`,
+`await vi.advanceTimersByTimeAsync(0)`, `vi.clearAllTimers()`, then `vi.useRealTimers()`.
+Search all matching teardowns with `rg useRealTimers` after finding the pattern; fixing one neighbor
+leaves order-dependent failures elsewhere. Replay repeatedly and in randomized order without retries.
 
 ## 29. Append-only storage remains mutable or blocks authorized erasure
 
@@ -637,6 +690,9 @@ List signed fields justified by the content presented for signature, using the e
 serialization contract. Separately test addition, default change, signed-content change and
 referenced removal: retained IDs and current approval survive unsigned changes, signed changes
 invalidate approval, and removals follow the contract without dangling references.
+For UI element keys, prefer stable IDs. A composite such as type plus nullable expiry can collide;
+require uniqueness even with null or empty components, or replace it with the stable ID. Exercise
+two such elements and independent selection or update; a render that ignores warnings proves little.
 
 ## 32. A dated rule loses its reference date, boundary, exception or counting mode
 
@@ -654,3 +710,8 @@ where candidate dates yield different holders, maximum and first excess, every c
 each waiver plus the ordinary case. Control today-dependent comparisons as in class 28; class 26
 still governs compound calendar arithmetic. Material ambiguity needs the rule owner's decision;
 a proposal, code-aligned document or passing fictional-policy test establishes no real authority.
+Distinguish manufacture from approval dates when the source names approval. For each entered date,
+identify established ordering relations and enforce them at the API, domain and database boundaries, such as
+`CHECK (terminated_on >= started_on)`, and test equality, the previous day and the next day.
+A mandated duration requires or derives expiry; accepting null silently loses that bound. Class 25
+covers how missing or undated evidence affects the later compliance decision.

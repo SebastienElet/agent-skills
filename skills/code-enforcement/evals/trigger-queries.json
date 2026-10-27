@@ -1,6 +1,6 @@
 {
   "skill": "code-enforcement",
-  "version": "1.0",
+  "version": "1.1",
   "queries": [
     {
       "query": "Ajoute un hook PreToolUse qui bloque les commandes rm -rf hors du dépôt",
@@ -21,6 +21,21 @@
       "query": "Add a check in the push script so it refuses to run without a signed commit",
       "should_activate": true,
       "reason": "Guard called a check; still enforcement code"
+    },
+    {
+      "query": "Add a blocking secret scan to shop-api CI that uses trusted target configuration and scans every pushed commit",
+      "should_activate": true,
+      "reason": "New blocking CI control; rollout, trust boundary and complete input range need refusal evidence"
+    },
+    {
+      "query": "Make clinic-api warn when required certification is missing or unknown instead of recording verified compliance",
+      "should_activate": true,
+      "reason": "A warning-producing compliance control must distinguish unverifiable input from success"
+    },
+    {
+      "query": "Refuse library-api waiver self-approval even when the proposer has approval permission",
+      "should_activate": true,
+      "reason": "Actor-separation guard distinct from the permission check"
     },
     {
       "query": "Le linter ne voit pas mes fichiers .sh, configure shellcheck",

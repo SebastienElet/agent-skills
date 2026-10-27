@@ -56,6 +56,10 @@ does not authorize launching Claude.
    the invariant within its atomic boundary; retain origin and target identities rather than
    allocating to an arbitrary available row. Test each source, import replay and admitted historical
    data without fabricating a new-workflow object that those data legitimately lack.
+   Before allocating a sequential or timestamped repository identifier, manifest version or
+   repository-wide singleton such as a dependency patch, override or pin, inspect the fetched destination and
+   relevant open PRs including drafts, and unassociated branches. Recheck before publication and
+   after integration; preserve migration order and coordinate overlapping manifest or patch edits.
 
 3. **Prepare only what is needed.** Use `requirements-clarification` for material unresolved
    requirements and `plan` for consequential design choices or a requested plan. Reuse settled
@@ -73,7 +77,7 @@ does not authorize launching Claude.
    and relevant oracle, including affected failure paths. Use the plan's units when still valid;
    do not require a ticket, commit, worktree or PR for each unit. Apply `tdd` to owned executable
    behavior and native or existing validation to declarative changes without owned behavior.
-   For persistence or lifecycle changes, consult `codebase-design` and its
+   For persistence, lifecycle or collection API changes, consult `codebase-design` and its
    `codebase-design/references/dependencies.md` dependency guidance before implementation.
    Compose other relevant specialists rather than reproducing their procedures. Delegation is
    optional and follows `orchestrate`'s ownership and isolation rules; actual dependencies govern

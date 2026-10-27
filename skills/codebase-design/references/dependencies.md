@@ -43,6 +43,14 @@ unknown technical failure as a business refusal. An early check may improve feed
 database still protects the invariant against concurrent changes. Verify translation and rollback
 through the application with the real database, following `tdd`'s database-refusal guidance.
 
+For a proposal/validation workflow promising independent actors, persist the first actor's identity.
+Keep permission separate from separation of duties: an authorized approver still cannot approve
+their own proposal. Enforce this
+in the domain and, where possible, with a named database constraint such as
+`CHECK (approved_by IS NULL OR approved_by <> proposed_by)` on a non-null `proposed_by`.
+Translate domain and database self-approval refusals to the same named business error. A single
+eligible actor requires an explicit policy decision, not a silent self-approval exception.
+
 For an immutability or append-only promise, inventory every affected collection, its database
 mechanism and protected SQL role. Specify any one-time transition and its permitted fields. With
 existing rows and that role, test raw `UPDATE`, `DELETE` and `TRUNCATE` separately, each in its own
@@ -63,6 +71,13 @@ signed content invalidates it, and removal leaves no dangling reference or undec
 
 ## Related lifecycles and reservations
 
+For a check that can report no warnings, enumerate required evidence kinds before inspecting
+supplied objects. Model valid, expired, unknown, undated and missing explicitly: unknown or undated
+evidence needs confirmation, and an absent required kind is missing. Neither is verified compliance;
+an explicitly unlimited validity rule is the only basis for accepting null expiry. Persist the
+examined evidence and outcomes so verified compliance remains distinct from an unverifiable check.
+For example, prefer `certificationWarnings(requiredKinds, certs, today)` over an expired-only filter.
+
 List the state, attributes and provenance that make a reference valid, not just its existence:
 unit, period, owner, withdrawal, publication, source closure and current cycle as applicable.
 Test each divergence with a named error and an admissible control. For reverse transitions, protect
@@ -77,6 +92,21 @@ handoff to writing atomically. Stale holders cannot release or finalize a succes
 Do not retain a database connection during application-level waiting. With a real database and a
 bounded pool, exercise refusal then recovery, an old failure after reassignment, expiry during a
 slow write, and contention exceeding pool size without exhausting it through held waiting connections.
+
+## Collection APIs and identity
+
+Every new creation endpoint needs an idempotence contract or an explicit justification for its
+absence. For keyed creation, define key scope and lifetime, protect uniqueness in the database and
+commit the request identity and replayable response atomically with the effect. In `shop-api`,
+`POST /orders` with `Idempotency-Key` replays the response for the same key and body; the same key
+with a different body returns a named `422` refusal. Concurrent duplicates must produce one row.
+
+Every new exposed API list is bounded by default, with documented default and maximum limits and
+named behavior above the maximum. Default to cursor pagination with stable ordering ending in a
+unique ID; define the cursor and terminal-page contract, preserving an established alternative
+pagination contract where applicable. UI keys use stable element IDs. A composite key needs
+proof of uniqueness even when a component is null or empty; type plus optional expiry is no such
+proof. See `tdd`'s collection cases for the behavioral evidence at each owning boundary.
 
 ## Schema evolution
 
