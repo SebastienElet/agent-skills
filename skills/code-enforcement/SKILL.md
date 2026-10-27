@@ -36,6 +36,12 @@ alias, the `--no-verify` and the second remote).
    single archive signature is insufficient. Validate the actual format and archive contents under
    the declared policy, with a disguised-content refusal and a valid boundary case for each added
    type, including empty or variant forms when the format permits them.
+   A text exception applies only to genuinely textual formats, with decoding and structure checks;
+   it must not admit arbitrary text as a declared binary format. Compute digests on the server and
+   recheck retrieved bytes before sending any content; missing objects or mismatch refuse release.
+   Unknown content refuses, or stays raw and isolated only under an explicit quarantine contract.
+   For form rules, include direct API bypasses and enforce the producing transition, not only a
+   later consumer. Follow `codebase-design` for scoped reference validity and incomplete drafts.
    For an exemption or allowlist, name both the eligibility criterion and the attributes that make
    the exempt object harmless. Trace updates, attachments and ownership transfers: lock those
    attributes or reapply the mandatory control atomically before a mutation invalidates eligibility.

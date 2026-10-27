@@ -82,11 +82,55 @@ expiry; exercise independent selection or update so a colliding key cannot pass 
 
 ## Database refusals
 
+For aggregate caps, use separate real-database connections and synchronize requests to overlap
+inside the decision/write window. In `event-api`, three concurrent requests for 20 seats against
+50 available seats must leave the persisted sum at most 50. Use `Promise.allSettled` to inspect
+every outcome and read back state. Concurrent same-organization uses of a single-use promotion
+yield one success and one named refusal, with no partial writes; different organizations succeed
+independently. Exercise all paths changing the cap or its contributors, not just creation.
+
 For each added or expanded constraint, exclusion or trigger, exercise its named refusal through
 the application with the real database. Assert the exact transport status and business code, then
 read back all transaction writes to prove rollback. Include deferred refusal at commit, an unknown
 technical error and a concurrent change defeating any early application check. A direct SQL refusal
 alone does not prove the adapter's translation; a mocked exception does not prove the database path.
+
+Bypass each form rule with a direct API request. Test missing, inactive and foreign references,
+including those returned by a global service, without leaking foreign data. The producing and
+downstream steps use the same precondition code and promised status, such as `422`; a permitted
+incomplete draft remains a control. For strengthened historical rules, exercise migration refusal
+without data changes on invalid rows and success on conforming rows.
+
+For frozen data, assert refusal preserves protections; failed sealing cannot finalize a document.
+Add a new file version and verify historical download still returns the deposited version; missing
+or corrupt deposited content refuses without fallback. Overlap first use with a label rename:
+only the contract-permitted outcome persists, and an unchanged-label replay succeeds. Test an
+authorized erasure path only under an established policy; an open purge decision is not approval.
+
+## Display and endpoint behavior
+
+Pair wording with the behavior it describes. In `shop-api`, seed paid and unpaid orders, execute
+the real aggregate query and render the card; assert both amount and label from those facts.
+Exercise help text's actual predicate and any operation it claims to restrict. A copied string
+assertion or declarative-file inspection proves neither calculation semantics nor enforcement.
+
+For new reads, compare domain state before and after to detect silent writes. Exercise sensitive
+searches through the actual request and logging/error paths, checking that URLs and diagnostics
+contain no secret. Prove organization-local uniqueness permits the same reference in another
+organization and refuses duplicates locally. Test sensitive-field denial or masking independently
+of list access, alongside an authorized control. Reuse the collection traversal cases above;
+record query-plan and representative-volume observations separately from page-size assertions.
+
+## File integrity and recovery
+
+Reject arbitrary text declared as a binary format; accept valid binary and permitted text variants
+through the real content validator. Exercise changed bytes and absent objects at retrieval and
+assert no content is released. Inject failure between storage deposit and database finalization,
+then replay successfully; include concurrent identical requests, changed-content key reuse and an
+already-present object with different bytes. Inspect durable state and the atomically finalized
+object/digest/type association, not only the response. Exercise compensation after abandonment or
+conflict and prove it preserves objects referenced by another operation. Distinguish evidence for
+owned orchestration from storage-protocol evidence; a substitute alone proves no remote guarantee.
 
 ## Discriminating security tests
 

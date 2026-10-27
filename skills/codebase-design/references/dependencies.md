@@ -28,6 +28,13 @@ explicitly removes the requirement. Never infer equivalence from the new suite p
 
 ## Persistent contracts
 
+For a shared `sum <= capacity` invariant, lock the capacity-owning row, reread the sum and write
+within the same transaction. Every path changing the sum or capacity follows that protocol;
+moving a precheck into an ordinary transaction alone does not serialize concurrent writers.
+For at-most-once use, prefer a named unique or exclusion constraint with non-null keys and the
+correct organization scope. Validate positive quantities at entry and translate only the expected
+constraint violation. Follow `tdd` for overlapping real-database evidence.
+
 For each added or expanded database constraint, exclusion or trigger, name the expected refusals
 and their stable business errors. Translate structured driver identifiers and codes at the adapter
 boundary, including failures at transaction commit; do not parse free-form messages or classify an
@@ -51,6 +58,17 @@ second transition or content change. Qualify the promise against schema administ
 purge, erasure or demo reset required or permitted by the established contract explicit; test its
 success and the ordinary role's inability to enable a bypass. Align personal-data handling with the established
 policy; permanent refusal alone proves no erasure compatibility.
+For every protection, identify the erasure path's authority, scope and preconditions, or record the
+missing decision as an open question. An undecided demo-data purge policy authorizes no bypass.
+Publication refuses protected items without lifting their holds; lifting a hold is a separate
+authorized command. Attributes describing historical facts freeze at first use: a rename and
+first use share the same lock, while replaying the unchanged label remains allowed.
+
+For a filed document, persist and read the exact deposited version, never a mutable latest alias.
+Verify sealing before finalization and preserve that version's retention and availability. Missing
+versions or failed integrity checks refuse without fallback; deposit-to-record failure needs
+explicit recovery or cleanup. Handle historical documents in the schema migration rather than
+silently pointing them at today's version.
 
 Before replacing a referenced collection, inventory incoming references and choose its stable
 identity key. Apply the difference atomically: keep retained IDs, insert additions and handle
@@ -62,6 +80,11 @@ content change and referenced removal: unchanged content keeps its ID and curren
 signed content invalidates it, and removal leaves no dangling reference or undecided cascade.
 
 ## Related lifecycles and reservations
+
+Enforce form rules on the server and downstream preconditions at the step producing the promised
+state, with shared stable business codes. Explicitly incomplete drafts remain allowed under their
+contract. References resolved through a global service still require caller scope and applicable
+active-state checks; mutable validity must remain protected through the write.
 
 For a check that can report no warnings, enumerate required evidence kinds before inspecting
 supplied objects. Model valid, expired, unknown, undated and missing explicitly: unknown or undated
@@ -99,6 +122,32 @@ unique ID; define the cursor and terminal-page contract, preserving an establish
 pagination contract where applicable. UI keys use stable element IDs. A composite key needs
 proof of uniqueness even when a component is null or empty; type plus optional expiry is no such
 proof. See `tdd`'s collection cases for the behavioral evidence at each owning boundary.
+
+Reads must not create revisions or other domain writes; expose those effects as explicit commands.
+Keep sensitive search values out of URLs, logs and errors; moving a search into a request body
+does not alone prevent disclosure. Derive organization scope from authentication, apply it to
+queries and organization-local unique indexes, and authorize sensitive fields separately from
+list access. Replacing a global index requires a compatible migration removing the old restriction.
+Bound the underlying query too: avoid full-table loading and pairwise in-memory duplicate searches;
+use scoped database grouping and verify indexes and query plans on representative volume.
+
+Display labels describe the query or predicate actually executed. A sum of invoiced amounts is
+not a refundable amount; deciding the latter requires its own rule. Help text announcing a
+precondition needs an operation enforcing it; otherwise describe only the observed fact or remove
+the promise. See `tdd` for evidence joining the real calculation and rendered wording.
+
+## Files and cross-system writes
+
+For storage followed by database writes, define order, durable progress, request identity and
+recovery before implementation. A local transaction cannot make independent systems atomic;
+choose an outbox with an idempotent consumer or explicit compensation under the storage contract.
+Reserve uploads durably with an organization-scoped unique request key bound to server-computed
+content digest and detected type. Same-key identical content resumes; changed content refuses.
+Reuse an existing object only after verifying identical content. Finalization atomically records
+object identity, digest, type and completed state in the database before success is returned.
+Durable compensation cleans abandoned unreferenced objects without deleting another operation's
+referenced object. Validate content at entry and integrity before release as in `code-enforcement`;
+exercise partial failure and successful replay as in `tdd`.
 
 ## Schema evolution
 

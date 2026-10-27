@@ -43,6 +43,12 @@ was persisted, no non-reusable identifier was consumed and no external effect oc
 checks do not eliminate later storage or protocol failures; do not claim rollback covers effects
 it cannot undo.
 
+For `sum <= capacity`, identify the capacity-row lock shared by every contributor and capacity
+mutation, with sum reread and write in that transaction. An ordinary transaction around an unlocked
+sum is insufficient. Require overlapping separate-connection tests and persisted totals, as in
+`tdd`'s database refusals. Across independent stores, require explicit order and durable recovery;
+a local rollback cannot undo an object deposit. Classes 2 and 24 cover replay and compensation.
+
 ## 2. Retry idempotence
 
 **Ask:** after a conflict, does the retry re-read the winning state, or does it replay the decision
@@ -69,6 +75,11 @@ identity, effect and replayable response. Concurrent identical `Idempotency-Key`
 one row and replay the response; reuse with a different body receives a named refusal such as
 `422`, without a second effect. Require these cases against the real database, not sequential mocks.
 
+For an upload reservation, bind the organization-scoped durable key to server-computed digest and
+detected type. Identical replay resumes and differing content refuses; reuse a deposited object
+only if its content matches. Exercise failure after deposit followed by successful retry, plus
+concurrent replay; finalization atomically records object, digest, type and completed state.
+
 Reservations need an owner, a failure exit and defined expiry or recovery. Reassignment must exclude
 an active write despite lease expiry; protect acquisition, holder authority and handoff to writing.
 A stale holder cannot release or finalize a successor's reservation. Do not hold a database
@@ -78,11 +89,13 @@ reassignment, and contention beyond pool size without exhaustion from held waiti
 
 ## 3. Invariant without a constraint
 
-**Ask:** which index or database constraint makes this invariant unfalsifiable?
+**Ask:** which database constraint or serialization protocol protects this invariant under
+concurrent writes?
 
 **Broken when:** the answer is "the service checks it". Application-level uniqueness or ordering does
-not exist under concurrency: two processes both read "absent" and both insert. A unique index, an
-exclusion constraint or a serializable transaction is the only thing that survives.
+not exist under concurrency: two processes both read "absent" and both insert. Require a database
+constraint or a transaction protocol that actually serializes competing decisions, such as the
+shared row lock in class 1; merely opening a transaction is insufficient.
 
 For upgrades or resynchronization from a reference model, identify the local derivations, invariants
 and user choices affecting each copied field. Exclude locally derived state from copying or recompute
@@ -90,8 +103,9 @@ it with its canonical rule; a reference default cannot override that rule. Prese
 according to the established ownership contract. Require a regression case with derived state before
 the upgrade that survives afterwards, and a diagnostic or upgrade report for excluded copies.
 
-**Lift:** the constraint exists in a migration, and a test proves the second writer receives the
-violation rather than succeeding.
+**Lift:** the constraint exists in the schema or the serialization protocol in every affected
+write path; an overlapping real-database test proves the intended refusal instead of a forbidden
+committed result.
 
 For sequential or timestamped identifiers, compare the proposed value with the fetched destination,
 relevant open PR heads including drafts, and relevant remote branches without a PR, not only the
@@ -107,6 +121,15 @@ preserves the intended union of keys instead of overwriting an earlier addition.
 Repository-wide singleton resources also need this comparison: a dependency patch, override or pin
 may already exist on the destination or an open PR. Inspect the relevant canonical list before
 adding another entry; coordinate overlapping changes rather than appending duplicate keys.
+Include shared entity prefixes. Compose the target and relevant parallel heads in a disposable
+tree and run native registry checks and affected suites, not only isolated green branches. A
+jointly delivered unpublished manifest version can preserve the key union; a published version
+requires advancement under the deployment contract. Class 21 covers the separate typecheck.
+
+For single-use records, require non-null keys and a named unique or exclusion constraint at the
+proper organization scope. A pre-insert existence check does not prevent duplicate consumption;
+require one concurrent success and one translated refusal with no partial writes, plus independent
+organization controls. Class 6 governs translation of that exact constraint, not arbitrary errors.
 
 ## 4. Authorization as a side effect
 
@@ -150,6 +173,11 @@ tenants for any caller who edits an id.
 
 **Lift:** the authenticated scope is the only source of the identifier, or the supplied value is
 verified against it and the mismatch is rejected — with a test for the mismatch.
+
+Resolve every reference in caller scope even through a global service: existence or active status
+alone does not prove membership. Refuse missing, inactive and foreign references without revealing
+foreign data. Organization-local uniqueness also needs organization-scoped indexes; remove a
+superseded global index compatibly and test the same reference in two organizations.
 
 ## 6. Error contract
 
@@ -222,6 +250,12 @@ validity or confinement of every value it emits, and its drift crosses the bound
 **Lift:** the boundary guard still validates the value or confines it against the canonical boundary
 when it is consumed, independently of the upstream control, and each mechanism remains explicit.
 
+For files, require actual binary signature and structure validation; a text exception is restricted
+to real textual formats with their decoding rules. Compute the digest from received bytes and
+verify retrieved bytes before release. A client digest, stored-but-unchecked checksum or fallback
+after missing/corrupt content establishes no integrity. Require disguised-content, valid-content,
+changed-object and absent-object cases through the actual boundaries.
+
 ## 10. Claim stronger than mechanism
 
 **Ask:** does every guarantee claimed by this diff match what its mechanism actually establishes?
@@ -244,6 +278,11 @@ proposal is not an accepted decision and cannot silently override one in force.
 A guarantee that a document attributes to a layer (database, constraint, trigger, permission) must be
 implemented at that layer and proven by a test that bypasses the layers above it, such as a direct
 statement against the store. A guard in the application alone is a weaker mechanism than the claim.
+
+Trace displayed amount/state labels to the real query or predicate: invoiced is not refundable.
+Require paid/unpaid data through the real query and rendered card, asserting label and amount
+together. Help text announcing a restriction needs the enforcing operation and its refusal case;
+otherwise narrow it to the observed fact or remove it, without inventing a new product rule.
 
 ## 11. Hostile input in normalization and redaction
 
@@ -346,6 +385,11 @@ stable ordering ending in a unique ID, and named behavior above the maximum. Def
 pagination without overriding an established alternative contract. With more rows than the default,
 exercise the bound and continuation through the terminal page without lost
 or duplicate IDs on unchanged data. A complete list belongs across pages, not in an unbounded response.
+Pagination must bound the underlying work too. Inspect scoped queries, indexes and representative
+query plans; loading the full table and comparing every pair before slicing is not a bounded query.
+For new endpoints, reads leave domain state unchanged; revision creation is an explicit command.
+Keep sensitive searches out of URLs and diagnostics, and authorize sensitive fields separately
+from list access. Classes 4, 5 and 11 govern permission, organization scope and disclosure evidence.
 
 For reusable verification caches, input coverage is insufficient if a partial run publishes success.
 Publish the complete success atomically only after all required checks succeed. Failure, interruption
@@ -512,6 +556,13 @@ before assertions in a dependency-free job despite passing local preflight. Repl
 prerequisite state, for example from `git archive` without `node_modules`; requiring a package is
 valid when that step installs it, and an archive alone does not prove the rest of CI's environment.
 
+A transpiling test runner does not establish type correctness. Require the separate project
+typecheck on the composed tree, including contract-consuming fixtures and port implementations;
+shared typed factories and test ports avoid dispersed stale copies. Class 13 still requires actual
+export comparison for a claimed unchanged public contract; typecheck is not a substitute.
+Before production exposure of widened file types, quotas or origins, require a pre-production
+exercise naming environment and result. Missing access is a proof limit, not an invented success.
+
 ## 22. Personal data outlives its declared lifecycle
 
 **Ask:** where can personal fields be persisted or exposed, and does export/erasure cover every
@@ -564,6 +615,11 @@ output completeness as well as status. Exercise a second signal, a termination-r
 an unresponsive worker, truncated output with status zero and cleanup failure after success/failure
 using bounded offline tests. State direct uncatchable-kill and detached-descendant limits in delivery.
 
+For cross-system writes, inspect durable compensation after partial failure, abandonment or
+conflict. Cleanup removes only unreferenced objects and must preserve another operation's object;
+observe eventual cleanup and successful replay. An outbox with an idempotent consumer is an
+alternative under the storage contract. Do not announce completion before durable finalization.
+
 ## 25. A reference is checked for existence only
 
 **Ask:** which attributes and states make each referenced object valid for this operation, and does
@@ -583,6 +639,11 @@ published result from the closed current cycle. Inspect reverse transitions too:
 referenced source is forbidden, refuse before modifying tracking or evidence, with a named error.
 Protect the dependency check and transition atomically against a concurrent new association;
 test refused reopening without loss of dependents, tracking or evidence.
+
+Form-only rules need direct server refusals. Enforce a downstream precondition at the step producing
+the state that promises it, with the same stable code and contracted status at both steps. Mutable
+reference validity remains protected until the write. An explicitly incomplete draft is permitted;
+class 27 governs incompatible historical rows without arbitrary repair or deletion.
 
 For a warning-producing compliance check, first enumerate required evidence kinds. An expired-only
 filter cannot prove compliance: a missing required item is `missing`, and `UNKNOWN` or undated
@@ -663,6 +724,14 @@ Make purge, erasure or demo reset required or permitted by the established contr
 success plus non-bypass by the ordinary role. Class 22 still governs personal-data policy; permanent refusal
 does not prove compatibility with erasure.
 
+Publication must refuse held items without lifting their protection; release is a distinct
+authorized command. For every protection, identify erasure authority, scope and preconditions,
+or leave the missing policy as an explicit open question. An undecided demo purge cannot justify
+disabling protections or claiming an authorized cleanup path already works.
+For filed documents, persist the exact deposited version and verify sealing before finalization.
+Read that retained version without latest-version fallback; missing or failed integrity refuses.
+Require sealing failure, deposit-to-record recovery and historical-read cases, not a field alone.
+
 ## 30. A derived concept omits a producer or legitimate historical input
 
 **Ask:** have all producers and consumers of the new projection or precondition been accounted for,
@@ -697,6 +766,10 @@ invalidate approval, and removals follow the contract without dangling reference
 For UI element keys, prefer stable IDs. A composite such as type plus nullable expiry can collide;
 require uniqueness even with null or empty components, or replace it with the stable ID. Exercise
 two such elements and independent selection or update; a render that ignores warnings proves little.
+
+Freeze labels and attributes used to describe historical facts at first use. First use and rename
+share the same lock; refuse a changed used label with the contracted error, while identical replay
+succeeds. Require the overlapping first-use/rename case, not only a sequential already-used check.
 
 ## 32. A dated rule loses its reference date, boundary, exception or counting mode
 
