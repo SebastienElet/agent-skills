@@ -88,7 +88,7 @@ When the [approval gate](#gate) holds, present these three items and
 wait for the answer:
 
 1. the independent verdict (`approved`), the head SHA and the SHA of the CI run;
-2. the draft verdict comment, built from `pr-verdict/assets/verdict-template.md` in the PR's
+2. the draft verdict comment, built from `pr-verdict/assets/comment-template.md` in the PR's
    language, written to the scratchpad and carrying its marker
    `<!-- pr-verdict:<pr>:<sha12> -->`;
 3. the question "Publish this verdict, then approve?" in the user's language, with three

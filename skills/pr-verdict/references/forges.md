@@ -339,8 +339,9 @@ new publication. GitHub issue comments and review summaries are separate lookup 
 surfaces. Update only the single matching verdict owned by the publishing account; a foreign
 match does not prevent that account from publishing its own. Stop on an unknown author, multiple
 owned matches or an incomplete lookup. A different SHA gets a new verdict and leaves the old one
-intact. Re-read before publishing — past about thirty lines, non-blocking remarks are
-posing as blockers; never truncate the required behavior ledger to meet that heuristic. On
+intact. Re-read before publishing using `assets/comment-template.md`: an uncomplicated approval
+stays within eight lines; other summaries stay within about thirty. Keep the complete required
+behavior ledger in the internal audit, not in the public summary unless details were requested. On
 GitHub, _changes required_ establishes `CHANGES_REQUESTED` through
 `gh pr review --request-changes` on another author's PR. On an updated marked verdict, compare
 the account's latest opinionated review and its SHA before deciding whether another native
