@@ -33,6 +33,7 @@ This directory is the canonical source for user-scoped agent skills.
 | `issue-workflow`                | Apply shared issue execution and completion policy.                                                                 |
 | `orchestrate`                   | Preserve task ownership and state across skill transitions.                                                         |
 | `plan`                          | Prepare an architecture or actionable development plan.                                                             |
+| `postgresql-engineering`        | Engineer and verify PostgreSQL queries, schemas, transactions and migrations.                                       |
 | `pr-feedback`                   | Collect evidence-backed review feedback and reviewer-authored fixes from merged pull requests.                      |
 | `pr-fix`                        | Repair an open pull request after an independent merge review.                                                      |
 | `pr-verdict`                    | Deliver a PR verdict on an open pull request, yours or another author's.                                            |
