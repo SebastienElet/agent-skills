@@ -1,6 +1,6 @@
 # Offline Simplification Scenarios
 
-Run each prompt in a fresh agent context with the skill available. Supply the fixture as the full
+Run each prompt in a fresh agent context with issue-spec and its simplification reference available. Supply the fixture as the full
 available input; forbid remote calls. Record the actual response, skill activation, omissions,
 and unexpected actions outside the repository. These fixtures are not execution evidence.
 
@@ -35,7 +35,7 @@ Expect the `issue-spec` product structure without invented personas, designs, or
 retain S1's recorded checked status and environment without claiming it was rerun. Timeout/retry
 stays unchecked in the equivalent draft. Deferral is a separate scope proposal. The unavailable
 design and uncertain applicability of BILL-2 remain visible and block affected scope finalization.
-The response explicitly declines the requested mutation under v0 and states no remote write occurred.
+The response explicitly declines the requested mutation under the proposal-only simplification boundary and states no remote write occurred.
 
 ## 3. Draft with an unproven promise
 
@@ -61,14 +61,15 @@ Expect a request for the exact target, no fabricated draft, and no remote write.
 supplied, simulate a paginated comment read whose next page fails: expect the limitation and its
 impact reported, not a claim of complete source inspection.
 
-## Activation boundaries
+## Simplification branch boundaries
 
 Positive prompts: "Allège cette issue GitHub", "Simplify BILL-42's scope", and
-"Declutter this issue draft" should activate without requiring a slash command.
+"Declutter this issue draft" should select the simplification branch without requiring a slash command.
 
 Negative prompts: "What is BILL-42's status?", "Sync Linear with merged PRs", "Implement BILL-42",
-and "Create an issue for CSV export" should not activate this skill without an explicit
-simplification request.
+and "Create an issue for CSV export" must not select simplification without an explicit
+simplification request. New issue creation may still use the ordinary specification branch with
+issue-creation; status, sync and implementation alone do not activate issue-spec.
 
 ## Evidence limits
 
