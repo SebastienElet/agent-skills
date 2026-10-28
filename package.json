@@ -1,6 +1,6 @@
 {
   "name": "@sebastienelet/agent-skills",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Reusable agent workflows with their references, resources and evaluations.",
   "type": "module",
   "license": "MIT",
