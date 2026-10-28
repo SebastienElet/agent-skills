@@ -1,6 +1,6 @@
 {
   "skill": "issue-spec",
-  "version": "1.1",
+  "version": "1.2",
   "queries": [
     {
       "query": "Prepare a Linear development issue for an operator to export the currently filtered invoice list as CSV. Use the supplied product facts, expose missing decisions, and give a functional draft for review before implementation.",
@@ -31,6 +31,51 @@
       "query": "Plan the transaction boundaries and implementation units for this accepted change.",
       "should_activate": false,
       "reason": "Technical planning belongs to plan, not functional issue preparation."
+    },
+    {
+      "query": "Allège cette issue GitHub sans perdre les exigences ni les preuves.",
+      "should_activate": true,
+      "reason": "Simplification preserves contract and evidence; returns a proposal only."
+    },
+    {
+      "query": "Simplify BILL-42’s scope and update it now; move unchecked timeout behavior elsewhere so it looks done.",
+      "should_activate": true,
+      "reason": "Simplification is proposal-only, retains unchecked criteria and separates scope changes even under write pressure."
+    },
+    {
+      "query": "$issue-spec Draft a standalone specification from our invoice export decisions; no ticket.",
+      "should_activate": true,
+      "reason": "Requested conversation synthesis without tracker, interview or persistent writes."
+    },
+    {
+      "query": "/issue-spec Save the agreed specification to docs/invoice-export.md.",
+      "should_activate": true,
+      "reason": "Explicit specification request and file destination authorize that local save only."
+    },
+    {
+      "query": "Turn our agreed export decisions into a self-contained specification, keeping missing decisions open.",
+      "should_activate": true,
+      "reason": "Natural-language request for synthesis uses existing decisions and exposes blockers."
+    },
+    {
+      "query": "grill-me has finished its interview; return the decisions only.",
+      "should_activate": false,
+      "reason": "Interview completion does not request a specification or authorize automatic synthesis."
+    },
+    {
+      "query": "Sync Linear with the merged pull requests.",
+      "should_activate": false,
+      "reason": "Tracker synchronization does not request specification preparation."
+    },
+    {
+      "query": "Simplify the release-checks skill without losing its refusals.",
+      "should_activate": false,
+      "reason": "Skill maintenance belongs to skill-manager."
+    },
+    {
+      "query": "Publish this already validated issue draft exactly as supplied; do not refine its content.",
+      "should_activate": false,
+      "reason": "Publication alone uses issue-creation; no specification work was requested."
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "skill": "skill-manager",
-  "version": "1.0",
+  "version": "1.1",
   "queries": [
     {
       "query": "Create a new project skill for release checks",
@@ -46,6 +46,36 @@
       "query": "Correct a typo in the repository README",
       "should_activate": false,
       "reason": "A generic README edit is not skill management"
+    },
+    {
+      "query": "$skill-manager simplify release-checks diagnose",
+      "should_activate": true,
+      "reason": "Diagnose content reduction without persistent writes or target effects."
+    },
+    {
+      "query": "The release-checks skill is too long; remove steps that no longer help.",
+      "should_activate": true,
+      "reason": "Deletion-first analysis followed by authorized fix; no target execution."
+    },
+    {
+      "query": "Fix only the invalid frontmatter category in release-checks/SKILL.md.",
+      "should_activate": true,
+      "reason": "Conformity-only fix activates the manager without the simplification branch."
+    },
+    {
+      "query": "Add support for a new release platform in release-checks/SKILL.md.",
+      "should_activate": true,
+      "reason": "Functional evolution uses fix, not automatic simplification."
+    },
+    {
+      "query": "Simplify this invoice-export GitHub issue without changing its scope.",
+      "should_activate": false,
+      "reason": "Issue content belongs to issue-spec; no skill is being changed."
+    },
+    {
+      "query": "Reduce the complexity of this invoice CSV implementation.",
+      "should_activate": false,
+      "reason": "Code simplification is not skill maintenance."
     }
   ]
 }

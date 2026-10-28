@@ -43,24 +43,20 @@ This directory is the canonical source for user-scoped agent skills.
 
 ## Product
 
-| Skill            | Description                                                               |
-| ---------------- | ------------------------------------------------------------------------- |
-| `grill-me`       | Challenge an idea through a requested design interview.                   |
-| `grilling`       | Run a design interview by dependent decisions.                            |
-| `issue-simplify` | Simplify GitHub or Linear issues and drafts.                              |
-| `issue-spec`     | Prepare Linear or GitHub development issues as functional specifications. |
-| `to-spec`        | Synthesize the current conversation into a functional specification.      |
-| `wayfinder`      | Map a large effort as dependent decisions across sessions.                |
+| Skill        | Description                                                                              |
+| ------------ | ---------------------------------------------------------------------------------------- |
+| `grill-me`   | Challenge an idea through a requested design interview.                                  |
+| `grilling`   | Run a design interview by dependent decisions.                                           |
+| `issue-spec` | Draft and simplify functional specifications, standalone or for Linear or GitHub issues. |
+| `wayfinder`  | Map a large effort as dependent decisions across sessions.                               |
 
 ## Ops
 
-| Skill                 | Description                                                                                      |
-| --------------------- | ------------------------------------------------------------------------------------------------ |
-| `harness-simplify`    | Simplify a real harness workflow.                                                                |
-| `obsidian-retrieval`  | Retrieve read-only knowledge from Obsidian vaults or local Markdown corpora with rg.             |
-| `output-discipline`   | Shape responses so decisive information and next actions are easy to find.                       |
-| `prose-edit`          | Revise existing prose while preserving the writer's voice and meaning.                           |
-| `skill-manager`       | Manage user and project skills: create, doctor, fix, cross-check, and sync their README indexes. |
-| `skill-simplify`      | Simplify an identified skill's content.                                                          |
-| `things-tasks`        | Manage Things 3 tasks, projects, and areas through the thangs CLI.                               |
-| `workflow-automation` | Turn evidenced repeated human or agent workflows into supported automation.                      |
+| Skill                 | Description                                                                          |
+| --------------------- | ------------------------------------------------------------------------------------ |
+| `harness-simplify`    | Simplify a real harness workflow.                                                    |
+| `obsidian-retrieval`  | Retrieve read-only knowledge from Obsidian vaults or local Markdown corpora with rg. |
+| `output-discipline`   | Shape responses so decisive information and next actions are easy to find.           |
+| `prose-edit`          | Revise existing prose while preserving the writer's voice and meaning.               |
+| `skill-manager`       | Manage and simplify skills and their indexes.                                        |
+| `workflow-automation` | Turn evidenced repeated human or agent workflows into supported automation.          |

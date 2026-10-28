@@ -76,8 +76,8 @@ launch agents, change tracker fields or apply a readiness label.
    needed to record settled decisions, constraints and observable acceptance criteria. For a Linear or GitHub
    product ticket requiring functional shaping, compose `issue-spec` for the substantive draft.
    Keep amendments to existing tickets in the conversation. Tracker updates require a separately
-   authorized workflow that supports editing. Do not invoke `to-spec` or `grill-me` implicitly; their
-   direct invocation contracts remain separate. Keep implementation architecture, files, libraries
+   authorized workflow that supports editing. Do not start a separate specification from interview completion alone or invoke `grill-me`
+   implicitly; its direct invocation contract remains separate. Keep implementation architecture, files, libraries
    and detailed test plans out of a proposed product specification.
    Scale the handoff to the ticket instead of expanding every preparation into a full specification.
 
