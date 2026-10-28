@@ -25,7 +25,7 @@ jobs:
         shell: bash
         run: |
           if [[ "$BASE_SHA" == 0000000000000000000000000000000000000000 ]]; then
-            printf '%s\n' format=true typecheck=true test=true distribution=true publish=true >> "$GITHUB_OUTPUT"
+            printf '%s\n' format=true typecheck=true test=true distribution=true publish=true skills=true >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git fetch --no-tags --depth=1 origin "$BASE_SHA"
@@ -44,25 +44,28 @@ jobs:
           gate test ':(glob)src/**' ':(glob)skills/output-discipline/scripts/*.ts' tsconfig.json ':(glob)tsconfig.*.json' package.json bun.lock
           gate distribution ':(glob)src/**' ':(glob)skills/**' package.json bun.lock
           gate publish ':(glob).github/actions/setup-tools/**' .github/workflows/publish.yml .github/workflows/ci.yml package.json
+          gate skills ':(glob)skills/**'
       - name: Prepare tools
-        if: steps.changes.outputs.format == 'true' || steps.changes.outputs.typecheck == 'true' || steps.changes.outputs.test == 'true' || steps.changes.outputs.distribution == 'true' || steps.changes.outputs.publish == 'true'
+        if: steps.changes.outputs.format == 'true' || steps.changes.outputs.typecheck == 'true' || steps.changes.outputs.test == 'true' || steps.changes.outputs.distribution == 'true' || steps.changes.outputs.publish == 'true' || steps.changes.outputs.skills == 'true'
         uses: ./.github/actions/setup-tools
         with:
           prepare-publish: ${{ steps.changes.outputs.publish }}
       - name: Install dependencies
-        if: steps.changes.outputs.format == 'true' || steps.changes.outputs.typecheck == 'true' || steps.changes.outputs.test == 'true'
+        if: steps.changes.outputs.format == 'true' || steps.changes.outputs.typecheck == 'true' || steps.changes.outputs.test == 'true' || steps.changes.outputs.skills == 'true'
         run: bun install --frozen-lockfile --ignore-scripts
       - name: Selected checks in parallel
         env:
           FORMAT: ${{ steps.changes.outputs.format }}
           TYPECHECK: ${{ steps.changes.outputs.typecheck }}
           TEST: ${{ steps.changes.outputs.test }}
+          SKILLS: ${{ steps.changes.outputs.skills }}
         shell: bash
         run: |
           pids=()
           if [[ "$FORMAT" == true ]]; then bun run format:check & pids+=("$!"); fi
           if [[ "$TYPECHECK" == true ]]; then bun run typecheck & pids+=("$!"); fi
           if [[ "$TEST" == true ]]; then bun test & pids+=("$!"); fi
+          if [[ "$SKILLS" == true ]]; then bunx --no-install arnes doctor skills --path skills & pids+=("$!"); fi
           result=0
           for pid in "${pids[@]}"; do wait "$pid" || result=1; done
           exit "$result"
