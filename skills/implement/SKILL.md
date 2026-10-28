@@ -143,8 +143,11 @@ does not authorize launching Claude.
 
    Before publication, inspect each outgoing commit against the resolved destination: connect it
    to the stated outcome, remove unrelated changes within authority or disclose them, and separate
-   verification tooling or explain its coupling. Follow the repository's commit convention;
-   do not publish temporary `wip` commits or rewrite shared history without authorization.
+   verification tooling or explain its coupling. A production fix with its own rollback path
+   belongs in a separate PR. Attribute any exception to its decision owner and rationale; link a
+   deferred root cause to a named ticket.
+   Follow the repository's commit convention; do not publish temporary `wip` commits or rewrite
+   shared history without authorization.
    If identifiers were allocated, reread only class 3 via the domain index and refresh its
    destination, open/draft PR and remote-branch comparison before publication and after destination
    integration; preserve already applied migrations.

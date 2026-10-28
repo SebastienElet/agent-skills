@@ -24,6 +24,9 @@ independent meaning and the review can detect a wrong result.
 
 - Test outcomes callers rely on, including rejected inputs, stable error codes and ordering when
   order is part of the contract. A test may need several assertions for one coherent behavior.
+  For errors translated to HTTP, assert both the error class and stable business code, then exercise
+  the status mapping at its owning boundary. The same message on a generic error or wrong code
+  must not satisfy the contract.
 - Read through the public interface for ordinary application behavior. When the database owns an
   invariant, direct database inspection or constraint exercise is a legitimate integration boundary.
 - Use a real database for uniqueness, transactions and ORM mapping. An in-memory application
@@ -42,6 +45,24 @@ independent meaning and the review can detect a wrong result.
   do not automatically make focused domain tests redundant.
 - Name tests according to the boundary actually assembled. In-process application integration with
   a real database and substituted external services is not automatically end-to-end testing.
+
+## Preserving tests through a rewrite
+
+Before deleting or rewriting a test, inventory each assertion and map every surviving behavior to
+its replacement evidence. Remove an assertion only when its protected behavior is intentionally
+removed. Exercise every member of a set that drives behavior, rather than one representative.
+
+For command orchestration, assert the complete ordered command list, every cleanup target and
+secret isolation across all launch variants, including custom entrypoints. Use a synthetic secret.
+Resolve the Git root through `git rev-parse --show-toplevel` and exercise a public invocation from
+a subdirectory; testing a root helper alone cannot prove the caller uses it. Construct a worker
+through its public interface, request stop during a batch and observe that the batch completes
+without starting the next one; an internal stop-helper test cannot establish that wiring.
+
+For each new oracle, remove or break the production behavior it protects in a disposable copy and
+observe the intended assertion fail. Restore it and observe green. An observed test-first RED
+suffices for that same missing behavior; no duplicate mutation is needed. Record the test, faulty
+variant, assertion failure and restored result. Setup errors and crashes do not qualify.
 
 ## Controlled time
 
@@ -148,11 +169,8 @@ separation can refuse self-approval. Assert the named `403` and no writes; accep
 and refuse an actor without permission. Exercise direct SQL self-approval against a real database
 as well as application error translation; neither proof substitutes for the other.
 
-Observe a red witness by removing or breaking the intended predicate in a disposable copy: the
-test must fail by assertion, not by setup error or crash. Restore it and observe green. An existing
-test-first red suffices when it demonstrates that same missing predicate; no duplicate mutation
-campaign is required. Delivery evidence names the targeted test, faulty variant, observed assertion
-failure and restored result for each added security test.
+Apply the oracle-sensitivity procedure above to each added security test, targeting the predicate
+that alone protects the forbidden result.
 
 For redaction and sensitive persistence, assert exact stored values, including absent or cleared
 personal fields; a partial object match accepts extra sensitive fields. Read the persisted body

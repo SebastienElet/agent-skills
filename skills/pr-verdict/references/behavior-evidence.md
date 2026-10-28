@@ -43,8 +43,9 @@ evidence. Unverifiable evidence remains unproven, not fictitiously reproduced.
 ## Description evidence after a push
 
 Each description evidence entry records its tested head and integrated destination SHA, exact
-command, exit status, environment and output excerpt or artifact. After each push, recheck the
-description: rerun invalidated evidence or label it historical and unproven on the new head.
+command, exit status, environment and output excerpt or artifact. After each push, resolve the
+final local and remote head and reconcile the description's evidence section with that revision's
+actual CI run. Rerun invalidated evidence or label it historical and unproven on the new head.
 Retained observations keep their original SHA; a documented relevant-input comparison permits
 reuse, never relabeling an old run as executed on the current head. Required remote checks must
 identify their actual tested SHA; a queue or synthetic merge candidate is a separate tree.
