@@ -15,6 +15,7 @@ can become an implementation defect.
 | Access, trust boundaries, input and display                    | 4, 5, 8, 9, 11, 12, 16, 20           |
 | Contracts, claims, immutability and data lifecycle             | 6, 7, 10, 13, 18, 22, 27, 29, 30, 31 |
 | Selection, verification, measurements and upgrades             | 14, 15, 19, 23, 28                   |
+| Task graphs and validation caches                              | 1, 14, 19, 21                        |
 | Installed tools, execution environment and process supervision | 17, 21, 24                           |
 | Calendar rules and compound deadlines                          | 26, 28, 32                           |
 
@@ -44,6 +45,12 @@ mutation, with sum reread and write in that transaction. An ordinary transaction
 sum is insufficient. Require overlapping separate-connection tests and persisted totals, as in
 `tdd`'s database refusals. Across independent stores, require explicit order and durable recovery;
 a local rollback cannot undo an object deposit. Classes 2 and 24 cover replay and compensation.
+
+In a parallel task graph, declare every written output and order its readers after the producer.
+A lock on another resource cannot protect those files. Verify the dependency with the native plan
+and an execution trace. If graph edges cannot express the order, finish the producer invocation
+before starting readers in a second invocation in the same container; concurrent invocations are
+not a dependency.
 
 ## 2. Retry idempotence
 
@@ -107,6 +114,7 @@ local maximum. Check ADR and other decision/document numbers, migration order an
 manifest versions bound to content. Recheck after each destination integration and record the chosen
 values and inspected refs in delivery evidence. Refresh the destination and parallel refs before
 publication; verify uniqueness and that every new migration follows the destination's latest one.
+Coordinate every affected copy of a decision number, including copies on parallel branches.
 A conflict-free merge is no uniqueness proof; use
 the existing registry or migration validation when available. Do not renumber already applied
 migrations or silently combine independently owned manifest contents. Disclose parallel changes to
@@ -278,6 +286,13 @@ Require paid/unpaid data through the real query and rendered card, asserting lab
 together. Help text announcing a restriction needs the enforcing operation and its refusal case;
 otherwise narrow it to the observed fact or remove it, without inventing a new product rule.
 
+After a tooling refactor, search old routes and their consumers in registries, documentation and
+code. Align declared routes and proof levels with actual calls and relevant evidence. Remove dead
+functions and branches within scope; otherwise record their exact symbols, reason for deferral and
+named debt with a lift condition. Reconcile concurrency claims and decision status against the
+final candidate; an unmet target remains a target, not an achieved fact. Class 3 covers identifier
+collisions; `implement` owns separation of independently reversible production fixes.
+
 ## 11. Hostile input in normalization and redaction
 
 **Ask:** does every normalization or redaction of an untrusted URL or path use a real parser or
@@ -373,6 +388,15 @@ When task inputs are narrowed, inventory every runtime read, including dynamical
 architecture-test configuration. Change each input alone and observe the task in an affected
 dry-run; verify local preflight and CI read the same configuration. A lint cache omitting its
 configuration or a task selected only on unrelated changes has not covered the required input.
+Inspect the native hash input listing too: being scheduled does not prove a runtime-read file is
+hashed. Include documentation read by tests, generated inputs and tool configuration.
+
+Before executing a required verification invocation, obtain its native plan and refuse malformed
+or empty task lists. A planning failure must propagate explicitly; `set -e` does not reliably stop
+failures inside an `&&` list. Retain a receipt per invocation with attempted, executed, cached and
+failed task counts, exit status and a digest of the retained summary. Identify cache hits as reuse,
+not new executions; a zero exit alone proves neither selection nor execution. Classes 1 and 21
+cover producer ordering and Git prerequisites.
 
 For new exposed API lists, require a bounded default, documented default and maximum limits,
 stable ordering ending in a unique ID, and named behavior above the maximum. Default to cursor
@@ -544,6 +568,10 @@ different current directories and branches, with target options before and after
 and verify that only the explicit target is used.
 Preserve declared, supported settings such as offline mode, proxy or registry; diagnose genuinely
 unavailable prerequisites without guessing.
+For changed-file lint, make the Git base contract explicit. If an implicit default base is absent,
+inspect all files and announce that fallback; an explicitly requested missing base remains an
+error. Resolve the root with `git rev-parse --show-toplevel` for the selected repository, independent
+of the working directory. Exercise both missing-base cases and a public subdirectory invocation.
 For each added test, identify the CI step that runs it and whether dependencies are installed
 there. Module-level `createRequire(import.meta.url).resolve("some-lint-cli/package.json")` fails
 before assertions in a dependency-free job despite passing local preflight. Replay in the actual
