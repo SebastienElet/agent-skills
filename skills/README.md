@@ -23,6 +23,7 @@ This directory is the canonical source for user-scoped agent skills.
 | `code-simplify`                 | Simplify code to reduce understanding and maintenance costs.                                                        |
 | `codebase-design`               | Design cohesive modules with simple public interfaces.                                                              |
 | `design-claim-audit`            | Audit architectural and domain guarantees.                                                                          |
+| `design-taste-frontend`         | Art direction and visual critique for frontend pages and app screens.                                               |
 | `diagnosing-bugs`               | Diagnose bugs and performance regressions.                                                                          |
 | `harness-reflection`            | Turn repeated agent failures into evidence-backed harness improvements.                                             |
 | `implement`                     | Carry an authorized feature, refactoring or configuration change through implementation, verification and delivery. |
