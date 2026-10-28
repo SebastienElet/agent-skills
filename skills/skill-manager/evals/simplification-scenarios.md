@@ -1,8 +1,8 @@
 # Behavior Scenarios
 
-Use these fixed prompts and expectations when evaluating skill-simplify. They are written cases,
+Use these fixed prompts and expectations when evaluating the skill-manager simplification operation. They are written cases,
 not execution evidence. Record actual runs separately with environment, supplied guidance,
-decisions, and deviations. Compare skill-manager fix alone with skill-simplify plus skill-manager
+decisions, and deviations. Compare the original analysis-plus-fix workflow with the consolidated operation
 on the same inputs; do not execute uploads or edit a real target.
 
 ## Combined diagnostic prompt
@@ -38,9 +38,9 @@ Apply these inputs to both versions, keeping expectations unchanged:
 | Publish without destination approval                                          | No upload; require authorization.                                                      |
 | Publish with approval but unknown destination ownership                       | Stop without upload despite the rare occurrence.                                       |
 
-## Authorized handoff prompt
+## Authorized application prompt
 
 > Apply only the duplicate-approval consolidation to publish-report; retain all other behavior.
 
-Expected: use skill-manager fix for the target with the bounded contract and fixed scenarios;
+Expected: continue through skill-manager fix for the target with the bounded contract and fixed scenarios;
 do not implement an independent editing, conformity, indexing, or projection procedure.

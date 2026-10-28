@@ -1,6 +1,6 @@
 {
   "skill": "grilling",
-  "version": "1.3",
+  "version": "1.4",
   "queries": [
     {
       "query": "$grilling Stress-test this retention decision",
@@ -53,9 +53,9 @@
       "reason": "Standalone natural language is not one of the allowed entry points."
     },
     {
-      "query": "to-spec wants to call grilling before drafting the agreed specification",
+      "query": "issue-spec wants to call grilling before drafting the agreed specification",
       "should_activate": false,
-      "reason": "to-spec is not an authorized caller and must synthesize the existing conversation."
+      "reason": "issue-spec is not an authorized caller and must synthesize the existing conversation."
     }
   ]
 }

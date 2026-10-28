@@ -33,7 +33,8 @@ An invocation authorizes the interview, not implementation, issue publication or
 2. Invoke `grilling` for the interview. Pass the scope, established decisions, relevant source
    locations and material uncertainties. Keep one copy of the interview procedure.
 3. Return the settled decisions and any remaining assumptions or blockers. When the user requests
-   a specification next, `to-spec` synthesizes that conversation; it is a separate user invocation.
+   a specification next, `issue-spec` synthesizes that conversation; interview completion alone
+   does not authorize specification drafting, saving or publication.
 
 ## Gotchas
 
