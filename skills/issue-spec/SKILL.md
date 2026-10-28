@@ -1,158 +1,171 @@
 ---
 name: issue-spec
 description: >
-  Prepare Linear or GitHub development issues as functional specifications. Use when
-  scoping, drafting, splitting, or refining product work before implementation. Make sure to use
-  this skill whenever the user asks to shape or clean up a development ticket, even if they do not call
-  it a specification.
-compatibility: Requires product or design sources; existing-issue research also needs the selected tracker.
+  Draft and simplify functional specifications, standalone or for Linear or GitHub issues. Use when
+  asked to shape product work, simplify an issue or synthesize agreed conversation decisions.
+  Make sure to use this skill for requested specification or ticket refinement. Excludes status,
+  synchronization, implementation and automatic interview follow-up.
+license: MIT
+compatibility: Existing-issue research needs selected tracker read access; standalone drafting needs no tracker.
 metadata:
   category: product
 ---
 
-# Issue Specification
+# Functional Specification
 
 ## Overview
 
-Prepare a development issue that defines a functionally complete product increment while leaving
-technical discovery and implementation design to a fresh implementation agent. Establish the user
-journey and product evidence before choosing scope, then optimize the slice for recognizable user
-value and coordination cost rather than the smallest code change.
+Define an observable product outcome while leaving technical discovery and implementation design
+to a fresh implementation agent. Use one evidence and drafting procedure for new preparation,
+issue simplification and synthesis of decisions already discussed. A standalone specification is
+a complete deliverable; no ticket is required.
 
-The deliverable is the substantive product draft, not an implementation plan. When issue drafting,
-review, or publication is requested, compose with `issue-creation` by responsibility regardless of
-activation order: this skill owns product content, while `issue-creation` owns lifecycle validation,
-publication authority, the external write, and verification of the stored issue.
+Conversation synthesis is adapted from
+[to-spec by Matt Pocock](https://github.com/mattpocock/skills/tree/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/engineering/to-spec).
+The upstream license is preserved in [LICENSE](LICENSE).
 
 ## Usage
 
-`/issue-spec <request, draft, or Linear or GitHub issue>`
+`$issue-spec <request, conversation, draft, or Linear or GitHub issue>` or `/issue-spec <target>`
 
-Examples: "Prepare the issue for adding invoice export", "refine ENG-482 before handing it to an
-implementation agent", or "should these two adjacent onboarding tickets be merged?"
+Examples: "Prepare the invoice-export issue", "Simplify ENG-482 without changing its requirements",
+or "Turn our agreed export decisions into a standalone specification; no ticket."
 
-Provide the draft in the user's language. Preserve canonical product terms from their sources.
+Return the draft in the user's language, using canonical product vocabulary. Drafting is the
+default. Saving a standalone specification requires an explicitly requested file destination and
+its documentation conventions. Issue drafting, review or requested new publication composes with
+`issue-creation`: issue-spec owns content; issue-creation owns lifecycle validation, publication
+authority, writing and retrieval. Simplification remains proposal-only, including when a remote update is
+requested; it uses only draft/review responsibilities. Existing-issue editing is not an
+`issue-creation` mode. No specification request authorizes implementation or readiness labels.
 
 ## Workflow
 
-1. **Anchor the request and evidence.** Resolve the tracker from the issue or explicit target,
-   independently of the repository forge; drafting alone requires neither a forge client nor a
-   tracker write. Read the request or existing issue and identify its stated
-   outcome, constraints, links, and unresolved questions. Locate the relevant personas, journey
-   maps, specifications, decisions, research, analytics, and release plans. Record each source's
-   status and recency; a proposal, draft, planned issue, shipped screen, and decision in force do not
-   carry the same authority. If a required source is inaccessible, report that limitation instead
-   of reconstructing its contents from hints.
+1. **Select the task and destination.** Distinguish new preparation, simplification and conversation
+   synthesis. Synthesis requires a user request for a specification; finishing an interview does
+   not trigger it. Extract the problem, outcome, users, settled decisions and unresolved points
+   without restarting the interview. Keep any unresolved material decision explicit. For
+   simplification, read [references/simplify.md](references/simplify.md) before restructuring; its
+   scope and evidence restrictions apply throughout this workflow. Resolve an issue's exact
+   repository or Linear team independently of the code forge. Ask when identity is ambiguous;
+   standalone drafting requires neither a tracker nor a forge client.
 
-2. **Identify the persona and journey.** State who experiences the problem, their goal, the entry
-   point, the meaningful intermediate steps, and the observable end state. Follow the journey far
-   enough in both directions to detect prerequisites, follow-up-only slices, and impacts on another
-   persona. If the persona or intended outcome cannot be established, list it as missing information
-   before drafting the issue.
+2. **Read and qualify the evidence.** Read the supplied conversation, draft or complete available
+   issue body, relevant comment decisions and necessary linked sources, following pagination.
+   Locate relevant personas, journeys, specifications, domain vocabulary, ADRs in force, research
+   and release plans. Record source status and recency: a proposal, planned issue, shipped screen
+   and decision in force carry different authority. Report failed, truncated or inaccessible reads
+   and their impact; continue useful drafting with material gaps unresolved rather than inventing
+   contents or treating missing evidence as disproof.
 
-3. **Map adjacent planned work.** Search open, planned, and recently completed issues in the selected tracker that
-   affect the same journey, including issues using neighboring product vocabulary. Record overlaps,
-   dependencies, sequencing assumptions, and potential duplicates. Treat issue descriptions as
-   claims to reconcile with current product decisions, not as authority by themselves.
+3. **Establish the journey and product surface.** Identify who experiences the problem, their goal,
+   entry point, meaningful steps and observable end state. Follow relevant prerequisites and
+   impacts on other personas. Examine applicable designs, prototypes, design-system patterns,
+   reusable components and shipped behavior. Use code as evidence of behavior and vocabulary,
+   without prescribing a solution. Do not invent a persona, design or data to fill the structure.
+   When information is missing, name it before the draft. Synthesis reuses established decisions;
+   it does not reopen them to manufacture a discovery workshop.
 
-4. **Inspect the product surface.** Examine relevant designs, prototypes, design-system guidance,
-   reusable components, shipped screens, and existing behavior elsewhere in the product. Use the
-   current code only as evidence of observable behavior, product vocabulary, and existing product
-   surfaces. Do not turn repository exploration into file recommendations, architecture, or a
-   technical solution for the future implementer.
+4. **Reconcile adjacent work when relevant.** For new tracker preparation or requested functional
+   slicing, search open, planned and recently completed work affecting the same journey, including
+   neighboring vocabulary. Record overlaps, dependencies, sequencing assumptions and potential
+   duplicates. Simplification reads neighboring issues only when they affect interpretation, never
+   as a backlog audit. Standalone synthesis does not require a tracker search. Treat issue prose as
+   claims to reconcile with product decisions, not as established authority.
 
-5. **Build an evidence ledger.** Classify every material requirement as one of:
-   - `Requested`: explicitly stated in the current request or issue.
-   - `Established`: supported by an existing design, specification, decision, or shipped product
-     behavior; cite the source and its status.
-   - `Proposed`: an assumption or recommendation introduced to close a gap; state why it is useful
-     and keep it open to product confirmation.
+5. **Build the requirement ledger.** Label each material requirement:
+   - `Requested`: explicitly stated in the request or issue.
+   - `Established`: supported by a design, specification, decision or shipped behavior; cite the
+     source and its status.
+   - `Proposed`: an assumption or recommendation introduced to close a gap; explain why and keep it
+     open to confirmation.
 
-   Surface contradictions, missing decisions, inaccessible evidence, and product dependencies
-   before the proposed issue. A contradiction that changes the user-visible outcome or scope blocks
-   finalization; ask for the smallest product decision that resolves it while continuing any
-   independent preparation.
+   Surface contradictions, missing decisions, inaccessible evidence and real dependencies before
+   the draft. A contradiction changing outcome or scope blocks finalization: identify the smallest
+   decision needed and continue independent preparation. Preserve applicable architectural and
+   compatibility constraints; distinguish them from speculative technical means.
 
-6. **Define functional completeness.** Describe the observable result, information and data users
-   need to see, expected interactions, and relevant states. Explicitly assess initial, loading,
-   empty, no-data, success, partial, error, retry, unavailable, and permission states, marking
-   irrelevant ones as such rather than silently omitting them. Name applicable designs and existing
-   design-system patterns without specifying how to implement them.
+6. **Define completeness and challenge scope.** State the observable result, required data,
+   visible information, interactions, permissions and compatibility. Assess relevant initial,
+   loading, empty, no-data, success, partial, error, retry, unavailable and permission states,
+   explicitly marking irrelevant states rather than silently omitting them. Name applicable
+   designs and product patterns. For new preparation or requested slicing, compare the increment
+   with the full journey and adjacent work: it must be independently usable, verifiable and
+   recognizable as product value. Propose combining work when concrete coordination or review
+   savings justify it; split only into coherent increments. Do not defer known journey behavior
+   merely to shrink a ticket. In simplification or synthesis, retain agreed scope and present any
+   reduction, addition, split or combination separately for decision.
 
-7. **Choose and challenge the slice.** Compare the proposed scope with adjacent issues and the full
-   journey. Merge neighboring work when that removes meaningful coordination or review overhead
-   without making the outcome difficult to understand or verify. Split when increments are
-   independently usable, independently verifiable, and recognizable as intended product value.
-   Before finalizing, answer:
-   - Can a target user complete something meaningful with this increment?
-   - Does it include known journey behavior rather than deferring it merely to shrink the ticket?
-   - Would merging a neighboring issue materially reduce coordination and review cost?
-   - Could the product owner recognize this as a coherent part of the expected product?
-
-8. **Present the preparation in this order.** Start with `Missing information and contradictions`,
-   including source status and impact. Then provide the issue draft with the structure below, and
-   finish with `Why this scope`. Omit an empty preliminary section only after explicitly verifying
-   that no material gap or contradiction remains.
+7. **Draft for the destination.** Start with material gaps and contradictions, their sources and
+   impact. Omit that preliminary section only after checking none remain. Use the requested or
+   established project format. Otherwise, scale the following structure to the actual feature:
 
    ```text
    Title
-
    Context and observable outcome
-   Persona and user journey
-   Scope
-   Functional requirements, each labeled Requested, Established, or Proposed
-   Required data and visible information
-   User interactions
-   States and permissions
+   Persona and meaningful user journey
+   Scope and functional requirements labeled Requested, Established or Proposed
+   Required data, visible information and interactions
+   Relevant states, failures, permissions and compatibility
    Design and existing product alignment
-   Dependencies and related issues
+   Dependencies and related work
    Deliberate out of scope, with product rationale
-   Functional acceptance criteria
-   Open product questions
-
-   Why this scope
+   Observable acceptance criteria
+   Open questions and proposed assumptions
    ```
 
-   Hand this substantive draft to `issue-creation` whenever its lifecycle applies. Do not assume it
-   ran earlier or duplicate its coherence, authority, publication, and retrieval procedure here.
+   For issue preparation or slicing, finish with `Why this scope`. For simplification, finish with
+   the semantic diff required by its reference. A standalone spec needs no issue identifier or
+   tracker template. Hand issue content to `issue-creation` for its applicable draft/review or
+   authorized new-publication lifecycle, regardless of which skill activated first.
 
-9. **Verify the handoff.** Ensure every acceptance criterion is observable by a user, product owner,
-   or tester and collectively proves the increment complete. Remove implementation steps, file
-   paths, architecture, classes, functions, library choices, and speculative technical constraints.
-   Leave the implementation agent responsible for rediscovering the current code and selecting the
-   technical approach at implementation time.
+8. **Verify and return the actual result.** Trace every promised outcome and original requirement
+   to observable acceptance criteria; expose missing criteria and label suggestions as proposed.
+   Check outcome, scope, constraints and criteria in both directions. Preserve evidence links,
+   environments and recorded checked or unchecked status without claiming fresh verification;
+   never hide unfinished criteria. Remove speculative architecture, files, classes, functions,
+   libraries, implementation sequences and test topology, retaining sourced constraints already
+   in force. Return the draft, explicitly requested saved standalone file, or independently
+   verified new-issue state from `issue-creation`. Do not present an unresolved spec as final or
+   implementation-ready. For simplification, state that no remote write occurred and stop at the
+   proposal even under update pressure.
 
 ## Gotchas
 
-- **Treating the initial ticket as the complete product truth** — adjacent journey requirements are
-  missed and the slice becomes useful only to the next ticket. Reconcile it with personas, designs,
-  shipped behavior, and neighboring work before choosing scope.
-- **Converting code exploration into a prescribed solution** — the handoff anchors a fresh agent to
-  stale file or architecture assumptions. Translate findings into observable product behavior and
-  cite the evidence, leaving technical discovery out of the issue.
-- **Collapsing empty, no-data, and error into one state** — distinct user situations receive an
-  unverifiable fallback. Assess each important state explicitly and state when one is irrelevant.
-- **Deferring known behavior to keep the diff small** — review happens twice while neither issue
-  delivers recognizable value alone. Challenge the boundary against the whole journey and merge
-  adjacent work when coordination savings are material.
-- **Presenting a proposal as established fact** — product assumptions silently become acceptance
-  criteria. Label provenance on every material requirement and expose unresolved proposals.
-- **Taking over issue publication** — lifecycle authority and verification depend on which skill ran
-  first. Supply the product draft and let `issue-creation` decide whether the request authorizes a
-  write and verify the stored issue.
+- **Treating every technical detail as clutter** — deleting an accepted compatibility or
+  architectural constraint changes the contract; retain its source and remove only speculative means.
+- **Letting slicing rewrite agreed scope** — regrouping prose transfers deliverables between
+  issues; keep the equivalent draft and present scope changes separately for decision.
+- **Grouping checked and unchecked criteria** — the combined line invents proof; retain distinct
+  statuses, evidence links and environments without implying a rerun.
+- **Restarting an interview during synthesis** — settled choices reopen; synthesize them and name
+  only remaining material questions without invoking `grilling`.
+- **Requiring a tracker for a standalone spec** — drafting becomes publication preparation;
+  use the requested format and keep drafting, saving and publishing separate.
+- **Treating a proposal as established fact** — assumptions silently become requirements; retain
+  provenance and block finalization on material contradictions.
+- **Letting composition escape simplification** — a proposal request mutates the tracker; use
+  `issue-creation` only for draft/review and report no remote write.
 
 ## Constraints
 
-- Never prescribe architecture, files, classes, functions, libraries, detailed implementation
-  steps, or a technical solution inferred from repository exploration.
-- Never finalize a scope-changing contradiction as an implementation assumption.
-- Never omit provenance for a material functional requirement: label it `Requested`, `Established`,
-  or `Proposed` and cite established sources.
-- Never optimize a slice solely for minimal code change; require independently usable and
-  verifiable product value.
-- Never defer a known journey state without an explicit product rationale or dependency.
-- Never claim inaccessible tracker, design, or specification evidence was inspected.
-- Never publish or modify a tracker issue from this procedure; route lifecycle writes through
-  `issue-creation`, which evaluates the user's publication authority.
-- Never activate solely because implementation starts from an existing issue;
-  `issue-start` owns that workflow and routes here only when shaping is explicitly requested.
+- Never infer implementation, new interview, persistent-save, publication or readiness-label
+  authority from a draft request or a completed interview.
+- Never prescribe implementation architecture, files, libraries, steps or test topology inferred
+  from exploration; retain established constraints and leave fresh discovery to the implementer.
+- Never finalize a material contradiction as an assumption or omit a requirement's provenance.
+- Never present a scope change as equivalent simplification or remove unfinished criteria to
+  imply completion; preserve evidence status and uncertainty.
+- Never optimize slices solely for minimal code change or defer known journey behavior without
+  explicit product rationale or dependency.
+- Never claim inaccessible sources were inspected or require a ticket for standalone synthesis.
+- Never mutate a tracker from this procedure. Requested new publication uses `issue-creation` and
+  its separate authority; simplification never enters publication or existing-issue editing.
+- Never activate solely for implementation startup, status lookup, tracker synchronization or
+  automatic interview follow-up; `issue-start` owns starting from an existing issue.
+
+## References
+
+- [references/simplify.md](references/simplify.md) — conditional scope-preserving simplification
+- [evals/simplification-scenarios.md](evals/simplification-scenarios.md) — offline simplification fixtures
+- [evals/synthesis-scenarios.md](evals/synthesis-scenarios.md) — standalone and conversation fixtures

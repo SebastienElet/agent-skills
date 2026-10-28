@@ -53,8 +53,8 @@ an ADR contradiction or a decision reserved to the user still bounds continuatio
    Preserve decisions already acquired. An apparent ADR conflict calls for investigation; a
    confirmed contradiction blocks the affected path, not an opportunistic ADR edit. Continue
    independent preparation within the mandate. Do not turn a bounded plan into a questionnaire,
-   functional issue specification or multi-session decision map. The local `wayfinder`, `to-spec`
-   and interview skills retain their invocation restrictions.
+   functional specification or multi-session decision map. `issue-spec` owns requested specification
+   synthesis; `wayfinder` and interview skills retain their invocation restrictions.
 
 4. **Sketch and choose.** Use `codebase-design` to describe caller usage, responsibilities,
    interfaces, invariant enforcement and relevant failure paths. Include inputs, results, ordering

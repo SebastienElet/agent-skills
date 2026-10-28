@@ -64,7 +64,8 @@ destination and write. An invocation does not authorize production tasks or impl
    rereading shared state. A failed update or unavailable source remains an explicit pending state.
 8. Return the resolved question, remaining frontier, blockers and canonical map location or draft.
    The route is clear only when no material decision or in-scope uncertainty remains. Hand off to
-   specification or implementation on the user's request; do not invoke manual `to-spec` implicitly.
+   `issue-spec` for specification synthesis on the user's request, or implementation under its
+   separate authority; map completion alone does not authorize either action.
 
 ## Gotchas
 

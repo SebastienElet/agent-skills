@@ -54,8 +54,8 @@ established authorization.
    for its constraints, alternatives, domain decisions and test boundaries. Report settled choices
    and remaining blockers without automatically changing the code, glossary or ADRs.
 7. Hand off the selected outcome to the user's requested next workflow. `code-simplify` owns an
-   authorized behavior-preserving cleanup; `to-spec` remains a separate manual invocation for
-   specification synthesis. Choosing a candidate alone does not authorize either implementation.
+   authorized behavior-preserving cleanup; `issue-spec` synthesizes the decisions when the user
+   requests a specification. Choosing a candidate alone authorizes neither synthesis nor implementation.
 
 ## Gotchas
 

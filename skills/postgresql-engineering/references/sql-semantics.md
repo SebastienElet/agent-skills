@@ -30,7 +30,7 @@ it changes semantics; do not move every predicate mechanically.
   equality predicate is often the desired anti-match, but a NULL outer key then has no equal
   match and survives. Choose that policy explicitly. NOT IN over an empty set is true even
   for a NULL outer value; test both sides' NULL and empty cases.
-- COUNT(_) counts rows, COUNT(expression) counts non-NULL inputs. On a LEFT JOIN, COUNT(_)
+- `COUNT(*)` counts rows, `COUNT(expression)` counts non-NULL inputs. On a LEFT JOIN, `COUNT(*)`
   counts the preserved parent; count a non-null child key to count matches. SUM ignores NULL
   inputs and is NULL on no inputs; COUNT is zero. Grouped queries can return no groups at all.
 - UNION removes duplicate rows; UNION ALL preserves them. Avoid changing multiplicity during

@@ -1,10 +1,10 @@
 ---
 name: skill-manager
 description: >
-  Manage user and project skills: create, doctor, fix, cross-check, and sync their README indexes.
-  Use when creating or changing any skill, including requested behavior changes to a passing skill.
-  Make sure to use this skill whenever editing SKILL.md, validating portability, resolving
-  inter-skill conflicts, or rebuilding a skills index; read references/conventions.md first.
+  Manage and simplify skills and their indexes. Use when creating, changing, auditing or simplifying
+  a skill, including diagnosis without edits. Make sure to use this skill whenever editing SKILL.md,
+  reducing its reading burden, validating portability, resolving inter-skill conflicts or rebuilding
+  an index; read references/conventions.md first.
 metadata:
   category: ops
 ---
@@ -14,8 +14,9 @@ metadata:
 ## Overview
 
 Manage the user-scoped `skills/` collection and the project-scoped `.agents/skills/`
-collection. The five operations scaffold skills, audit individual quality, apply justified changes,
-detect conflicts, and rebuild the selected collection's derived README index.
+collection. Scaffold, audit, simplify and apply justified changes, detect conflicts, and rebuild the
+selected collection's derived README index. Simplification seeks unnecessary instructions to remove
+before shortening the surviving procedure; ordinary conformity edits do not require that analysis.
 
 ## Usage
 
@@ -23,6 +24,7 @@ detect conflicts, and rebuild the selected collection's derived README index.
 /skill-manager create <name> [user|project] — scaffold a new skill
 /skill-manager doctor [name] [user|project] — check one skill or one collection
 /skill-manager fix <name> [user|project]    — fix findings or apply a requested evolution
+/skill-manager simplify <name> [diagnose] [user|project] — reduce unnecessary instructions
 /skill-manager cross-check [user|project]   — report inter-skill inconsistencies without writing
 /skill-manager sync-index [user|project]    — rebuild the deterministic README index
 ```
@@ -34,6 +36,8 @@ detect conflicts, and rebuild the selected collection's derived README index.
   is `user`.
 - Omitting `[name]` from `doctor` audits every skill in the selected collection.
 - Omitting `<name>` from `fix` requires asking which skill to change.
+- Simplification requests select `simplify`, even when phrased as `fix`; `diagnose` or a diagnosis-only
+  request returns a proposal without persistent writes, including index regeneration.
 
 Examples:
 
@@ -41,17 +45,20 @@ Examples:
 - `/skill-manager doctor scripts`
 - `/skill-manager doctor`
 - `/skill-manager fix apple-notes`
+- `/skill-manager simplify release-checks diagnose`
 - `/skill-manager cross-check`
 - `/skill-manager sync-index`
 
 ## Steps
 
-1. Identify `create`, `doctor`, `fix`, `cross-check`, or `sync-index` and select one collection.
+1. Identify `create`, `doctor`, `fix`, `simplify`, `cross-check`, or `sync-index` and select one collection.
    Resolve its canonical directory from an explicit path or the target project’s instructions.
    This collection uses `skills/`; other repositories may choose another user source.
    Never assume an installed package is the editable checkout; ask for the source when unknown.
 2. Read `references/conventions.md` completely.
-3. Read the operation reference listed below and follow it exactly.
+3. Read the operation reference listed below and follow it exactly. For content simplification,
+   read `references/simplify.md`; it supplies the analysis and comparison before any authorized
+   application through `fix`. Keep conformity-only and ordinary functional changes on `fix`.
 4. For `cross-check`, present the report and stop; every write requires a later `fix` operation.
 5. After create, fix, rename, or delete, run `sync-index` for that collection and verify its second
    run is byte-identical.
@@ -75,6 +82,8 @@ Examples:
   then invoke `fix <name>` in a separate operation.
 - **Running cross-check before doctor** — malformed descriptions and missing constraints make D1
   and D4 noisy. Reach a clean doctor report first.
+- **Deleting a rare refusal or hiding text in references** — shorter text loses protection or
+  increases navigation; preserve consequential exceptions and compare the whole reading path.
 
 ## Constraints
 
@@ -86,6 +95,8 @@ Examples:
 - Never install validation tooling implicitly.
 - Never add an activation router without repeated behavioral evidence.
 - Keep `cross-check` read-only; route every correction through `fix`.
+- Keep diagnosis read-only; simplification grants no authority to execute the target's effects or
+  weaken its triggers, permissions, verification, refusals or important exceptions.
 - Run `sync-index` after any change that can affect index membership or content.
 - Write all skill content in English.
 
@@ -95,6 +106,7 @@ Examples:
 - [references/create.md](references/create.md) — scaffolding procedure
 - [references/doctor.md](references/doctor.md) — individual and global audit
 - [references/fix.md](references/fix.md) — findings and requested evolutions
+- [references/simplify.md](references/simplify.md) — deletion-first content analysis and comparison
 - [references/cross-check.md](references/cross-check.md) — read-only inter-skill detectors
 - [references/sync-index.md](references/sync-index.md) — deterministic README generation
 - [references/evals.md](references/evals.md) — activation scenario format and evidence
