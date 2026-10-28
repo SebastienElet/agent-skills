@@ -60,6 +60,11 @@ does not authorize launching Claude.
    repository-wide singleton such as a dependency patch, override or pin, inspect the fetched destination and
    relevant open PRs including drafts, and unassociated branches. Recheck before publication and
    after integration; preserve migration order and coordinate overlapping manifest or patch edits.
+   Include shared entity prefixes and contracts in that inventory. Before declaring compatibility,
+   compose the target and relevant parallel heads in a disposable tree; resolve textual and semantic
+   conflicts and run native registry checks, typecheck and affected suites on that composition.
+   An unpublished manifest version may be coordinated for joint delivery; once published, advance
+   it under the deployment contract. Never renumber an applied migration.
 
 3. **Prepare only what is needed.** Use `requirements-clarification` for material unresolved
    requirements and `plan` for consequential design choices or a requested plan. Reuse settled
@@ -109,6 +114,9 @@ does not authorize launching Claude.
    integration inputs remain valid; retain its provenance and the comparison justifying reuse.
    If selection is uncertain, state the affected scope and evidence gap, investigate the existing
    checks and leave essential missing proof explicit; do not default to the complete suite.
+   Exercise any widening of accepted file types, quotas or origins in pre-production before
+   production exposure. Record the environment and result; a local test does not establish that
+   rollout evidence, and unavailable access remains an explicit delivery limit.
 
 6. **Honor the review boundary.** Independent review remains optional unless requested or
    already required. Use the existing review or correction workflow for that authorized scope
