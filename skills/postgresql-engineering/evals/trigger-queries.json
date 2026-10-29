@@ -1,0 +1,66 @@
+{
+  "skill": "postgresql-engineering",
+  "version": "1.0",
+  "queries": [
+    {
+      "query": "Write a PostgreSQL invoice summary with payments and adjustments, keeping unpaid invoices.",
+      "should_activate": true,
+      "reason": "SQL authoring with independent child cardinalities."
+    },
+    {
+      "query": "Review this PostgreSQL query that uses NOT IN to exclude customers.",
+      "should_activate": true,
+      "reason": "SQL review must check nullable anti-match semantics."
+    },
+    {
+      "query": "Add a tenant-scoped unique constraint and migrate the existing PostgreSQL table.",
+      "should_activate": true,
+      "reason": "Schema integrity and application migration."
+    },
+    {
+      "query": "Our Prisma endpoint got slow; inspect its generated PostgreSQL queries.",
+      "should_activate": true,
+      "reason": "ORM-generated SQL is an implicit database trigger."
+    },
+    {
+      "query": "Two workers overwrite the same PostgreSQL counter and sometimes deadlock.",
+      "should_activate": true,
+      "reason": "Concurrent updates and lock diagnosis."
+    },
+    {
+      "query": "The migration timed out and left an invalid PostgreSQL index. Diagnose it.",
+      "should_activate": true,
+      "reason": "Partial concurrent-index state and migration locks."
+    },
+    {
+      "query": "Review the UI colors for our database administration dashboard.",
+      "should_activate": false,
+      "reason": "UI styling does not involve PostgreSQL behavior."
+    },
+    {
+      "query": "Optimize this SQLite query with its SQLite query plan.",
+      "should_activate": false,
+      "reason": "Another engine requires its own semantics and tooling."
+    },
+    {
+      "query": "Set up PostgreSQL physical replication and a backup retention schedule.",
+      "should_activate": false,
+      "reason": "Full administration, replication and backups are outside the core scope."
+    },
+    {
+      "query": "Rewrite this issue description to make the acceptance criteria clearer.",
+      "should_activate": false,
+      "reason": "Editorial work alone is not database engineering."
+    },
+    {
+      "query": "Design a specialized pgvector index for our embedding search service.",
+      "should_activate": false,
+      "reason": "Specialized extension internals require dedicated expertise; ordinary SQL within the task can activate separately."
+    },
+    {
+      "query": "Our React state update loses a local counter increment; no server is involved.",
+      "should_activate": false,
+      "reason": "A concurrency keyword alone is not a PostgreSQL task."
+    }
+  ]
+}
