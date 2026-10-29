@@ -128,6 +128,12 @@ tree and run native registry checks and affected suites, not only isolated green
 jointly delivered unpublished manifest version can preserve the key union; a published version
 requires advancement under the deployment contract. Class 21 covers the separate typecheck.
 
+Pour une contrainte `CHECK` redéfinie, partir de la définition actuelle de la cible, inspecter
+les branches parallèles qui la modifient et conserver cumulativement les valeurs autorisées.
+Exercer une insertion par valeur sur la vraie base, puis les migrations sur base neuve et base
+existante contenant ces valeurs. Rejouer les contrôles applicables du dépôt, dont lint, typage
+et E2E, sur l'arbre intégré : les résultats des branches isolées ne prouvent pas sa compatibilité.
+
 For single-use records, require non-null keys and a named unique or exclusion constraint at the
 proper organization scope. A pre-insert existence check does not prevent duplicate consumption;
 require one concurrent success and one translated refusal with no partial writes, plus independent

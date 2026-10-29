@@ -66,6 +66,11 @@ variant, assertion failure and restored result. Setup errors and crashes do not 
 
 ## Controlled time
 
+Faire passer chaque valeur proposée ou par défaut par le validateur qui la recevra, notamment
+les jours fériés et veilles de fermeture. Avancer l'horloge entre confirmation et transmission
+pour vérifier le nouveau contrôle de date. Réutiliser la règle canonique du module voisin et
+exercer chaque membre de ses listes de référence, sans réécrire une validation plus faible.
+
 Search date literals in added or changed tests. A literal may anchor a frozen clock or an
 independent calendar case; it must not silently mean "future" relative to the machine clock.
 Inject or freeze time in the system under test, not only in the assertion. Derive dates relative
@@ -106,6 +111,13 @@ above-maximum behavior. For UI identity, include two elements with the same type
 expiry; exercise independent selection or update so a colliding key cannot pass as a harmless render.
 
 ## Database refusals
+
+Pour une opération en plusieurs étapes, synchroniser une annulation concurrente entre chaque
+étape : contrôles, réservation, effet, transition. Vérifier état et effets persistés, refus sans
+réservation bloquante, puis reprise après échec partiel sans doublon ni suite omise. Changer
+l'identifiant technique sans changer la clé métier ; vérifier le total déjà effectué, le reste
+après chaque écriture de boucle et le statut dérivé après annulation de l'objet lié. Appliquer
+la sensibilité d'oracle ci-dessus : un conflit inattendu n'est pas l'échec de l'assertion ciblée.
 
 For aggregate caps, use separate real-database connections and synchronize requests to overlap
 inside the decision/write window. In `event-api`, three concurrent requests for 20 seats against

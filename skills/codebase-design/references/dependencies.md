@@ -36,6 +36,10 @@ explicitly removes the requirement. Never infer equivalence from the new suite p
 
 ## Persistent contracts
 
+Avant d'ajouter une table, une route ou une lecture, inventorier les règles voisines sur les
+mêmes données : permission du propriétaire, immuabilité, effacement et bornes de lecture.
+Réutiliser leurs règles canoniques ; justifier toute différence par le contrat applicable.
+
 For a shared `sum <= capacity` invariant, lock the capacity-owning row, reread the sum and write
 within the same transaction. Every path changing the sum or capacity follows that protocol;
 moving a precheck into an ordinary transaction alone does not serialize concurrent writers.
@@ -89,6 +93,16 @@ signed content invalidates it, and removal leaves no dangling reference or undec
 
 ## Related lifecycles and reservations
 
+Une opération en plusieurs étapes suit : contrôles, réservation atomique, effet idempotent,
+transition. Protéger les contrôles mutables jusqu'à l'écriture ; un refus ne laisse aucune
+réservation bloquante. Un rejeu reprend les suites inachevées sans répéter les effets acquis.
+Compter le « déjà fait » par clé métier, même si un identifiant technique change ; recalculer
+le montant partagé après chaque écriture d'une boucle. Un statut lié se dérive de l'état de
+l'objet référencé, y compris après annulation.
+
+Revérifier une règle temporelle à chaque étape produisant ou transmettant sa valeur, avec
+l'horloge de cette étape ; une confirmation antérieure ne valide pas un export ultérieur.
+
 Enforce form rules on the server and downstream preconditions at the step producing the promised
 state, with shared stable business codes. Explicitly incomplete drafts remain allowed under their
 contract. References resolved through a global service still require caller scope and applicable
@@ -117,6 +131,12 @@ bounded pool, exercise refusal then recovery, an old failure after reassignment,
 slow write, and contention exceeding pool size without exhausting it through held waiting connections.
 
 ## Collection APIs and identity
+
+Une lecture exige la permission du propriétaire de la donnée, même depuis la route d'un autre
+module. Référencer les personnes plutôt que recopier leurs noms ; résoudre les libellés à la
+lecture pour suivre renommage et effacement selon le contrat. Borner aussi les appels sur une
+collection fournie par l'appelant : privilégier le bulk, sinon une concurrence explicitement
+limitée, sans `Promise.all` sur une collection non bornée.
 
 Every new creation endpoint needs an idempotence contract or an explicit justification for its
 absence. For keyed creation, define key scope and lifetime, protect uniqueness in the database and

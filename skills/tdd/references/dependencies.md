@@ -35,3 +35,5 @@ the in-memory implementation needs under test pressure; do not build a second pr
 Use shared typed factories for fixtures consuming the same contract and a shared compiler-checked
 test implementation for a common port. Contract additions must expose missing fields or methods
 through typecheck rather than leave dispersed handwritten copies silently stale.
+Un double implémente le port complet, par exemple avec `implements OrderRepository`, sans cast
+d'objet partiel masquant les membres absents. Recompiler les doubles sur l'arbre intégré.
