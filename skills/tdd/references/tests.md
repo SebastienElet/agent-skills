@@ -110,6 +110,11 @@ stable traversal without duplicate or omitted IDs on unchanged data, terminal pa
 above-maximum behavior. For UI identity, include two elements with the same type and null or empty
 expiry; exercise independent selection or update so a colliding key cannot pass as a harmless render.
 
+Pour le rejeu de création, vérifier le même statut et le même corps par le mécanisme commun,
+y compris après interruption et avec un ordre de clés différent, puis le refus `422` pour un
+contenu réellement changé. Lire aussi l'état persistant : une seule création et aucune donnée
+personnelle dans la réponse stockée ; un conflit d'unicité n'est pas la réponse rejouée.
+
 ## Database refusals
 
 Pour une opération en plusieurs étapes, synchroniser une annulation concurrente entre chaque
@@ -187,6 +192,8 @@ that alone protects the forbidden result.
 For redaction and sensitive persistence, assert exact stored values, including absent or cleared
 personal fields; a partial object match accepts extra sensitive fields. Read the persisted body
 separately from the response so response cleanup cannot conceal an unredacted stored copy.
+Pour les journaux, capturer les sorties émises et affirmer l'absence de chaque donnée retirée,
+y compris dans les diagnostics d'erreur ; vérifier seulement les champs présents ne suffit pas.
 
 ## Failures that invalidate the evidence
 

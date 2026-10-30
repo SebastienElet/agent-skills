@@ -30,6 +30,11 @@ Before consolidating modules, identify which decisions would otherwise spread ac
 Keep parsing, orchestration, policy and mutation separately understandable unless their combination
 is trivial. Prefer specific APIs and domain values over general operation selectors.
 
+Avant un chemin en lot, aperçu, export ou rejeu, inventorier les lectures et écritures du chemin
+existant. Partager les mappeurs et lectures portant le même comportement ; refuser explicitement
+une variante non portée plutôt que la transformer par défaut. Comparer les chemins par variante,
+dont aperçu et document produit sur les mêmes données.
+
 When moving a test surface, inventory its successful and failing behaviors before replacing tests.
 Retire an old check only when its required coverage is retained or an authorized contract change
 explicitly removes the requirement. Never infer equivalence from the new suite passing alone.
@@ -39,6 +44,10 @@ explicitly removes the requirement. Never infer equivalence from the new suite p
 Avant d'ajouter une table, une route ou une lecture, inventorier les règles voisines sur les
 mêmes données : permission du propriétaire, immuabilité, effacement et bornes de lecture.
 Réutiliser leurs règles canoniques ; justifier toute différence par le contrat applicable.
+
+Si un mode justifie de relâcher une contrainte, enregistrer ce mode et lui borner l'exception ;
+les autres modes gardent leurs exigences. Tester les cas admis et refusés de chaque mode sur
+la vraie base, y compris les données historiques de la migration.
 
 For a shared `sum <= capacity` invariant, lock the capacity-owning row, reread the sum and write
 within the same transaction. Every path changing the sum or capacity follows that protocol;
@@ -77,6 +86,8 @@ authorized command. Attributes describing historical facts freeze at first use: 
 first use share the same lock, while replaying the unchanged label remains allowed.
 
 For a filed document, persist and read the exact deposited version, never a mutable latest alias.
+Restituer ses ventilations depuis les données figées à l'émission ou une lecture à cette date ;
+si un recalcul est nécessaire, comparer chaque ligne à ces données, pas seulement le total.
 Verify sealing before finalization and preserve that version's retention and availability. Missing
 versions or failed integrity checks refuse without fallback; deposit-to-record failure needs
 explicit recovery or cleanup. Handle historical documents in the schema migration rather than
@@ -99,6 +110,10 @@ réservation bloquante. Un rejeu reprend les suites inachevées sans répéter l
 Compter le « déjà fait » par clé métier, même si un identifiant technique change ; recalculer
 le montant partagé après chaque écriture d'une boucle. Un statut lié se dérive de l'état de
 l'objet référencé, y compris après annulation.
+
+Une projection automatique ne justifie pas de refuser la décision humaine prioritaire prévue
+au contrat. Réaffecter les projections selon leur ordre établi, en préservant les engagements
+explicites, notamment par plan ; distinguer ces origines dans le modèle et les tests.
 
 Revérifier une règle temporelle à chaque étape produisant ou transmettant sa valeur, avec
 l'horloge de cette étape ; une confirmation antérieure ne valide pas un export ultérieur.
@@ -143,6 +158,10 @@ absence. For keyed creation, define key scope and lifetime, protect uniqueness i
 commit the request identity and replayable response atomically with the effect. In `shop-api`,
 `POST /orders` with `Idempotency-Key` replays the response for the same key and body; the same key
 with a different body returns a named `422` refusal. Concurrent duplicates must produce one row.
+Utiliser le mécanisme commun pour restituer le statut et le corps d'origine : l'index unique
+seul ne doit pas transformer le rejeu en `409`. Prévoir la reprise après interruption à la
+création, sans réponse stockée contenant des données personnelles. Comparer les charges
+par condensat canonique indépendant de l'ordre des clés à chaque point de comparaison.
 
 Every new exposed API list is bounded by default, with documented default and maximum limits and
 named behavior above the maximum. Default to cursor pagination with stable ordering ending in a

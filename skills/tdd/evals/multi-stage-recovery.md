@@ -23,6 +23,12 @@ Fournir les mêmes données et défauts aux deux sessions :
    paire métier, avec un résultat jamais négatif.
 5. Une demande liée reste traitée après annulation de son événement et interdit son remplacement.
    Un test de refus échoue sur un conflit de réservation au lieu de l'assertion métier attendue.
+6. `POST /refunds` repose seulement sur `UNIQUE(request_id)` : le second envoi reçoit `409` au
+   lieu de la réponse d'origine. Le mécanisme commun du dépôt conserve une réponse sans données
+   personnelles et gère la reprise ; une route nouvelle l'a contourné.
+7. Deux comparaisons utilisent `JSON.stringify()` : `{ amount: 10, orderId: 'o1' }` et
+   `{ orderId: 'o1', amount: 10 }` sont considérés différents. Une interruption peut survenir
+   pendant la création, avant ou après la persistance de l'effet, sans réponse reçue par le client.
 
 ## Acceptation et contrôles admis
 
@@ -37,6 +43,14 @@ l'annulation n'est pas répétée et la notification idempotente est finalement 
 Changer l'ID technique sans changer commande/payeur ne renouvelle pas le montant disponible ;
 une autre paire métier reste indépendante. Annuler l'événement lié doit mettre à jour le statut
 dérivé et permettre le remplacement prévu au contrat.
+
+Par le mécanisme commun, le premier envoi crée une ligne et rend `201` avec un corps contenant
+l'identifiant créé. Rejouer avec la même clé, y compris avec l'ordre des clés inversé : même
+statut et corps, aucune seconde création ni réponse de conflit. Injecter une interruption avant
+puis après la persistance et rejouer jusqu'à la réponse d'origine, sans effet doublé. Comparer
+les charges par condensat canonique aux deux points de comparaison ; même clé avec montant 11
+au lieu de 10 reçoit `422`, sans modification. Une autre clé métier reste indépendante. Lire la
+réponse stockée pour vérifier l'absence des données personnelles prévues par la fixture.
 
 Pour chaque oracle ajouté, conserver une variante fautive, l'échec de son assertion ciblée et
 le succès après restauration. Une exception de conflit dans la préparation ne vaut pas ce témoin.

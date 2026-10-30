@@ -27,6 +27,11 @@ declared prerequisites and verify reachability once they hold. A guard making th
 workflow impossible is a blocker: name its location, failure sequence and a lift criterion
 exercising the enclosing screen in that state.
 
+Livrer un interrupteur avec son fournisseur réel ou l'amorçage prévu par le dépôt. Charger le
+module sans fournisseur simulé et prouver l'ouverture dans l'environnement où l'opération doit
+servir ; respecter la politique des autres environnements. Signaler dans la PR un défaut fermé
+sans fournisseur : un test qui injecte seul un fournisseur ne prouve pas cette disponibilité.
+
 ## Evidence attribution and reuse
 
 Then attribute each piece of evidence: measured
