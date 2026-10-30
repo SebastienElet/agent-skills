@@ -127,14 +127,14 @@ Include shared entity prefixes. Compose the target and relevant parallel heads i
 tree and run native registry checks and affected suites, not only isolated green branches. A
 jointly delivered unpublished manifest version can preserve the key union; a published version
 requires advancement under the deployment contract. Class 21 covers the separate typecheck.
-Avant de rendre un paramètre obligatoire, chercher ses appelants sur les branches ouvertes.
-Lors d'une réécriture, relire leurs diffs et reporter les gardes voisines dans l'arbre intégré.
+Before making a parameter mandatory, search its callers on open branches. On a rewrite, reread
+their diffs and carry neighboring guards into the integrated tree.
 
-Pour une contrainte `CHECK` redéfinie, partir de la définition actuelle de la cible, inspecter
-les branches parallèles qui la modifient et conserver cumulativement les valeurs autorisées.
-Exercer une insertion par valeur sur la vraie base, puis les migrations sur base neuve et base
-existante contenant ces valeurs. Rejouer les contrôles applicables du dépôt, dont lint, typage
-et E2E, sur l'arbre intégré : les résultats des branches isolées ne prouvent pas sa compatibilité.
+For a redefined `CHECK` constraint, start from the target's current definition, inspect the
+parallel branches that modify it and cumulatively keep the allowed values. Exercise an insert per
+value on the real database, then migrations on a fresh database and an existing database
+containing those values. Rerun the repository's applicable checks, including lint, typecheck and
+E2E, on the integrated tree: isolated branch results do not prove its compatibility.
 
 For single-use records, require non-null keys and a named unique or exclusion constraint at the
 proper organization scope. A pre-insert existence check does not prevent duplicate consumption;
@@ -206,12 +206,12 @@ A changed observable response on a versioned public API is a compatibility decis
 new blanket refusal where deletion previously succeeded. Preserve the published contract, introduce
 a new version, or obtain an explicit owner-approved contract amendment before delivery. A newly
 proposed retention policy alone does not authorize breaking existing clients.
-Justifier par le contrat et tester tout nouveau refus d'un comportement auparavant accepté.
+Justify by contract and test any new refusal of a previously accepted behavior.
 
-Pour chaque nouveau code, compléter le catalogue et la liste des erreurs publiques qui en dépend,
-puis exercer la traduction à travers chaque route concernée. Une table totale typée, par exemple
-`Record<RejectReason, PublicCode>`, relie chaque motif à un code catalogué ; ni motif oublié ni
-code absent ne doit devenir une erreur générique ou un libellé vide.
+For each new code, complete the catalog and the public error list that depends on it, then
+exercise the translation through each affected route. A typed total table, for example
+`Record<RejectReason, PublicCode>`, links each reason to a cataloged code; neither a forgotten
+reason nor a missing code may become a generic error or an empty label.
 
 For every added or expanded constraint, exclusion or trigger, name each expected refusal and its
 business translation. Match structured driver identifiers and codes at the adapter boundary,

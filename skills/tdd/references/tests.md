@@ -66,10 +66,10 @@ variant, assertion failure and restored result. Setup errors and crashes do not 
 
 ## Controlled time
 
-Faire passer chaque valeur proposée ou par défaut par le validateur qui la recevra, notamment
-les jours fériés et veilles de fermeture. Avancer l'horloge entre confirmation et transmission
-pour vérifier le nouveau contrôle de date. Réutiliser la règle canonique du module voisin et
-exercer chaque membre de ses listes de référence, sans réécrire une validation plus faible.
+Run every proposed or default value through the validator that will receive it, notably public
+holidays and closure eves. Advance the clock between confirmation and transmission to verify the
+new date check. Reuse the neighboring module's canonical rule and exercise each member of its
+reference lists, without rewriting a weaker validation.
 
 Search date literals in added or changed tests. A literal may anchor a frozen clock or an
 independent calendar case; it must not silently mean "future" relative to the machine clock.
@@ -110,19 +110,19 @@ stable traversal without duplicate or omitted IDs on unchanged data, terminal pa
 above-maximum behavior. For UI identity, include two elements with the same type and null or empty
 expiry; exercise independent selection or update so a colliding key cannot pass as a harmless render.
 
-Pour le rejeu de création, vérifier le même statut et le même corps par le mécanisme commun,
-y compris après interruption et avec un ordre de clés différent, puis le refus `422` pour un
-contenu réellement changé. Lire aussi l'état persistant : une seule création et aucune donnée
-personnelle dans la réponse stockée ; un conflit d'unicité n'est pas la réponse rejouée.
+For creation replay, verify the same status and body through the common mechanism, including
+after an interruption and with a different key order, then the `422` refusal for genuinely changed
+content. Also read the persisted state: a single creation and no personal data in the stored
+response; a uniqueness conflict is not the replayed response.
 
 ## Database refusals
 
-Pour une opération en plusieurs étapes, synchroniser une annulation concurrente entre chaque
-étape : contrôles, réservation, effet, transition. Vérifier état et effets persistés, refus sans
-réservation bloquante, puis reprise après échec partiel sans doublon ni suite omise. Changer
-l'identifiant technique sans changer la clé métier ; vérifier le total déjà effectué, le reste
-après chaque écriture de boucle et le statut dérivé après annulation de l'objet lié. Appliquer
-la sensibilité d'oracle ci-dessus : un conflit inattendu n'est pas l'échec de l'assertion ciblée.
+For a multi-step operation, synchronize a concurrent cancellation between each step: checks,
+reservation, effect, transition. Verify persisted state and effects, refusal without a blocking
+reservation, then recovery after partial failure without duplicate or omitted follow-up. Change the
+technical identifier without changing the business key; verify the total already done, the
+remainder after each loop write and the derived status after cancelling the linked object. Apply
+the oracle sensitivity above: an unexpected conflict is not the failure of the targeted assertion.
 
 For aggregate caps, use separate real-database connections and synchronize requests to overlap
 inside the decision/write window. In `event-api`, three concurrent requests for 20 seats against
@@ -192,8 +192,8 @@ that alone protects the forbidden result.
 For redaction and sensitive persistence, assert exact stored values, including absent or cleared
 personal fields; a partial object match accepts extra sensitive fields. Read the persisted body
 separately from the response so response cleanup cannot conceal an unredacted stored copy.
-Pour les journaux, capturer les sorties émises et affirmer l'absence de chaque donnée retirée,
-y compris dans les diagnostics d'erreur ; vérifier seulement les champs présents ne suffit pas.
+For logs, capture the emitted output and assert the absence of each removed datum, including in
+error diagnostics; checking only the fields present is not enough.
 
 ## Failures that invalidate the evidence
 

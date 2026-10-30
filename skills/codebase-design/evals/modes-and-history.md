@@ -1,56 +1,57 @@
-# Modes, historique et décisions explicites
+# Modes, history and explicit decisions
 
-Mini-dépôt fictif `shop-api` à préparer dans un espace jetable. Les modes et priorités décrits
-sont le contrat de cet exercice, pas une politique validée pour un système réel.
+Fictional `shop-api` mini-repository to prepare in a disposable space. The modes and priorities
+described are the contract of this exercise, not a validated policy for a real system.
 
-## Consigne et fixture
+## Prompt and fixture
 
-Consigne : « Autorisez le nouveau mode de remboursement sans affaiblir l'ancien, restituez les
-documents émis et conservez la désignation humaine avec les engagements existants. »
+Prompt: "Allow the new refund mode without weakening the old one, return the issued documents and
+keep the human designation with the existing commitments."
 
-1. Le mode `A` impose `amount > 0` et une cible non nulle. Le nouveau mode `B` accepte zéro et
-   l'absence de cible. Une migration remplace la contrainte commune par `amount >= 0`, sans
-   enregistrer le mode, ce qui affaiblit aussi `A`. Les lignes anciennes sont toutes de mode `A`.
-2. Un envoi émis possède `frozenSplit = [{ warehouse: 'w1', amount: 60 },
-{ warehouse: 'w2', amount: 40 }]`. Le stock actuel produirait 40 et 60, même total 100.
-   La restitution reconstruit depuis le stock courant au lieu des données figées à l'émission.
-   Un envoi ancien sans snapshot dispose d'une lecture datée vérifiable à l'émission.
-3. La facture `i1` porte une projection automatique du paiement `p1`, arrivé avant `p2`.
-   La désignation humaine de `p2` vers `i1` était acceptée : libérer les affectations automatiques
-   des autres paiements sur cette facture, puis les réaffecter dans l'ordre d'arrivée. Une
-   nouvelle garde refuse désormais toute facture déjà affectée, y compris automatiquement.
-4. Sur `i2`, une affectation est engagée par un plan explicite ; le refus de remplacement reste
-   requis. Donner la provenance des affectations et les anciens tests d'acceptation, pour que
-   projection automatique et engagement ne soient pas confondus.
+1. Mode `A` requires `amount > 0` and a non-null target. The new mode `B` accepts zero and the
+   absence of a target. A migration replaces the shared constraint with `amount >= 0`, without
+   recording the mode, which also weakens `A`. The old rows are all of mode `A`.
+2. An issued shipment has `frozenSplit = [{ warehouse: 'w1', amount: 60 },
+{ warehouse: 'w2', amount: 40 }]`. The current stock would produce 40 and 60, same total 100.
+   The restitution rebuilds from the current stock instead of the data frozen at issue.
+   An old shipment without a snapshot has a verifiable dated read as of issue.
+3. Invoice `i1` carries an automatic projection of payment `p1`, which arrived before `p2`.
+   The human designation of `p2` to `i1` was accepted: release the automatic assignments of the
+   other payments on that invoice, then reassign them in arrival order. A new guard now refuses
+   any already assigned invoice, including one assigned automatically.
+4. On `i2`, an assignment is committed by an explicit plan; the refusal to replace it remains
+   required. Provide the provenance of the assignments and the old acceptance tests, so that
+   automatic projection and commitment are not confused.
 
-## Acceptation et contrôles admis
+## Acceptance and admitted controls
 
-Enregistrer le mode et limiter l'exception à `B`. Sur vraie base locale, accepter pour `A` un
-montant positif avec cible ; refuser zéro, négatif ou cible absente. Pour `B`, accepter zéro
-sans cible et un montant positif, refuser le négatif ; refuser un mode inconnu. Migrer les lignes
-anciennes vers `A` sans perte ni exception rétroactive. Un test du texte SQL ne prouve pas cela.
+Record the mode and limit the exception to `B`. On a real local database, accept for `A` a
+positive amount with a target; refuse zero, negative or missing target. For `B`, accept zero
+without a target and a positive amount, refuse negative; refuse an unknown mode. Migrate the old
+rows to `A` without loss or retroactive exception. A test of the SQL text does not prove this.
 
-Après modification du stock, restituer les lignes 60 et 40 du snapshot, pas seulement le total 100. Pour l'historique sans snapshot, utiliser la lecture à la date d'émission et comparer chaque
-ligne si un recalcul est nécessaire. Si la preuve historique manque, ne pas présenter l'état
-actuel comme l'historique ; rendre la limite explicite selon le contrat fourni.
+After modifying the stock, return the snapshot's lines 60 and 40, not only the total 100. For the
+history without a snapshot, use the read as of the issue date and compare each line if a
+recomputation is needed. If the historical proof is missing, do not present the current state as
+the history; make the limit explicit per the supplied contract.
 
-La désignation humaine sur `i1` réussit, libère les seules projections concernées et réaffecte
-selon l'ordre établi sans montant dupliqué. L'engagement du plan sur `i2` reste intact et le
-remplacement refusé ne laisse aucune écriture partielle. Tout nouveau refus de l'ancien cas
-accepté exige une justification par un changement de contrat et un test, pas une garde ajoutée
-par commodité. Aucune modification de politique n'est autorisée dans ce scénario.
+The human designation on `i1` succeeds, releases only the projections concerned and reassigns in
+the established order without duplicated amount. The plan's commitment on `i2` stays intact and
+the refused replacement leaves no partial write. Any new refusal of a previously accepted case
+requires a justification by a contract change and a test, not a guard added for convenience. No
+policy change is authorized in this scenario.
 
-Contrôles admis : mode `A` inchangé, historique sans modification restitué à l'identique, autre
-facture sans rapport préservée et engagement explicite toujours protégé. Pour chaque défaut,
-observer l'assertion pertinente échouer sur la variante fautive puis passer après restauration.
+Admitted controls: mode `A` unchanged, unmodified history returned identically, unrelated other
+invoice preserved and explicit commitment still protected. For each defect, observe the relevant
+assertion fail on the faulty variant then pass after restoration.
 
-## Protocole de comparaison
+## Comparison protocol
 
-Figer les critères. Donner à deux sessions fraîches la même fixture et la consigne sans les
-réponses attendues. Charger les versions base et candidate de `codebase-design/SKILL.md` et sa
-référence `dependencies.md`, de `implement/SKILL.md` et du catalogue partagé
-`pr-verdict/references/failure-classes.md` (classe 6), sans invoquer de verdict de PR.
-Lier les instructions et le scénario selon les résultats ; conserver aussi empreintes de fixture,
-modèle, hôte, rôle SQL, commandes, sorties et états avant/après. Base SQL dédiée, aucun service
-partagé ni publication. Séparer décisions et réparations exécutées ; seul un échec observé sans
-les ajouts et un succès avec eux établissent un gain. Une inspection seule ne le démontre pas.
+Freeze the criteria. Give two fresh sessions the same fixture and the prompt without the expected
+answers. Load the base and candidate versions of `codebase-design/SKILL.md` and its
+`dependencies.md` reference, of `implement/SKILL.md` and of the shared catalog
+`pr-verdict/references/failure-classes.md` (class 6), without invoking a PR verdict. Link the
+instructions and the scenario per the results; also keep fingerprints of the fixture, model, host,
+SQL role, commands, outputs and before/after states. Dedicated SQL database, no shared service or
+publication. Separate decisions from executed repairs; only an observed failure without the
+additions and a success with them establish a gain. Inspection alone does not demonstrate it.

@@ -1,47 +1,48 @@
-# Dates transmises et valeurs proposées
+# Transmitted dates and proposed values
 
-Dépôt fictif `shop-api`. Il s'agit d'une spécification de mini-dépôt, sans exécution implicite,
-sans données personnelles ni service de transport réel.
+Fictional `shop-api` repository. This is a mini-repository specification, without implicit
+execution, personal data or real transport service.
 
-## Consigne et fixture
+## Prompt and fixture
 
-Consigne : « Corrigez la préparation et l'export des livraisons ; toute date proposée doit être
-acceptée et les règles d'adresse doivent rester cohérentes avec la facturation. »
+Prompt: "Fix the preparation and export of deliveries; every proposed date must be accepted and
+the address rules must stay consistent with billing."
 
-1. `confirmDelivery()` refuse une date passée. `exportToCarrier()` transmet la date conservée
-   sans la revérifier plusieurs jours plus tard.
-2. Le contrat exige deux jours ouvrés de délai. `proposeDeliveryDate()` ne prend que le jour
-   ouvré suivant. Fournir un calendrier explicite avec week-end, jour férié et fermeture :
-   vendredi 2026-05-01 férié et lundi 2026-05-04 fermé. Depuis jeudi 2026-04-30, les deux jours
-   ouvrés suivants sont mardi 5 et mercredi 6 mai ; la proposition attendue est le 6 mai.
-3. La source canonique du module de facturation exige un code postal pour `FR`, `DE` et `ES`.
-   Le nouveau validateur d'adresse ne l'exige que pour `FR`.
+1. `confirmDelivery()` refuses a past date. `exportToCarrier()` transmits the stored date without
+   rechecking it several days later.
+2. The contract requires a lead time of two business days. `proposeDeliveryDate()` takes only the
+   next business day. Provide an explicit calendar with weekend, public holiday and closure:
+   Friday 2026-05-01 a holiday and Monday 2026-05-04 closed. From Thursday 2026-04-30, the next
+   two business days are Tuesday 5 and Wednesday 6 May; the expected proposal is 6 May.
+3. The billing module's canonical source requires a postal code for `FR`, `DE` and `ES`. The new
+   address validator requires it only for `FR`.
 
-## Acceptation et contrôles admis
+## Acceptance and admitted controls
 
-Avec une horloge injectée, confirmer une livraison au 6 mai puis avancer au 7 mai : l'export
-refuse la date devenue passée, sans fichier ni transmission. Le même export avec une date
-encore admissible réussit. Exercer le jour limite admis et le premier jour refusé à chaque
-étape productrice ou transmettrice, selon la même règle métier.
+With an injected clock, confirm a delivery on 6 May then advance to 7 May: the export refuses the
+date that has become past, without file or transmission. The same export with a still admissible
+date succeeds. Exercise the last admitted day and the first refused day at each producing or
+transmitting step, per the same business rule.
 
-Pour chaque date d'une plage couvrant ces fermetures et leurs veilles, faire passer la valeur
-réellement proposée au vrai validateur avec la même horloge et le même calendrier. Vérifier
-séparément l'exemple attendu du 6 mai ; ne pas recalculer l'attendu avec l'algorithme testé.
-Une proposition produite auparavant repasse le validateur avec l'horloge de la transmission.
+For each date in a range covering these closures and their eves, run the value actually proposed
+through the real validator with the same clock and the same calendar. Verify the expected 6 May
+example separately; do not recompute the expected value with the algorithm under test. A proposal
+produced earlier passes the validator again with the transmission clock.
 
-Réutiliser la source canonique des pays. Pour chacun des trois pays, refuser l'absence de code
-postal et accepter une adresse valide ; un pays sans cette exigence reste accepté selon son
-contrat. Ne pas recopier la table sous un autre nom. Ces règles appartiennent au seul cas fictif.
-Conserver un témoin par défaut : export sans recontrôle, délai réduit et pays omis ; chaque
-variante échoue par l'assertion pertinente, puis passe après restauration.
+Reuse the canonical source of the countries. For each of the three countries, refuse the absence
+of a postal code and accept a valid address; a country without this requirement stays accepted per
+its contract. Do not copy the table under another name. These rules belong only to the fictional
+case. Keep a default control: export without recheck, reduced lead time and omitted country; each
+variant fails by the relevant assertion, then passes after restoration.
 
-## Protocole de comparaison
+## Comparison protocol
 
-Figer les critères avant les essais. Donner à deux contextes frais des copies jetables identiques
-de `shop-api`, la consigne et le calendrier sans la section d'acceptation. Charger les versions
-base et candidate de `tdd/SKILL.md`, `tdd/references/tests.md`, `tdd/references/dependencies.md`,
-`codebase-design/SKILL.md` et `codebase-design/references/dependencies.md`. Les entrées sont liées
-dans le fichier de résultats ; le scénario et la fixture restent identiques entre les sessions.
-Conserver empreintes, modèle, hôte, fuseau, horloges, commandes, sorties et témoins restaurés.
-Distinguer décision proposée et réparation exécutée. Un gain exige un échec observé sans les
-ajouts et un succès avec eux ; un scénario écrit ou formaté ne démontre aucune amélioration.
+Freeze the criteria before the trials. Give two fresh contexts identical disposable copies of
+`shop-api`, the prompt and the calendar without the acceptance section. Load the base and
+candidate versions of `tdd/SKILL.md`, `tdd/references/tests.md`, `tdd/references/dependencies.md`,
+`codebase-design/SKILL.md` and `codebase-design/references/dependencies.md`. The inputs are linked
+in the results file; the scenario and the fixture stay identical between sessions. Keep
+fingerprints, model, host, time zone, clocks, commands, outputs and restored controls.
+Distinguish proposed decision from executed repair. A gain requires an observed failure without
+the additions and a success with them; a written or formatted scenario demonstrates no
+improvement.

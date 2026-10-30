@@ -1,53 +1,54 @@
-# Nouvelles surfaces : gardes des voisines
+# New surfaces: neighbor guards
 
-Mini-dépôt fictif `shop-api` à construire dans un espace jetable. Les permissions, personnes,
-tables et observations décrites sont des données de scénario, sans exécution ni politique réelle.
+Fictional `shop-api` mini-repository to build in a disposable space. The permissions, people,
+tables and observations described are scenario data, without execution or real policy.
 
-## Consigne et fixture
+## Prompt and fixture
 
-Consigne : « Ajoutez les paiements d'un export, sa liste d'exclusion et ses versions publiables
-avec les mêmes protections que les fonctionnalités voisines. »
+Prompt: "Add an export's payments, its exclusion list and its publishable versions with the same
+protections as the neighboring features."
 
-1. `/exports/:id/payments` exige seulement `exports:read`. La route voisine des paiements exige
-   `payments:read` et le périmètre de l'organisation, déjà établis par le contrat de la fixture.
-2. `excludedCustomers` persiste `{ id, name }`. Un renommage ou effacement ne modifie pas la
-   copie. Le contrat voisin conserve l'ID et résout le libellé à la lecture ; l'effacement
-   autorisé y retire le nom et traite la référence sans empêcher la purge prévue.
-3. `invoice_version` possède des déclencheurs de ligne refusant `UPDATE` et `DELETE`, sauf une
-   publication unique : trois champs passent de vide à renseigné, les autres restent identiques.
-   `TRUNCATE` contourne ces gardes. La table sœur possède une garde au niveau instruction.
-   L'ORM requalifie le refus du déclencheur en violation de clé étrangère.
-4. `Promise.all(customers.map(fetchPaymentMethod))` lance dix appels simultanés. Le contrat des
-   voisines borne la concurrence à quatre et les lectures exposées ont une pagination bornée.
+1. `/exports/:id/payments` requires only `exports:read`. The neighboring payments route requires
+   `payments:read` and the organization scope, already established by the fixture's contract.
+2. `excludedCustomers` persists `{ id, name }`. A rename or erasure does not modify the copy. The
+   neighboring contract keeps the ID and resolves the label at read time; the authorized erasure
+   removes the name there and handles the reference without preventing the planned purge.
+3. `invoice_version` has row triggers refusing `UPDATE` and `DELETE`, except a one-time
+   publication: three fields go from empty to filled, the others stay identical. `TRUNCATE`
+   bypasses these guards. The sibling table has a statement-level guard. The ORM requalifies the
+   trigger's refusal as a foreign-key violation.
+4. `Promise.all(customers.map(fetchPaymentMethod))` launches ten simultaneous calls. The
+   neighbors' contract bounds concurrency to four and the exposed reads have bounded pagination.
 
-## Acceptation et contrôles admis
+## Acceptance and admitted controls
 
-Inventorier les gardes voisines avant modification et reprendre leurs sources canoniques, ou
-justifier une différence par le contrat. Avec périmètre valide, le sujet autorisé aux seuls
-exports ne lit aucun paiement ; celui autorisé aux paiements réussit. Refuser séparément le
-mauvais périmètre : un refus global ne prouve pas la permission du propriétaire de la donnée.
+Inventory the neighbor guards before modification and reuse their canonical sources, or justify
+a difference by the contract. With a valid scope, the subject authorized only for exports reads
+no payment; the one authorized for payments succeeds. Refuse the wrong scope separately: a global
+refusal does not prove the permission of the data's owner.
 
-Persister seulement les références nécessaires. Renommer la personne doit modifier le libellé
-lu ; exécuter l'effacement autorisé doit supprimer les données personnelles sans copie résiduelle.
-Lire le stockage indépendamment de la réponse et tester la référence devenue absente.
+Persist only the necessary references. Renaming the person must change the label read; running
+the authorized erasure must delete the personal data without a residual copy. Read the storage
+independently of the response and test the reference that became absent.
 
-Avec la vraie base, le rôle protégé et des lignes existantes, tenter `UPDATE`, `DELETE` et
-`TRUNCATE` en SQL brut, chacun dans une transaction distincte. Vérifier le refus identifié du
-déclencheur et le contenu inchangé, sans accepter une erreur ORM ou de préparation à sa place.
-La première publication permise réussit ; sa répétition et la modification d'un autre champ
-échouent. La purge établie reste possible par son chemin autorisé, sans bypass du rôle ordinaire.
+With the real database, the protected role and existing rows, attempt raw `UPDATE`, `DELETE` and
+`TRUNCATE` in SQL, each in a separate transaction. Verify the trigger's identified refusal and
+the unchanged content, without accepting an ORM or preparation error in its place. The permitted
+first publication succeeds; its repetition and the modification of another field fail. The
+established purge remains possible through its authorized path, without bypassing the ordinary
+role.
 
-Mesurer les appels simultanés sur dix clients avec un adaptateur contrôlé : maximum quatre,
-tous les résultats rendus. Exercer aussi collection vide, erreur d'un appel et résultat absent
-selon le contrat, sans laisser d'appels détachés. Conserver la borne et la pagination des lectures.
-Retirer chaque garde séparément : l'assertion ciblée doit échouer, puis passer après restauration.
+Measure the simultaneous calls over ten clients with a controlled adapter: at most four, all
+results returned. Also exercise an empty collection, an error from one call and an absent result
+per the contract, without leaving detached calls. Keep the bound and the pagination of the reads.
+Remove each guard separately: the targeted assertion must fail, then pass after restoration.
 
-## Protocole de comparaison
+## Comparison protocol
 
-Figer acceptation et contrôles avant les essais. Donner à deux sessions fraîches la même fixture
-et la consigne, sans les réponses attendues, avec base SQL dédiée et aucune ressource partagée.
-Charger la version correspondante de `codebase-design/SKILL.md` et sa référence `dependencies.md`.
-Les empreintes base/candidat et scénario figurent dans le fichier de résultats. Conserver modèle,
-hôte, rôle SQL, commandes, sorties, contenu persistant et témoins restaurés. Distinguer inspection,
-décisions et réparations réellement exécutées. Le gain exige un échec observé sans les ajouts
-et un succès avec eux ; les contrôles du dépôt ne jouent pas ce scénario.
+Freeze acceptance and controls before the trials. Give two fresh sessions the same fixture and
+the prompt, without the expected answers, with a dedicated SQL database and no shared resource.
+Load the corresponding version of `codebase-design/SKILL.md` and its `dependencies.md` reference.
+The base/candidate and scenario fingerprints are in the results file. Keep model, host, SQL role,
+commands, outputs, persisted content and restored controls. Distinguish inspection, decisions and
+repairs actually executed. The gain requires an observed failure without the additions and a
+success with them; the repository's checks do not run this scenario.

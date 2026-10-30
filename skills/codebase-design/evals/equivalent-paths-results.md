@@ -1,42 +1,44 @@
-# Chemins multiples : état de l'évaluation
+# Equivalent paths: evaluation status
 
-## Résultat observé
+## Observed result
 
-Comparaison sans/avec instruction **non exécutée en vraie session**. Aucun contexte frais
-base ou candidat n'a été lancé pour cet exercice ; aucun mini-dépôt n'a été construit ni
-exécuté. Aucun échec de base, succès candidat, témoin négatif ou taux d'activation n'est observé.
-Le critère « échoue sans l'instruction et passe avec » reste non démontré.
+Without/with-instruction comparison **not run in a real session**. No fresh base or candidate
+context was launched for this exercise; no mini-repository was built or executed. No base failure,
+candidate success, negative control or activation rate is observed. The criterion "fails without
+the instruction and passes with it" remains unproven.
 
-Mappeur partagé, lectures communes, variantes conservées et refus explicites : comportements spécifiés, pas observés.
-L'auteur a confronté les ajouts au texte fourni et aux règles existantes. Cette inspection
-ne démontre pas un changement de comportement des agents. Les contrôles du dépôt exercent
-le format, les outils exécutables existants et la santé des skills, pas les comportements du
-mini-dépôt. Une revue statique indépendante ne remplace pas une comparaison en session.
+Shared mapper, common reads, preserved variants and explicit refusals: specified behaviors, not
+observed.
 
-## Liaison des entrées
+The author checked the additions against the supplied text and the existing rules. This
+inspection does not demonstrate a change in agent behavior. The repository checks exercise the
+format, the existing executable tools and skill health, not the behaviors of the mini-repository.
+An independent static review does not replace a comparison in a session.
 
-Base locale avant enrichissement : `90acc586ed50f76b18b93e60ea28796d9be62ca0`. Le candidat est lié aux
-situations décrites par les octets finaux des instructions et du scénario, sans preuve d'exécution.
-Chemins relatifs à `skills/` ; les références d'instructions modifiées ou nécessaires à la
-comparaison sont ci-dessous. Conserver aussi les autres références effectivement chargées au
-lancement d'une session, qui n'existe pas encore.
+## Input binding
 
-| Entrée                                       | SHA-256 base                                                       | SHA-256 candidat                                                   |
+Local base before enrichment: `90acc586ed50f76b18b93e60ea28796d9be62ca0`. The candidate is bound to the
+situations described by the final bytes of the instructions and the scenario, without proof of
+execution. Paths relative to `skills/`; the modified instruction references, or those needed for
+the comparison, are below. Also keep the other references actually loaded when a session is
+launched, which does not exist yet.
+
+| Input                                        | Base SHA-256                                                       | Candidate SHA-256                                                  |
 | -------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | `codebase-design/SKILL.md`                   | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` |
-| `codebase-design/references/dependencies.md` | `9bdf9fdb36df7102896c3d9baa1d13b80e9052cd0fb4f04e063cb797c1d4894d` | `f4a8a4f6fcbacc942101e2bf74df85ee318fb0a0c6d289f35fc218aa18163abf` |
-| `codebase-design/evals/equivalent-paths.md`  | Scénario actuel identique pour les deux sessions                   | `d246ef4c6ca4d546479dffec0a80e05b56a36f3fe194a97547c13919cffcb4ee` |
+| `codebase-design/references/dependencies.md` | `9bdf9fdb36df7102896c3d9baa1d13b80e9052cd0fb4f04e063cb797c1d4894d` | `fffafb54eb29f240b2cd869c98d3e8089fb413055e4ef292eba394579e3305be` |
+| `codebase-design/evals/equivalent-paths.md`  | Current scenario identical for both sessions                       | `bc16712d768d84506ac1a8ffd781c5ba21aae786ecc8cd908ee81e7b28c043b8` |
 
-Le même scénario actuel doit être fourni aux deux sessions, même lorsqu'il enrichit un cas déjà
-présent à la base. Les empreintes des anciennes versions restent consultables dans ce commit
-antérieur ; aucune observation d'exécution n'y est remplacée. Aucune fixture exécutable n'existe
-encore : conserver son empreinte et celles des arbres expérimentaux au lancement, ainsi que les
-commandes, sorties et observations exigées par le protocole.
+The same current scenario must be given to both sessions, even when it enriches a case already
+present at the base. The fingerprints of the older versions remain available in that earlier
+commit; no execution observation is replaced there. No executable fixture exists yet: keep its
+fingerprint and those of the experimental trees at launch, along with the commands, outputs and
+observations required by the protocol.
 
-## Environnement et limites
+## Environment and limits
 
-Rédaction : Codex ; version exacte du modèle servi et paramètres d'échantillonnage indisponibles.
-Commandes locales : macOS ARM64 (`Darwin arm64`), zsh, Bun 1.4.4, Arnes 0.0.3.
-Aucun modèle évaluateur ni environnement SQL de scénario utilisé. Linux de la CI, Bun 1.4.3 et
-activation dans Claude Code, Codex ou Cursor non exercés par ce cas. Aucun accès réseau ni service
-réel ; les observations fictives ne constituent pas une preuve d'opération externe.
+Authoring: Codex; exact served model version and sampling parameters unavailable.
+Local commands: macOS ARM64 (`Darwin arm64`), zsh, Bun 1.4.4, Arnes 0.0.3.
+No judge model or scenario SQL environment used. CI Linux, Bun 1.4.3 and activation in Claude
+Code, Codex or Cursor not exercised by this case. No network access or real service; the
+fictional observations are not proof of an external operation.

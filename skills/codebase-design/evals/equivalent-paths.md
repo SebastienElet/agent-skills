@@ -1,49 +1,49 @@
-# Chemins multiples : conserver les variantes et lectures
+# Equivalent paths: preserving variants and reads
 
-Mini-dépôt fictif `shop-api` à construire en copies jetables, sans données ni services réels.
-Ce scénario spécifie un exercice ; sa présence ne constitue aucune exécution.
+Fictional `shop-api` mini-repository to build in disposable copies, without real data or services.
+This scenario specifies an exercise; its presence is not an execution.
 
-## Consigne et fixture
+## Prompt and fixture
 
-Consigne : « Ajoutez le paiement en lot et l'aperçu de facture en conservant le comportement
-unitaire et celui du document produit ; refusez les variantes qui ne sont pas disponibles. »
+Prompt: "Add batch payment and invoice preview while preserving the single-payment behavior and
+that of the produced document; refuse the variants that are not available."
 
-1. `createPayment()` écrit `id`, `amount` et `matchMode` avec `toPaymentRow()`. Le contrat admet
-   `AUTO` et `EXPLICIT`, qui n'ont pas la même signification. Le chemin en lot écrit seulement
-   `id` et `amount` ; le défaut DB `AUTO` transforme silencieusement un paiement explicite.
-2. La production de facture appelle `readCarriedAdjustments()`, avec deux ajustements de 20
-   et -5 unités minimales pour une facture de 100. L'aperçu fournit une liste vide : il affiche
-   100 au lieu de 115. L'export et le rejeu proposé reprennent aussi cette liste vide.
-3. La variante `DEFERRED` est reconnue à l'entrée mais n'est pas encore prise en charge par les
-   nouveaux chemins. Le contrat exige son refus explicite avant toute écriture ou transmission.
-   Fournir les composants réels de lecture, mapping et rendu ; aucune API publique n'est appelée.
+1. `createPayment()` writes `id`, `amount` and `matchMode` with `toPaymentRow()`. The contract
+   admits `AUTO` and `EXPLICIT`, which do not mean the same thing. The batch path writes only
+   `id` and `amount`; the `AUTO` DB default silently turns an explicit payment into an automatic one.
+2. Invoice production calls `readCarriedAdjustments()`, with two adjustments of 20 and -5 minor
+   units for an invoice of 100. The preview supplies an empty list: it shows 100 instead of 115.
+   The export and the proposed replay also reuse that empty list.
+3. The `DEFERRED` variant is recognized at entry but is not yet supported by the new paths. The
+   contract requires its explicit refusal before any write or transmission. Provide the real
+   read, mapping and rendering components; no public API is called.
 
-## Acceptation et contrôles admis
+## Acceptance and admitted controls
 
-Inventorier les données lues et écrites du chemin existant avant de créer les autres. Réutiliser
-le même mappeur d'écriture et la même lecture des ajustements lorsque le comportement est commun,
-sans créer de framework générique. Pour chaque mode pris en charge, comparer les lignes réellement
-persistées par les chemins unitaire et en lot, en neutralisant seulement les identifiants générés.
-Comparer aperçu, export et document produit sur les mêmes données : mêmes ajustements et total 115.
-Le rejeu conserve ces valeurs sans reproduire l'effet ; il ne remet pas les ajustements à zéro.
+Inventory the data read and written by the existing path before creating the others. Reuse the
+same write mapper and the same adjustment read when the behavior is common, without creating a
+generic framework. For each supported mode, compare the rows actually persisted by the single and
+batch paths, neutralizing only generated identifiers. Compare preview, export and produced
+document over the same data: same adjustments and total 115. The replay keeps these values without
+reproducing the effect; it does not reset the adjustments to zero.
 
-Refuser `DEFERRED` avec l'erreur prévue et sans effet partiel ; ne pas le rabattre vers `AUTO`.
-Exercer aussi un lot mixte, une collection vide et une lecture d'ajustements en échec selon le
-contrat fourni. Un défaut silencieux ne remplace pas un refus. Contrôles admis : `AUTO` reste
-valide, absence réelle d'ajustements produit le même total sur tous les chemins, et un mode
-explicitement non porté reste refusé tant que son contrat n'est pas implémenté.
+Refuse `DEFERRED` with the expected error and without partial effect; do not fall back to `AUTO`.
+Also exercise a mixed batch, an empty collection and a failing adjustment read per the supplied
+contract. A silent default does not replace a refusal. Admitted controls: `AUTO` stays valid, a
+genuine absence of adjustments produces the same total on all paths, and an explicitly unsupported
+mode stays refused until its contract is implemented.
 
-Pour chaque perte d'option ou de lecture, conserver la variante fautive, l'échec de l'assertion
-sur le résultat observable et le succès restauré. Une comparaison de fonctions ou du texte du
-mappeur n'établit pas l'équivalence des écritures ni des documents.
+For each lost option or read, keep the faulty variant, the assertion failure on the observable
+result and the restored success. A comparison of functions or of the mapper text does not
+establish the equivalence of the writes or of the documents.
 
-## Protocole de comparaison
+## Comparison protocol
 
-Figer les critères avant exécution. Donner à deux contextes frais des copies identiques de
-`shop-api`, la consigne et la fixture sans les réponses attendues. Charger les versions base
-et candidate de `codebase-design/SKILL.md` et `references/dependencies.md`, liées dans les
-résultats. Utiliser une base SQL locale dédiée pour la preuve de persistance ; aucun système
-partagé. Conserver empreintes des instructions, scénario et fixture, modèle, hôte, commandes,
-sorties, données persistées et témoins restaurés. Distinguer décisions et réparations exécutées.
-Un gain exige un échec observé sans les ajouts et un succès avec eux ; ni format ni inspection
-seuls ne le démontrent. Aucune publication n'est autorisée.
+Freeze the criteria before execution. Give two fresh contexts identical copies of `shop-api`, the
+prompt and the fixture without the expected answers. Load the base and candidate versions of
+`codebase-design/SKILL.md` and `references/dependencies.md`, linked in the results. Use a
+dedicated local SQL database for the persistence proof; no shared system. Keep the fingerprints of
+the instructions, scenario and fixture, model, host, commands, outputs, persisted data and
+restored controls. Distinguish decisions from executed repairs. A gain requires an observed
+failure without the additions and a success with them; neither format nor inspection alone
+demonstrates it. No publication is authorized.

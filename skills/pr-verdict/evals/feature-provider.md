@@ -1,51 +1,51 @@
-# Interrupteur : fournisseur livré et ouverture réelle
+# Switch: shipped provider and real opening
 
-Mini-dépôt fictif `shop-api` à construire en copies jetables. Les environnements et la PR sont
-fictifs ; aucune forge ni configuration personnelle d'agent n'est utilisée.
+Fictional `shop-api` mini-repository to build in disposable copies. The environments and the PR
+are fictional; no forge or personal agent configuration is used.
 
-## Consigne et fixture
+## Prompt and fixture
 
-Consigne : « /pr-verdict sur la PR fictive des remboursements de `shop-api`, en lecture seule
-et sans publication. Vérifiez que l'opération est utilisable dans les environnements prévus. »
+Prompt: "/pr-verdict on the fictional `shop-api` refunds PR, read-only and without publication.
+Verify that the operation is usable in the intended environments."
 
-1. L'opération refuse lorsque `flags.getBoolean('refunds.enabled', false)` est faux. Seuls ses
-   tests installent un fournisseur simulé ouvert ; les tests sont verts. Le module réellement
-   livré et l'amorçage n'enregistrent aucun fournisseur et toutes les exécutions restent fermées.
-2. Le contrat de la fixture exige une ouverture hors production, en développement et en test,
-   et une fermeture en production en attendant le service dédié. Le dépôt contient un
-   `BootstrapFlagProvider` prévu à cet effet, mais non branché. Cette politique ne s'applique
-   qu'à l'exercice ; aucune ouverture globale ne doit être déduite pour un autre dépôt.
-3. Fournir une commande d'intégration chargeant le vrai module et son amorçage avec configuration
-   isolée par environnement, sans fournisseur simulé. Un compteur persistant permet d'observer
-   qu'un remboursement démarre, plutôt que seulement la valeur retournée par le flag.
-4. Une copie de contrôle branche le fournisseur d'amorçage existant selon ce contrat. Le reviewer
-   peut exécuter les commandes des deux copies sans les modifier ; aucun service distant requis.
+1. The operation refuses when `flags.getBoolean('refunds.enabled', false)` is false. Only its
+   tests install a simulated open provider; the tests are green. The module actually shipped and
+   the bootstrap register no provider and all executions stay closed.
+2. The fixture's contract requires opening outside production, in development and test, and
+   closing in production until the dedicated service exists. The repository contains a
+   `BootstrapFlagProvider` intended for this, but not wired. This policy applies only to the
+   exercise; no global opening may be inferred for another repository.
+3. Provide an integration command loading the real module and its bootstrap with per-environment
+   isolated configuration, without a simulated provider. A persistent counter makes it possible
+   to observe that a refund starts, rather than only the value returned by the flag.
+4. A control copy wires the existing bootstrap provider per this contract. The reviewer can run
+   the commands of both copies without modifying them; no remote service required.
 
-## Acceptation et contrôles admis
+## Acceptance and admitted controls
 
-Tracer l'enregistrement depuis l'amorçage livré jusqu'à l'opération. Identifier que le fournisseur
-simulé masque l'absence du fournisseur réel. Sur la copie fautive, le test sans simulation doit
-échouer par son assertion d'ouverture ; la seule réussite du test avec fournisseur simulé ne
-prouve pas la disponibilité. Le rapport signale explicitement le défaut fermé sans fournisseur
-et la preuve manquante dans la description de PR proposée, sans publier ni réparer le candidat.
+Trace the registration from the shipped bootstrap to the operation. Identify that the simulated
+provider masks the absence of the real provider. On the faulty copy, the test without simulation
+must fail by its opening assertion; the sole success of the test with a simulated provider does
+not prove availability. The report explicitly flags the closed default without a provider and the
+missing proof in the proposed PR description, without publishing or repairing the candidate.
 
-Sur la copie corrigée fournie, charger le vrai module sans fournisseur de test : en développement
-et en test, l'opération démarre et sa progression est observée ; en production, le refus prévu
-persiste et aucun remboursement ne commence. Retenir les commandes, environnement et résultats.
-Un interrupteur livré avec un fournisseur distant déjà conforme est aussi admissible sous son
-contrat ; un substitut seul ne qualifie pas ce protocole distant. Ne pas imposer un second fournisseur.
+On the supplied corrected copy, load the real module without a test provider: in development and
+test, the operation starts and its progress is observed; in production, the expected refusal
+persists and no refund begins. Keep the commands, environment and results. A switch shipped with
+an already compliant remote provider is also admissible under its contract; a substitute alone
+does not qualify this remote protocol. Do not require a second provider.
 
-Contrôles admis : production volontairement fermée, fournisseur réel déjà enregistré et contrat
-prévoyant explicitement le report de disponibilité. Ne pas ouvrir tous les environnements pour
-faire passer le test. Distinguer défaut démontré, preuve absente et décision de déploiement.
+Admitted controls: deliberately closed production, real provider already registered and contract
+explicitly providing for deferred availability. Do not open all environments to make the test
+pass. Distinguish demonstrated defect, missing proof and deployment decision.
 
-## Protocole de comparaison
+## Comparison protocol
 
-Figer critères et contrôles. Deux contextes frais reçoivent les mêmes copies et la consigne sans
-les réponses attendues. Charger la version correspondante de `pr-verdict/SKILL.md` et ses
-références routées, en particulier `behavior-evidence.md`, selon les empreintes du fichier de
-résultats. Le scénario autorise un verdict local sur des faits fictifs, aucune écriture externe.
-Conserver empreintes des fixtures, instructions et scénario, modèle, hôte, configuration, commandes,
-sorties, assertion fautive et contrôle corrigé. Comparer les constats et observations réelles ;
-seul un échec observé sans les ajouts et un succès avec eux établissent un gain. Un scénario
-écrit ou un test avec fournisseur simulé n'est pas cette comparaison.
+Freeze criteria and controls. Two fresh contexts receive the same copies and the prompt without
+the expected answers. Load the corresponding version of `pr-verdict/SKILL.md` and its routed
+references, in particular `behavior-evidence.md`, per the fingerprints in the results file. The
+scenario authorizes a local verdict on fictional facts, no external write. Keep fingerprints of
+the fixtures, instructions and scenario, model, host, configuration, commands, outputs, faulty
+assertion and corrected control. Compare findings and real observations; only an observed failure
+without the additions and a success with them establish a gain. A written scenario or a test with
+a simulated provider is not this comparison.

@@ -30,10 +30,10 @@ Before consolidating modules, identify which decisions would otherwise spread ac
 Keep parsing, orchestration, policy and mutation separately understandable unless their combination
 is trivial. Prefer specific APIs and domain values over general operation selectors.
 
-Avant un chemin en lot, aperçu, export ou rejeu, inventorier les lectures et écritures du chemin
-existant. Partager les mappeurs et lectures portant le même comportement ; refuser explicitement
-une variante non portée plutôt que la transformer par défaut. Comparer les chemins par variante,
-dont aperçu et document produit sur les mêmes données.
+Before adding a batch, preview, export or replay path, inventory the reads and writes of the
+existing path. Share the mappers and reads carrying the same behavior; explicitly refuse an
+unsupported variant rather than transforming it by default. Compare paths per variant, including a
+preview and a produced document over the same data.
 
 When moving a test surface, inventory its successful and failing behaviors before replacing tests.
 Retire an old check only when its required coverage is retained or an authorized contract change
@@ -41,13 +41,13 @@ explicitly removes the requirement. Never infer equivalence from the new suite p
 
 ## Persistent contracts
 
-Avant d'ajouter une table, une route ou une lecture, inventorier les règles voisines sur les
-mêmes données : permission du propriétaire, immuabilité, effacement et bornes de lecture.
-Réutiliser leurs règles canoniques ; justifier toute différence par le contrat applicable.
+Before adding a table, route or read, inventory the neighboring rules on the same data: owner
+permission, immutability, erasure and read bounds. Reuse their canonical rules; justify any
+difference by the applicable contract.
 
-Si un mode justifie de relâcher une contrainte, enregistrer ce mode et lui borner l'exception ;
-les autres modes gardent leurs exigences. Tester les cas admis et refusés de chaque mode sur
-la vraie base, y compris les données historiques de la migration.
+If a mode justifies relaxing a constraint, record that mode and bound the exception to it; other
+modes keep their requirements. Test the admitted and refused cases of each mode on the real
+database, including the migration's historical data.
 
 For a shared `sum <= capacity` invariant, lock the capacity-owning row, reread the sum and write
 within the same transaction. Every path changing the sum or capacity follows that protocol;
@@ -86,8 +86,8 @@ authorized command. Attributes describing historical facts freeze at first use: 
 first use share the same lock, while replaying the unchanged label remains allowed.
 
 For a filed document, persist and read the exact deposited version, never a mutable latest alias.
-Restituer ses ventilations depuis les données figées à l'émission ou une lecture à cette date ;
-si un recalcul est nécessaire, comparer chaque ligne à ces données, pas seulement le total.
+Return its breakdowns from the data frozen at issue or a read as of that date; if a recomputation
+is needed, compare each line to that data, not only the total.
 Verify sealing before finalization and preserve that version's retention and availability. Missing
 versions or failed integrity checks refuse without fallback; deposit-to-record failure needs
 explicit recovery or cleanup. Handle historical documents in the schema migration rather than
@@ -104,19 +104,19 @@ signed content invalidates it, and removal leaves no dangling reference or undec
 
 ## Related lifecycles and reservations
 
-Une opération en plusieurs étapes suit : contrôles, réservation atomique, effet idempotent,
-transition. Protéger les contrôles mutables jusqu'à l'écriture ; un refus ne laisse aucune
-réservation bloquante. Un rejeu reprend les suites inachevées sans répéter les effets acquis.
-Compter le « déjà fait » par clé métier, même si un identifiant technique change ; recalculer
-le montant partagé après chaque écriture d'une boucle. Un statut lié se dérive de l'état de
-l'objet référencé, y compris après annulation.
+A multi-step operation follows: checks, atomic reservation, idempotent effect, transition. Protect
+mutable checks until the write; a refusal leaves no blocking reservation. A replay resumes
+unfinished follow-ups without repeating acquired effects. Count what is already done by business
+key, even if a technical identifier changes; recompute the shared amount after each write in a
+loop. A linked status derives from the state of the referenced object, including after
+cancellation.
 
-Une projection automatique ne justifie pas de refuser la décision humaine prioritaire prévue
-au contrat. Réaffecter les projections selon leur ordre établi, en préservant les engagements
-explicites, notamment par plan ; distinguer ces origines dans le modèle et les tests.
+An automatic projection does not justify refusing the prioritized human decision provided by the
+contract. Reassign projections in their established order, preserving explicit commitments,
+notably by plan; distinguish these origins in the model and tests.
 
-Revérifier une règle temporelle à chaque étape produisant ou transmettant sa valeur, avec
-l'horloge de cette étape ; une confirmation antérieure ne valide pas un export ultérieur.
+Recheck a temporal rule at each step producing or transmitting its value, with that step's clock;
+an earlier confirmation does not validate a later export.
 
 Enforce form rules on the server and downstream preconditions at the step producing the promised
 state, with shared stable business codes. Explicitly incomplete drafts remain allowed under their
@@ -147,21 +147,20 @@ slow write, and contention exceeding pool size without exhausting it through hel
 
 ## Collection APIs and identity
 
-Une lecture exige la permission du propriétaire de la donnée, même depuis la route d'un autre
-module. Référencer les personnes plutôt que recopier leurs noms ; résoudre les libellés à la
-lecture pour suivre renommage et effacement selon le contrat. Borner aussi les appels sur une
-collection fournie par l'appelant : privilégier le bulk, sinon une concurrence explicitement
-limitée, sans `Promise.all` sur une collection non bornée.
+A read requires the permission of the data's owner, even from another module's route. Reference
+people rather than copying their names; resolve labels at read time to follow renaming and erasure
+per the contract. Also bound calls over a caller-supplied collection: prefer bulk, otherwise
+explicitly limited concurrency, without `Promise.all` over an unbounded collection.
 
 Every new creation endpoint needs an idempotence contract or an explicit justification for its
 absence. For keyed creation, define key scope and lifetime, protect uniqueness in the database and
 commit the request identity and replayable response atomically with the effect. In `shop-api`,
 `POST /orders` with `Idempotency-Key` replays the response for the same key and body; the same key
 with a different body returns a named `422` refusal. Concurrent duplicates must produce one row.
-Utiliser le mécanisme commun pour restituer le statut et le corps d'origine : l'index unique
-seul ne doit pas transformer le rejeu en `409`. Prévoir la reprise après interruption à la
-création, sans réponse stockée contenant des données personnelles. Comparer les charges
-par condensat canonique indépendant de l'ordre des clés à chaque point de comparaison.
+Use the common mechanism to return the original status and body: the unique index alone must not
+turn a replay into a `409`. Provide recovery after an interruption during creation, without a
+stored response containing personal data. Compare payloads by a canonical hash independent of key
+order at every comparison point.
 
 Every new exposed API list is bounded by default, with documented default and maximum limits and
 named behavior above the maximum. Default to cursor pagination with stable ordering ending in a

@@ -27,10 +27,10 @@ declared prerequisites and verify reachability once they hold. A guard making th
 workflow impossible is a blocker: name its location, failure sequence and a lift criterion
 exercising the enclosing screen in that state.
 
-Livrer un interrupteur avec son fournisseur réel ou l'amorçage prévu par le dépôt. Charger le
-module sans fournisseur simulé et prouver l'ouverture dans l'environnement où l'opération doit
-servir ; respecter la politique des autres environnements. Signaler dans la PR un défaut fermé
-sans fournisseur : un test qui injecte seul un fournisseur ne prouve pas cette disponibilité.
+Ship a switch with its real provider or the bootstrap the repository provides. Load the module
+without a simulated provider and prove it opens in the environment where the operation must serve;
+respect the policy of other environments. Report in the PR a closed default without a provider: a
+test that alone injects a provider does not prove this availability.
 
 ## Evidence attribution and reuse
 
