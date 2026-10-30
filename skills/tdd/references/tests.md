@@ -66,6 +66,11 @@ variant, assertion failure and restored result. Setup errors and crashes do not 
 
 ## Controlled time
 
+Run every proposed or default value through the validator that will receive it, notably public
+holidays and closure eves. Advance the clock between confirmation and transmission to verify the
+new date check. Reuse the neighboring module's canonical rule and exercise each member of its
+reference lists, without rewriting a weaker validation.
+
 Search date literals in added or changed tests. A literal may anchor a frozen clock or an
 independent calendar case; it must not silently mean "future" relative to the machine clock.
 Inject or freeze time in the system under test, not only in the assertion. Derive dates relative
@@ -105,7 +110,19 @@ stable traversal without duplicate or omitted IDs on unchanged data, terminal pa
 above-maximum behavior. For UI identity, include two elements with the same type and null or empty
 expiry; exercise independent selection or update so a colliding key cannot pass as a harmless render.
 
+For creation replay, verify the same status and body through the common mechanism, including
+after an interruption and with a different key order, then the `422` refusal for genuinely changed
+content. Also read the persisted state: a single creation and no personal data in the stored
+response; a uniqueness conflict is not the replayed response.
+
 ## Database refusals
+
+For a multi-step operation, synchronize a concurrent cancellation between each step: checks,
+reservation, effect, transition. Verify persisted state and effects, refusal without a blocking
+reservation, then recovery after partial failure without duplicate or omitted follow-up. Change the
+technical identifier without changing the business key; verify the total already done, the
+remainder after each loop write and the derived status after cancelling the linked object. Apply
+the oracle sensitivity above: an unexpected conflict is not the failure of the targeted assertion.
 
 For aggregate caps, use separate real-database connections and synchronize requests to overlap
 inside the decision/write window. In `event-api`, three concurrent requests for 20 seats against
@@ -175,6 +192,8 @@ that alone protects the forbidden result.
 For redaction and sensitive persistence, assert exact stored values, including absent or cleared
 personal fields; a partial object match accepts extra sensitive fields. Read the persisted body
 separately from the response so response cleanup cannot conceal an unredacted stored copy.
+For logs, capture the emitted output and assert the absence of each removed datum, including in
+error diagnostics; checking only the fields present is not enough.
 
 ## Failures that invalidate the evidence
 

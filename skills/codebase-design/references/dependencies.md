@@ -30,11 +30,24 @@ Before consolidating modules, identify which decisions would otherwise spread ac
 Keep parsing, orchestration, policy and mutation separately understandable unless their combination
 is trivial. Prefer specific APIs and domain values over general operation selectors.
 
+Before adding a batch, preview, export or replay path, inventory the reads and writes of the
+existing path. Share the mappers and reads carrying the same behavior; explicitly refuse an
+unsupported variant rather than transforming it by default. Compare paths per variant, including a
+preview and a produced document over the same data.
+
 When moving a test surface, inventory its successful and failing behaviors before replacing tests.
 Retire an old check only when its required coverage is retained or an authorized contract change
 explicitly removes the requirement. Never infer equivalence from the new suite passing alone.
 
 ## Persistent contracts
+
+Before adding a table, route or read, inventory the neighboring rules on the same data: owner
+permission, immutability, erasure and read bounds. Reuse their canonical rules; justify any
+difference by the applicable contract.
+
+If a mode justifies relaxing a constraint, record that mode and bound the exception to it; other
+modes keep their requirements. Test the admitted and refused cases of each mode on the real
+database, including the migration's historical data.
 
 For a shared `sum <= capacity` invariant, lock the capacity-owning row, reread the sum and write
 within the same transaction. Every path changing the sum or capacity follows that protocol;
@@ -73,6 +86,8 @@ authorized command. Attributes describing historical facts freeze at first use: 
 first use share the same lock, while replaying the unchanged label remains allowed.
 
 For a filed document, persist and read the exact deposited version, never a mutable latest alias.
+Return its breakdowns from the data frozen at issue or a read as of that date; if a recomputation
+is needed, compare each line to that data, not only the total.
 Verify sealing before finalization and preserve that version's retention and availability. Missing
 versions or failed integrity checks refuse without fallback; deposit-to-record failure needs
 explicit recovery or cleanup. Handle historical documents in the schema migration rather than
@@ -88,6 +103,20 @@ content change and referenced removal: unchanged content keeps its ID and curren
 signed content invalidates it, and removal leaves no dangling reference or undecided cascade.
 
 ## Related lifecycles and reservations
+
+A multi-step operation follows: checks, atomic reservation, idempotent effect, transition. Protect
+mutable checks until the write; a refusal leaves no blocking reservation. A replay resumes
+unfinished follow-ups without repeating acquired effects. Count what is already done by business
+key, even if a technical identifier changes; recompute the shared amount after each write in a
+loop. A linked status derives from the state of the referenced object, including after
+cancellation.
+
+An automatic projection does not justify refusing the prioritized human decision provided by the
+contract. Reassign projections in their established order, preserving explicit commitments,
+notably by plan; distinguish these origins in the model and tests.
+
+Recheck a temporal rule at each step producing or transmitting its value, with that step's clock;
+an earlier confirmation does not validate a later export.
 
 Enforce form rules on the server and downstream preconditions at the step producing the promised
 state, with shared stable business codes. Explicitly incomplete drafts remain allowed under their
@@ -118,11 +147,20 @@ slow write, and contention exceeding pool size without exhausting it through hel
 
 ## Collection APIs and identity
 
+A read requires the permission of the data's owner, even from another module's route. Reference
+people rather than copying their names; resolve labels at read time to follow renaming and erasure
+per the contract. Also bound calls over a caller-supplied collection: prefer bulk, otherwise
+explicitly limited concurrency, without `Promise.all` over an unbounded collection.
+
 Every new creation endpoint needs an idempotence contract or an explicit justification for its
 absence. For keyed creation, define key scope and lifetime, protect uniqueness in the database and
 commit the request identity and replayable response atomically with the effect. In `shop-api`,
 `POST /orders` with `Idempotency-Key` replays the response for the same key and body; the same key
 with a different body returns a named `422` refusal. Concurrent duplicates must produce one row.
+Use the common mechanism to return the original status and body: the unique index alone must not
+turn a replay into a `409`. Provide recovery after an interruption during creation, without a
+stored response containing personal data. Compare payloads by a canonical hash independent of key
+order at every comparison point.
 
 Every new exposed API list is bounded by default, with documented default and maximum limits and
 named behavior above the maximum. Default to cursor pagination with stable ordering ending in a

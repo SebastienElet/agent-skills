@@ -27,6 +27,11 @@ declared prerequisites and verify reachability once they hold. A guard making th
 workflow impossible is a blocker: name its location, failure sequence and a lift criterion
 exercising the enclosing screen in that state.
 
+Ship a switch with its real provider or the bootstrap the repository provides. Load the module
+without a simulated provider and prove it opens in the environment where the operation must serve;
+respect the policy of other environments. Report in the PR a closed default without a provider: a
+test that alone injects a provider does not prove this availability.
+
 ## Evidence attribution and reuse
 
 Then attribute each piece of evidence: measured
