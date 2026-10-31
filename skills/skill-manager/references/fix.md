@@ -17,6 +17,8 @@ Without either input, refuse automatic editing and ask what behavior should chan
 3. Run doctor and record the complete baseline unless a current cross-check report is the sole
    input.
 4. For an evolution, record the requested behavioral contract in one testable sentence.
+   For an observed failure, reproduce it on the current text, name its form and try the smallest
+   matching correction from `simplify.md` step 2 before adding a prohibition or splitting the skill.
 5. Present the findings or contract before writing.
 6. Apply only the corrections or behavior the input authorizes, in the order below.
 7. Run relevant eval scenarios, then doctor on the target.
@@ -72,8 +74,11 @@ README only after the target passes doctor.
 Every baseline PASS must remain PASS. If a check regresses, restore only the edit that caused it
 with `apply_patch`, investigate, and rerun doctor; never use `git reset` to hide unrelated work.
 
-An evolution succeeds only when its recorded contract is demonstrated and unrelated behavior is
-unchanged. A formatting-only diff is not evidence of functional success.
+Compare the variant and current text on identical tasks with criteria set before measuring,
+including refusals, important exceptions and permissions. An evolution succeeds only when its
+recorded contract is demonstrated and unrelated behavior is unchanged. For a reproduced defect,
+retain the variant only if it corrects that defect; withdraw neutral or regressive proposals and
+report the withdrawal. Shorter text or a different form alone is not evidence of functional success.
 
 ## Checklist
 
