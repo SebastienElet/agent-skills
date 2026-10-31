@@ -5,6 +5,9 @@ description: >
   or a test is intermittent. Make sure to use this skill whenever a fix depends on understanding
   an unexpected failure, even if the user suggests a cause.
 license: MIT
+compatibility: >
+  Performance diagnosis requires the `pr-verdict` skill from the same package version for
+  `pr-verdict/references/performance-evidence.md`; report the reference unavailable if absent.
 metadata:
   category: dev
 ---
@@ -36,6 +39,7 @@ through `implement` without a new user go-ahead.
    compensating for assumed external behavior. Redact secrets from every shared command or artifact.
 2. Find the cheapest existing or native feedback loop: a failing test, public CLI invocation,
    HTTP request, browser interaction, trace replay or profiler. State the exact symptom it detects.
+   For performance symptoms, select the mode through step 5's reference before executing a probe.
    Execute it and retain the command, result and environment. A process exiting successfully is
    insufficient when the symptom is a wrong value, missing side effect or slow operation.
 3. If the reproducing environment is unavailable, continue source inspection and prepare the
@@ -45,8 +49,10 @@ through `implement` without a new user go-ahead.
    the symptom. For intermittent failures, pin the controllable conditions and record reproduction
    frequency. Do not convert an intermittent bug into a passing check with retries or skips.
 5. Rank plausible hypotheses with a prediction for each. Test one variable at a time, using a
-   debugger, focused temporary instrumentation or bisection. For performance, measure a baseline
-   and compare the same workload. Keep instrumentation bounded and remove it after diagnosis.
+   debugger, focused temporary instrumentation or bisection. For performance symptoms only, read
+   `pr-verdict/references/performance-evidence.md` from the required `pr-verdict` skill for measurement
+   validity, existing captures and authorized campaigns. Reading this reference does not invoke
+   `pr-verdict`. Keep instrumentation bounded and remove it after diagnosis.
 6. Once execution confirms the cause, return the evidence when the scope is diagnosis-only or
    `bug-fix` owns the continuation. Otherwise, for an authorized repair, use `tdd` to turn the
    reproduction into the smallest regression test at the boundary owning the failure. If a

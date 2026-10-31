@@ -453,8 +453,9 @@ regression nor a gain.
 **Lift:** bind observations to named base/head revisions, exact text or executable inputs, pinned
 dependencies, recorded host/model/runtime and environment, identical scenarios or workload, metric
 and a criterion declared before measuring. For instructions, execute violating and safe cases in
-fresh contexts with each wording. For performance, preserve equivalent facts and workload, account
-for noise and order effects, and keep inconclusive results `unproven`. Reuse traceable relevant
+fresh contexts with each wording. For performance, follow [performance evidence](performance-evidence.md)
+for measurement validity, reporting, existing captures and authorized campaigns. Keep inconclusive
+results `unproven`. Reuse traceable relevant
 measurements under phase 4; a single favorable sample proves no uplift.
 
 Compare before adopting a rewritten instruction. Before merge, remove or bound an unsupported
