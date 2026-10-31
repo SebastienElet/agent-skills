@@ -52,9 +52,19 @@ Doctor requires:
 
 ## Running scenarios
 
-Use fresh agent context so prior conclusions do not leak into the result. Give the agent the
-repository and prompt, not the expected answer. Record whether the skill activated and whether its
-procedure governed the response.
+1. Use fresh agent context. For multi-turn scenarios, replay the same prepared conversation before
+   the critical request for each variant, comparing the relevant PR's pinned base and head.
+2. Use neutral directories and labels. Give the candidate the repository and realistic request,
+   without the expected answer, judge-only rubric or knowledge of other variants. Have the same
+   judge score all variants blind to their identity on the same scale; never ask candidates to
+   recite which skills they applied.
+3. Report skill loading separately from procedure application, evidenced by actions, files opened
+   and result shape. A loaded but unapplied skill fails application; an invocation or self-report
+   alone never establishes success.
+4. Report transport failures (CLI errors, timeouts or lost output) separately: they are neither
+   skill successes nor skill failures.
+5. Execute through `@sebastienelet/agent-experiments` only after its public interface is qualified
+   for this protocol. Otherwise report **not executed**, with no invented rates.
 
 An eval file remains optional. Create one when activation behavior is critical or a description is
 being changed for routing reasons.
