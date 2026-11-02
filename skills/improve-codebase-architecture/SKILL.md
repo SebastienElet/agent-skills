@@ -5,6 +5,9 @@ description: >
   explicitly invokes `$improve-codebase-architecture` or `/improve-codebase-architecture`; never
   select it implicitly for routine edits, local review or an implementation request.
 license: MIT
+compatibility: >
+  Requires `codebase-design` from the same package version for the survey and `grilling` for the
+  selected candidate's interview. `codebase-design` requires the same-version `pr-verdict` catalogue.
 disable-model-invocation: true
 metadata:
   category: dev
@@ -34,9 +37,10 @@ established authorization.
 1. Locate the requested area and its consumers. Without a named area, inspect recent history and
    choose a bounded part that repeatedly changes; state that scope before scanning. Read the
    domain glossary and relevant ADRs before drawing conclusions about the architecture.
-2. Consult `codebase-design` for depth, cohesion, locality and test boundaries. Retain canonical
-   domain names and architectural constraints. Do not diagnose a useless module from one adapter,
-   one caller or a line-count ratio alone.
+2. Consult `codebase-design` for depth, cohesion, locality and test boundaries. If it or a required
+   catalogue reference is unavailable, report the missing capability and limit the survey accordingly;
+   do not claim that guidance was applied. Retain canonical domain names and architectural
+   constraints. Do not diagnose a useless module from one adapter, one caller or a line-count ratio alone.
 3. Inspect the located flow and record concrete friction: scattered decisions, leaking internals,
    duplicated policy, excessive caller knowledge or a test boundary unable to exercise the real
    failure. Use a fresh reader for bounded synthesis when available; pass known source locations
@@ -52,7 +56,8 @@ established authorization.
    that limitation; do not claim the rendering was checked.
 6. Ask which candidate the user wants to explore. After the user selects one, invoke `grilling`
    for its constraints, alternatives, domain decisions and test boundaries. Report settled choices
-   and remaining blockers without automatically changing the code, glossary or ADRs.
+   and remaining blockers without automatically changing the code, glossary or ADRs. If `grilling`
+   is unavailable, report that the interview cannot proceed; do not claim it was conducted.
 7. Hand off the selected outcome to the user's requested next workflow. `code-simplify` owns an
    authorized behavior-preserving cleanup; `issue-spec` synthesizes the decisions when the user
    requests a specification. Choosing a candidate alone authorizes neither synthesis nor implementation.

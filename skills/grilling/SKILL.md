@@ -30,6 +30,8 @@ decisions on its selected ticket before development. A user-invoked `improve-cod
 may also compose it after the user selects a candidate. These compositions permit interviewing and source research only;
 it does not authorize implementation, persistent documentation or issue publication. The caller
 restriction is instruction-level; model invocation remains available for the authorized composition.
+Direct invocation needs no caller skill. For a composition, the caller supplies its own scope and
+prerequisites; an unavailable caller cannot be treated as having completed its part of the workflow.
 
 ## Steps
 
