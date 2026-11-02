@@ -84,8 +84,9 @@ missing decision as an open question. An undecided demo-data purge policy author
 A table made immutable, or holding a `RESTRICT` reference to an object that a deletion routine the
 contract already requires (demo purge, personal-data erasure, account deletion) removes, ships its
 deletion path in the same change. Test it: create a row in the table, then run the routine. Keep an
-automatic guard comparing the catalog's foreign keys onto purged tables with the routine's list, and
-bind any bypass setting to the routine's transaction, activatable by that routine only.
+automatic guard comparing the catalog's foreign keys onto purged tables with the routine's list. The
+bypass takes its authority from a role the application role cannot assume, not from a settable flag;
+see `postgresql-engineering` schema integrity.
 Publication refuses protected items without lifting their holds; lifting a hold is a separate
 authorized command. Attributes describing historical facts freeze at first use: a rename and
 first use share the same lock, while replaying the unchanged label remains allowed.

@@ -7,7 +7,7 @@ context was launched for this evaluation; no mini-repository was built or execut
 candidate success, negative control or activation rate is observed. The criterion "fails without
 the instruction and passes with it" remains unproven.
 
-Purge of an immutable table, catalog guard and transaction-bound bypass: these behaviors are specified in the scenario, not observed.
+Purge of an immutable table, catalog guard and role-based bypass authority: these behaviors are specified in the scenario, not observed.
 
 The author checked the additions against the existing rules and the supplied text of the
 lesson. This inspection does not demonstrate a change in agent behavior. The repository checks
@@ -22,8 +22,8 @@ bytes by SHA-256, without claiming their execution. Paths relative to `skills/`.
 | Input                                                   | Base SHA-256                                                       | Candidate SHA-256                                                  |
 | ------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | `postgresql-engineering/SKILL.md`                       | `1fec10cb5ae53d4f16b93cca313cf749927437ced0b81e14d4d2c27bcce02570` | `1fec10cb5ae53d4f16b93cca313cf749927437ced0b81e14d4d2c27bcce02570` |
-| `postgresql-engineering/references/schema-integrity.md` | `9fc04ee56a1a489e60e0e0ef2172aafd32403515e7454ea0d20ced0703c2bfae` | `fbca3f425e027821d2ad2268fc2abedccb287118a5915ae16e9fcbf1df55ca20` |
-| `postgresql-engineering/evals/deletion-path.md`         | New scenario identical for both sessions                           | `3f11f369d763577ae1a3ab40bbf4a7a7c6472fce86db82374428232e7b37cf1e` |
+| `postgresql-engineering/references/schema-integrity.md` | `9fc04ee56a1a489e60e0e0ef2172aafd32403515e7454ea0d20ced0703c2bfae` | `a518aa553d7212f22100b19cffebb0140dc69b8963e707033b5c6492d97715ad` |
+| `postgresql-engineering/evals/deletion-path.md`         | New scenario identical for both sessions                           | `e33151e5a4ac33e05028f4f2555335f35ab5f21f6e93b3fdcb712099a6071747` |
 
 The fingerprints cover the instructions and the scenario. No executable fixture exists yet; its
 fingerprint and those of the experimental trees must be kept at launch, with the commands,

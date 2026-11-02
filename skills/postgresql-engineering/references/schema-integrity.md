@@ -37,10 +37,12 @@ A delete-refusing trigger on an append-only table, or a foreign key without a ca
 (`RESTRICT`, or `NO ACTION`, the default), blocks any routine deleting its parent. Ship the
 deletion path with the table, and list the referencing tables in an automated check comparing
 `pg_constraint` foreign keys (`contype = 'f'`, `confdeltype` of `a` or `r`) onto the routine's
-tables with the routine's own list. Bind the bypass to the transaction (`SET LOCAL` or
-`set_config(..., true)`), not to a role or connection. A custom setting is settable by any session:
-let only the routine enable it, for example through a function owned by a privileged role, and test
-that the ordinary role cannot. Truncation needs its own statement-level guard.
+tables with the routine's own list. Take the bypass's authority from the identity the application
+role cannot assume: the trigger allows the delete only when `current_user` is a dedicated purge role,
+and the routine is a `SECURITY DEFINER` function owned by that role with a pinned `search_path`.
+A custom setting (`app.*`), even `SET LOCAL`, scopes lifetime, never authority: any session can set
+it, so no trigger may trust it alone. Test that the ordinary role, after setting that flag itself,
+still has its `DELETE` refused. Truncation needs its own statement-level guard.
 
 ## Types, JSONB and indexes
 

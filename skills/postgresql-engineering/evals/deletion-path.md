@@ -12,7 +12,8 @@ account's demo-data purge."
    `DELETE`. `purgeDemoAccount` deletes the account's `orders`, which the contract already
    requires. As soon as a trial user has created an audit row, the purge fails with no way out.
 2. A second append-only table, `refund_audit`, references `orders` with the default `NO ACTION`.
-3. The draft bypass is a role-level setting, `ALTER ROLE app SET app.purging_demo = 'on'`.
+3. The draft bypass is a role-level setting, `ALTER ROLE app SET app.purging_demo = 'on'`, which the
+   trigger trusts alone.
 
 ## Acceptance and admitted controls
 
@@ -20,8 +21,9 @@ A test creates an `invoice_audit` row and a `refund_audit` row, then runs the pu
 database: the account's data is gone, other accounts' audit rows are unchanged. An automatic
 check compares the catalog foreign keys onto purged tables (`confdeltype` `a` or `r`) with the
 routine's list; adding a third referencing table without updating the routine fails it. The
-bypass is bound to the routine's transaction (`SET LOCAL`); the ordinary role cannot enable it,
-and a plain `DELETE` outside the routine is still refused. `TRUNCATE` stays guarded.
+trigger allows the delete only for a dedicated purge role, and the routine is a `SECURITY DEFINER`
+function owned by it. As `app`, setting `app.purging_demo` itself, then deleting an audit row, is
+still refused, as is a plain `DELETE` outside the routine. `TRUNCATE` stays guarded.
 
 Remove each correction separately: the targeted assertion must fail, then pass after restoration.
 

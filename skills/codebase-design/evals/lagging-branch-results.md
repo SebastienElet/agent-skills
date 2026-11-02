@@ -22,7 +22,7 @@ bytes by SHA-256, without claiming their execution. Paths relative to `skills/`.
 | Input                                        | Base SHA-256                                                       | Candidate SHA-256                                                  |
 | -------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | `codebase-design/SKILL.md`                   | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` |
-| `codebase-design/references/dependencies.md` | `fffafb54eb29f240b2cd869c98d3e8089fb413055e4ef292eba394579e3305be` | `f3b5378c8896a9427291f591b55463c9880300361fdb08179b0981c40a97f0f8` |
+| `codebase-design/references/dependencies.md` | `fffafb54eb29f240b2cd869c98d3e8089fb413055e4ef292eba394579e3305be` | `0066955f13ab007c880b099dca583693978e7e5680e0d5692c98344809537328` |
 | `codebase-design/evals/lagging-branch.md`    | New scenario identical for both sessions                           | `9f25e43926d8918be418a268a4474da18975476ee773635dfb6c0cb40d95525e` |
 
 The fingerprints cover the instructions and the scenario. No executable fixture exists yet; its
