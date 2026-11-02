@@ -27,9 +27,9 @@ Follow the steps below when writing or changing a hook, a guard, a validator, a 
 lint rule or a CI gate — before opening the file, since step 1 often changes where the code belongs.
 
 Typical cases: "block `rm -rf` outside the repository" (step 1 moves the decision off the command
-string), "fail CI when a migration has no rollback" (steps 3 and 4 stop the gate from passing when
-the migration list comes back empty), "refuse a push without a signed commit" (step 5 enumerates the
-alias, the `--no-verify` and the second remote).
+string), "fail CI when a migration has no rollback" (steps 3 and 4 distinguish no migrations from
+failed discovery), "refuse a push without a signed commit" (step 5 enumerates the alias, the
+`--no-verify` and the second remote).
 
 ## Steps
 
@@ -51,22 +51,26 @@ alias, the `--no-verify` and the second remote).
    Test an exempt object subsequently repurposed for real effects: refuse the bypass without side
    effects, while permitted edits and ordinary objects retain their contract. Removing the lock or
    recheck must fail the refusal assertion. Name the exemption and its protection in the PR description.
-   For authorization, resolve the action's permission from the design in force; a general parent
-   edit permission cannot replace a dedicated action permission. With valid scope, test that the
-   parent-only subject is refused without writes and the action-authorized subject succeeds.
+   For authorization, resolve the action's permission from the design in force. If it requires a
+   dedicated action permission, a general parent edit permission cannot replace it. With valid
+   scope, test refusal without writes for a forbidden subject and success for an allowed subject.
+   When a dedicated permission is required, include a subject holding only the parent permission.
 2. **Check whether you can actually see it.** If the code only has a representation of the value — a
    shell command string, a diff, a log line, a commit message — the decision is a heuristic, not a
-   check. Say so in a comment and in the delivery note, and label that layer advisory. Do not let a
+   check. State this in the delivery note and label that layer advisory. Do not let a
    heuristic be the only barrier for a consequence you cannot undo.
-3. **Fail closed.** Missing runtime, unreadable input, parser exception, unresolved variable, empty
-   result: refuse, and name what was missing. A guard that exits 0 because it could not run is a
-   disabled guard, and it stays disabled silently for months.
+3. **Fail closed.** Missing runtime, unreadable input, parser exception, unresolved variable or
+   incomplete collection: refuse, and name what was missing. A complete empty result is valid only
+   when the contract permits it; distinguish it from failure to discover or examine required inputs.
+   Test the permitted empty case and failed or incomplete discovery where applicable.
+   A guard that exits 0 because it could not run is a disabled guard, and it stays disabled silently
+   for months.
    A no-warning result needs an enumerated required set and explicit outcomes for missing,
    unknown and null evidence; follow `codebase-design`'s evidence contract rather than treating
    an expired-only filter's empty output as verified compliance.
 4. **Keep the probe's failure visible.** No `2>/dev/null` on the command that decides whether the
-   guard can run, and no branch that turns an empty result into success. If the probe is allowed to
-   fail quietly, step 3 is unenforceable.
+   guard can run, and no branch that turns an incomplete or failed probe into success. If the probe
+   is allowed to fail quietly, step 3 is unenforceable.
 5. **Enumerate the bypasses before writing the fix.** List how the control can be satisfied or
    skipped: compound command, duplicate flags, a second invocation, an alias or a function, a
    missing interpreter, another host, a subshell, a renamed file. Keep the list in the commit body
@@ -106,8 +110,9 @@ alias, the `--no-verify` and the second remote).
    include needed exceptions in the same PR, and apply
    class 16, "A control trusts configuration from the PR it checks", in the `pr-verdict` skill's
    `pr-verdict/references/failure-classes.md`
-   for configuration trust. Use an explicit scope (`merge-base..HEAD` or the whole pushed range,
-   never only the last commit) and verbose output to distinguish a genuine pass from a false green.
+   for configuration trust. State the complete declared input scope: for history scans use
+   `merge-base..HEAD` or the whole pushed range, never only the last commit; for tree-scoped checks
+   cover the declared tree inputs. Use verbose output to distinguish a genuine pass from a false green.
    Trace the actual CI entry point and prove execution from its log or a controlled failing witness.
    A planning-only run, early success exit, duplicate script key or decoy step is not execution of
    the required guard. Use native parsing to reject ambiguous configuration where supported.
@@ -130,8 +135,8 @@ alias, the `--no-verify` and the second remote).
   check on any machine missing the tool — the exact machine that needs it most. Invert it: refuse
   when the tool is absent.
 - **A discovery step that finds nothing.** `git grep -E` does not support `\b`, so such a pattern
-  matches zero files without erroring, and the gate passes having read nothing. Guard the step
-  with a canary: a file you know must appear in its output.
+  matches zero files without erroring. Verify discovery independently, for example with a known
+  input where one must exist, while allowing a complete empty set when the contract permits it.
 - **Testing only the refusal you implemented.** The interesting test is the input you did not
   think of; that is what step 5 produces.
 - **A guard tested only by hand.** It passes on the author's machine, then rots. If the project has
