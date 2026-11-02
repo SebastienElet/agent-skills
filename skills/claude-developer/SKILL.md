@@ -34,8 +34,8 @@ Direct implementation requests without Claude stay with the current agent.
 3. Write one prompt with the outcome, verified worktree path and branch (or detached HEAD), relevant
    facts, constraints, acceptance criteria, allowed scope, expected verification, and delivery
    report. Tell Claude to inspect before editing, preserve unrelated changes, and surface conflicts.
-   Include the user's authorization limits; reserve consequential actions for the user unless
-   explicitly authorized.
+   Include still-applicable authorizations and restrictions from the conversation, their sources,
+   scope and any later revocations; reserve consequential actions unless explicitly authorized.
 4. Select the common entry from the authorized intent: `implement` for a feature, refactoring or
    configuration change; `bug-fix` for a bug repair. For ticket-backed implementation or bug repair
    outside an existing correction workflow, compose `issue-start` and `issue-workflow` only if their
@@ -73,8 +73,8 @@ Direct implementation requests without Claude stay with the current agent.
   result; intercept automatic Claude delegation as a manual handoff.
 - During preparation, never invoke Claude, an automation wrapper, or another implementation agent;
   never create a branch or checkout, edit files, or validate the implementation.
-- Never authorize commits, pushes, merges, deletion, publication, or permission bypasses unless the
-  user's current request explicitly permits them.
+- Never authorize commits, pushes, merges, deletion, publication, or permission bypasses without
+  an applicable explicit user authorization; respect its limits and any later revocation.
 - Produce at most one prompt per response and wait for the user before every subsequent iteration.
 - Never require an unrequested final Codex review, treat a prompted review as observed evidence,
   or bypass the user’s repair limits.
