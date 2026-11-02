@@ -1,0 +1,7 @@
+{
+  "baseline": "FAIL",
+  "candidate": "PASS",
+  "case": "lagging-branch",
+  "instruction_changed": true,
+  "observed_gain": true
+}

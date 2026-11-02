@@ -1,0 +1,7 @@
+{
+  "baseline": "FAIL",
+  "candidate": "PASS",
+  "case": "user-supplied-file",
+  "instruction_changed": true,
+  "observed_gain": true
+}

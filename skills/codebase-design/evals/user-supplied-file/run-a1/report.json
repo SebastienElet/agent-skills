@@ -1,0 +1,39 @@
+{
+  "schema": "repository-trial-v1",
+  "date": "2026-11-02T13:24:07Z",
+  "case": "user-supplied-file",
+  "case_hash": "23b7cd60e92facaac42fad84739a771b4c0b5b8eff88236681f62ebe74123d2a",
+  "instruction_hash": "e8d7dd93906999ae5eb1a4ee6735d60ccd42afe14f17e11dd5a8b7fd070e95e6",
+  "runner_hash": "a7fd03d7a8a500de461ef8fb03d20138e61aea06070d2183d00435e2bf70ba53",
+  "agent_version": "codex-cli 0.166.0",
+  "model": "gpt-6.1-terra",
+  "effort": "low",
+  "timeout_seconds": 600,
+  "tool_path": "/tmp/lessons106-tools:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin",
+  "network": true,
+  "docker_host": "tcp://127.0.0.1:32768",
+  "writable_git_metadata": false,
+  "environment": "macos-aarch64",
+  "status": "PASS",
+  "error": null,
+  "artifacts": {
+    "agent.jsonl": "3da1ccc59586e04e38cd5ff5bdb07e7a45fb0d5a0acdc578dd17ac5fe4e74916",
+    "case.json": "23b7cd60e92facaac42fad84739a771b4c0b5b8eff88236681f62ebe74123d2a",
+    "instructions.txt": "e8d7dd93906999ae5eb1a4ee6735d60ccd42afe14f17e11dd5a8b7fd070e95e6",
+    "oracle.log": "5772200bd1f7c3f4d873268b349c35541d2c7a1c64af0651828a9c4b476912af",
+    "result-modes.json": "e1347facc4b8483c23d4d2ca2207ba1eff387bb75efda921d3dafb68478d38d7",
+    "result.json": "559889328ac9feef5694c2db55f7cb5f638646d99409aadc87a0fa24e62cccfb",
+    "setup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "verified-modes.json": "80f34ac072e3f34199a41bd494888aac4bbbf1dd96fd1eabfe2da7e831bd9079",
+    "verified.json": "2ff8cb6de6e94d5bfdb2c64301cbb7da0e7e3d6ede9933d53637fa6a738c0edd"
+  },
+  "limitations": [
+    "Explicit instruction injection measures application, not automatic skill activation.",
+    "A trial is one observation, not statistical or causal evidence of model improvement.",
+    "Workspace-write is the Codex policy; no claim of adversarial isolation or tamper-proof evidence.",
+    "The caller owns trusted setup and oracle scripts. Only synthetic non-sensitive fixtures are supported.",
+    "Agent stdout is retained; stderr is not. Output is capped at 4 MiB per process; no token ceiling.",
+    "Snapshots retain UTF-8 files and Unix modes; Git metadata and node_modules are excluded. Binary files refuse retention.",
+    "Tool lookup paths do not pin tool versions; callers must retain their runtime inventory."
+  ]
+}
