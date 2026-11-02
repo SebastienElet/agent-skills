@@ -211,7 +211,7 @@ error diagnostics; checking only the fields present is not enough.
 ## Build output and runtime images
 
 A change of build, bundling or module-resolution tooling is proven on the artifact it produces:
-typecheck and tests read the source and cannot see what the tool emits. Compare the output before
+source typecheck and tests do not establish the emitted behavior. Compare the output before
 and after on the sensitive points: environment values inlined at build time (a production guard on
 `process.env.NODE_ENV` must survive in the artifact), the JSX runtime the tool selects and the
 import specifiers it emits. Set environment and JSX options explicitly in the build configuration
@@ -220,8 +220,8 @@ and refuse a build script that leaves them to inherited defaults.
 Build the production image, start it locally and send a real request through the whole path,
 including any bus or container resolving handlers by class. Copy every target of every export
 condition into the image. Give a class used as an identity token (bus, injection, `instanceof`)
-one import path only: two paths yield two copies of the class and a silent lookup miss. When CI
-never builds the image, record that as a proof limit.
+one import path only: two paths can resolve to distinct copies of the class and cause a silent
+lookup miss. When CI never builds the image, record that as a proof limit.
 
 ## Screens and time windows
 

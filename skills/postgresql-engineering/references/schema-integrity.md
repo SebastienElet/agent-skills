@@ -40,9 +40,9 @@ deletion path with the table, and list the referencing tables in an automated ch
 tables with the routine's own list. Take the bypass's authority from the identity the application
 role cannot assume: the trigger allows the delete only when `current_user` is a dedicated purge role,
 and the routine is a `SECURITY DEFINER` function owned by that role with a pinned `search_path`.
-A custom setting (`app.*`), even `SET LOCAL`, scopes lifetime, never authority: any session can set
-it, so no trigger may trust it alone. Test that the ordinary role, after setting that flag itself,
-still has its `DELETE` refused. Truncation needs its own statement-level guard.
+An unregistered custom setting (`app.*`) can be set by an ordinary session; `SET LOCAL` scopes
+its lifetime, not its authority, so no trigger may trust it alone. Test that the ordinary role,
+after setting that flag itself, still has its `DELETE` refused. Truncation needs its own statement-level guard.
 
 ## Types, JSONB and indexes
 
