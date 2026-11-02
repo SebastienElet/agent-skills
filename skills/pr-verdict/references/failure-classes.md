@@ -597,6 +597,9 @@ A transpiling test runner does not establish type correctness. Require the separ
 typecheck on the composed tree, including contract-consuming fixtures and port implementations;
 shared typed factories and test ports avoid dispersed stale copies. Class 13 still requires actual
 export comparison for a claimed unchanged public contract; typecheck is not a substitute.
+Replay also the checks that a commit hook or PR CI skips, such as the typecheck of test directories
+and the convention linters of the full local gate. A change of build or module-resolution tooling is
+proven on the produced artifact and a started image, per `tdd` build-output guidance.
 Before production exposure of widened file types, quotas or origins, require a pre-production
 exercise naming environment and result. Missing access is a proof limit, not an invented success.
 
