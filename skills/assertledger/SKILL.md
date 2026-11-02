@@ -5,7 +5,7 @@ description: >
   Excludes Rust, ordinary Bun/TS and declarative changes. Use when `bug-fix` reaches stable
   RED/GREEN revisions or qualification or replay is requested. Make sure to use this skill
   for those cases even if unnamed. Excludes routine TDD, coverage and general review.
-compatibility: Requires AssertLedger CLI, Git, and Node.js 22.15 or newer; container execution also requires a Linux Docker-compatible daemon and a locally available digest-pinned image.
+compatibility: Requires the assertledger npm package CLI 1.4.0, Git, and Node.js 22.15 or newer; container execution also requires a Linux Docker-compatible daemon and a locally available digest-pinned image.
 metadata:
   category: dev
 ---
@@ -31,14 +31,19 @@ itself changes. AssertLedger runs once from `bug-fix` after RED/GREEN and stable
 revisions, or on a direct qualification or replay request. Routine `tdd` and `implement` do not
 start another campaign.
 
-Obtain the compatible CLI through the host's declared tool installation;
-the skill itself needs no dotfiles checkout at runtime. If the CLI is missing, report that prerequisite
-instead of installing a package or modifying project configuration implicitly.
+The documented distribution is the npm package [`assertledger@1.4.0`](https://www.npmjs.com/package/assertledger/v/1.4.0),
+which provides the `assertledger` CLI. Obtain it through the host's declared tool installation;
+the skill itself needs no dotfiles checkout at runtime. Do not use `npx` to fetch it implicitly.
 
 ## Steps
 
-1. For an existing manifest, go directly to replay and reporting in steps 5–6 without starting
-   a campaign or requiring new campaign inputs. Otherwise run `assertledger --version` and
+1. Before any campaign or replay, run `assertledger --version` using the same executable intended
+   for the operation. Require a successful exit and exactly `assertledger 1.4.0`; this is the
+   version covered by this workflow, not a claim that other versions are incompatible upstream.
+   If the command is missing, fails, or reports another version, report the limitation and stop
+   without presenting execution as valid evidence. Do not install or modify configuration implicitly.
+   For an existing manifest, proceed to replay and reporting in steps 5–6 without starting a
+   campaign or requiring new campaign inputs. Otherwise run
    `assertledger doctor /path/to/repository --json`. This diagnostic is static and read-only.
    Inspect conflicts and framework support before planning execution; detection of a test command
    does not demonstrate that an adapter can run it.
