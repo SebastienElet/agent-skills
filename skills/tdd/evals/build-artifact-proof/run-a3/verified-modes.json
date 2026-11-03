@@ -1,0 +1,19 @@
+{
+  "AGENTS.md": 420,
+  "Dockerfile": 420,
+  "README.md": 420,
+  "build.ts": 420,
+  "bun.lock": 420,
+  "dist/api.js": 420,
+  "dist/seed.js": 420,
+  "legacy-build.ts": 420,
+  "package.json": 420,
+  "packages/orders/dist/index.js": 420,
+  "packages/orders/package.json": 420,
+  "packages/orders/src/index.ts": 420,
+  "smoke.test.ts": 420,
+  "src/api.tsx": 420,
+  "src/handlers.ts": 420,
+  "src/seed.ts": 420,
+  "tsconfig.json": 420
+}

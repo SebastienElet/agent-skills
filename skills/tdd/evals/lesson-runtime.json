@@ -1,0 +1,40 @@
+{
+  "date_utc": "2026-11-02T14:10:37Z",
+  "host": "Darwin 27.0.0 arm64",
+  "bun": "1.4.4",
+  "codex": "codex-cli 0.166.0",
+  "typescript": "Version 7.0.2",
+  "timezone": "Europe/Paris",
+  "runner_repository": "https://github.com/SebastienElet/agent-experiments",
+  "runner_commit": "04056ee28f987fc0d2e4b9097a606611d36c92e3",
+  "runner_binary_sha256": "23e57ebe63d71ffb261c4a86287d5b05951a214be70fc31a62e7e60903f2cc1c",
+  "docker_host": "tcp://127.0.0.1:32768",
+  "docker_server": "29.9.2",
+  "docker_parent_container": "4cbfb640a737aaeea8c405480a8a5b59bcba68771e9751536b36c8208520303a",
+  "docker_parent_memory_bytes": 3221225472,
+  "images": {
+    "postgres:18-alpine": [
+      "postgres@sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5"
+    ],
+    "oven/bun:1.4.3": [
+      "oven/bun@sha256:ec06c3b6cea04192ae6770c434f668ca41d343ad19fa6472216c7b48be39c598"
+    ]
+  },
+  "live_model_platforms_not_exercised": [
+    "Linux x64 glibc",
+    "Claude Code",
+    "Cursor"
+  ],
+  "native_runner_ci": "https://github.com/SebastienElet/agent-experiments/actions/runs/41455054858",
+  "limits": [
+    "Provider model IDs are requested aliases, not frozen model weights.",
+    "Per-process timeout600s and stdout cap4MiB; no token ceiling.",
+    "Oracle execution occurs outside the Codex sandbox in the same synthetic fixture.",
+    "The SHOPPDF/gzip fixture does not establish real PDF-format coverage.",
+    "Paired runs used bounded concurrency2 (the final screen and migration replications used1); isolated workspaces share only the dedicated Docker daemon and its cache."
+  ],
+  "docker_platform": {
+    "os": "linux",
+    "architecture": "aarch64"
+  }
+}

@@ -1,0 +1,4 @@
+ASSERTION: current target is integrated
+Independent live SQLite key/uniqueness and migration registry passed
+[{"name":"refund uses the injected module client","pass":true}]
+bebf4eafa27142c626b4019ff854bef46754c126 base

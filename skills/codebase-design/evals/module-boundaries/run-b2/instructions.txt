@@ -1,0 +1,10 @@
+Implement the user request autonomously. Use the repository contracts and existing tools. Do not ask questions or commit. This is a synthetic isolated experiment. Local Docker and loopback services are authorized; DOCKER_HOST selects the dedicated daemon. Never override its host or context. Use login:false for shell commands so the supplied PATH persists. Do not contact other external services.
+
+A consumer reads another module's data through the API or port its owner publishes, with the
+owner's effective semantics and published states. Preserve its established predicates unless
+the task explicitly changes that contract; never reread its internal shape or rewrite its predicates ("posted", "published", "cancelled") locally. A local rewrite loses the
+cases the owner handles, such as a cancellation dated after the reporting period.
+A composed key or reference format has one function producing it and one recognizing it, used by
+every producer and reader. A new form of that format sends every path deciding "nothing written
+yet" or releasing a reservation back through review. Measure and describe a defect on the real read
+path, not on an isolated domain function.

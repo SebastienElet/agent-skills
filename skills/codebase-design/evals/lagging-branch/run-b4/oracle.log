@@ -1,0 +1,5 @@
+Independent live SQLite key/uniqueness and migration registry passed
+Existing target database accepts branch migrations in order
+[{"name":"refund uses the injected module client","pass":true}]
+6b043c7591d240d6a866b6acf943b3eee0e523c6 Adopt shared client and scalar identifiers
+5cbc795452b67999aa3e7d19705577f57b28106b base
