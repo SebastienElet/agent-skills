@@ -30,7 +30,10 @@ Without either input, refuse automatic editing and ask what behavior should chan
 ### 1. Standard frontmatter
 
 - Remove fields outside `name`, `description`, `license`, `compatibility`, `allowed-tools`, and
-  `metadata`.
+  `metadata`, except the approved manual-only extension in `conventions.md`.
+- Preserve an already approved manual-only restriction and its paired settings, description and
+  evals unless an explicit request changes activation. Repair incomplete paired requirements
+  without silently removing the restriction; treat unapproved extensions according to conventions.
 - Move top-level `category` to `metadata.category`.
 - Keep an unknown value under `metadata` only when it is scalar metadata and the user explicitly
   approves the mapping.
