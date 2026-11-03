@@ -251,8 +251,8 @@ No candidate-loss finding.
 ### I4 — incomplete rejection diagnostic
 
 **Defect:** the contract requires both an unavailable-dependency reason and a forbidden-dependency
-reason, but the rejection reports only the latter. Report the missing required reason as a bounded
-reservation unless that proof is essential to approval.
+reason, but the rejection reports only the latter. Block on the missing required reason and state
+how the complete diagnostic can be verified.
 
 **Counterexample:** one diagnostic includes both required reasons and identifies the rejected input.
 No diagnostic finding; complete reasons do not require separate warning counts.
