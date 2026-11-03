@@ -1,8 +1,7 @@
 # Reference evaluation
 
-Compared on 2026-10-06 for issue [#398](https://github.com/SebastienElet/dotfiles/issues/398).
-These third-party instructions are evaluated proposals, not repository authority. ADR-029 and
-ADR-040 remain accepted: maintain a local user skill and declare its three projections in Arnes.
+These pinned third-party instructions informed this adaptation; they are not authority for a
+consuming project. Its own instructions and decisions govern its context.
 
 ## Generation
 
@@ -18,7 +17,7 @@ The terminal remains useful for small relationships, comparisons and grounded te
 MIT notices from both source repositories accompany this local adaptation. No upstream executable
 or dependency was copied.
 
-## Annotation: separate decision
+## Annotation: separate integration
 
 [Plannotator's documented surface](https://github.com/backnotprop/plannotator/blob/71c968ceee1c68af8754123d603db10523c73185/README.md)
 can annotate documents, HTML and diffs and return feedback to an agent. The
@@ -33,12 +32,7 @@ host commands, skills and hooks; upstream offers a binary-only minimal installat
 local content needs a browser. Release checks and optional AI/sharing/URL features have distinct
 network behavior; local rendering must not be described as universally offline.
 
-The harness already owns hooks through Arnes, including measurement and handoff at turn end.
-A future integration must inspect ordering, continuation, timeout, hook trust and installation
-ownership, rather than overwrite host settings. Hook-event overlap alone proves no conflict
-or compatibility. Automatic page openings also conflict with this task's chosen delivery mode.
-
-The user deferred annotation until visual explanations exist. Therefore this iteration does not
-install Plannotator, its hooks, commands or skills, and makes no runtime success claim. Its
-possible benefit—pointing to an exact part of a figure—remains unmeasured and belongs to a
-separate decision after use of the generated visuals.
+An integration is a separate decision: inspect the consuming environment's hook ownership,
+ordering, continuation, timeout, trust and installation before changing it. Hook-event overlap
+alone proves no conflict or compatibility. These sources do not establish runtime success or
+measure the benefit of annotation.

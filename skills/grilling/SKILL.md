@@ -40,6 +40,8 @@ prerequisites; an unavailable caller cannot be treated as having completed its p
    yourself; delegate bounded reading only after locating the relevant sources.
 2. Map the decisions and their dependencies. Identify the frontier: choices whose prerequisites
    are already settled. A question depending on an unanswered choice belongs to a later round.
+   When composed by `wayfinder`, limit charting questions to the destination and map; on resume,
+   limit the frontier to the selected decision.
 3. Ask a small group of independent frontier questions, with a recommendation and its concrete
    trade-off for each. Word each question so "yes" accepts the recommended answer.
    Prioritize decisions affecting the outcome, users, scope, security, data,
@@ -49,7 +51,10 @@ prerequisites; an unavailable caller cannot be treated as having completed its p
    while waiting. Do not interpret silence or a default option as a decision.
 5. Incorporate the answers, surface contradictions and recompute the frontier. Keep an ADR in force
    authoritative; an interview cannot silently supersede it. Continue until material decisions are
-   settled or a named blocker requires unavailable evidence or another decision-maker.
+   settled or a named blocker requires unavailable evidence or another decision-maker. When composed
+   by `wayfinder`, use its phase boundary instead: chart the destination and decision map without
+   resolving branches initially; on resume, interview only the selected decision until answered or
+   blocked, retaining the remaining questions for the caller.
 6. Return a concise decision log: intended outcome, settled choices, constraints, explicit
    assumptions and remaining blockers. State the limit when a branch remains unresolved. Return
    to the caller without automatically writing a spec or starting implementation.

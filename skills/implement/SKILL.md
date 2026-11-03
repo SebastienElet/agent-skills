@@ -31,8 +31,7 @@ a ticket is fully executable without tracker access or ticket creation.
 
 Preserve an enclosing workflow's owner and mandate. `issue-start` supplies issue context; it does
 not replace this implementation path. Explicit open-PR repair retains `pr-fix`; bug reproduction
-and cause belong to `diagnosing-bugs`. A manual handoff to Claude retains `claude-developer` and
-does not authorize launching Claude.
+and cause belong to `diagnosing-bugs`.
 
 ## Steps
 
