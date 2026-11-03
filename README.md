@@ -1,7 +1,7 @@
 # Agent Skills
 
 Reusable agent workflows distributed as `@sebastienelet/agent-skills`. The [derived index](skills/README.md)
-lists the 39 skills and their purposes. Resources, attribution notices and historical evaluations
+lists the skills and their purposes. Resources, attribution notices and historical evaluations
 travel with their skill; historical observations do not qualify this package or current agent versions.
 
 Prepared from the tracked sources at dotfiles revision
@@ -28,7 +28,7 @@ Use `implement` for changes, `bug-fix` for repairs and `plan` for planning, with
 the task across stages. `issue-start`, `issue-workflow`, `issue-spec` and `issue-sync` keep tracker
 (Linear or GitHub Issues) separate from forge (GitHub or Bitbucket): Linear + GitHub and
 Linear + Bitbucket are both supported paths. Probe only the selected providers.
-`claude-developer` retains the manual handoff. Independent review is optional unless requested or
+Independent review is optional unless requested or
 already required; `code-review` handles review alone, `code-review-fix` local corrections and
 `pr-fix` authorized open-PR repair. No agent or Codex integration is mandatory for ordinary development.
 User instructions supply preferences,
