@@ -60,6 +60,8 @@ an authorized `pr-fix` retains responsibility for open-PR repair.
    behavior, including failure paths and compatibility. Test evidence must exercise the boundary
    owning the behavior. Use `proof-integrity-review` when verification mechanisms or agent review
    rules change; preserve its independence and execution-evidence requirements.
+   For refusal controls, read `codebase-design/references/controls.md` and inspect alternate
+   entry points, the protected value and the evidence for both refusal and permitted behavior.
 7. Consolidate the two axes into one concise severity-ranked report, retaining each finding's axis,
    location, failure mechanism and source. Omit unsupported suspicions. Report check outcomes,
    environment, files actually covered, untested supported targets and unresolved limitations; do

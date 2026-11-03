@@ -72,6 +72,9 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
    and test it there. Do not collapse domain, transport or transaction boundaries merely to make a module deeper. For
    database-owned invariants, prove identified refusals, their error translation and transaction
    rollback on a real database, including commit-time failures when applicable.
+   For permission checks, validators, hooks or blocking checks, read
+   [references/controls.md](references/controls.md) to establish the protected value, refusal paths,
+   bypasses and evidence without inventing a project policy.
 6. Compare alternatives only when a consequential design choice remains. State the gain in
    locality, caller effort and testability; separate a contract change from a behavior-preserving
    restructuring. Use `requirements-clarification` for unresolved material policy, and

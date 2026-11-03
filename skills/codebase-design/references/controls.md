@@ -1,0 +1,57 @@
+# Refusal Controls
+
+Use this reference when designing, implementing, simplifying or reviewing a permission check,
+validator, hook, lint rule or blocking CI check. The enclosing workflow retains ownership;
+control work does not introduce a separate development stage.
+
+## Contract and boundary
+
+Identify the protected operation, the value it actually receives and the independently established
+rule. Check resolved paths, received bytes and effective permissions at the boundary owning the
+effect. A command string, declared type, log or upstream UI validation may describe another value
+or miss another caller. Label such heuristics advisory; they cannot be the sole barrier to an
+irreversible consequence.
+
+Use the project's permission model; require a separate action permission only when its contract
+does. For an exemption, identify the attributes making it safe and preserve them through updates,
+attachments and ownership transfers, or reapply the control atomically before they change.
+Use one canonical policy for allowlists and derived defaults. Unknown input refuses unless an
+explicit contract permits keeping it raw, isolated and replayable.
+
+Distinguish a complete empty set allowed by the contract from missing runtime, unreadable input,
+parser failure and incomplete discovery. A control unable to examine its required inputs refuses
+with a diagnostic; keep probe errors visible rather than converting them into a clean result.
+
+## Observable evidence
+
+Use `tdd` at the owning boundary for permitted behavior, named refusals without forbidden effects,
+valid empty inputs and unavailable or incomplete inputs. Enumerate relevant alternate entry points
+and bypasses before choosing cases: direct API calls, aliases, argument variants, changed paths
+and missing prerequisites. Exercise each claimed refusal with a discriminating automated case;
+native validation or existing behavioral checks suffice for declarative changes.
+
+Observe the refusal assertion fail when the protected behavior is removed in a disposable copy,
+then pass after restoration. Test-first failure for that same missing behavior already supplies
+this witness. When a cheap bypass has a material consequence, use a fresh context to attempt it
+and retain attempts and results; a warning-only control does not require this adversarial pass.
+
+## CI controls and verification caches
+
+Before activating a new blocking check, `implement` trials its exact command on the fetched target
+and its separate compositions with relevant open PRs, including drafts. Put narrow exceptions for
+legitimate fixtures in the rollout change. A tree check examines its complete declared tree inputs;
+a history check examines the full merge-base-to-head PR range or pushed target range, including
+non-final commits. Keep enforcing configuration outside the candidate's authority and assess any
+proposed policy change independently.
+
+Read the relevant classes in the `pr-verdict/references/failure-classes.md` catalogue: 4 for
+authorization, 8–9 for actual input and content integrity, 14 for selection and atomic cache
+publication, 16 for trusted configuration and rollout, 19 for inconclusive probes and 20 for paths.
+This reads shared design guidance without invoking `pr-verdict`.
+
+Trace the actual CI entry point and its log or controlled failing witness; a task plan alone
+does not prove execution. Derive cache keys from all runtime inputs and publish success atomically
+only after every selected check succeeds. Failures, interruptions and incomplete runs publish no
+success and preserve an existing validated entry; exercise this through the cache's public interface.
+Use `proof-integrity-review` for independent assessment when verification mechanisms change;
+missing essential execution evidence remains an explicit delivery limit.

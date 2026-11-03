@@ -211,8 +211,9 @@ consumer or explicit compensation. Define duplicate and changed-content behavior
 integrity, success and retention; resolve missing policy rather than assuming a reservation protocol.
 Verify content before reusing an object; atomically record the identity, integrity metadata and
 completion state needed by the contract before success. Make cleanup recoverable, remove abandoned
-objects when required by the contract, and protect objects referenced by other operations. Validate content at entry and integrity before release as in
-`code-enforcement`; exercise applicable partial failures and recovery as in `tdd`.
+objects when required by the contract, and protect objects referenced by other operations.
+Validate content at entry and integrity before release as in [Refusal Controls](controls.md);
+exercise applicable partial failures and recovery as in `tdd`.
 
 Analyse a user-supplied file (PDF, archive, image, XML) with explicit bounds: input size,
 decompressed size, time, memory and concurrency. When the library offers no such limit, run the
