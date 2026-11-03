@@ -1,0 +1,20 @@
+[
+  {
+    "name": "rank after removal has a gap",
+    "pass": true
+  },
+  {
+    "name": "both half-open window bounds and held appointment",
+    "pass": false,
+    "actual": true,
+    "expected": false
+  },
+  {
+    "name": "started then postponed and done agree with domain",
+    "pass": true
+  },
+  {
+    "name": "real mounted form loses A upload when owner becomes B",
+    "pass": true
+  }
+]

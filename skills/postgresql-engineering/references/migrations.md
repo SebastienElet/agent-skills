@@ -40,6 +40,10 @@ duration as well as elapsed time.
   an authorized drop/recreate or supported reindex path. Inspect dependency and constraint
   ownership before removing anything.
 
+A backfill that feeds a constraint reads the value in force at the time of the decision, not the
+current one. Before adding the constraint, query the violating rows: any hit stops the migration
+and reports them, as copying unfiltered into a `CHECK` fails on a single negative row.
+
 ## Prove completion
 
 Exercise the runner's real execution boundary on an isolated database, including any forbidden

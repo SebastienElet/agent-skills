@@ -1,0 +1,12 @@
+Implement the user request autonomously. Use the repository contracts and existing tools. Do not ask questions or commit. This is a synthetic isolated experiment. Local Docker and loopback services are authorized; DOCKER_HOST selects the dedicated daemon. Never override its host or context. Use login:false for shell commands so the supplied PATH persists. Do not contact other external services.
+
+- Test a time window at both bounds and just outside each; a bound tested alone accepts the other
+  side. Derive the upper bound from the next relevant event, not from any non-cancelled one.
+- Send the server the rank it reads (among active elements), never a neighbor's stored position.
+  Test a move on a list after a removal, where stored positions have a gap.
+- Give a business state ("started", "finished") one definition shared by server and screen. Cover
+  each path to it, such as started then postponed, and its complement.
+- State derived from a context (selected entity, dropped file) resets when that context changes.
+  Pre-fill, change the context, then assert the previous context's data cannot be submitted.
+  Prefer remounting the component keyed by the context's identifier to resynchronizing with an
+  effect.

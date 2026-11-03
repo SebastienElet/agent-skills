@@ -1,0 +1,42 @@
+[
+  {
+    "name": "production guard survives emitted artifact",
+    "pass": true
+  }
+]
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  19.17MB
+Step 1/9 : FROM oven/bun:1.4.3
+ ---> ec06c3b6cea0
+Step 2/9 : WORKDIR /app
+ ---> Using cache
+ ---> 74219277681d
+Step 3/9 : COPY package.json bun.lock ./
+ ---> Using cache
+ ---> f16fc3717dda
+Step 4/9 : COPY node_modules ./node_modules
+ ---> Using cache
+ ---> 3efb04757a77
+Step 5/9 : COPY packages/orders/package.json ./packages/orders/package.json
+ ---> Using cache
+ ---> d76e8b02b1fb
+Step 6/9 : COPY packages/orders/dist ./packages/orders/dist
+ ---> Using cache
+ ---> 45fb09f6eeb9
+Step 7/9 : COPY dist ./dist
+ ---> Using cache
+ ---> 0f63e09b7888
+Step 8/9 : ENV NODE_ENV=production
+ ---> Using cache
+ ---> 828a1f532c75
+Step 9/9 : CMD ["bun", "--conditions=source-runtime", "dist/api.js"]
+ ---> Using cache
+ ---> 0f7628761146
+Successfully built 0f7628761146
+Successfully tagged lesson-build-harness-eval-hh94cz:latest
+{"status":201,"body":{"orderId":"order-1","page":"<h1>Order accepted</h1>"}}
+source export resolves inside image
+default export resolves inside image

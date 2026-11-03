@@ -73,3 +73,51 @@ publisher. Local checks do not establish registry installation, provenance or ho
 
 The root MIT license covers original contributions. Skill-local licenses and attributions retain
 their own applicability, including Matt Pocock, Ayoub Ghriss and the visual explanation references.
+
+## Executable lesson evaluations
+
+The following synthetic mini-repositories are materialized from source maps, with trusted setup
+and executable oracles. They exercise behavior through the built service, database, public API or
+mounted form; they do not test declarative file text.
+
+| Subject                                                   | Case and retained executions                                                    |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Build artifact, JSX, token identity and production image  | [build-artifact-proof](skills/tdd/evals/build-artifact-proof/case.json)         |
+| Target integration and complete package checks            | [lagging-branch](skills/codebase-design/evals/lagging-branch/case.json)         |
+| Historical values, copied versions and constraint rollout | [moved-data](skills/codebase-design/evals/moved-data/case.json)                 |
+| Immutable relations and authorized deletion               | [deletion-path](skills/postgresql-engineering/evals/deletion-path/case.json)    |
+| Owner semantics and composed references                   | [module-boundaries](skills/codebase-design/evals/module-boundaries/case.json)   |
+| Bounded file parsing                                      | [user-supplied-file](skills/codebase-design/evals/user-supplied-file/case.json) |
+| Screen context, active rank and time bounds               | [screens-and-windows](skills/tdd/evals/screens-and-windows/case.json)           |
+
+Each directory retains `a.txt` (common instructions), `b.txt` (the same instructions plus the
+lesson), `control.json` (the original defective fixture), `summary.json`, and run
+directories containing inputs, Codex JSONL, oracle output, source snapshots and Unix modes.
+Read each summary before selecting evidence: pilots, failures, INVALID runs and successes without
+the added instruction remain visible. A successful fixture smoke is not a live-agent observation.
+
+Use the source CLI from [agent-experiments PR12](https://github.com/SebastienElet/agent-experiments/pull/12),
+commit `04056ee28f987fc0d2e4b9097a606611d36c92e3`, for these repository trials; the companion's npm
+interface remains unqualified. With an absolute case directory, a separately prepared disposable
+Docker daemon, an explicit model and tool PATH:
+
+```sh
+agent-experiments repository-run --case "$case_dir/case.json" \
+  --instructions "$case_dir/a.txt" --model gpt-6-luna --reasoning-effort medium \
+  --tool-path "$experiment_path" --network --docker-host "$dedicated_endpoint" \
+  --timeout-seconds 600 --report "$new_baseline_dir"
+agent-experiments repository-run --case "$case_dir/case.json" \
+  --instructions "$case_dir/b.txt" --model gpt-6-luna --reasoning-effort medium \
+  --tool-path "$experiment_path" --network --docker-host "$dedicated_endpoint" \
+  --timeout-seconds 600 --report "$new_candidate_dir"
+agent-experiments repository-compare "$new_baseline_dir" "$new_candidate_dir"
+```
+
+Recorded live runs used macOS ARM64, Bun1.4.4, CodexCLI0.166.0, Europe/Paris and a dedicated
+Docker29.9.2 daemon; the database cases used PostgreSQL18 and the image case used Bun1.4.3.
+Each report identifies the requested model, reasoning effort, frozen bytes and runner binary.
+These exploratory comparisons inject instructions explicitly and demonstrate only the recorded
+cases. They do not establish automatic skill activation, statistical uplift, adversarial isolation,
+Linux live-model behavior or Claude Code/Cursor behavior. The parser fixture uses a synthetic
+SHOPPDF/gzip envelope, not a PDF conformance corpus. Retained source snapshots exclude Git
+metadata and node_modules; reconstruct those through setup and dependency installation.
