@@ -5,7 +5,10 @@ description: >
   coding an issue or resume its pull request. Make sure to use this skill whenever implementation
   starts from an issue reference, even if the tracker is unnamed. Excludes status lookup, review,
   ticket drafting and planning without an implementation request.
-compatibility: Requires Git and authenticated access to the selected tracker and forge.
+compatibility: >
+  Requires Git, authenticated access to the selected tracker and forge, and `issue-workflow` and
+  `orchestrate` from the same package version. Further specialists are needed for their respective
+  development stages.
 metadata:
   category: dev
 ---
@@ -30,8 +33,10 @@ it does not require a tracker or create an issue.
 
 1. **Load shared policy.** Apply `issue-workflow` and only its selected tracker and forge adapters.
    Independently establish tracker identity, issue target, repository identity from Git remotes,
-   authentication and the rights needed for the next operation. Inspect the working tree and
-   preserve existing work. Missing identity, repository mapping or eligibility blocks dependent writes.
+   authentication and the rights needed for the next operation. If `issue-workflow` or `orchestrate`
+   is unavailable, report the missing capability and stop the dependent startup or handoff; do not
+   claim it was completed. Inspect the working tree and preserve existing work. Missing identity,
+   repository mapping or eligibility blocks dependent writes.
 
 2. **Establish executable state.** Read the issue's canonical identity, title, owner, state,
    parent, every direct sub-issue, blocking relations and structured work links. Apply the
@@ -66,8 +71,9 @@ it does not require a tracker or create an issue.
    limits and next action under `orchestrate`. Route a bug through `diagnosing-bugs`, design needs
    through `plan`, and owned executable changes through `tdd` as applicable. Continue the existing
    authorized development through `implement` when applicable, preserving the existing owner;
-   do not require Claude or end the user's task because startup finished. Existing specialist
-   invocation limits still apply.
+   do not require Claude or end the user's task because startup finished. If a required specialist
+   is unavailable, report the affected stage and do not claim it ran. Existing specialist invocation
+   limits still apply.
 
 7. **Associate a PR when publication is authorized.** Search again by exact source repository and
    branch across PR states before creation. Reuse the existing PR; terminal or ambiguous results
