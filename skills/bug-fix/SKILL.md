@@ -25,8 +25,7 @@ For example: `Fix duplicate invoices under concurrent submission, verify and com
 do not push.` No ticket, particular agent or independent review is required by this path.
 
 Diagnosis alone stays with `diagnosing-bugs` and authorizes no repair. An explicit open-PR repair
-retains `pr-fix` and its existing loop owner. A manual handoff to Claude retains `claude-developer`;
-this path does not authorize launching Claude.
+retains `pr-fix` and its existing loop owner.
 
 ## Steps
 
