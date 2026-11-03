@@ -1,0 +1,11 @@
+{
+  "kind": "fixture-negative-control",
+  "case_sha256": "3f4bc9a85d4950ca4e87d92fdb3c11543d4303908027c6756a7fad9a80bea41e",
+  "environment": "macOS ARM64, Bun 1.4.4, TZ Europe/Paris; dedicated Docker-in-Docker 29.9.2, PostgreSQL 18 when used",
+  "setup_exit": 0,
+  "oracle_exit": 10,
+  "setup": "bun install v1.4.4 (5d9cc0f4f)\nResolving dependencies\nResolved, downloaded and extracted [3]\nSaved lockfile\n\n+ @types/bun@1.4.4\n+ @types/react@19.2.0\n+ @types/react-dom@19.2.0\n+ @shop/orders@packages/orders\n+ react@19.2.0\n+ react-dom@19.2.0\n\n11 packages installed [382.00ms]\n",
+  "oracle": "[\n  {\n    \"name\": \"production guard survives emitted artifact\",\n    \"pass\": false,\n    \"expected\": {}\n  }\n]\n",
+  "limitation": "No live agent ran in this negative control.",
+  "invocation": "Materialize case.files and case.oracle in separate disposable directories; run setup with /bin/bash -e in the workspace, then /bin/bash -e oracle/run.sh with the workspace as cwd and first argument."
+}

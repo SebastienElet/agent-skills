@@ -1,0 +1,53 @@
+CREATE ROLE
+CREATE ROLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+CREATE FUNCTION
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+ALTER FUNCTION
+INSERT 0 2
+INSERT 0 2
+SET
+
+
+ERROR:  permission denied for table invoice_audit
+SET
+SET
+
+INSERT 0 1
+INSERT 0 1
+
+CREATE TABLE
+INSERT 0 1
+SET
+ERROR:  P0001: unhandled foreign key extra_reference_order_id_fkey on extra_reference
+CONTEXT:  PL/pgSQL function purge_demo_account(text) line 26 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3909
+DROP TABLE
+DELETE 0
+SET
+
+INSERT 0 1
+INSERT 0 1
+
+CREATE TABLE
+INSERT 0 1
+SET
+ERROR:  P0001: unhandled foreign key extra_reference_order_id_fkey on extra_reference
+CONTEXT:  PL/pgSQL function purge_demo_account(text) line 26 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3909
+DROP TABLE
+DELETE 0
+SET
+
+populated purge, ordinary-role spoof, real-account refusal and catalogue evolution passed

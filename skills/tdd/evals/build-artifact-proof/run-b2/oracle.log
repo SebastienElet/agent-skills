@@ -1,0 +1,64 @@
+[
+  {
+    "name": "production guard survives emitted artifact",
+    "pass": true
+  }
+]
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  19.18MB
+Step 1/10 : FROM oven/bun:1.4.3
+ ---> ec06c3b6cea0
+Step 2/10 : WORKDIR /app
+ ---> Using cache
+ ---> 74219277681d
+Step 3/10 : COPY package.json bun.lock ./
+ ---> Using cache
+ ---> f16fc3717dda
+Step 4/10 : COPY node_modules ./node_modules
+ ---> Using cache
+ ---> 3efb04757a77
+Step 5/10 : COPY packages/orders/package.json ./packages/orders/package.json
+ ---> Using cache
+ ---> d76e8b02b1fb
+Step 6/10 : COPY packages/orders/dist ./packages/orders/dist
+ ---> Using cache
+ ---> 45fb09f6eeb9
+Step 7/10 : COPY packages/orders/src ./packages/orders/src
+ ---> Using cache
+ ---> 00d5c10ade2d
+Step 8/10 : COPY dist ./dist
+ ---> b3e09e596321
+Step 9/10 : ENV NODE_ENV=production
+ ---> Running in 380cbc7a9225
+ ---> Removed intermediate container 380cbc7a9225
+ ---> 95082b51eb08
+Step 10/10 : CMD ["bun", "--conditions=source-runtime", "dist/api.js"]
+ ---> Running in e3a10b8d6cf8
+ ---> Removed intermediate container e3a10b8d6cf8
+ ---> c673a4983c23
+Successfully built c673a4983c23
+Successfully tagged lesson-build-harness-eval-o5nwnr:latest
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+{"status":500,"body":{"error":"TypeError: jsxDEV is not a function. (In 'jsxDEV(\"h1\", {\n      children: \"Order accepted\"\n    }, undefined, false, undefined, this)', 'jsxDEV' is undefined)"}}
+ASSERTION: production image starts, real bus dispatches and production JSX renders

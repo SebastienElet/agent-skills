@@ -1,0 +1,52 @@
+CREATE ROLE
+CREATE ROLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE FUNCTION
+CREATE FUNCTION
+ALTER FUNCTION
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+DO
+INSERT 0 2
+INSERT 0 2
+
+
+ERROR:  invoice audit records are immutable
+CONTEXT:  PL/pgSQL function reject_audit_delete() line 4 at RAISE
+
+
+ERROR:  permission denied to set role "invoice_purge"
+INSERT 0 1
+INSERT 0 1
+
+CREATE TABLE
+INSERT 0 1
+ERROR:  P0001: unsupported restrictive foreign-key references: {extra_reference}
+CONTEXT:  PL/pgSQL function purge_demo_account(text) line 31 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3909
+DROP TABLE
+DELETE 0
+
+INSERT 0 1
+INSERT 0 1
+
+CREATE TABLE
+INSERT 0 1
+ERROR:  P0001: unsupported restrictive foreign-key references: {extra_reference}
+CONTEXT:  PL/pgSQL function purge_demo_account(text) line 31 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3909
+DROP TABLE
+DELETE 0
+
+populated purge, ordinary-role spoof, real-account refusal and catalogue evolution passed

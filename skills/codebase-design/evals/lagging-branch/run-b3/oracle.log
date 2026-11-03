@@ -1,0 +1,4 @@
+Independent live SQLite key/uniqueness and migration registry passed
+[{"name":"refund uses the injected module client","pass":false,"actual":["refund:undefined:undefined"],"expected":["refund"]}]
+cacba5d35e224f0e1056bedd32f1199bb3040811 Adopt shared client and scalar identifiers
+3eb5d17a349e9bde91bdaffcce1c895346c243c3 base

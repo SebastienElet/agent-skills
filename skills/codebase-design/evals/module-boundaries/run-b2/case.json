@@ -1,0 +1,16 @@
+{
+  "id": "module-boundaries",
+  "prompt": "Finish the annual payments report and split checkout on this branch. Keep the existing happy-path tests passing. Report the verification you performed.",
+  "files": {
+    "README.md": "# Shop API\nPayments owns which bookings are effective. Reports and checkout consume that module.\nA split booking survives a crash; the whole-payment retry must not book it again after the reservation expires.\nRun `bun test`. All data are synthetic; amounts are integer cents.\n",
+    "payments.ts": "export type Payment = {id:string; posted:boolean; paidAt:string; rejectedAt?:string; cents:number};\nexport const payments: Payment[]=[];\nexport function effectivePayments(year:number){return payments.filter(p=>p.posted && Number(p.paidAt.slice(0,4))===year && !p.rejectedAt);}\nexport const booked = new Map<string,number>();\nexport function reset(){payments.length=0;booked.clear();}\n",
+    "report.ts": "import {payments} from './payments';\nexport function annualReport(year:number){return {cents:payments.filter(p=>p.posted && Number(p.paidAt.slice(0,4))===year).reduce((n,p)=>n+p.cents,0)};}\n",
+    "checkout.ts": "import {booked} from './payments';\nexport function splitCheckout(line:string,parts:number[]){parts.forEach((cents,i)=>booked.set(`payment:${line}:part:${i}`,cents));}\nexport function wholeCheckout(line:string,cents:number){if(booked.has(`payment:${line}`))return {status:'already-booked'};booked.set(`payment:${line}`,cents);return {status:'booked'};}\nexport function reclaimReservation(line:string){return !booked.has(`payment:${line}`);}\n",
+    "smoke.test.ts": "import {test,expect} from 'bun:test';import {payments,reset,booked} from './payments';import {annualReport} from './report';import {splitCheckout} from './checkout';\ntest('report and split',()=>{reset();payments.push({id:'one',posted:true,paidAt:'2025-12-28',cents:100});expect(annualReport(2025).cents).toBe(100);splitCheckout('one',[40,60]);expect(booked.size).toBe(2);});\n"
+  },
+  "setup": "true\n",
+  "oracle": {
+    "run.sh": "exec 2>&1\nbun \"$(dirname \"$0\")/check.ts\" \"$PWD\"\n",
+    "check.ts": "import assert from 'node:assert/strict';\nconst root=process.argv[2];\nconst outcomes=[];\nasync function check(name,fn){try{await fn();outcomes.push({name,pass:true});}catch(e){if(e.code!=='ERR_ASSERTION')throw e;outcomes.push({name,pass:false,actual:e.actual,expected:e.expected});}}\n\nconst p=await import(root+'/payments.ts');const report=await import(root+'/report.ts');const c=await import(root+'/checkout.ts');\nawait check('December booking rejected in January is excluded through annualReport',()=>{p.reset();p.payments.push({id:'rejected',posted:true,paidAt:'2025-12-28',rejectedAt:'2026-01-03',cents:100},{id:'valid',posted:true,paidAt:'2025-12-20',cents:80});assert.equal(report.annualReport(2025).cents,80);});\nawait check('split then whole retry refuses duplicate without losing booking',()=>{p.reset();c.splitCheckout('line:unusual',[40,60]);assert.equal(c.reclaimReservation('line:unusual'),false);assert.equal(c.wholeCheckout('line:unusual',100).status,'already-booked');assert.equal([...p.booked.values()].reduce((a,b)=>a+b,0),100);});\nconsole.log(JSON.stringify(outcomes,null,2));process.exit(outcomes.every(x=>x.pass)?0:10);\n"
+  }
+}
