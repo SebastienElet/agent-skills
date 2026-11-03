@@ -5,7 +5,7 @@ description: >
   Excludes Rust, ordinary Bun/TS and declarative changes. Use when `bug-fix` reaches stable
   RED/GREEN revisions or qualification or replay is requested. Make sure to use this skill
   for those cases even if unnamed. Excludes routine TDD, coverage and general review.
-compatibility: Requires the assertledger npm package CLI 1.4.0, Git, and Node.js 22.15 or newer; container execution also requires a Linux Docker-compatible daemon and a locally available digest-pinned image.
+compatibility: Requires the assertledger npm package CLI version pinned in this skill's version.env, Git, and a compatible Node.js runtime; container execution also requires a Linux Docker-compatible daemon and a locally available digest-pinned image.
 metadata:
   category: dev
 ---
@@ -19,8 +19,8 @@ control. Preserve the observations and replay the resulting manifest before repo
 verdict. The operator supplies the fault and the control's meaning; the tool does not establish
 overall program correctness, producer authenticity, or permanent freedom from flaky tests.
 
-This locally maintained workflow follows the published
-[AssertLedger 1.4.0 documentation](https://github.com/hoklims/assertledger/tree/v1.4.0/docs).
+This locally maintained workflow follows the published documentation for the version pinned in
+the installed skill. Check that version's documentation before relying on version-specific behavior.
 
 ## Usage
 
@@ -31,18 +31,29 @@ itself changes. AssertLedger runs once from `bug-fix` after RED/GREEN and stable
 revisions, or on a direct qualification or replay request. Routine `tdd` and `implement` do not
 start another campaign.
 
-The documented distribution is the npm package [`assertledger@1.4.0`](https://www.npmjs.com/package/assertledger/v/1.4.0),
+The distribution is the npm package `assertledger` at the version in this skill's `version.env`,
 which provides the `assertledger` CLI. Obtain it through the host's declared tool installation;
 the skill itself needs no dotfiles checkout at runtime. Do not use `npx` to fetch it implicitly.
 
 ## Steps
 
-1. Before any campaign or replay, run `assertledger --version` using the same executable intended
-   for the operation. Require a successful exit and exactly `assertledger 1.4.0`; this is the
-   version covered by this workflow, not a claim that other versions are incompatible upstream.
-   If the command is missing, fails, or reports another version, report the limitation and stop
-   without presenting execution as valid evidence. Do not install or modify configuration implicitly.
-   For an existing manifest, proceed to replay and reporting in steps 5–6 without starting a
+1. Before any campaign or replay, read `version.env` beside the `SKILL.md` loaded for this invocation,
+   not a file from another checkout or installation. Treat its contents as data, never source or
+   execute them. Require the entire file to match `ASSERTLEDGER_VERSION=` followed by three
+   dot-separated decimal integers and optional trailing whitespace, with no other content. Extract
+   that version as the expected version. If the file is missing, unreadable, or malformed, report
+   the limitation and stop. Run `assertledger --version` using the same executable intended for the
+   operation. Require a successful exit and exactly `assertledger <expected version>` on stdout
+   (apart from its terminating newline). If the command is missing, fails, or reports another version,
+   report the limitation and stop without presenting execution as valid evidence. This check does
+   not claim other versions are incompatible upstream. Do not install or modify configuration implicitly.
+   Use the published documentation at `https://github.com/hoklims/assertledger/tree/v<expected version>/docs`
+   or the documentation shipped with the installed package at that same version. Verify that its
+   commands, eligibility, runtime requirements, and result semantics support the intended operation.
+   If they do not, or the matching documentation is unavailable, report the limitation and stop
+   rather than assuming this workflow applies to that version.
+   For an existing manifest, read `reference.md` in the matching documentation, then proceed to
+   replay and reporting in steps 5–6 without starting a
    campaign or requiring new campaign inputs. Otherwise run
    `assertledger doctor /path/to/repository --json`. This diagnostic is static and read-only.
    Inspect conflicts and framework support before planning execution; detection of a test command
@@ -50,7 +61,7 @@ the skill itself needs no dotfiles checkout at runtime. Do not use `npx` to fetc
 2. For Git qualification, establish the buggy, corrected, and neutral committed revisions, the
    neutral reason, candidate path, unchanged base-test paths, and a new output directory relative
    to the repository. Retrieve supplied facts where possible; never invent missing control semantics.
-   Consult the [Git guide](https://github.com/hoklims/assertledger/blob/v1.4.0/docs/git-regression.md)
+   Consult `git-regression.md` in the matching version's documentation
    for eligibility: dependency-free `.js`, `.mjs`, or `.cjs` using `node:test`, unchanged base tests,
    and identical file-path sets apart from the candidate. Local uncommitted changes are ignored.
 3. Establish the execution backend from the operator's authorization. A container run requires
@@ -76,11 +87,10 @@ the skill itself needs no dotfiles checkout at runtime. Do not use `npx` to fetc
    limitations. Use `assertledger explain CODE --json` for refusals. Replay checks integrity and
    decision consistency without rerunning tests or authenticating their producer. Preserve source
    revisions, requests, and raw logs separately when reproduction or independent audit matters.
-7. For an already supplied versioned request or a supported Bun campaign, read the matching
-   [reference](https://github.com/hoklims/assertledger/blob/v1.4.0/docs/reference.md) before using
-   `verify` or replay. The Bun adapter pins Bun 1.4.2 and credits failures from `assertledger/bun`
-   `assertSame`; native Bun `expect` failures do not count as target detection. This lower-level
-   path does not extend the Git `check` command's eligibility.
+7. For an already supplied versioned request or a supported Bun campaign, read `reference.md` in
+   the matching version's documentation before using `verify`. Verify its adapter and
+   assertion requirements; do not assume native Bun `expect` failures count as target detection.
+   This lower-level path does not extend the Git `check` command's eligibility.
 
 ## Gotchas
 
