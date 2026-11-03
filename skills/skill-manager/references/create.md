@@ -29,8 +29,9 @@ Ask one question at a time when an unknown answer changes behavior. Do not inven
 9. Keep the source separate from installation. Use the consuming project’s declared package
    version, skill selection and native deployment mechanism for requested agents. Do not install
    globally, add every skill to every host, or overwrite an existing destination implicitly.
-10. Validate standard rules with `skills-ref` when available, then run local doctor.
-11. Validate any eval JSON, run its scenarios when required, and run `sync-index` twice.
+10. Run `sync-index` twice and verify the second run is byte-identical.
+11. Validate standard rules with `skills-ref` when available, run complete local doctor including
+    the index check, and validate any eval JSON and required scenarios. Report all failures.
 
 ## Minimal template
 

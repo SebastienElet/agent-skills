@@ -1,7 +1,7 @@
 # Agent Skills
 
 Reusable agent workflows distributed as `@sebastienelet/agent-skills`. The [derived index](skills/README.md)
-lists the 39 skills and their purposes. Resources, attribution notices and historical evaluations
+lists the skills and their purposes. Resources, attribution notices and historical evaluations
 travel with their skill; historical observations do not qualify this package or current agent versions.
 
 Prepared from the tracked sources at dotfiles revision
@@ -24,11 +24,32 @@ the whole skill directory, refuse divergent destinations, and keep project and u
 Do not install the whole collection indiscriminately or expose the same slug twice. Maintain source
 in this repository's `skills/`, never through a deployed link or `node_modules`.
 
+Check each selected skill's `compatibility` and workflow for prerequisites, and follow the same
+declarations for its dependencies. These are instructions for the consumer, not automatic dependency
+resolution. Project required skill directories from the same package version into the chosen host's
+discovery location; keep the required resources reachable. If a required capability is unavailable,
+report the affected step without claiming it ran.
+
+For the interview and issue-start paths, the initial selection is:
+
+| Selected path                   | Same-version prerequisites                                                                                                    |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `grill-me`                      | `grilling` for the interview                                                                                                  |
+| Direct `grilling`               | No caller skill; compositions require the authorized caller and its own prerequisites                                         |
+| `improve-codebase-architecture` | `codebase-design` for the survey; its `pr-verdict` catalogue; `grilling` after a candidate is selected                        |
+| `issue-start`                   | `issue-workflow` and `orchestrate`; `diagnosing-bugs`, `plan`, `tdd` and `implement` as their respective stages become needed |
+
+For conditional stages, inspect the selected specialist's own prerequisites as well: for example,
+`plan` uses `codebase-design`, `requirements-clarification` when a material decision is unresolved,
+and the `pr-verdict` catalogue. `issue-workflow` needs only the selected tracker and forge adapters.
+Reading the `pr-verdict` catalogue does not invoke its verdict workflow. Presence of these files does
+not establish that a host discovers or applies the skills.
+
 Use `implement` for changes, `bug-fix` for repairs and `plan` for planning, with `orchestrate` retaining
 the task across stages. `issue-start`, `issue-workflow`, `issue-spec` and `issue-sync` keep tracker
 (Linear or GitHub Issues) separate from forge (GitHub or Bitbucket): Linear + GitHub and
 Linear + Bitbucket are both supported paths. Probe only the selected providers.
-`claude-developer` retains the manual handoff. Independent review is optional unless requested or
+Independent review is optional unless requested or
 already required; `code-review` handles review alone, `code-review-fix` local corrections and
 `pr-fix` authorized open-PR repair. No agent or Codex integration is mandatory for ordinary development.
 User instructions supply preferences,

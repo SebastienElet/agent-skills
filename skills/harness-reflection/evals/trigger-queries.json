@@ -30,7 +30,7 @@
     {
       "query": "Prépare un prompt pour que Claude corrige cette implémentation",
       "should_activate": false,
-      "reason": "Claude Developer owns manual delegation without a repeated-failure learning request"
+      "reason": "A manual correction prompt alone does not request repeated-failure learning"
     }
   ]
 }

@@ -186,8 +186,8 @@ its correction and evidence here without starting another workflow.
 9. **Close or pause the repair.** Report the final SHA, verdict, native approval state, journal path
    and either the summary URL or the reason publication is pending. On Bitbucket, report the PR state
    beside the reviewer approval. Keep the journal across sessions and after publication; a later
-   correction resumes it, renews the native approval on the new head and updates the same comment
-   only after renewed independent approval and CI.
+   correction resumes it and updates the same comment only after renewed independent approval and
+   CI. Follow the native approval protocol for renewal and its forge-specific evidence limits.
    Do not create a fix ticket for a defect corrected by this run. Remove the temporary worktree only
    after its commits are pushed and it is clean; retain the journal even when removing the worktree.
 

@@ -30,7 +30,7 @@
     {
       "query": "Prepare a manual prompt for Claude to implement this feature",
       "should_activate": false,
-      "reason": "Codex-to-Claude handoff belongs to claude-developer"
+      "reason": "A manual implementation prompt does not request local review or repair"
     },
     {
       "query": "Install the official Codex companion plugin for Claude Code",
@@ -43,12 +43,12 @@
       "reason": "Continuation retains the pass count and must report unresolved findings after the limit"
     },
     {
-      "query": "This local implementation was started from a claude-developer handoff. Implementation and required checks have passed; its final stage explicitly authorizes Codex to correct demonstrated defects within the original scope and requires an independent review before delivery.",
+      "query": "This local implementation was started from a manual handoff. Implementation and required checks have passed; its final stage explicitly authorizes Codex to correct demonstrated defects within the original scope and requires an independent review before delivery.",
       "should_activate": true,
       "reason": "The handoff's development workflow composes code-review-fix at its local final-review stage"
     },
     {
-      "query": "The claude-developer handoff asks only for an implementation plan. No code changes or corrections are authorized; return the plan.",
+      "query": "The manual handoff asks only for an implementation plan. No code changes or corrections are authorized; return the plan.",
       "should_activate": false,
       "reason": "A planning-only handoff does not reach the implementation review stage"
     },

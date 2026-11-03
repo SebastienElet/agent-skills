@@ -84,9 +84,10 @@ Owned domain code consumes the injected clock: keep `new Date()` and `Date.now()
 clock adapter. Before restoring real timers, unmount consumers and drain pending fake-timer work.
 For a Vitest UI test, put `cleanup()`, `await vi.advanceTimersByTimeAsync(0)`, `vi.clearAllTimers()`,
 then `vi.useRealTimers()` in `finally`; clearing alone can discard an awaited notification.
-After finding this defect, search every matching teardown with `rg useRealTimers`, correct the same
-faulty pattern wherever it occurs and replay repeatedly and in randomized order. Do not hide it
-with retries or repair only the first neighboring test.
+After finding this defect, search matching teardowns with `rg useRealTimers`, correct the same
+faulty pattern within the authorized scope and report occurrences requiring a separate decision.
+Replay affected tests repeatedly and in randomized order. Do not hide the defect with retries or
+repair only the first neighboring test within scope.
 
 For a rule derived from a dated text, take expected results from the applicable source and version:
 exercise each reference date, inclusive/exclusive bound, exception and counting mode. Include a case

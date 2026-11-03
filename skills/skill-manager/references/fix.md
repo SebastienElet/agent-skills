@@ -21,16 +21,20 @@ Without either input, refuse automatic editing and ask what behavior should chan
    matching correction from `simplify.md` step 2 before adding a prohibition or splitting the skill.
 5. Present the findings or contract before writing.
 6. Apply only the corrections or behavior the input authorizes, in the order below.
-7. Run relevant eval scenarios, then doctor on the target.
-8. Compare every prior PASS check and the requested contract against the baseline.
-9. Run `sync-index` and verify its second run is byte-identical.
+7. Run `sync-index` and verify its second run is byte-identical.
+8. Run relevant eval scenarios, then doctor on the target, including the index check.
+9. Compare every prior PASS check and the requested contract against the baseline. Report any
+   remaining failure; an index repair does not excuse other failures.
 
 ## Correction order
 
 ### 1. Standard frontmatter
 
 - Remove fields outside `name`, `description`, `license`, `compatibility`, `allowed-tools`, and
-  `metadata`.
+  `metadata`, except the approved manual-only extension in `conventions.md`.
+- Preserve an already approved manual-only restriction and its paired settings, description and
+  evals unless an explicit request changes activation. Repair incomplete paired requirements
+  without silently removing the restriction; treat unapproved extensions according to conventions.
 - Move top-level `category` to `metadata.category`.
 - Keep an unknown value under `metadata` only when it is scalar metadata and the user explicitly
   approves the mapping.
@@ -67,7 +71,7 @@ rewrite it around named environment state. Escape only literal explanatory prose
 
 Repair present eval JSON to the schema in `conventions.md`; never create evals solely because they
 are optional. Run realistic positive and negative scenarios for activation changes. Regenerate the
-README only after the target passes doctor.
+README before the final complete doctor run. Do not declare success if any doctor check fails.
 
 ## Regression handling
 

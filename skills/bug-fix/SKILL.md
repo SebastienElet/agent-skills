@@ -25,8 +25,7 @@ For example: `Fix duplicate invoices under concurrent submission, verify and com
 do not push.` No ticket, particular agent or independent review is required by this path.
 
 Diagnosis alone stays with `diagnosing-bugs` and authorizes no repair. An explicit open-PR repair
-retains `pr-fix` and its existing loop owner. A manual handoff to Claude retains `claude-developer`;
-this path does not authorize launching Claude.
+retains `pr-fix` and its existing loop owner.
 
 ## Steps
 
@@ -64,8 +63,10 @@ this path does not authorize launching Claude.
    adequate automated boundary exists, name the gap and why direct replay is the relevant evidence;
    do not add a shallow substitute or a new harness by default. Missing essential evidence blocks
    demonstrated completion, even when independent preparation can continue.
-   Before concluding the repair, search for the faulty pattern (for example with `rg`) and fix
-   all occurrences together, beyond the failing test. Rerun the affected suite under step 5,
+   Before concluding the repair, search for relevant occurrences of the faulty pattern (for example
+   with `rg`) beyond the failing test. Fix and verify those within the authorized scope; report
+   occurrences requiring an expansion for a separate decision without changing them implicitly.
+   Rerun the affected suite under step 5,
    repeatedly and in randomized order when the defect depends on execution order.
 
 5. **Require the original replay before delivery.** Keep this as a verification condition of

@@ -4,6 +4,7 @@ description: >
   Challenge an idea through a requested design interview. Use only when the user explicitly invokes
   `$grill-me` or `/grill-me`; never select it implicitly from an implementation request or a missing detail.
 license: MIT
+compatibility: Requires `grilling` from the same package version for the interview.
 disable-model-invocation: true
 metadata:
   category: product
@@ -31,7 +32,8 @@ An invocation authorizes the interview, not implementation, issue publication or
 1. Identify the idea, intended outcome and scope from the request and conversation. Inspect
    relevant sources for facts rather than asking the user to rediscover them.
 2. Invoke `grilling` for the interview. Pass the scope, established decisions, relevant source
-   locations and material uncertainties. Keep one copy of the interview procedure.
+   locations and material uncertainties. If it is unavailable, report that the interview cannot
+   proceed and do not claim it was conducted. Keep one copy of the interview procedure.
 3. Return the settled decisions and any remaining assumptions or blockers. When the user requests
    a specification next, `issue-spec` synthesizes that conversation; interview completion alone
    does not authorize specification drafting, saving or publication.

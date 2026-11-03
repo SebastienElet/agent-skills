@@ -155,7 +155,7 @@ List environment limitations after the table once, rather than repeating them as
 | Missing `Constraints`                 | Add three hard must or must-not rules                                                        |
 | Positional shell placeholder          | Move executable shell to `scripts/`; escape literal prose once                               |
 | Missing conditional reference routing | Route each same-topic scoped sibling from `Steps`                                            |
-| Missing README entry                  | Run deterministic `sync-index` after the skill itself passes                                 |
+| Missing README entry                  | Run deterministic `sync-index`, then rerun complete doctor including all other checks        |
 
 ## Constraints
 
