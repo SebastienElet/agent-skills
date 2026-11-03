@@ -19,8 +19,8 @@ control. Preserve the observations and replay the resulting manifest before repo
 verdict. The operator supplies the fault and the control's meaning; the tool does not establish
 overall program correctness, producer authenticity, or permanent freedom from flaky tests.
 
-This locally maintained workflow follows the published documentation for the version pinned in
-the installed skill. Check that version's documentation before relying on version-specific behavior.
+For campaigns, this locally maintained workflow follows the published documentation for the
+version pinned in the installed skill.
 
 ## Usage
 
@@ -47,14 +47,14 @@ the skill itself needs no dotfiles checkout at runtime. Do not use `npx` to fetc
    (apart from its terminating newline). If the command is missing, fails, or reports another version,
    report the limitation and stop without presenting execution as valid evidence. This check does
    not claim other versions are incompatible upstream. Do not install or modify configuration implicitly.
-   Use the published documentation at `https://github.com/hoklims/assertledger/tree/v<expected version>/docs`
+   For an existing manifest, proceed directly to replay and reporting in steps 5–6 without
+   requiring documentation, starting a campaign, or requiring new campaign inputs.
+   Otherwise, use the published documentation at `https://github.com/hoklims/assertledger/tree/v<expected version>/docs`
    or the documentation shipped with the installed package at that same version. Verify that its
    commands, eligibility, runtime requirements, and result semantics support the intended operation.
    If they do not, or the matching documentation is unavailable, report the limitation and stop
    rather than assuming this workflow applies to that version.
-   For an existing manifest, read `reference.md` in the matching documentation, then proceed to
-   replay and reporting in steps 5–6 without starting a
-   campaign or requiring new campaign inputs. Otherwise run
+   Then run
    `assertledger doctor /path/to/repository --json`. This diagnostic is static and read-only.
    Inspect conflicts and framework support before planning execution; detection of a test command
    does not demonstrate that an adapter can run it.
