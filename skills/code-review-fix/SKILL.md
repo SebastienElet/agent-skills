@@ -60,7 +60,7 @@ instruction-level, not host-enforced.
    their results; if a check changes the candidate, re-anchor and rerun affected checks. Unavailable
    essential evidence leaves the workflow incomplete. Reuse an existing independent `code-review`
    when its candidate, scope, requirements and raw evidence inputs still match; record the source
-   and why it remains applicable. Otherwise obtain a fresh, read-only `code-review` of the anchored
+   and why it remains applicable. Otherwise obtain a fresh `code-review` of the anchored
    candidate, with requirements, applicable ADRs and raw check evidence. Withhold
    the author's verdict and supplied findings until the reviewer records its first analysis, then reconcile
    them. For each finding, record the location, failure mechanism, violated requirement and relevant
@@ -90,7 +90,8 @@ instruction-level, not host-enforced.
    repository barrier reached by that delta. Recheck the provenance and relevance of new evidence;
    rerun checks whose inputs or validity changed. Run any essential check found missing or stale by
    the review even if the candidate is unchanged; re-anchor if it changes the candidate. Once planned
-   edits finish, obtain a read-only review in a fresh context that did not write the corrections.
+   edits finish, obtain a review without source edits in a fresh context that did not write the
+   corrections.
    Also obtain a fresh review when new evidence or discoveries invalidate the clean-path comparison
    in step 3, even without a candidate change. Supply the final candidate, requirements and raw
    evidence before earlier conclusions;

@@ -91,7 +91,7 @@ authority.
    | ADR contradiction, exhausted budget or unavailable essential capability (`blocked`) | Preserve the candidate, evidence and exact missing condition; report the limit and continue independent authorized work.                                                                                                                 |
 
    Independent review is optional unless requested or already required. Route review-only work
-   to read-only `code-review`; local review corrections to `code-review-fix`; explicit open-PR
+   to `code-review`; local review corrections to `code-review-fix`; explicit open-PR
    repair to `pr-fix`. An attached PR alone does not change that choice. `pr-feedback` collects
    retrospective evidence from merged PRs, not current repair findings. Verify human and bot
    findings against the candidate before treating them as defects; preferences alone authorize
