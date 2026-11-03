@@ -5,6 +5,7 @@ description: >
   to coordinate Claude Code or Codex executors for one issue, several issues, or prepared children.
   Make sure to use this skill whenever supervising such a batch through completion, even if unnamed.
   Excludes issue shaping, implementation by the coordinator, and model routing.
+compatibility: Requires the official herdr skill supplied by Herdr and a Herdr-managed session.
 metadata:
   category: dev
 ---
@@ -33,9 +34,10 @@ and PR, make it ready after verification, do not merge.`
 Consume the existing Wayfinder units and dependencies; use configured executor defaults;
 publish verified PRs, do not merge.`
 
-Apply `orchestrate` for ownership, compact state and bounded recovery. Load `herdr` before any
-Herdr control and follow its environment requirement. Read [Herdr operations](references/herdr.md)
-for verified capabilities and limits; rediscover syntax on the installed version.
+Apply `orchestrate` for ownership, compact state and bounded recovery. Load the official `herdr`
+skill installed by the consumer before any Herdr control. It owns command syntax, capability
+discovery, terminal interaction and runtime limitations. If it is unavailable, block Herdr control
+and report the missing prerequisite. This package does not supply or install that skill.
 Use `issue-workflow` and its selected transport/forge adapters for issue facts and permissions.
 Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy.
 
@@ -72,7 +74,7 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    after the repository with its native branch; the coordinator is a tab there, never a second
    coordinator workspace. Reuse an appropriate isolated worktree or create one for each existing
    work unit through Herdr. Worktree workspaces may carry task labels. Keep all agents findable
-   through the association rows and `herdr agent list`; keep user focus unchanged. Parse returned
+   through the association rows and Herdr inventory; keep user focus unchanged. Parse returned
    IDs, confirm the shell pane's cwd and foreground availability, and start a uniquely named
    `claude` or `codex` executor there. A branch alone does not isolate shared services or real data:
    require task-local configuration before effects. Launch only dependency-ready units under the
@@ -94,9 +96,9 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
 5. **Keep supervising until the aggregate end condition.** After dispatch, continue using tools;
    do not end the turn with a launch summary or an offer to monitor later. Repeatedly inventory
    all unfinished units, inspect changed states and recent output, service requests, and advance
-   authorized dependency-ready work. Use native `agent wait` or `agent prompt --wait` with bounded
-   timeouts (at most 60 seconds per blocking wait), then revisit the whole batch. An idle/done
-   wait can return immediately: read the result and take the next action rather than spin on it.
+   authorized dependency-ready work. Use the native observation and wait mechanisms described by
+   `herdr`, with bounded timeouts (at most 60 seconds per blocking wait), then revisit the whole
+   batch. Read each result and take the next action rather than spin without new observations.
    Keep concise progress updates during long supervision. A timeout is an observation, not a
    reason to abandon the batch or resend a possibly delivered prompt.
 
@@ -192,5 +194,4 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
 
 ## References
 
-- [Herdr operations and limitations](references/herdr.md)
 - [Behavioral scenarios](evals/contract-scenarios.md) — contracts, not executed evidence.
