@@ -83,6 +83,7 @@ and cause belong to `diagnosing-bugs`.
    behavior and native or existing validation to declarative changes without owned behavior.
    For persistence, lifecycle or collection API changes, consult `codebase-design` and its
    `codebase-design/references/dependencies.md` dependency guidance before implementation.
+   For a permission check, validator, hook or blocking check, read `codebase-design/references/controls.md` before implementation; use its rollout procedure when activating a gate.
    Compose other relevant specialists rather than reproducing their procedures. Delegation is
    optional and follows `orchestrate`'s ownership and isolation rules; actual dependencies govern
    readiness. Inspect each returned delta and evidence before accepting the unit. A green test or

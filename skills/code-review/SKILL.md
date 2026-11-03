@@ -33,7 +33,9 @@ an authorized `pr-fix` retains responsibility for open-PR repair.
 1. Freeze the scope with `git status --short`, `git rev-parse HEAD` and the requested comparison.
    For current changes, inspect `git diff --cached`, `git diff` and each relevant untracked file
    reported by status. Read an untracked file directly; index it before repository checks when it
-   belongs to the intended change. Never stage an unrelated file merely to review it.
+   belongs to the intended change. Never stage an unrelated file merely to review it. Report the
+   paths and versions each check exercises; when staged and working-tree versions differ, do not
+   claim a check on one proves the other.
 2. For a branch or supplied ref, resolve the ref and capture `git diff <ref>...HEAD` and
    `git log <ref>..HEAD --oneline`. Report staged, unstaged or untracked changes outside that
    committed comparison explicitly. Include them when the requested scope is the complete current
@@ -58,11 +60,13 @@ an authorized `pr-fix` retains responsibility for open-PR repair.
    behavior, including failure paths and compatibility. Test evidence must exercise the boundary
    owning the behavior. Use `proof-integrity-review` when verification mechanisms or agent review
    rules change; preserve its independence and execution-evidence requirements.
+   For refusal controls, read `codebase-design/references/controls.md` and inspect alternate
+   entry points, the protected value and the evidence for both refusal and permitted behavior.
 7. Consolidate the two axes into one concise severity-ranked report, retaining each finding's axis,
    location, failure mechanism and source. Omit unsupported suspicions. Report check outcomes,
-   environment, untested supported targets and unresolved limitations; do not equate style advice
-   or passing checks with approval. If the candidate changed during review, refresh the affected
-   scope and evidence before concluding.
+   environment, files actually covered, untested supported targets and unresolved limitations; do
+   not equate style advice or passing checks with approval. If the candidate changed during review,
+   refresh the affected scope and evidence before concluding.
 
 ## Gotchas
 

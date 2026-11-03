@@ -16,11 +16,11 @@ This directory is the canonical source for user-scoped agent skills.
 | `agent-instructions`            | Maintain coding-agent instructions and their discovery paths.                                                       |
 | `assertledger`                  | Qualify committed Git/JS `node:test` regressions; replay AssertLedger evidence.                                     |
 | `bug-fix`                       | Carry a bug through reproduction, confirmed cause, repair, replay and authorized delivery.                          |
-| `code-enforcement`              | Write code whose purpose is to refuse: hook, guard, validator, permission check, lint rule, CI gate.                |
 | `code-review`                   | Review a local diff for standards and requirement compliance.                                                       |
 | `code-review-fix`               | Repair local code-review findings before delivery.                                                                  |
 | `code-simplify`                 | Simplify code to reduce understanding and maintenance costs.                                                        |
 | `codebase-design`               | Design cohesive modules with simple public interfaces.                                                              |
+| `coordinator`                   | Supervise prepared issue batches through verified, delivery-ready PRs in Herdr.                                     |
 | `design-claim-audit`            | Audit architectural and domain guarantees.                                                                          |
 | `design-taste-frontend`         | Art direction and visual critique for frontend pages and app screens.                                               |
 | `diagnosing-bugs`               | Diagnose bugs and performance regressions.                                                                          |
