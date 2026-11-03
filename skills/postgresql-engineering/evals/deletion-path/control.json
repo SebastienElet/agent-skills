@@ -1,0 +1,11 @@
+{
+  "kind": "fixture-negative-control",
+  "case_sha256": "ea1d837f849474537e82bd584042d0d1dbc0d73cb3e450d6ec657ee966703791",
+  "environment": "macOS ARM64, Bun 1.4.4, TZ Europe/Paris; dedicated Docker-in-Docker 29.9.2, PostgreSQL 18 when used",
+  "setup_exit": 0,
+  "oracle_exit": 10,
+  "setup": "",
+  "oracle": "CREATE ROLE\nCREATE TABLE\nCREATE TABLE\nCREATE TABLE\nCREATE FUNCTION\nCREATE TRIGGER\nCREATE FUNCTION\nCREATE FUNCTION\nGRANT\nGRANT\nINSERT 0 2\nINSERT 0 2\n\n\nERROR:  immutable\nCONTEXT:  PL/pgSQL function reject_audit_delete() line 1 at RAISE\nERROR:  update or delete on table \"orders\" violates RESTRICT setting of foreign key constraint \"invoice_audit_order_id_fkey\" on table \"invoice_audit\"\nDETAIL:  Key (id)=(demo-order) is referenced from table \"invoice_audit\".\nCONTEXT:  SQL statement \"DELETE FROM orders WHERE orders.account_id=purge_demo_account.account_id\"\nPL/pgSQL function purge_demo_account(text) line 1 at SQL statement\n\nASSERTION: populated immutable RESTRICT relation has working deletion path\n",
+  "limitation": "No live agent ran in this negative control.",
+  "invocation": "Materialize case.files and case.oracle in separate disposable directories; run setup with /bin/bash -e in the workspace, then /bin/bash -e oracle/run.sh with the workspace as cwd and first argument."
+}

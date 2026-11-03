@@ -1,0 +1,11 @@
+{
+  "kind": "fixture-negative-control",
+  "case_sha256": "f205ccaf66dd38dcf648e24dd659d65f03c1c88558463c1177e44c4e3c3ada8b",
+  "environment": "macOS ARM64, Bun 1.4.4, TZ Europe/Paris; dedicated Docker-in-Docker 29.9.2, PostgreSQL 18 when used",
+  "setup_exit": 0,
+  "oracle_exit": 10,
+  "setup": "bun install v1.4.4 (5d9cc0f4f)\nResolving dependencies\nResolved, downloaded and extracted [44]\nSaved lockfile\n\n+ jsdom@27.1.0\n+ react@19.2.0\n+ react-dom@19.2.0\n\n50 packages installed [881.00ms]\n",
+  "oracle": "[\n  {\n    \"name\": \"rank after removal has a gap\",\n    \"pass\": false,\n    \"actual\": 4,\n    \"expected\": 3\n  },\n  {\n    \"name\": \"both half-open window bounds and held appointment\",\n    \"pass\": false,\n    \"actual\": false,\n    \"expected\": true\n  },\n  {\n    \"name\": \"started then postponed and done agree with domain\",\n    \"pass\": false,\n    \"actual\": false,\n    \"expected\": true\n  },\n  {\n    \"name\": \"real mounted form loses A upload when owner becomes B\",\n    \"pass\": false,\n    \"actual\": \"file-A\",\n    \"expected\": \"file-A\"\n  }\n]\n",
+  "limitation": "No live agent ran in this negative control.",
+  "invocation": "Materialize case.files and case.oracle in separate disposable directories; run setup with /bin/bash -e in the workspace, then /bin/bash -e oracle/run.sh with the workspace as cwd and first argument."
+}

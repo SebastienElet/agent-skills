@@ -1,0 +1,52 @@
+CREATE TABLE
+CREATE TABLE
+INSERT 0 2
+INSERT 0 3
+BEGIN
+psql:/dev/stdin:1: WARNING:  25001: there is already a transaction in progress
+LOCATION:  BeginTransactionBlock, xact.c:3954
+psql:/dev/stdin:21: ERROR:  P0001: negative approved monthly fee for subscription(s): bad
+CONTEXT:  PL/pgSQL function inline_code_block line 13 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3909
+DELETE 1
+DELETE 1
+psql:/dev/stdin:1: WARNING:  there is already a transaction in progress
+BEGIN
+DO
+psql:/dev/stdin:28: NOTICE:  relation "pricing_history" already exists, skipping
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1
+INSERT 0 1
+COMMIT
+WARNING:  there is no transaction in progress
+ASSERTION: as-of approval fee is 2000, got 9000
+INSERT 0 1
+ERROR:  23514: new row for relation "pricing_decision" violates check constraint "pricing_decision_fee_cents_check"
+DETAIL:  Failing row contains (constraint-probe, -1).
+SCHEMA NAME:  public
+TABLE NAME:  pricing_decision
+CONSTRAINT NAME:  pricing_decision_fee_cents_check
+LOCATION:  ExecConstraints, execMain.c:2076
+INSERT 0 1
+0
+[
+  {
+    "name": "pre-migration approval keeps fee and display",
+    "pass": false,
+    "actual": 100,
+    "expected": 2000
+  },
+  {
+    "name": "new version does not inherit an undecided fee",
+    "pass": true
+  },
+  {
+    "name": "old client contract remains additive",
+    "pass": true
+  },
+  {
+    "name": "new decision takes priority over differing legacy fee",
+    "pass": true
+  }
+]

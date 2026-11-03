@@ -31,6 +31,19 @@ These constraints do not authorize reads or replace access controls or existing 
 Examine the real role and any pool/session tenant-context behavior before making isolation
 claims; do not invent or alter a rights policy as a schema optimization.
 
+## Immutable tables and deletion paths
+
+A delete-refusing trigger on an append-only table, or a foreign key without a cascading action
+(`RESTRICT`, or `NO ACTION`, the default), blocks any routine deleting its parent. Ship the
+deletion path with the table, and list the referencing tables in an automated check comparing
+`pg_constraint` foreign keys (`contype = 'f'`, `confdeltype` of `a` or `r`) onto the routine's
+tables with the routine's own list. Take the bypass's authority from the identity the application
+role cannot assume: the trigger allows the delete only when `current_user` is a dedicated purge role,
+and the routine is a `SECURITY DEFINER` function owned by that role with a pinned `search_path`.
+An unregistered custom setting (`app.*`) can be set by an ordinary session; `SET LOCAL` scopes
+its lifetime, not its authority, so no trigger may trust it alone. Test that the ordinary role,
+after setting that flag itself, still has its `DELETE` refused. Truncation needs its own statement-level guard.
+
 ## Types, JSONB and indexes
 
 - Preserve the canonical money contract, currency and rounding boundary. Integer minor units

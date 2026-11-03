@@ -115,6 +115,10 @@ after an interruption and with a different key order, then the `422` refusal for
 content. Also read the persisted state: a single creation and no personal data in the stored
 response; a uniqueness conflict is not the replayed response.
 
+Measure and describe a defect through the real read path (query, filters, period bounds), not an
+isolated domain function: an impact figure taken from the function alone can overstate or hide it.
+A new shape of a composed key needs a case through every path that decides "nothing written".
+
 ## Database refusals
 
 For a multi-step operation, synchronize a concurrent cancellation between each step: checks,
@@ -143,6 +147,10 @@ downstream steps use the same precondition code and promised status, such as `42
 incomplete draft remains a control. For strengthened historical rules, exercise migration refusal
 without data changes on invalid rows and success on conforming rows.
 
+For an immutable table or a `RESTRICT` reference to an object a deletion routine removes, create a
+row in it, then run the routine and assert its complete result. For data moved to a new location,
+read a row created before the migration. For a migration that adds a constraint over backfilled
+data, include a violating row and assert the diagnostic refusal without modification.
 For frozen data, assert refusal preserves protections; failed sealing cannot finalize a document.
 Add a new file version and verify historical download still returns the deposited version; missing
 or corrupt deposited content refuses without fallback. Overlap first use with a label rename:
@@ -174,6 +182,11 @@ object/digest/type association, not only the response. Exercise compensation aft
 conflict and prove it preserves objects referenced by another operation. Distinguish evidence for
 owned orchestration from storage-protocol evidence; a substitute alone proves no remote guarantee.
 
+For a user-supplied file, generate a decompression bomb in the test (small input, expansion
+beyond the output bound): assert the bounded refusal, a live server process and the response for
+an unreadable file. Exercise a saturated queue separately and assert its distinct retryable
+response. Resolve the isolated worker's entry point from the built artifact, not from source.
+
 ## Discriminating security tests
 
 For isolation, authorization and redaction, arrange a case where only the targeted predicate can
@@ -194,6 +207,34 @@ personal fields; a partial object match accepts extra sensitive fields. Read the
 separately from the response so response cleanup cannot conceal an unredacted stored copy.
 For logs, capture the emitted output and assert the absence of each removed datum, including in
 error diagnostics; checking only the fields present is not enough.
+
+## Build output and runtime images
+
+A change of build, bundling or module-resolution tooling is proven on the artifact it produces:
+source typecheck and tests do not establish the emitted behavior. Compare the output before
+and after on the sensitive points: environment values inlined at build time (a production guard on
+`process.env.NODE_ENV` must survive in the artifact), the JSX runtime the tool selects and the
+import specifiers it emits. Set environment and JSX options explicitly in the build configuration
+and refuse a build script that leaves them to inherited defaults.
+
+Build the production image, start it locally and send a real request through the whole path,
+including any bus or container resolving handlers by class. Copy every target of every export
+condition into the image. Give a class used as an identity token (bus, injection, `instanceof`)
+one import path only: two paths can resolve to distinct copies of the class and cause a silent
+lookup miss. When CI never builds the image, record that as a proof limit.
+
+## Screens and time windows
+
+- Test a time window at both bounds and just outside each; a bound tested alone accepts the other
+  side. Derive the upper bound from the next relevant event, not from any non-cancelled one.
+- Send the server the rank it reads (among active elements), never a neighbor's stored position.
+  Test a move on a list after a removal, where stored positions have a gap.
+- Give a business state ("started", "finished") one definition shared by server and screen. Cover
+  each path to it, such as started then postponed, and its complement.
+- State derived from a context (selected entity, dropped file) resets when that context changes.
+  Pre-fill, change the context, then assert the previous context's data cannot be submitted.
+  Prefer remounting the component keyed by the context's identifier to resynchronizing with an
+  effect.
 
 ## Failures that invalidate the evidence
 

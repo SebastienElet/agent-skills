@@ -1,0 +1,49 @@
+CREATE ROLE
+CREATE ROLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+CREATE FUNCTION
+GRANT
+GRANT
+ALTER FUNCTION
+REVOKE
+GRANT
+GRANT
+GRANT
+INSERT 0 2
+INSERT 0 2
+
+
+ERROR:  invoice audit is immutable
+CONTEXT:  PL/pgSQL function reject_audit_change() line 6 at RAISE
+
+
+ERROR:  permission denied to set role "invoice_purge"
+INSERT 0 1
+INSERT 0 1
+
+CREATE TABLE
+INSERT 0 1
+ERROR:  P0001: purge_demo_account has unhandled foreign key references from: extra_reference
+CONTEXT:  PL/pgSQL function purge_demo_account(text) line 13 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3909
+DROP TABLE
+DELETE 0
+
+INSERT 0 1
+INSERT 0 1
+
+CREATE TABLE
+INSERT 0 1
+ERROR:  P0001: purge_demo_account has unhandled foreign key references from: extra_reference
+CONTEXT:  PL/pgSQL function purge_demo_account(text) line 13 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3909
+DROP TABLE
+DELETE 0
+
+populated purge, ordinary-role spoof, real-account refusal and catalogue evolution passed

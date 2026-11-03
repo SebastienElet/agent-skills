@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "issue": "https://github.com/SebastienElet/dotfiles/issues/702",
+  "case": "./case.json",
+  "case_sha256": "f205ccaf66dd38dcf648e24dd659d65f03c1c88558463c1177e44c4e3c3ada8b",
+  "sources": [
+    {
+      "path": "skills/tdd/references/tests.md",
+      "sha256": "8d259565e7402678306723a884fe3a722c7226ba6def8f87745114c0896dc8d6"
+    }
+  ],
+  "variants": {
+    "without": {
+      "path": "./a.txt",
+      "sha256": "e8d7dd93906999ae5eb1a4ee6735d60ccd42afe14f17e11dd5a8b7fd070e95e6"
+    },
+    "with": {
+      "path": "./b.txt",
+      "sha256": "40fb8cdd3636648909c2614217e20aa23f2d38cea1519eeafa5a3ec458496c07"
+    }
+  },
+  "selected": {
+    "baseline": "run-a5",
+    "candidate": "run-b5",
+    "comparison": "./comparison.json",
+    "result": {
+      "baseline": "FAIL",
+      "candidate": "PASS",
+      "case": "screens-and-windows",
+      "instruction_changed": true,
+      "observed_gain": true
+    }
+  },
+  "attempts": {
+    "run-a1": {
+      "status": "PASS",
+      "model": "gpt-6.1-terra",
+      "reasoning_effort": "low",
+      "report": "./run-a1/report.json",
+      "case_sha256": "de25b2c0ebb6cffb222baa511fc6449016b4a7234fb5f44f5d4e3a612cdb4fe7",
+      "instruction_sha256": "e8d7dd93906999ae5eb1a4ee6735d60ccd42afe14f17e11dd5a8b7fd070e95e6",
+      "runner_sha256": "a7fd03d7a8a500de461ef8fb03d20138e61aea06070d2183d00435e2bf70ba53",
+      "current_case": false,
+      "current_instruction": true,
+      "error": null,
+      "disposition": "retained exploratory observation; not the selected acceptance pair"
+    },
+    "run-a2": {
+      "status": "PASS",
+      "model": "gpt-6.1-terra",
+      "reasoning_effort": "low",
+      "report": "./run-a2/report.json",
+      "case_sha256": "bf8ece8e9ce250d1b40382ede71347504c9c0399ad7fb10e87f441e5e42a6d84",
+      "instruction_sha256": "e8d7dd93906999ae5eb1a4ee6735d60ccd42afe14f17e11dd5a8b7fd070e95e6",
+      "runner_sha256": "23e57ebe63d71ffb261c4a86287d5b05951a214be70fc31a62e7e60903f2cc1c",
+      "current_case": false,
+      "current_instruction": true,
+      "error": null,
+      "disposition": "retained exploratory observation; not the selected acceptance pair"
+    },
+    "run-a3": {
+      "status": "PASS",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "medium",
+      "report": "./run-a3/report.json",
+      "case_sha256": "bf8ece8e9ce250d1b40382ede71347504c9c0399ad7fb10e87f441e5e42a6d84",
+      "instruction_sha256": "e8d7dd93906999ae5eb1a4ee6735d60ccd42afe14f17e11dd5a8b7fd070e95e6",
+      "runner_sha256": "23e57ebe63d71ffb261c4a86287d5b05951a214be70fc31a62e7e60903f2cc1c",
+      "current_case": false,
+      "current_instruction": true,
+      "error": null,
+      "disposition": "retained exploratory observation; not the selected acceptance pair"
+    },
+    "run-a4": {
+      "status": "INVALID",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "medium",
+      "report": "./run-a4/report.json",
+      "case_sha256": "a46745fcccf632b1780e565dd965b8a67297cfc6992624fbf6afb19f85b26d19",
+      "instruction_sha256": "e8d7dd93906999ae5eb1a4ee6735d60ccd42afe14f17e11dd5a8b7fd070e95e6",
+      "runner_sha256": "23e57ebe63d71ffb261c4a86287d5b05951a214be70fc31a62e7e60903f2cc1c",
+      "current_case": false,
+      "current_instruction": true,
+      "error": "process output exceeded the limit",
+      "disposition": "retained exploratory observation; not the selected acceptance pair"
+    },
+    "run-a5": {
+      "status": "FAIL",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "low",
+      "report": "./run-a5/report.json",
+      "case_sha256": "f205ccaf66dd38dcf648e24dd659d65f03c1c88558463c1177e44c4e3c3ada8b",
+      "instruction_sha256": "e8d7dd93906999ae5eb1a4ee6735d60ccd42afe14f17e11dd5a8b7fd070e95e6",
+      "runner_sha256": "23e57ebe63d71ffb261c4a86287d5b05951a214be70fc31a62e7e60903f2cc1c",
+      "current_case": true,
+      "current_instruction": true,
+      "error": null
+    },
+    "run-b1": {
+      "status": "PASS",
+      "model": "gpt-6.1-terra",
+      "reasoning_effort": "low",
+      "report": "./run-b1/report.json",
+      "case_sha256": "de25b2c0ebb6cffb222baa511fc6449016b4a7234fb5f44f5d4e3a612cdb4fe7",
+      "instruction_sha256": "40fb8cdd3636648909c2614217e20aa23f2d38cea1519eeafa5a3ec458496c07",
+      "runner_sha256": "a7fd03d7a8a500de461ef8fb03d20138e61aea06070d2183d00435e2bf70ba53",
+      "current_case": false,
+      "current_instruction": true,
+      "error": null,
+      "disposition": "retained exploratory observation; not the selected acceptance pair"
+    },
+    "run-b2": {
+      "status": "PASS",
+      "model": "gpt-6.1-terra",
+      "reasoning_effort": "low",
+      "report": "./run-b2/report.json",
+      "case_sha256": "bf8ece8e9ce250d1b40382ede71347504c9c0399ad7fb10e87f441e5e42a6d84",
+      "instruction_sha256": "40fb8cdd3636648909c2614217e20aa23f2d38cea1519eeafa5a3ec458496c07",
+      "runner_sha256": "23e57ebe63d71ffb261c4a86287d5b05951a214be70fc31a62e7e60903f2cc1c",
+      "current_case": false,
+      "current_instruction": true,
+      "error": null,
+      "disposition": "retained exploratory observation; not the selected acceptance pair"
+    },
+    "run-b3": {
+      "status": "PASS",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "medium",
+      "report": "./run-b3/report.json",
+      "case_sha256": "bf8ece8e9ce250d1b40382ede71347504c9c0399ad7fb10e87f441e5e42a6d84",
+      "instruction_sha256": "40fb8cdd3636648909c2614217e20aa23f2d38cea1519eeafa5a3ec458496c07",
+      "runner_sha256": "23e57ebe63d71ffb261c4a86287d5b05951a214be70fc31a62e7e60903f2cc1c",
+      "current_case": false,
+      "current_instruction": true,
+      "error": null,
+      "disposition": "retained exploratory observation; not the selected acceptance pair"
+    },
+    "run-b4": {
+      "status": "FAIL",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "medium",
+      "report": "./run-b4/report.json",
+      "case_sha256": "a46745fcccf632b1780e565dd965b8a67297cfc6992624fbf6afb19f85b26d19",
+      "instruction_sha256": "40fb8cdd3636648909c2614217e20aa23f2d38cea1519eeafa5a3ec458496c07",
+      "runner_sha256": "23e57ebe63d71ffb261c4a86287d5b05951a214be70fc31a62e7e60903f2cc1c",
+      "current_case": false,
+      "current_instruction": true,
+      "error": null,
+      "disposition": "retained exploratory observation; not the selected acceptance pair"
+    },
+    "run-b5": {
+      "status": "PASS",
+      "model": "gpt-6-luna",
+      "reasoning_effort": "low",
+      "report": "./run-b5/report.json",
+      "case_sha256": "f205ccaf66dd38dcf648e24dd659d65f03c1c88558463c1177e44c4e3c3ada8b",
+      "instruction_sha256": "40fb8cdd3636648909c2614217e20aa23f2d38cea1519eeafa5a3ec458496c07",
+      "runner_sha256": "23e57ebe63d71ffb261c4a86287d5b05951a214be70fc31a62e7e60903f2cc1c",
+      "current_case": true,
+      "current_instruction": true,
+      "error": null
+    }
+  },
+  "same_suffix_comparisons": {
+    "1": {
+      "baseline": "PASS",
+      "candidate": "PASS",
+      "case": "screens-and-windows",
+      "instruction_changed": true,
+      "observed_gain": false
+    },
+    "2": {
+      "baseline": "PASS",
+      "candidate": "PASS",
+      "case": "screens-and-windows",
+      "instruction_changed": true,
+      "observed_gain": false
+    },
+    "3": {
+      "baseline": "PASS",
+      "candidate": "PASS",
+      "case": "screens-and-windows",
+      "instruction_changed": true,
+      "observed_gain": false
+    },
+    "4": {
+      "comparison_refused": "eval: INVALID runs cannot establish a comparison"
+    },
+    "5": {
+      "baseline": "FAIL",
+      "candidate": "PASS",
+      "case": "screens-and-windows",
+      "instruction_changed": true,
+      "observed_gain": true
+    }
+  },
+  "environment": "../../../tdd/evals/lesson-runtime.json",
+  "protocol": {
+    "context": "fresh ephemeral Codex CLI, no deployed skills; only AGENTS.md instruction injection",
+    "grading": "same hidden executable oracle per selected pair; exit0 PASS,10 assertion FAIL, other/provider/timeout/output-limit INVALID",
+    "sampling": "exploratory pilots followed by frozen case revisions; all retained runs remain listed; first-generation endpoint/Git-unqualified runs are excluded and inventoried in skills/tdd/evals/lesson-pilots.json",
+    "control": "control.json materializes the original files, runs setup then oracle without an agent; its nonzero assertion is not a live-model failure",
+    "selection": "selected compatible FAIL-to-PASS observations on current frozen case/instruction bytes; no statistical or causal uplift claim",
+    "limits": [
+      "Live evaluation only on macOS ARM64 with the recorded requested model aliases.",
+      "No automatic skill discovery or activation is measured; Claude Code and Cursor are untested.",
+      "The caller supplies a dedicated Docker daemon; this is not adversarial sandbox qualification.",
+      "Snapshots preserve UTF-8 source and Unix modes, excluding Git metadata and node_modules."
+    ]
+  }
+}

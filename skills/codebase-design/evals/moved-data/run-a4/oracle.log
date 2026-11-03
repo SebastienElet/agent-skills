@@ -1,0 +1,22 @@
+CREATE TABLE
+CREATE TABLE
+INSERT 0 2
+INSERT 0 3
+psql:/dev/stdin:19: ERROR:  P0001: negative historical fees found
+DETAIL:  Invalid subscriptions: bad
+CONTEXT:  PL/pgSQL function inline_code_block line 11 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3909
+DELETE 1
+DELETE 1
+DO
+CREATE TABLE
+INSERT 0 1
+ASSERTION: as-of approval fee is 2000, got 9000
+INSERT 0 1
+ERROR:  23502: null value in column "decided_at" of relation "pricing_decision" violates not-null constraint
+DETAIL:  Failing row contains (constraint-probe, -1, null).
+SCHEMA NAME:  public
+TABLE NAME:  pricing_decision
+COLUMN NAME:  decided_at
+LOCATION:  ReportNotNullViolationError, execMain.c:2213
+ASSERTION: added nonnegative constraint refuses a new negative value

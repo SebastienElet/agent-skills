@@ -1,0 +1,11 @@
+{
+  "kind": "fixture-negative-control",
+  "case_sha256": "fac34766af20f75732904fc99d6e7138448498431a42b614077c5cdbf437d2cd",
+  "environment": "macOS ARM64, Bun 1.4.4, TZ Europe/Paris; dedicated Docker-in-Docker 29.9.2, PostgreSQL 18 when used",
+  "setup_exit": 0,
+  "oracle_exit": 10,
+  "setup": "",
+  "oracle": "[\n  {\n    \"name\": \"December booking rejected in January is excluded through annualReport\",\n    \"pass\": false,\n    \"actual\": 180,\n    \"expected\": 80\n  },\n  {\n    \"name\": \"split then whole retry refuses duplicate without losing booking\",\n    \"pass\": false,\n    \"actual\": true,\n    \"expected\": false\n  }\n]\n",
+  "limitation": "No live agent ran in this negative control.",
+  "invocation": "Materialize case.files and case.oracle in separate disposable directories; run setup with /bin/bash -e in the workspace, then /bin/bash -e oracle/run.sh with the workspace as cwd and first argument."
+}
