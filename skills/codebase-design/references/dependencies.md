@@ -210,7 +210,8 @@ content digest and detected type. Same-key identical content resumes; changed co
 Reuse an existing object only after verifying identical content. Finalization atomically records
 object identity, digest, type and completed state in the database before success is returned.
 Durable compensation cleans abandoned unreferenced objects without deleting another operation's
-referenced object. Validate content at entry and integrity before release as in `code-enforcement`;
+referenced object. Validate content at entry and integrity before release as in
+[Refusal Controls](controls.md);
 exercise partial failure and successful replay as in `tdd`.
 
 Analyse a user-supplied file (PDF, archive, image, XML) with explicit bounds: input size,

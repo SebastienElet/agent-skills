@@ -55,6 +55,8 @@ tests are part of that authorization; do not ask again when the behavior and tes
    read the index, then only the useful classes to choose discriminating failure cases. Process supervision
    calls for class 24; execution-environment assumptions call for class 21 and the boundary
    assertions above. This does not invoke `pr-verdict` or apply its verdict policy.
+   For refusal controls, use `codebase-design/references/controls.md` for the applicable contract,
+   bypasses and refusal evidence; retain both permitted and unavailable-input cases.
 4. Write one failing test for the next behavior. Include the affected failure paths. Run it and
    confirm the expected assertion fails because of the missing or broken behavior, rather than a
    setup or syntax error. A test already passing does not demonstrate the regression.
