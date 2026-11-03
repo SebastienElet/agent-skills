@@ -30,19 +30,12 @@ an authorized `pr-fix` retains responsibility for open-PR repair.
 
 ## Steps
 
-1. For a review-only mandate, set `GIT_OPTIONAL_LOCKS=0` for Git reads and repository checks so
-   optional index refreshes do not alter the author's index. Freeze the scope with `git status --short`,
-   `git rev-parse HEAD` and the requested comparison.
+1. Freeze the scope with `git status --short`, `git rev-parse HEAD` and the requested comparison.
    For current changes, inspect `git diff --cached`, `git diff` and each relevant untracked file
-   reported by status. Read each relevant untracked file directly. Preserve the author's index in a
-   review-only mandate. Before format, lint, typecheck or any other check requiring new files in the
-   index, copy the index to a temporary index, add only intended new files there with explicit
-   pathspecs, and run the checks with that index. Verify which file versions and paths each check
-   actually covers, including staged and unstaged versions when both are in scope. When a check
-   exercises only the working-tree version, explicitly report the staged version as untested by that
-   check, even if it passes. If isolation, indexing or coverage cannot be established, report the
-   affected evidence as unavailable; do not present it as green. A review followed by authorized
-   corrections retains the correction workflow's own indexing and verification rules.
+   reported by status. Read an untracked file directly; index it before repository checks when it
+   belongs to the intended change. Never stage an unrelated file merely to review it. Report the
+   paths and versions each check exercises; when staged and working-tree versions differ, do not
+   claim a check on one proves the other.
 2. For a branch or supplied ref, resolve the ref and capture `git diff <ref>...HEAD` and
    `git log <ref>..HEAD --oneline`. Report staged, unstaged or untracked changes outside that
    committed comparison explicitly. Include them when the requested scope is the complete current
@@ -88,7 +81,6 @@ an authorized `pr-fix` retains responsibility for open-PR repair.
 
 - Never omit pending changes that belong to the requested review scope.
 - Never edit, commit, publish or repair files merely because a review was requested.
-- Never change the author's index during a review-only mandate.
 - Never treat empty diffs, green checks or stylistic preferences as a merge decision.
 - Never invoke `pr-verdict` outside its authorized activation contract.
 - Never claim reviewer independence or execution evidence that was not actually available.
