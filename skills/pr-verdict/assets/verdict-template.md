@@ -107,7 +107,7 @@ on both touched packages, `bun test close` exit 0 (7/7 tests). Output:
 https://ci.example/artifacts/<run-id>. Those tests remain sequential: they cover none of the
 concurrent interleaving that motivates the blockers above.
 
-Non-blocking: the documented 409/412 codes no longer match the real behavior.
+Non-blocking: a local variable name could describe its purpose more clearly.
 
 Fix: https://tracker.example/ISSUE-158
 Initial review: https://forge.example/pull-requests/1042/comments/155
