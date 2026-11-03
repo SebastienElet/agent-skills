@@ -92,7 +92,9 @@ through `--count`. By default, inspect the latest ten merged pull requests autho
 
    For each collection in steps 3–5, verify traversal to the end or as far as the attribution
    requires. GitHub REST uses `Link` and `gh api --paginate`; use paginated REST or a GraphQL
-   connection with `pageInfo` when `gh pr view` cannot establish completeness. On Bitbucket Cloud,
+   connection with `pageInfo` when `gh pr view` cannot establish completeness. For nested GraphQL
+   connections, paginate each connection separately and inspect its own `pageInfo`; a single
+   `--paginate` does not establish that every connection reached its end. On Bitbucket Cloud,
    follow each opaque `next` URL until absent; a `pagelen` is a page size, not a total limit.
    Do not assume `bkt` commands or `--jq` followed pages: verify their behavior for the installed
    version or inspect each raw page before filtering. For Data Center, verify its own pagination
