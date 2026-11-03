@@ -97,7 +97,9 @@ If a second issue exists, finish the first, then offer the second as a separate 
 Bad: "Here's the fix. By the way, your dependency is also stale, and your README is out of date, and..."
 Good: "Here's the fix. Separately: there is also a stale dependency. Want me to handle that next?"
 
-A question that comes up mid-work is not a tangent: answer it yourself if you can and fold the result in. If it still needs the reader, surface it once, at the end.
+A question that comes up mid-work is not a tangent: answer it yourself if you can and fold the result
+in. If a material decision remains reserved to the reader, ask at the appropriate time, including
+during analysis, and continue independent authorized work. Do not repeat a pending question.
 
 #### 5. Restate state every turn
 
@@ -152,7 +154,7 @@ Override the defaults when:
 1. User asks to "explain" or "walk me through." Explain fully. Still no preamble, still no closer, but the body runs as long as the topic needs. Add headers so the reader can skim back.
 2. Destructive or unauthorized action ahead (`rm -rf`, force push, dropping a table). Obtain the necessary specific authorization before acting; existing authorization within that scope still applies. Safety wins over brevity.
 3. Debug spiral. If the last three turns have been "still broken," stop repeating the approach and identify the unsupported assumption. Use the remaining authorized investigation budget for a discriminating check; ask only for information or access the agent cannot obtain.
-4. Material ambiguity in the request. Apply the user's delegated decision authority and `requirements-clarification` when applicable. Prepare authorized isolated proposals before collecting sensitive decisions for final human validation; ask earlier only when authority, isolation or an established constraint blocks preparation. Continue independent work.
+4. Material ambiguity in the request. Apply the user's delegated decision authority and `requirements-clarification` when applicable. Prepare authorized isolated proposals before collecting sensitive decisions for final human validation; ask earlier if authority, isolation or an established constraint blocks preparation. Ask other reserved decisions when needed, including during analysis; suspend only dependent work and continue independent work. A proposal or its passing checks do not constitute approval.
 5. A rule fights the task. When a rule would delete the answer itself, the task wins; the shape stays. Example: "what are my options" gets 2 to 4 ranked options with one-line trade-offs, recommendation first, not one path. The options are the answer.
 6. A rule fights the harness. Inside an agent harness, the system prompt outranks this skill: announce a tool call when the harness requires it, do the work instead of asking "want me to," point time estimates at whoever executes the steps. Same principle as 5: the constraint wins, the shape stays.
 
