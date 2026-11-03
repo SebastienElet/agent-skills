@@ -1,0 +1,11 @@
+{
+  "kind": "fixture-negative-control",
+  "case_sha256": "ddc100a281d04ec7cc02a73e5979661abaa3174da855f79e35051e7d70141c2e",
+  "environment": "macOS ARM64, Bun 1.4.4, TZ Europe/Paris; dedicated Docker-in-Docker 29.9.2, PostgreSQL 18 when used",
+  "setup_exit": 0,
+  "oracle_exit": 10,
+  "setup": "",
+  "oracle": "CREATE TABLE\nCREATE TABLE\nINSERT 0 2\nINSERT 0 3\nCREATE TABLE\nINSERT 0 2\npsql:/dev/stdin:3: ERROR:  23514: check constraint \"fee_non_negative\" of relation \"pricing_decision\" is violated by some row\nSCHEMA NAME:  public\nTABLE NAME:  pricing_decision\nCONSTRAINT NAME:  fee_non_negative\nLOCATION:  ATRewriteTable, tablecmds.c:6502\nASSERTION: diagnostic preflight identifies invalid historical fee\nDELETE 1\nDELETE 1\nCREATE TABLE\nINSERT 0 1\nALTER TABLE\nASSERTION: as-of approval fee is 2000, got 9000\nINSERT 0 1\nERROR:  23514: new row for relation \"pricing_decision\" violates check constraint \"fee_non_negative\"\nDETAIL:  Failing row contains (constraint-probe, -1).\nSCHEMA NAME:  public\nTABLE NAME:  pricing_decision\nCONSTRAINT NAME:  fee_non_negative\nLOCATION:  ExecConstraints, execMain.c:2076\nINSERT 0 1\n0\n[\n  {\n    \"name\": \"pre-migration approval keeps fee and display\",\n    \"pass\": false,\n    \"actual\": 100,\n    \"expected\": 2000\n  },\n  {\n    \"name\": \"new version does not inherit an undecided fee\",\n    \"pass\": false,\n    \"actual\": true,\n    \"expected\": false\n  },\n  {\n    \"name\": \"old client contract remains additive\",\n    \"pass\": true\n  },\n  {\n    \"name\": \"new decision takes priority over differing legacy fee\",\n    \"pass\": true\n  }\n]\n",
+  "limitation": "No live agent ran in this negative control.",
+  "invocation": "Materialize case.files and case.oracle in separate disposable directories; run setup with /bin/bash -e in the workspace, then /bin/bash -e oracle/run.sh with the workspace as cwd and first argument."
+}

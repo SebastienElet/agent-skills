@@ -1,0 +1,26 @@
+[
+  {
+    "name": "normal file still parses through built artifact",
+    "pass": true
+  },
+  {
+    "name": "parser is a separate process with empty environment",
+    "pass": true
+  },
+  {
+    "name": "RSS limit stops a small-output memory allocation",
+    "pass": true
+  },
+  {
+    "name": "generated decompression bomb refused while server and deposited file survive",
+    "pass": true
+  },
+  {
+    "name": "deadline and event-loop isolation",
+    "pass": true
+  },
+  {
+    "name": "saturated queue has distinct retryable refusal",
+    "pass": true
+  }
+]

@@ -1,0 +1,12 @@
+Implement the user request autonomously. Use the repository contracts and existing tools. Do not ask questions or commit. This is a synthetic isolated experiment. Local Docker and loopback services are authorized; DOCKER_HOST selects the dedicated daemon. Never override its host or context. Use login:false for shell commands so the supplied PATH persists. Do not contact other external services.
+
+A delete-refusing trigger on an append-only table, or a foreign key without a cascading action
+(`RESTRICT`, or `NO ACTION`, the default), blocks any routine deleting its parent. Ship the
+deletion path with the table, and list the referencing tables in an automated check comparing
+`pg_constraint` foreign keys (`contype = 'f'`, `confdeltype` of `a` or `r`) onto the routine's
+tables with the routine's own list. Take the bypass's authority from the identity the application
+role cannot assume: the trigger allows the delete only when `current_user` is a dedicated purge role,
+and the routine is a `SECURITY DEFINER` function owned by that role with a pinned `search_path`.
+A custom setting (`app.*`), even `SET LOCAL`, scopes lifetime, never authority: any session can set
+it, so no trigger may trust it alone. Test that the ordinary role, after setting that flag itself,
+still has its `DELETE` refused. Truncation needs its own statement-level guard.

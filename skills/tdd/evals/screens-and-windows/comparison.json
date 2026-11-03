@@ -1,0 +1,7 @@
+{
+  "baseline": "FAIL",
+  "candidate": "PASS",
+  "case": "screens-and-windows",
+  "instruction_changed": true,
+  "observed_gain": true
+}
