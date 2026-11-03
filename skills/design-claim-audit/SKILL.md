@@ -31,11 +31,14 @@ requests.
    child is unavailable, stop with the audit absent.
 3. Wait for the child ledger. Each changed claim gets one row with `claim`, `authority`, `mechanism`,
    `scope`, `named behavioral oracle`, `status`, and `failure mechanism`.
-4. Assign status in order: `held` needs authority, exact mechanism, scope, and a named green oracle;
-   `target` needs a cited approved decision; `debt` needs a cited tracker item; everything else is
-   `contradicted`. Missing implementation is not a target.
-5. Only now read evidence and reconcile the draft. Remove or weaken `contradicted`; keep `target` or
-   `debt` within its cited authority.
+4. Classify a present claim as `contradicted` when evidence establishes a contradiction;
+   record that evidence and failure mechanism. `held` needs authority, exact mechanism, scope, and
+   a named green oracle. `target` needs a cited approved decision; `debt` needs a cited tracker item.
+   If the evidence is insufficient for these statuses, use `unverified` and name what is missing.
+   Missing implementation alone does not establish a target.
+5. Only now read evidence and reconcile the draft. Remove or weaken `contradicted` and `unverified`
+   present guarantees. A decision or tracker item does not prove a present guarantee: express
+   `target` as a future commitment and `debt` as an outstanding gap, within their cited authority.
 6. Deliver both task identities, the complete seven-column ledger, then the reconciled document or
    diff. A shortened ledger is absent.
 
@@ -67,6 +70,7 @@ requests.
 - A context certifies only owned facts and decisions.
 - A waiver satisfies only canonically named gates.
 - `target` cites its decision; `debt` cites its tracker item.
+- `contradicted` cites evidence of contradiction; missing evidence alone is `unverified`.
 
 ## Red Flags
 
