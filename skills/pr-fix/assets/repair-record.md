@@ -15,16 +15,16 @@ Corrections completed on `<final-head-sha>`.
 
 Validation: <tested head/base, environment, tier, principal commands, exit statuses, output artifacts and counts>; required CI: <linked result on this SHA, or none required>.
 Independent review: `approved` on `<final-head-sha>`, no remaining actionable defect.
-Native approval: <confirmed for <account> on `<final-head-sha>` | already present for <account>, not bound to a SHA on Bitbucket | not granted: <refusal, user decline or prohibition, or own PR>>; PR state: <forge state, e.g. OPEN>.
+Native approval: <confirmed for <account> on `<final-head-sha>` | already present for <account> on `<final-head-sha>` (GitHub) | present for <account>, age unknown (Bitbucket) | not granted: <refusal, user decline or prohibition, or own PR>>; PR state: <forge state, e.g. OPEN>.
 Limits: <material evidence gaps or deliberately excluded findings and reasons; omit this line when none>.
 ```
 
 ## Self-check before publishing
 
-- Publish only after independent `approved` and successful required remote CI on the current SHA,
-  and after the native approval reached a verified state other than `requested` or `uncertain`.
-- Write `confirmed` only from a forge read-back; never let this comment imply an approval the
-  forge does not show.
+- Publish only after independent `approved`, successful required remote CI on the current SHA,
+  and a native approval state permitting publication under the native approval procedure.
+- Write `confirmed` only from the evidence required by the native approval procedure; never let
+  this comment imply an approval the forge does not show or bind an unknown-age approval to a head.
 - Stable PR marker first; update the existing repair comment even when the SHA changes.
 - One opening sentence, correction bullets, one validation paragraph; aim for 15 non-empty lines.
 - Cover all final corrected problems across passes; group related outcomes instead of truncating.
