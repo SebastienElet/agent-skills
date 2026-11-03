@@ -63,23 +63,27 @@ invoice or charge.
 duplicate is rejected by the database.
 
 For each transition of an existing resource, including later workflow stages, require an expected
-version or equivalent concurrency precondition checked atomically with the mutation. Creation needs
-its own uniqueness/replay key, not a nonexistent prior version. Name the replay contract: refuse a
-duplicate before any effect or return the prior result without repeating it. Exercise replay and,
-where required, stale and missing versions through each action, observing unchanged state and no
-additional external effect on refusal.
+version or equivalent concurrency precondition checked atomically with the mutation. Define the
+creation contract or justify why idempotence is unnecessary; do not substitute a nonexistent prior
+version. Where a key is used, define its scope, lifetime and duplicate behavior. Exercise contracted
+retry and, where required, stale and missing versions through each action, observing unchanged state
+and no additional external effect on refusal.
 After a successful UI write, close or refresh the form so it cannot resubmit the consumed version.
 
 Every new creation endpoint needs idempotence or an explicit justification for its absence. For
-keyed creation, inspect key scope, lifetime, database uniqueness and atomic persistence of request
-identity, effect and replayable response. Concurrent identical `Idempotency-Key` requests create
-one row and replay the response; reuse with a different body receives a named refusal such as
-`422`, without a second effect. Require these cases against the real database, not sequential mocks.
+keyed creation, inspect database uniqueness and concurrent outcomes. Require atomic persistence of
+request identity and effect or equivalent durable recovery; exercise interruptions without lost or
+duplicate effects. When replay is promised, verify persistence of the replayable response with the
+effect. Derive changed-content
+behavior, status and response retention from the applicable contract; resolve missing decisions.
+Exercise concurrency and the contracted outcomes against the real database, without unintended
+duplicate effects.
 
-For an upload reservation, bind the organization-scoped durable key to server-computed digest and
-detected type. Identical replay resumes and differing content refuses; reuse a deposited object
-only if its content matches. Exercise failure after deposit followed by successful retry, plus
-concurrent replay; finalization atomically records object, digest, type and completed state.
+For uploads, define the request identity, duplicate and changed-content behavior, integrity and
+recovery under the applicable contract; do not assume a reservation or replay protocol. Reuse a
+deposited object only after verifying identical content. Exercise relevant concurrent requests and
+partial failures; finalization atomically records the identity, integrity metadata and completion
+state required by the contract before success.
 
 Reservations need an owner, a failure exit and defined expiry or recovery. Reassignment must exclude
 an active write despite lease expiry; protect acquisition, holder authority and handoff to writing.
@@ -659,10 +663,13 @@ output completeness as well as status. Exercise a second signal, a termination-r
 an unresponsive worker, truncated output with status zero and cleanup failure after success/failure
 using bounded offline tests. State direct uncatchable-kill and detached-descendant limits in delivery.
 
-For cross-system writes, inspect durable compensation after partial failure, abandonment or
-conflict. Cleanup removes only unreferenced objects and must preserve another operation's object;
-observe eventual cleanup and successful replay. An outbox with an idempotent consumer is an
-alternative under the storage contract. Do not announce completion before durable finalization.
+For cross-system writes, inspect durable recovery after partial failure, abandonment or conflict
+under the applicable contract. Exercise abandonment before durable finalization: verify no premature
+completed state or success, then exercise actual recovery and assert the contracted outcome without
+unintended duplicate or omitted effects. Where compensation is used, exercise cleanup and verify it
+removes abandoned objects when required and preserves objects referenced by another operation. Where replay is promised, exercise the contracted
+replay; an outbox with an idempotent consumer is another possible recovery mechanism. Do not announce
+completion before durable finalization.
 
 ## 25. A reference is checked for existence only
 
@@ -721,9 +728,9 @@ references existing entities through a `RESTRICT` foreign key and a routine dele
 rows now fails.
 
 **Lift:** the migration backfills the column before constraining it, or the null is handled
-explicitly, proven by a test on a row inserted without the column. Every routine touching the related
-tables is found by search and updated, deleting dependents first, with a test that creates a
-dependent row and then runs the routine.
+explicitly, proven by a test on a row inserted without the column. Find every routine touching the
+related tables and update it to handle dependents according to the applicable contract; test each
+affected routine with a dependent row, including deletion order where deletion is authorized.
 Populate every new relation in the routine test and assert the complete result. For new or widened
 constraints, detect incompatible old data in the migration and apply an owner-validated treatment,
 or refuse diagnostically before modification; never delete conflicting data arbitrarily. Exercise
@@ -768,8 +775,8 @@ Make purge, erasure or demo reset required or permitted by the established contr
 success plus non-bypass by the ordinary role. Class 22 still governs personal-data policy; permanent refusal
 does not prove compatibility with erasure.
 
-Publication must refuse held items without lifting their protection; release is a distinct
-authorized command. For every protection, identify erasure authority, scope and preconditions,
+Determine from the domain contract whether publication is permitted under a hold and who may lift it;
+record missing decisions. For every protection, identify erasure authority, scope and preconditions,
 or leave the missing policy as an explicit open question. An undecided demo purge cannot justify
 disabling protections or claiming an authorized cleanup path already works.
 For filed documents, persist the exact deposited version and verify sealing before finalization.
@@ -811,9 +818,10 @@ For UI element keys, prefer stable IDs. A composite such as type plus nullable e
 require uniqueness even with null or empty components, or replace it with the stable ID. Exercise
 two such elements and independent selection or update; a render that ignores warnings proves little.
 
-Freeze labels and attributes used to describe historical facts at first use. First use and rename
-share the same lock; refuse a changed used label with the contracted error, while identical replay
-succeeds. Require the overlapping first-use/rename case, not only a sequential already-used check.
+Determine when labels and attributes describing historical facts become stable under the domain
+contract, and resolve missing decisions. When first use freezes an attribute, coordinate first use
+and rename so only contract-permitted outcomes persist. Exercise their overlap and the contracted
+behavior for an unchanged-label replay, not only a sequential already-used check.
 
 ## 32. A dated rule loses its reference date, boundary, exception or counting mode
 

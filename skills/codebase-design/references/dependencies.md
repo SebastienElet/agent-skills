@@ -87,9 +87,10 @@ deletion path in the same change. Test it: create a row in the table, then run t
 automatic guard comparing the catalog's foreign keys onto purged tables with the routine's list. The
 bypass takes its authority from a role the application role cannot assume, not from a settable flag;
 see `postgresql-engineering` schema integrity.
-Publication refuses protected items without lifting their holds; lifting a hold is a separate
-authorized command. Attributes describing historical facts freeze at first use: a rename and
-first use share the same lock, while replaying the unchanged label remains allowed.
+Determine from the domain contract whether publication is permitted under a hold, who may lift it,
+and when historical attributes become stable; record missing decisions. When first use freezes an
+attribute, coordinate changes and first use so concurrent operations preserve the permitted outcome;
+define whether replaying an unchanged value is allowed.
 
 For a filed document, persist and read the exact deposited version, never a mutable latest alias.
 Return its breakdowns from the data frozen at issue or a read as of that date; if a recomputation
@@ -110,12 +111,12 @@ signed content invalidates it, and removal leaves no dangling reference or undec
 
 ## Related lifecycles and reservations
 
-A multi-step operation follows: checks, atomic reservation, idempotent effect, transition. Protect
-mutable checks until the write; a refusal leaves no blocking reservation. A replay resumes
-unfinished follow-ups without repeating acquired effects. Count what is already done by business
-key, even if a technical identifier changes; recompute the shared amount after each write in a
-loop. A linked status derives from the state of the referenced object, including after
-cancellation.
+For a multi-step operation, identify its actual steps, concurrent changes and interruption points.
+Protect mutable preconditions through the relevant write and define recovery so partial effects do
+not create duplicates or omit required follow-ups. If the contract uses reservations, define their
+acquisition, release and recovery; refusal must not leave an unintended blocking reservation.
+Where progress is keyed by business identity, preserve it across technical identifier changes and
+recompute remaining amounts and linked states according to the domain contract.
 
 An automatic projection does not justify refusing the prioritized human decision provided by the
 contract. Reassign projections in their established order, preserving explicit commitments,
@@ -159,14 +160,15 @@ per the contract. Also bound calls over a caller-supplied collection: prefer bul
 explicitly limited concurrency, without `Promise.all` over an unbounded collection.
 
 Every new creation endpoint needs an idempotence contract or an explicit justification for its
-absence. For keyed creation, define key scope and lifetime, protect uniqueness in the database and
-commit the request identity and replayable response atomically with the effect. In `shop-api`,
-`POST /orders` with `Idempotency-Key` replays the response for the same key and body; the same key
-with a different body returns a named `422` refusal. Concurrent duplicates must produce one row.
-Use the common mechanism to return the original status and body: the unique index alone must not
-turn a replay into a `409`. Provide recovery after an interruption during creation, without a
-stored response containing personal data. Compare payloads by a canonical hash independent of key
-order at every comparison point.
+absence. For keyed creation, define key scope and lifetime, protect uniqueness in the database, and
+couple request identity and effect atomically or provide durable recovery without lost or duplicate
+effects. When replay is promised, commit the replayable response with the effect. In `shop-api`,
+`POST /orders` might replay the original status and body for the same key and equivalent content,
+and refuse changed content with a named `422`. Treat these as examples: define replay, same-key
+changed-content behavior, response retention and personal-data handling from the applicable contract, or resolve
+missing decisions. For a contract promising replay, a unique index alone is insufficient; define
+concurrent outcomes and interruption recovery without duplicate effects. If payload equivalence
+ignores object key order, apply that comparison consistently.
 
 Every new exposed API list is bounded by default, with documented default and maximum limits and
 named behavior above the maximum. Default to cursor pagination with stable ordering ending in a
@@ -204,14 +206,13 @@ path, not on an isolated domain function.
 
 For storage followed by database writes, define order, durable progress, request identity and
 recovery before implementation. A local transaction cannot make independent systems atomic;
-choose an outbox with an idempotent consumer or explicit compensation under the storage contract.
-Reserve uploads durably with an organization-scoped unique request key bound to server-computed
-content digest and detected type. Same-key identical content resumes; changed content refuses.
-Reuse an existing object only after verifying identical content. Finalization atomically records
-object identity, digest, type and completed state in the database before success is returned.
-Durable compensation cleans abandoned unreferenced objects without deleting another operation's
-referenced object. Validate content at entry and integrity before release as in `code-enforcement`;
-exercise partial failure and successful replay as in `tdd`.
+choose a recovery mechanism under the applicable contracts, such as an outbox with an idempotent
+consumer or explicit compensation. Define duplicate and changed-content behavior, object identity,
+integrity, success and retention; resolve missing policy rather than assuming a reservation protocol.
+Verify content before reusing an object; atomically record the identity, integrity metadata and
+completion state needed by the contract before success. Make cleanup recoverable, remove abandoned
+objects when required by the contract, and protect objects referenced by other operations. Validate content at entry and integrity before release as in
+`code-enforcement`; exercise applicable partial failures and recovery as in `tdd`.
 
 Analyse a user-supplied file (PDF, archive, image, XML) with explicit bounds: input size,
 decompressed size, time, memory and concurrency. When the library offers no such limit, run the
