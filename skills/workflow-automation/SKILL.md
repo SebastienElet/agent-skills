@@ -28,14 +28,16 @@ $workflow-automation review these repeated agent runs for an automation candidat
 
 ## Steps
 
-1. Establish recurrence from an explicit user report or evidence from at least three independent
-   runs. Treat a single observed run as a candidate requiring more evidence.
+1. Establish the requested outcome and permitted effects. Establish recurrence from an explicit
+   user report or evidence from at least three independent runs. Treat a single observed run as a
+   candidate requiring more evidence.
 2. Name the stable outcome, inputs, outputs, effects, authority, failure modes, and variable choices.
    Remove discovery, debugging, and recovery commands that are incidental to one run.
 3. Search for an existing supported command, connector, configuration, task, or workflow that already
-   provides the outcome. Standardize that primitive before creating another one. When a supported
-   CLI query and a direct `jq` projection express the complete outcome, keep them in the workflow
-   instead of wrapping them in a new program.
+   provides the outcome. For an analysis-only request, return the candidate, recurrence evidence and
+   limits without modifying the project; stop here. For authorized implementation, standardize that
+   primitive before creating another one. When a supported CLI query and a direct `jq` projection
+   express the complete outcome, keep them in the workflow instead of wrapping them in a new program.
 4. Choose the narrowest durable implementation supported by the current project’s toolchain and
    declared scripting boundaries. Use an available project scripting skill when applicable;
    otherwise follow the repository’s instructions. Do not impose this collection’s contribution
@@ -65,6 +67,7 @@ $workflow-automation review these repeated agent runs for an automation candidat
 ## Constraints
 
 - Never infer recurrence from one run without an explicit user report.
+- Never implement automation or modify the project from an analysis-only request.
 - Never parse private measurement artifacts, transcripts, or telemetry schemas directly. Without
   a supported public repetition query, automatic cross-session detection is unavailable.
 - Never automate irreversible or externally visible effects without established authority and an
