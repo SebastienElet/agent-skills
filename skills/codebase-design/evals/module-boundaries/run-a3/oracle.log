@@ -1,0 +1,10 @@
+[
+  {
+    "name": "December booking rejected in January is excluded through annualReport",
+    "pass": true
+  },
+  {
+    "name": "split then whole retry refuses duplicate without losing booking",
+    "pass": true
+  }
+]

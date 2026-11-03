@@ -1,0 +1,11 @@
+{
+  "kind": "fixture-negative-control",
+  "case_sha256": "e763327b78cab1de92bbd9cbbfa2695684ac9e083617462e91acd275bd75ea59",
+  "environment": "macOS ARM64, Bun 1.4.4, TZ Europe/Paris; dedicated Docker-in-Docker 29.9.2, PostgreSQL 18 when used",
+  "setup_exit": 0,
+  "oracle_exit": 10,
+  "setup": "",
+  "oracle": "[\n  {\n    \"name\": \"normal file still parses through built artifact\",\n    \"pass\": true\n  },\n  {\n    \"name\": \"parser is a separate process with empty environment\",\n    \"pass\": false,\n    \"actual\": 91943,\n    \"expected\": 91943\n  },\n  {\n    \"name\": \"RSS limit stops a small-output memory allocation\",\n    \"pass\": false,\n    \"actual\": 200,\n    \"expected\": 422\n  },\n  {\n    \"name\": \"generated decompression bomb refused while server and deposited file survive\",\n    \"pass\": false,\n    \"actual\": 200,\n    \"expected\": 422\n  },\n  {\n    \"name\": \"deadline and event-loop isolation\",\n    \"pass\": false,\n    \"actual\": false,\n    \"expected\": true\n  },\n  {\n    \"name\": \"saturated queue has distinct retryable refusal\",\n    \"pass\": false,\n    \"actual\": 200,\n    \"expected\": 503\n  }\n]\n",
+  "limitation": "No live agent ran in this negative control.",
+  "invocation": "Materialize case.files and case.oracle in separate disposable directories; run setup with /bin/bash -e in the workspace, then /bin/bash -e oracle/run.sh with the workspace as cwd and first argument."
+}

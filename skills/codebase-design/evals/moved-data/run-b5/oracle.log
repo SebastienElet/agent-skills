@@ -1,0 +1,18 @@
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+DO
+INSERT 0 0
+ALTER TABLE
+INSERT 0 2
+INSERT 0 3
+BEGIN
+psql:/dev/stdin:1: WARNING:  25001: there is already a transaction in progress
+LOCATION:  BeginTransactionBlock, xact.c:3954
+psql:/dev/stdin:6: NOTICE:  42P07: relation "pricing_decision" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:208
+CREATE TABLE
+psql:/dev/stdin:33: ERROR:  P0001: Cannot migrate 1 negative approved fees; subscriptions: bad
+CONTEXT:  PL/pgSQL function inline_code_block line 21 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3909
+ASSERTION: rejected migration preserves all original data

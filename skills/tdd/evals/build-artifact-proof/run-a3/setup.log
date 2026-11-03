@@ -1,0 +1,10 @@
+bun install v1.4.4 (5d9cc0f4f)
+
++ @types/bun@1.4.4
++ @types/react@19.2.0 (v19.3.0 available)
++ @types/react-dom@19.2.0 (v19.3.0 available)
++ @shop/orders@packages/orders
++ react@19.2.0 (v19.3.1 available)
++ react-dom@19.2.0 (v19.3.1 available)
+
+11 packages installed [3.17s]

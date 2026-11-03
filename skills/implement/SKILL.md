@@ -99,10 +99,13 @@ does not authorize launching Claude.
    consumers together, beyond individual units, at the boundary owning each invariant. Before
    declaring a PR ready, resolve its real target branch, fetch it and record its SHA. Integrate it
    into the candidate when authorized; otherwise state the missing integration in the readiness
-   declaration. A conflict-free `merge-tree` does not prove compatibility. Search the integrated
-   tree for all consumers of the changed contract, including those added by the target. Replay
-   only checks the repository already runs for the affected files and consumers (for example,
-   affected tasks), never a fixed checklist or all gates. Index intended new files before the
+   declaration. Reread the target's history since the merge base for new conventions, decisions
+   and checks, and conform new code and tests rather than resolving only textual conflicts.
+   Run the whole affected package typecheck, tests included, and the repository's declared
+   readiness gate, including static checks absent from the commit hook or PR CI. A conflict-free
+   `merge-tree` does not prove compatibility. Search the integrated tree for consumers added by
+   the target. Beyond that declared gate, select existing checks for affected files and consumers;
+   do not invent a fixed checklist or invoke unrelated checks. Index intended new files before the
    relevant checks. Retain commands or observations, candidate, environment and
    uncovered targets under `orchestrate`. For a failure, return to its owning stage with the new
    observations and remaining recovery budget, correct within scope and rerun affected checks.

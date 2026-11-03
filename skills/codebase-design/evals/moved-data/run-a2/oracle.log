@@ -1,0 +1,41 @@
+CREATE TABLE
+CREATE TABLE
+INSERT 0 2
+INSERT 0 3
+BEGIN
+psql:/dev/stdin:1: WARNING:  25001: there is already a transaction in progress
+LOCATION:  BeginTransactionBlock, xact.c:3954
+psql:/dev/stdin:19: ERROR:  P0001: negative fee for subscription bad
+CONTEXT:  PL/pgSQL function inline_code_block line 7 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3909
+DELETE 1
+DELETE 1
+psql:/dev/stdin:1: WARNING:  there is already a transaction in progress
+BEGIN
+DO
+CREATE TABLE
+INSERT 0 1
+UPDATE 1
+COMMIT
+WARNING:  there is no transaction in progress
+[
+  {
+    "name": "pre-migration approval keeps fee and display",
+    "pass": false,
+    "actual": 100,
+    "expected": 2000
+  },
+  {
+    "name": "new version does not inherit an undecided fee",
+    "pass": true
+  },
+  {
+    "name": "old client contract remains additive",
+    "pass": false,
+    "expected": 2000
+  },
+  {
+    "name": "new decision takes priority over differing legacy fee",
+    "pass": true
+  }
+]

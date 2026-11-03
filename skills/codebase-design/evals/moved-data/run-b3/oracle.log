@@ -1,0 +1,51 @@
+CREATE TABLE
+CREATE TABLE
+INSERT 0 2
+INSERT 0 3
+psql:/dev/stdin:3: WARNING:  25001: there is already a transaction in progress
+LOCATION:  BeginTransactionBlock, xact.c:3954
+BEGIN
+CREATE TABLE
+SELECT 2
+psql:/dev/stdin:44: ERROR:  P0001: pricing decision backfill refused: 1 invalid subscription(s): bad
+DETAIL:  Fees must be present and non-negative.
+CONTEXT:  PL/pgSQL function inline_code_block line 17 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3909
+DELETE 1
+DELETE 1
+psql:/dev/stdin:3: WARNING:  there is already a transaction in progress
+BEGIN
+CREATE TABLE
+SELECT 1
+DO
+INSERT 0 1
+ALTER TABLE
+COMMIT
+WARNING:  there is no transaction in progress
+INSERT 0 1
+ERROR:  23514: new row for relation "pricing_decision" violates check constraint "pricing_decision_fee_non_negative"
+DETAIL:  Failing row contains (constraint-probe, -1).
+SCHEMA NAME:  public
+TABLE NAME:  pricing_decision
+CONSTRAINT NAME:  pricing_decision_fee_non_negative
+LOCATION:  ExecConstraints, execMain.c:2076
+INSERT 0 1
+0
+[
+  {
+    "name": "pre-migration approval keeps fee and display",
+    "pass": true
+  },
+  {
+    "name": "new version does not inherit an undecided fee",
+    "pass": true
+  },
+  {
+    "name": "old client contract remains additive",
+    "pass": true
+  },
+  {
+    "name": "new decision takes priority over differing legacy fee",
+    "pass": true
+  }
+]

@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "namespace": "initial-unqualified-generation",
+  "disposition": "Excluded from published acceptance comparisons; raw traces remain locally preserved because they contain host Docker inventory. Same-named public runs belong to a later qualified generation.",
+  "local_archive": "/Users/sebastien/.cache/agent-experiments/lessons-106-excluded",
+  "runs": [
+    {
+      "case": "deletion-path",
+      "trial": "run-b1",
+      "raw_status": "FAIL",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "220881c1f0577022543b8419a69c1501b6ce7219400289f07767ac8a723c8356",
+      "instruction_sha256": "5c4f291b026879d11fb17e5b67f4d92681078abcffac9e8ced2368464024c307",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "deletion-path",
+      "trial": "run-a1",
+      "raw_status": "FAIL",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "220881c1f0577022543b8419a69c1501b6ce7219400289f07767ac8a723c8356",
+      "instruction_sha256": "0e9486bdf4209a26c844c3acd0a88f62e5440414ae6f86ae6cc0f3c58a61a98d",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "lagging-branch",
+      "trial": "run-b2",
+      "raw_status": "FAIL",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "5dd021c4f8edce862aefab0c93a67bc849430ef22efaa25d576c3558ab6d4207",
+      "instruction_sha256": "3587d023545a584da657ee846898c8f09d5db99046293d9ed3da0015cc155a2e",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "lagging-branch",
+      "trial": "run-b1",
+      "raw_status": "FAIL",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "156a1d0727ff52376599e3cc351726edef22faf636e7bba3984899bcfc9752ce",
+      "instruction_sha256": "3587d023545a584da657ee846898c8f09d5db99046293d9ed3da0015cc155a2e",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "lagging-branch",
+      "trial": "run-a1",
+      "raw_status": "FAIL",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "156a1d0727ff52376599e3cc351726edef22faf636e7bba3984899bcfc9752ce",
+      "instruction_sha256": "0e9486bdf4209a26c844c3acd0a88f62e5440414ae6f86ae6cc0f3c58a61a98d",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "moved-data",
+      "trial": "run-b1",
+      "raw_status": "PASS",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "4547ac3732a4b6994bc4bc5dd7a965dc954a84bb2da5a0921217383ca32de2ca",
+      "instruction_sha256": "0c170d608f25410b73051a8e8e0c727ba6c69d299a3a656c822853b17f1f76f3",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "moved-data",
+      "trial": "run-a1",
+      "raw_status": "FAIL",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "4547ac3732a4b6994bc4bc5dd7a965dc954a84bb2da5a0921217383ca32de2ca",
+      "instruction_sha256": "0e9486bdf4209a26c844c3acd0a88f62e5440414ae6f86ae6cc0f3c58a61a98d",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "module-boundaries",
+      "trial": "run-b1",
+      "raw_status": "FAIL",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "0018bb09d0f4347c534f56692112d2685b245512c67b6a60b3cfff0927ca5fbd",
+      "instruction_sha256": "f4a4a118673e17c2d3204c854cd69b2a06ba536fa67365d4fa9aa24f435b71b1",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "module-boundaries",
+      "trial": "run-a1",
+      "raw_status": "PASS",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "0018bb09d0f4347c534f56692112d2685b245512c67b6a60b3cfff0927ca5fbd",
+      "instruction_sha256": "0e9486bdf4209a26c844c3acd0a88f62e5440414ae6f86ae6cc0f3c58a61a98d",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "user-supplied-file",
+      "trial": "run-b1",
+      "raw_status": "PASS",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "23b7cd60e92facaac42fad84739a771b4c0b5b8eff88236681f62ebe74123d2a",
+      "instruction_sha256": "8e782c14b7543fdc0ea1d14d5b4b203c8b95fae94074a6ed566290a3ca4c9726",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "user-supplied-file",
+      "trial": "run-a1",
+      "raw_status": "PASS",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "23b7cd60e92facaac42fad84739a771b4c0b5b8eff88236681f62ebe74123d2a",
+      "instruction_sha256": "0e9486bdf4209a26c844c3acd0a88f62e5440414ae6f86ae6cc0f3c58a61a98d",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "screens-and-windows",
+      "trial": "run-b1",
+      "raw_status": "PASS",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "de25b2c0ebb6cffb222baa511fc6449016b4a7234fb5f44f5d4e3a612cdb4fe7",
+      "instruction_sha256": "4b238406ce1501c72d76f6264e111ee2f71d1241aab168dd623810a7b435211c",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "screens-and-windows",
+      "trial": "run-a1",
+      "raw_status": "PASS",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "de25b2c0ebb6cffb222baa511fc6449016b4a7234fb5f44f5d4e3a612cdb4fe7",
+      "instruction_sha256": "0e9486bdf4209a26c844c3acd0a88f62e5440414ae6f86ae6cc0f3c58a61a98d",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "build-artifact-proof",
+      "trial": "run-b1",
+      "raw_status": "PASS",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "b7cf027eb8650e4ce20b51465b4c7580014c862e8bd9fd8eeae43ae7b9e17ae7",
+      "instruction_sha256": "fcfedf486c5b2bb9ed82c1ea1beba338a8d2d68879ae43c6ad2e78ef7907b11f",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    },
+    {
+      "case": "build-artifact-proof",
+      "trial": "run-a1",
+      "raw_status": "FAIL",
+      "model": "gpt-6.1-terra",
+      "case_sha256": "b7cf027eb8650e4ce20b51465b4c7580014c862e8bd9fd8eeae43ae7b9e17ae7",
+      "instruction_sha256": "0e9486bdf4209a26c844c3acd0a88f62e5440414ae6f86ae6cc0f3c58a61a98d",
+      "runner_sha256": "8ed3fbd7c496165aba7cba0d28e6593bdeea76fb3a5f5fbf8b98151a1a172ae8",
+      "disposition": "excluded: agent Docker endpoint and Git capability were not qualified; raw evidence preserved locally, contains host inventory"
+    }
+  ]
+}

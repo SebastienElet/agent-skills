@@ -1,0 +1,13 @@
+{
+  "AGENTS.md": 420,
+  "README.md": 420,
+  "build.mjs": 420,
+  "dist/parser-worker.mjs": 420,
+  "dist/server.mjs": 420,
+  "dist/upload.mjs": 420,
+  "smoke.test.ts": 420,
+  "src/parser-worker.mjs": 420,
+  "src/server.mjs": 420,
+  "src/upload.mjs": 420,
+  "vendor/pdf-library.mjs": 420
+}

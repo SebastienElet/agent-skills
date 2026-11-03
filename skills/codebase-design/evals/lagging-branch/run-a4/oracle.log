@@ -1,0 +1,5 @@
+ASSERTION: current target is integrated
+Independent live SQLite key/uniqueness and migration registry passed
+Existing target database accepts branch migrations in order
+[{"name":"refund uses the injected module client","pass":true}]
+5cbc795452b67999aa3e7d19705577f57b28106b base

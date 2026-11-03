@@ -1,0 +1,7 @@
+{
+  "baseline": "FAIL",
+  "candidate": "PASS",
+  "case": "module-boundaries",
+  "instruction_changed": true,
+  "observed_gain": true
+}
