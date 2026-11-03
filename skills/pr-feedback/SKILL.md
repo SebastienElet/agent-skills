@@ -64,12 +64,13 @@ through `--count`. By default, inspect the latest ten merged pull requests autho
 
    ```bash
    bkt api "/repositories/<slug>/commits/<head>?pagelen=100" --json
-   gh api --paginate "repos/<slug>/commits?sha=<head>&per_page=100" --jq '.[] | "\(.sha[0:12]) | \(.author.login // .commit.author.name) | \(.commit.message | split("\n")[0])"'
+   gh api --include "repos/<slug>/commits?sha=<head>&per_page=100"
    ```
 
    The lower bound is the commit before the reviewer's first commit, including an integration merge
-   when present, never the SHA shown in activity. Check the file summary before reading the diff. A
-   delta touching files unrelated to the pull request indicates a wrong bound.
+   when present, never the SHA shown in activity. Follow the returned next-page links only until
+   that bound is found; do not fetch the remaining repository history. Check the file summary before
+   reading the diff. A delta touching files unrelated to the pull request indicates a wrong bound.
 
    ```bash
    bkt api "/repositories/<slug>/diffstat/<head>..<base>?pagelen=100" --json --jq '.values[] | "\(.status) +\(.lines_added) -\(.lines_removed) \(.new.path // .old.path)"'
