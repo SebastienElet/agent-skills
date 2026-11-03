@@ -38,7 +38,8 @@ one.
 Observed on 2026-09-23 with `bkt` 0.32.1 against Bitbucket Cloud: the participant payload exposes
 `role`, `approved` and `state: "approved"` per user, and the PR `state` stayed `OPEN` after the
 reviewer's approval. The withdraw endpoint is the documented Cloud REST `DELETE …/approve`
-(response 204); this skill has not exercised it. GitHub documents that authors cannot approve their
+(response 204); this skill has not exercised it. The [Cloud API](https://developer.atlassian.com/cloud/bitbucket/rest/api-group-pullrequests/#api-repositories-workspace-repo-slug-pullrequests-pull-request-id-approve-post)
+documents approve and unapprove separately. GitHub documents that authors cannot approve their
 own pull requests and may dismiss an approval when a new commit lands. Bitbucket Data Center has not
 been exercised: read `bkt pr view --help` and the actual payload before claiming an equivalent.
 
@@ -48,35 +49,48 @@ pointing to the repair record; it is not a verdict. Bitbucket approval carries n
 ## Procedure
 
 1. Re-read head SHA, required checks, PR state and the authenticated user. Evaluate the gate.
-2. Read existing approvals. An approval by the authenticated account that binds the current SHA —
-   GitHub `APPROVED` with `commit_id` equal to it, or Bitbucket `approved: true` read after the
-   head was confirmed unchanged — is `already present`: record it and do not call the forge again.
-   Bitbucket does not bind an approval to a SHA; record that the approval may predate this head.
-   A GitHub approval on an older `commit_id` does not count; submit a new one.
+2. Read existing approvals. GitHub `APPROVED` by the authenticated account with `commit_id` equal
+   to the current SHA is `already present`: record it and stop without another forge call. An older
+   `commit_id` does not count. For Bitbucket, first consult the journal: a fresh approval previously
+   confirmed on this SHA may retain its `confirmed` state only if the head and approval remain
+   unchanged and reliable evidence establishes that no withdrawal or replacement occurred since
+   confirmation; record that evidence and stop without another forge call. If that
+   continuity cannot be established, Bitbucket's `approved: true` does not bind the approval to a
+   SHA: record it as present but of unknown age,
+   not renewed or `already present` on this head. When the user requested native approval for this
+   head, including after a correction moved it, renewal is required. Pause and report that
+   a separately authorized withdrawal and fresh approval are needed; do not withdraw implicitly.
+   Verify the forge and account support those operations before any mutation. After authorization,
+   withdraw once, read back `approved: false` and the unchanged head, and reevaluate the gate;
+   an ambiguous withdrawal or moved head pauses the procedure. Obtain the required approval
+   authorization for the current head before a fresh approval.
 3. Set `approval: requested on <SHA>` in `Delivery` before the forge call.
 4. Call the native approve command once.
 5. Read approvals and the head again, whatever the exit code. Record `confirmed` only when the
-   authenticated account's approval is present and the head is still the approved SHA. On
+   authenticated account's approval is present and the head is still the approved SHA. On Bitbucket,
+   this additionally requires a successful fresh approve response after a verified absent approval;
+   a present approval after an ambiguous response cannot establish a new action. On
    Bitbucket, record the reviewer approval and the PR state separately: `approved` describes the
    participant, while the PR stays `OPEN` until a separate merge.
 6. A refusal records the forge's message: missing permission, own PR, closed or merged PR, or a
    merge check. Never publish a comment, task or reaction as a substitute for the refused action.
 7. An ambiguous result — timeout, network error, unparseable output — is resolved by reading
    approvals before any retry. Retry the approve call only when the read shows no approval. If the
-   read itself fails, keep `approval: uncertain` in `Delivery` and pause publication; never report it.
+   read itself fails, or Bitbucket now shows an approval after an ambiguous call, keep
+   `approval: uncertain` in `Delivery` and pause publication; never report it as confirmed.
 8. If the head moved between the gate and the confirmation, the approval may attach to a
-   head no one reviewed. On Bitbucket, withdraw it, verify `approved: false` and re-anchor; a
+   head no one reviewed. On Bitbucket, obtain authorization to withdraw it, verify `approved: false` and re-anchor; a
    failed withdrawal or unreadable result is `uncertain` and is reported to the user as an approval
    that may cover a head no one reviewed. On GitHub, the review stays bound to its `commit_id`; report that
    it concerns the older SHA. Either way the moved head keeps the repair pending.
 
 ## Journal states
 
-`requested`, `confirmed`, `already present`, `not performed — <reason>`, `refused — <forge
+`requested`, `confirmed`, `already present`, `present — age unknown`, `not performed — <reason>`, `refused — <forge
 message>`, `uncertain — <failed read>` and `withdrawn — <reason>`. Each entry carries the account,
 the SHA and the observation time in the evidence linked from `Delivery`; keep its current state on
-that line. Only `confirmed` and `already present` may appear as an approval
-in the repair record; every other state is stated as the absence of a native approval.
+that line. Only `confirmed` and `already present` may appear as an approval for the current head
+in the repair record; report `present — age unknown` accurately, and never call it renewed.
 
 ## Step 8 publication protocol
 
@@ -114,7 +128,7 @@ Approve by applying the [native approval procedure](#procedure). Keep the curren
 and each transition in its linked evidence with account, SHA and time. A confirmed or already
 present approval, a refusal, a user decline
 or prohibition, or an own PR lets publication continue with that outcome stated; an uncertain or
-withdrawn approval pauses it.
+withdrawn approval or an approval of unknown age when approval for this head was requested pauses it.
 The approval never authorizes merging or adding the PR to a merge queue; each requires a
 separate explicit request.
 
