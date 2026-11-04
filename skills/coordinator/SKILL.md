@@ -59,11 +59,11 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    block that launch. Record a compact row per unit, in the conversation or the enclosing workflow's
    existing scratchpad, including:
 
-   | Identity                                                        | Execution                                                                                               | Delivery and follow-up                                                                     |
-   | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-   | Canonical tracker/repository, all issues, unit and dependencies | Machine/session, agent kind/name, workspace/tab/pane IDs, absolute worktree, branch, resource ownership | PR URL/head/base, criterion evidence, last observation, state, blocker/budget, next action |
+   | Identity                                                                          | Execution                                                                                                                                                            | Delivery and follow-up                                                                     |
+   | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+   | Canonical tracker/repository, all issues, unit and short-id mapping, dependencies | Parent coordinator (name, pane ID, session), role, instance, machine/session, agent kind/name, workspace/tab/pane IDs, absolute worktree, branch, resource ownership | PR URL/head/base, criterion evidence, last observation, state, blocker/budget, next action |
 
-   Track created versus reused resources and exclusively owned container IDs as they appear;
+   Every agent, helpers included, has its own row naming its parent. Track created versus reused resources and exclusively owned container IDs as they appear;
    record absent or unknown fields explicitly. Use the user's explicit agent/model/effort or the
    configured defaults. Only consult an existing external router when its public interface and
    permission have been verified; accept a recommendation of agent/model/effort, validate it
@@ -76,7 +76,13 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    Herdr worktree operations, including the worktree's initial terminal. Do not orchestrate units
    through separate workspace, tab or pane creation, splitting, moving or closing. Changes to the
    user's existing tabs and panes require an explicit request. Keep all agents findable through
-   the association rows and Herdr inventory; keep user focus unchanged. Parse returned
+   the association rows and Herdr inventory; keep user focus unchanged. Name new agents, worktrees
+   and branches by [hierarchical naming](references/naming.md): coordinator agent `c-<issue>`,
+   sub-agent `<coord>-<role>-<unit>` within Herdr's 32-character limit, a short unit id recorded
+   in the table rather than truncation, `-02` on a confirmed duplicate, never a random suffix, and
+   no pane metadata. Create worktrees with `herdr worktree create` or resume with
+   `herdr worktree open`, never `git worktree add`; label the worktree's initial tab with the
+   agent name and rename no other tab. Parse returned
    IDs, confirm the shell pane's cwd and foreground availability, and start a uniquely named
    `claude` or `codex` executor there. A branch alone does not isolate shared services or real data:
    require task-local configuration before effects. Launch only dependency-ready units under the
@@ -86,6 +92,7 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    canonical links, relevant available references, settled constraints, dependencies, repository
    instructions, ownership of its unit/worktree, other active writers, and expected delivery.
    State which publication and review transitions are authorized and that merge is forbidden.
+   State the coordination id, parent coordinator name and pane ID, unit and role.
    Ask it to compose `issue-start` for eligible issue/branch recovery and `implement` or `bug-fix`
    for realization, using normal verification and review rules. It must preserve others' changes,
    discover its implementation, resolve ordinary operational choices, and avoid duplicate startup.
@@ -110,6 +117,7 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    | Idle/done                          | Read the actual result; verify it or send the missing next step.                                  |
    | Blocked/question                   | Read the exact UI and resolve under step 6.                                                       |
    | Unknown, exited, failed or stalled | Inspect current occupant, output and saved work; recover the same unit safely before relaunching. |
+   | Resumed or replaced agent          | Re-read name, IDs and cwd; update its row; never assume an old alias or pane still exists.        |
    | PR/checks incomplete               | Retain the unit; obtain evidence or route corrections to its executor.                            |
 
 6. **Unblock without taking over.** Answer simple established operational questions directly.
@@ -117,7 +125,8 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    a targeted read-only investigation in a separate context using available host subagents, or
    a separate Herdr helper if authorized. Pass the exact question, relevant sources, observations,
    constraints and remaining budget; require diagnosis, evidence, uncertainty and a usable next
-   action. Helpers must not edit, coordinate the batch or spawn coordinators. They may use their
+   action. Helpers must not edit, coordinate the batch or spawn coordinators; each keeps the same
+   coordination root, is named under it with its role, and names the executor it assists. They may use their
    research tools, Agent-Reach and applicable skills. Keep large code/log reads out of this context.
    If delegation is unavailable, request a bounded investigation from the existing executor;
    disclose any capability gap instead of doing heavy research yourself.
@@ -171,8 +180,9 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    successful delivery. If the coordinator must stop for a real session limit, apply `handoff`
    and carry every association row, authority, dependency, last verified state, evidence, blocker
    budget and concrete next action in its self-contained resume prompt or existing journal.
-   Do not clean active units. On resume, reconcile live state before input or relaunch; Herdr
-   persistence does not automatically resume this supervision loop.
+   Do not clean active units. On resume, reconcile live state before input or relaunch, then
+   re-read each agent's name, IDs and cwd and update its row; Herdr persistence does not
+   automatically resume this supervision loop.
 
 ## Gotchas
 
@@ -196,4 +206,5 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
 
 ## References
 
+- [Hierarchical naming](references/naming.md) — names, limits, worktrees and tracking fields.
 - [Behavioral scenarios](evals/contract-scenarios.md) — contracts, not executed evidence.
