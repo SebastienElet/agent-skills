@@ -5,13 +5,13 @@ The examples are fictional: coordination `c-abc-123`, repositories `shop-api` an
 
 ## Names
 
-| Resource    | Rule                                                        | Example                             |
-| ----------- | ----------------------------------------------------------- | ----------------------------------- |
-| Coordinator | `c-<issue>`; runs in the default Herdr session              | `c-abc-123`                         |
-| Sub-agent   | `<coord>-<role>-<unit>`; role is `exec`, `review` or `diag` | `c-abc-123-exec-abc-124`            |
-| Tab         | Reuse the agent name as the tab label                       | `c-abc-123-exec-abc-124`            |
-| Worktree    | `<worktrees-root>/<repo>/<unit-issue>`, short name          | `<worktrees-root>/shop-api/abc-124` |
-| Branch      | `<ISSUE>-<subject>` under the `issue-workflow` prefix rule  | `ABC-124-receipt-allocation`        |
+| Resource    | Rule                                                                                   | Example                             |
+| ----------- | -------------------------------------------------------------------------------------- | ----------------------------------- |
+| Coordinator | `c-<issue>` names the agent; its existing tab label changes only if the mandate allows | `c-abc-123`                         |
+| Sub-agent   | `<coord>-<role>-<unit>`; role is `exec`, `review` or `diag`                            | `c-abc-123-exec-abc-124`            |
+| Tab         | Label the worktree's initial tab with the agent name                                   | `c-abc-123-exec-abc-124`            |
+| Worktree    | `<worktrees-root>/<repo>/<unit-issue>`, short name                                     | `<worktrees-root>/shop-api/abc-124` |
+| Branch      | `<ISSUE>-<subject>` under the `issue-workflow` prefix rule                             | `ABC-124-receipt-allocation`        |
 
 The coordinator name never appears in a branch.
 
@@ -31,7 +31,10 @@ Herdr accepts 1-32 characters matching `[a-z][a-z0-9_-]`, unique among live agen
 
 1. Create with `herdr worktree create`; resume an existing branch or PR with
    `herdr worktree open`. Never use `git worktree add`.
-2. A reviewer or diagnosis helper gets no checkout of its own by role alone; it uses an existing
+2. The coordinator stays in its existing worktree workspace. Units use the worktree's initial
+   terminal; naming never creates, splits, moves or closes a tab or pane. Cleanup uses the native
+   worktree operation.
+3. A reviewer or diagnosis helper gets no checkout of its own by role alone; it uses an existing
    checkout, typically that of the executor it assists, unless the mandate states another need.
 
 ## Linkage

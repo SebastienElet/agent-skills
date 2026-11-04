@@ -5,18 +5,18 @@
 Without/with-instruction comparison **not run in a real session**. No fresh comparison sessions,
 Herdr layout or judge were launched. Base failure, candidate success and activation remain
 unobserved; the behavioral gain is unproven. Source inspection and repository checks cover
-authoring and existing tooling, not case O of `contract-scenarios.md`.
+authoring and existing tooling, not case Q of `contract-scenarios.md`.
 
 ## Input binding
 
-Local base `HEAD`: `8fd7621bf55180b9c8f8de0304e63ad201b6bcd1`. SHA-256 binds final instruction and scenario bytes, without implying
+Base `origin/main`: `7e1675e0cc0e5f5c12681b0a3846114e45214f59`. SHA-256 binds final instruction and scenario bytes, without implying
 execution. Paths are relative to `skills/`.
 
 | Input                                     | Base SHA-256                                                       | Candidate SHA-256                                                  |
 | ----------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `coordinator/SKILL.md`                    | `d2741713272357cac9c64f62f5e24f55723e24e9dca6a899b123b7e3f01013b7` | `10804ab07688765d79a037b827a66f18cf18fc90b284497ce68055054d024b11` |
-| `coordinator/references/naming.md`        | Absent from base                                                   | `eca88799a5b5aa305f3145ae62ac5ac0b9e67ed3452f2d5f4ee00339f363e393` |
-| `coordinator/evals/contract-scenarios.md` | `a670f584fdd0bde3e2ac43f45a86f92b7e549121ccc1c5880360fe5b4b136ad8` | `67871175d70d0236d2ed453a2bafa7df8cdebd7e5aa9bb5f04365a5f57fb4fa8` |
+| `coordinator/SKILL.md`                    | `26468db70495a0a0dc021ffb74bf06465c85a06542473291e4eb8f73186f167b` | `48362a0bdc2172c0bcc4e572ac23d492e461de842ed18551d8a53d6507dd5ec6` |
+| `coordinator/references/naming.md`        | Absent from base                                                   | `63885b2ab320743d84c9ec7b0ee192cfae5a87c58b1db6058547d157f9ddb362` |
+| `coordinator/evals/contract-scenarios.md` | `fcbf6e3a783520e2cd76d41252903a54a2e9f7f8dc9867b25d89f3ba7dcda4b6` | `920e1a1f86b6870209ff46751a146d4103af4fe11d4e1bf28e59dbdbee8a5af8` |
 
 ## Environment and limits
 

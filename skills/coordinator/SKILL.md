@@ -70,16 +70,19 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    against allowed choices and installed native options, and otherwise retain explicit/default
    selection. Do not discover quotas or introduce a router dependency.
 
-3. **Prepare visible, isolated execution.** Use the existing repository workspace, named exactly
-   after the repository with its native branch; the coordinator is a tab there, never a second
-   coordinator workspace. Reuse an appropriate isolated worktree or create one for each existing
-   work unit through Herdr. Worktree workspaces may carry task labels. Keep all agents findable
-   through the association rows and Herdr inventory; keep user focus unchanged. Name new agents,
-   tabs, worktrees and branches by [hierarchical naming](references/naming.md): coordinator and
-   tab `c-<issue>`, sub-agent `<coord>-<role>-<unit>` within Herdr's 32-character limit, a short
-   unit id recorded in the table rather than truncation, `-02` on a confirmed duplicate, never a
-   random suffix, and no pane metadata. Create worktrees with `herdr worktree create` or resume
-   with `herdr worktree open`, never `git worktree add`. Parse returned
+3. **Prepare visible, isolated execution.** Keep the coordinator in its existing worktree workspace;
+   do not relocate it to the root repository or normalize workspace names. Reuse an appropriate
+   isolated worktree and its workspace for each existing work unit, or create them through native
+   Herdr worktree operations, including the worktree's initial terminal. Do not orchestrate units
+   through separate workspace, tab or pane creation, splitting, moving or closing. Changes to the
+   user's existing tabs and panes require an explicit request. Keep all agents findable through
+   the association rows and Herdr inventory; keep user focus unchanged. Name new agents, worktrees
+   and branches by [hierarchical naming](references/naming.md): coordinator agent `c-<issue>`,
+   sub-agent `<coord>-<role>-<unit>` within Herdr's 32-character limit, a short unit id recorded
+   in the table rather than truncation, `-02` on a confirmed duplicate, never a random suffix, and
+   no pane metadata. Create worktrees with `herdr worktree create` or resume with
+   `herdr worktree open`, never `git worktree add`; label the worktree's initial tab with the
+   agent name and rename no other tab. Parse returned
    IDs, confirm the shell pane's cwd and foreground availability, and start a uniquely named
    `claude` or `codex` executor there. A branch alone does not isolate shared services or real data:
    require task-local configuration before effects. Launch only dependency-ready units under the
@@ -164,8 +167,8 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    needs the worktree, no deployed link relies on it, and ownership is exclusive. Otherwise retain
    it and name the reason. Ask the executor to stop/remove only its recorded temporary containers,
    inspect the result, then stop its agent gracefully and remove the obsolete owned worktree with
-   the native non-forced operation. Check whether Herdr already closed its workspace; close only
-   remaining batch-created tabs/panes/workspaces after rereading IDs and ownership. Never use
+   the native non-forced worktree operation. Let that operation handle its associated workspace;
+   do not separately close tabs or panes or remove user resources. Never use
    group-close, force-removal, global container prune or delete reused resources. Preserve blocked
    and failed units for inspection. Cleanup failure is tracked follow-up, not permission to force.
 
