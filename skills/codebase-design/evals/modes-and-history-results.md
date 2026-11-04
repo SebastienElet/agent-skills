@@ -17,6 +17,9 @@ An independent static review does not replace a comparison in a session.
 
 ## Input binding
 
+Candidate reference fingerprints refreshed for the current authored bytes. Historical base
+inputs and observations remain unchanged; no comparison was rerun for this refresh.
+
 Local base before enrichment: `90acc586ed50f76b18b93e60ea28796d9be62ca0`. The candidate is bound to the
 situations described by the final bytes of the instructions and the scenario, without proof of
 execution. Paths relative to `skills/`; the modified instruction references, or those needed for
@@ -26,9 +29,9 @@ launched, which does not exist yet.
 | Input                                        | Base SHA-256                                                       | Candidate SHA-256                                                  |
 | -------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | `codebase-design/SKILL.md`                   | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` |
-| `codebase-design/references/dependencies.md` | `9bdf9fdb36df7102896c3d9baa1d13b80e9052cd0fb4f04e063cb797c1d4894d` | `fffafb54eb29f240b2cd869c98d3e8089fb413055e4ef292eba394579e3305be` |
+| `codebase-design/references/dependencies.md` | `9bdf9fdb36df7102896c3d9baa1d13b80e9052cd0fb4f04e063cb797c1d4894d` | `2832be7b0ed791bf4cd632aa7e5725ebb6e7a248e6582d66b61c20a2aec4915f` |
 | `implement/SKILL.md`                         | `8c6cf63cb9a4241353e14f0a6ae0d0876f7463c7905e775793a08ed48f490d27` | `8c6cf63cb9a4241353e14f0a6ae0d0876f7463c7905e775793a08ed48f490d27` |
-| `pr-verdict/references/failure-classes.md`   | `8e7ef13a6d8b841e4e77fe924bf3bd61735ae86ed7c813d3bfb4d7d74dc89ebf` | `442364480b447c28fc20992914a9d143e557d5dba0ca4d4ad640d8615169407b` |
+| `pr-verdict/references/failure-classes.md`   | `8e7ef13a6d8b841e4e77fe924bf3bd61735ae86ed7c813d3bfb4d7d74dc89ebf` | `277690b2fce9b005d0b02d87aedc8a9c15078fae2ff9ba24ffbdb0c24167df67` |
 | `codebase-design/evals/modes-and-history.md` | Current scenario identical for both sessions                       | `1ed7ca83b4cb5ec3cecc79f749690933eaa78af2154b7e3bb302526625781136` |
 
 The same current scenario must be given to both sessions, even when it enriches a case already

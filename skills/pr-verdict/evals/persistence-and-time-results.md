@@ -69,3 +69,16 @@ The tests exercise the existing output hook, not these new instructions. The REA
 `skills-ref` was absent, so standard-tool validation was unavailable; local structural review is
 separate. The comparison supports a source-guidance change only, not installed-harness qualification
 or the mini-repository acceptance evaluations described by the originating lessons.
+
+## Current authored reference snapshot (not evaluated)
+
+The original evaluation bindings and observations above remain historical and unchanged. The
+following SHA-256 values identify current authored references only; no evaluator read or rerun
+is attributed to these bytes. The integration base is
+`9c04c11142c0cd498a051cb8dd5316bae8b25803`. Paths are relative to `skills/`.
+
+| Input                                        | Current authored SHA-256                                           |
+| -------------------------------------------- | ------------------------------------------------------------------ |
+| `tdd/references/tests.md`                    | `f5be8fe34db99880bd1f3176e742af7e91f0691ed6ab95713637432bc67e277b` |
+| `codebase-design/references/dependencies.md` | `2832be7b0ed791bf4cd632aa7e5725ebb6e7a248e6582d66b61c20a2aec4915f` |
+| `pr-verdict/references/failure-classes.md`   | `277690b2fce9b005d0b02d87aedc8a9c15078fae2ff9ba24ffbdb0c24167df67` |

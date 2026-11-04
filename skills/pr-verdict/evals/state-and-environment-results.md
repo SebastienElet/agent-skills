@@ -51,3 +51,15 @@ the selected skill snapshot. The scenario fingerprint is shared by both passes.
 | `tdd/references/tests.md`                  | `b8fedcd3368fc43e3fd6413db2594246b4801e7aa2903b6287c8ff4a51a8d154` | `a926357773b44be57cc7d4321eff70d8f80da7fcddab3b252d49747807792b3d` |
 
 Scenario SHA-256: `9bddf04ec1bf6d4002d3ddea8f1b67fd8d457672429007585d2dfea6259eddb0`.
+
+## Current authored reference snapshot (not evaluated)
+
+The original evaluation bindings and observations above remain historical and unchanged. The
+following SHA-256 values identify current authored references only; no evaluator read or rerun
+is attributed to these bytes. The integration base is
+`9c04c11142c0cd498a051cb8dd5316bae8b25803`. Paths are relative to `skills/`.
+
+| Input                                      | Current authored SHA-256                                           |
+| ------------------------------------------ | ------------------------------------------------------------------ |
+| `pr-verdict/references/failure-classes.md` | `277690b2fce9b005d0b02d87aedc8a9c15078fae2ff9ba24ffbdb0c24167df67` |
+| `tdd/references/tests.md`                  | `f5be8fe34db99880bd1f3176e742af7e91f0691ed6ab95713637432bc67e277b` |

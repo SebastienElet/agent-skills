@@ -96,3 +96,15 @@ run. No forge write, publication, deployment or installation into an agent host 
 Claude Code and Cursor were not exercised. Repository tests cover their existing executable
 surface, not these instructions' effectiveness. The local experiments and single decision passes
 support only the bounded observations above.
+
+## Current authored reference snapshot (not evaluated)
+
+The original evaluation bindings and observations above remain historical and unchanged. The
+following SHA-256 values identify current authored references only; no evaluator read or rerun
+is attributed to these bytes. The integration base is
+`9c04c11142c0cd498a051cb8dd5316bae8b25803`. Paths are relative to `skills/`.
+
+| Input                                      | Current authored SHA-256                                           |
+| ------------------------------------------ | ------------------------------------------------------------------ |
+| `pr-verdict/references/failure-classes.md` | `277690b2fce9b005d0b02d87aedc8a9c15078fae2ff9ba24ffbdb0c24167df67` |
+| `tdd/references/tests.md`                  | `f5be8fe34db99880bd1f3176e742af7e91f0691ed6ab95713637432bc67e277b` |

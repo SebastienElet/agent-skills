@@ -44,6 +44,15 @@ An unregistered custom setting (`app.*`) can be set by an ordinary session; `SET
 its lifetime, not its authority, so no trigger may trust it alone. Test that the ordinary role,
 after setting that flag itself, still has its `DELETE` refused. Truncation needs its own statement-level guard.
 
+Reconcile this inventory on the integrated schema, including append-only relations from parallel
+branches. Populate each new relation before testing the established purge: remove its scoped rows
+before the parent, preserve other accounts and refuse non-demo targets under the demo-reset contract.
+Keep `UPDATE` and `TRUNCATE` forbidden during authorized deletion as well as outside it. On the real
+database, test ordinary-role immutability before purge and after the privileged routine returns
+within the same transaction; use savepoints for expected refusals so the transaction can continue.
+Retain a regression that fails on the old purge with the new relation populated, then succeeds
+after restoration. A transaction setting may narrow scope, but never grants purge authority.
+
 ## Types, JSONB and indexes
 
 - Preserve the canonical money contract, currency and rounding boundary. Integer minor units

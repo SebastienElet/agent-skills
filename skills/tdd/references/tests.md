@@ -48,6 +48,12 @@ independent meaning and the review can detect a wrong result.
 
 ## Preserving tests through a rewrite
 
+For a new refusal, blocker or business prerequisite, locate every existing suite traversing the
+affected flow, including unit, integration and end-to-end consumers outside the feature directory.
+Run those suites on the candidate and update fixtures and expectations under the established
+contract, preserving valid success cases. New feature tests alone cannot establish compatibility
+with the existing journey; an unavailable affected suite remains a named evidence gap.
+
 Before deleting or rewriting a test, inventory each assertion and map every surviving behavior to
 its replacement evidence. Remove an assertion only when its protected behavior is intentionally
 removed. Exercise every member of a set that drives behavior, rather than one representative.
@@ -235,6 +241,12 @@ lookup miss. When CI never builds the image, record that as a proof limit.
 
 - Test a time window at both bounds and just outside each; a bound tested alone accepts the other
   side. Derive the upper bound from the next relevant event, not from any non-cancelled one.
+  Anchor the lower bound on the actual business event, such as declared sending, signature or
+  payment, rather than technical document generation. Recheck at every action establishing that
+  event; generation can supply only a provisional check. For a half-open sending window, test
+  `sentOn <= slot.at && slot.at < event.at`, including a later declared sending date that invalidates
+  a previously admissible slot. Entry and final action share the same relevant-event predicate;
+  exercise excluded event states and the no-qualifying-event case on both paths.
 - Send the server the rank it reads (among active elements), never a neighbor's stored position.
   Test a move on a list after a removal, where stored positions have a gap.
 - Give a business state ("started", "finished") one definition shared by server and screen. Cover

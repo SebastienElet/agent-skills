@@ -17,6 +17,9 @@ An independent static review does not replace a comparison in a session.
 
 ## Input binding
 
+Candidate reference fingerprints refreshed for the current authored bytes. Historical base
+inputs and observations remain unchanged; no comparison was rerun for this refresh.
+
 Local base before enrichment: `90acc586ed50f76b18b93e60ea28796d9be62ca0`. The candidate is bound to the
 situations described by the final bytes of the instructions and the scenario, without proof of
 execution. Paths relative to `skills/`; the modified instruction references, or those needed for
@@ -26,10 +29,10 @@ launched, which does not exist yet.
 | Input                                        | Base SHA-256                                                       | Candidate SHA-256                                                  |
 | -------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | `tdd/SKILL.md`                               | `93f1cb0cc44f99935d95b9ae6ac450a4426c4ea7ead7c95a75a5f3c36d897687` | `93f1cb0cc44f99935d95b9ae6ac450a4426c4ea7ead7c95a75a5f3c36d897687` |
-| `tdd/references/tests.md`                    | `4ce57b83deeb0b9f7c47aa7bd81ef17ab3f9e8251f3c62f72846ab7d391d2099` | `494dd7ca2ae52a6b68a8941f3f8869f509cab92aaa196b533a3703c46e1710a4` |
+| `tdd/references/tests.md`                    | `4ce57b83deeb0b9f7c47aa7bd81ef17ab3f9e8251f3c62f72846ab7d391d2099` | `f5be8fe34db99880bd1f3176e742af7e91f0691ed6ab95713637432bc67e277b` |
 | `tdd/references/dependencies.md`             | `dcaa2beb1aa80fe591dc12f52d3c415831a012708bbff4a088c7bdb55d91c3f4` | `c0b8dba2bb9886c054c5c6e4e5e0546f9c0e46da9e5018e5918081c53843a804` |
 | `codebase-design/SKILL.md`                   | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` |
-| `codebase-design/references/dependencies.md` | `9bdf9fdb36df7102896c3d9baa1d13b80e9052cd0fb4f04e063cb797c1d4894d` | `fffafb54eb29f240b2cd869c98d3e8089fb413055e4ef292eba394579e3305be` |
+| `codebase-design/references/dependencies.md` | `9bdf9fdb36df7102896c3d9baa1d13b80e9052cd0fb4f04e063cb797c1d4894d` | `2832be7b0ed791bf4cd632aa7e5725ebb6e7a248e6582d66b61c20a2aec4915f` |
 | `tdd/evals/multi-stage-recovery.md`          | Current scenario identical for both sessions                       | `f7705bcfcb70de5654af48efc1361ba2f0e625d7544690f92fd7e6237ca4c429` |
 
 The same current scenario must be given to both sessions, even when it enriches a case already

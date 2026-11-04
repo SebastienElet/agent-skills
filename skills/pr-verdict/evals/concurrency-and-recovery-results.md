@@ -77,3 +77,16 @@ not executed host-activation evidence. Bun 1.4.3, Ubuntu 24.04 CI, pre-productio
 behavior and installation/activation in Claude Code, Codex and Cursor were not exercised.
 These are bounded source-guidance decisions, not the mini-repository implementation evaluations
 or recurrence-prevention proof described by the originating lessons.
+
+## Current authored reference snapshot (not evaluated)
+
+The original evaluation bindings and observations above remain historical and unchanged. The
+following SHA-256 values identify current authored references only; no evaluator read or rerun
+is attributed to these bytes. The integration base is
+`9c04c11142c0cd498a051cb8dd5316bae8b25803`. Paths are relative to `skills/`.
+
+| Input                                        | Current authored SHA-256                                           |
+| -------------------------------------------- | ------------------------------------------------------------------ |
+| `tdd/references/tests.md`                    | `f5be8fe34db99880bd1f3176e742af7e91f0691ed6ab95713637432bc67e277b` |
+| `codebase-design/references/dependencies.md` | `2832be7b0ed791bf4cd632aa7e5725ebb6e7a248e6582d66b61c20a2aec4915f` |
+| `pr-verdict/references/failure-classes.md`   | `277690b2fce9b005d0b02d87aedc8a9c15078fae2ff9ba24ffbdb0c24167df67` |

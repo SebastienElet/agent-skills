@@ -13,13 +13,16 @@ checks do not execute the fictional runner or prove ordering, cache invalidation
 
 ## Input binding
 
+Candidate reference fingerprints refreshed for the current authored bytes. Historical base
+inputs and observations remain unchanged; no comparison was rerun for this refresh.
+
 Base revision: `02b071fe0e282374037b8b63e0e29e739e9d9f4a`. Candidate fingerprints bind final
 file bytes; they identify inputs, not execution. Paths are relative to `skills/`.
 
 | Input                                       | Base SHA-256                                                       | Candidate SHA-256                                                  |
 | ------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | `implement/SKILL.md`                        | `57e5b502c913cf031a08fed7b266cd16f338a8dc3652945a5d5e349873048f69` | `8c6cf63cb9a4241353e14f0a6ae0d0876f7463c7905e775793a08ed48f490d27` |
-| `pr-verdict/references/failure-classes.md`  | `d3865bf0e550278891697460f4ec19fb00e1a788f078c012e05688aaf6e416c0` | `1ff96008e4622ba1fdf45fde9ab6e3521cf23e44e7d4a8ec68694e6f0179157a` |
+| `pr-verdict/references/failure-classes.md`  | `d3865bf0e550278891697460f4ec19fb00e1a788f078c012e05688aaf6e416c0` | `277690b2fce9b005d0b02d87aedc8a9c15078fae2ff9ba24ffbdb0c24167df67` |
 | `pr-verdict/evals/task-graphs-and-cache.md` | New identical scenario for both arms                               | `36826d98be0e58cb6411b2a8d8deaee07d7ca2ea4806ea7940d5a8336ec9cbfb` |
 
 ## Environment and limits
