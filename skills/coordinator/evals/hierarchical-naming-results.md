@@ -23,3 +23,20 @@ execution. Paths are relative to `skills/`.
 Authoring: Claude Code; exact served build and sampling parameters unavailable. Local checks use
 macOS ARM64, zsh and Bun 1.4.4. Linux CI, other architectures, activation in Codex or Cursor and
 real Herdr name validation are not exercised. No network or real data used.
+
+## Current authored convention
+
+The `0.6.3` revision starts from `9656544f8e954f1f07386b1d8d04a8c0f637d26a`. It uses a
+user-created coordinator worktree `c-<parent>`, executor worktrees and agents
+`a-<parent>-<unit>`, and initial tab labels `Coordinator` and `Agent`. Existing coordination
+names are preserved. Cases Q, R and S describe the updated expectations.
+
+These hashes identify authored inputs only. The previous snapshot above is retained; no
+without/with-instruction comparison, live coordinator launch or cross-host activation was run
+for this revision.
+
+| Input                                     | SHA-256                                                            |
+| ----------------------------------------- | ------------------------------------------------------------------ |
+| `coordinator/SKILL.md`                    | `86ab8cbd935923c2f5a45fd41b936aa8c4678ac95d990d388cb793d03eca2b8e` |
+| `coordinator/references/naming.md`        | `3972661d66366bb7414ababa219775fcd246e9d6fb416f13da4c9d3c87432108` |
+| `coordinator/evals/contract-scenarios.md` | `23d8040b3008cf7ab791372bbe769eb0e51c2839087ff554d9aa86c0eef10894` |
