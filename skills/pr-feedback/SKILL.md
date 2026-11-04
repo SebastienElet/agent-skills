@@ -63,13 +63,14 @@ through `--count`. By default, inspect the latest ten merged pull requests autho
    the author:
 
    ```bash
-   bkt api "/repositories/<slug>/commits/<head>?pagelen=10" --json --jq '.values[] | "\(.hash[0:12]) | \(.author.user.display_name // .author.raw) | \(.message | split("\n")[0])"'
-   gh api "repos/<slug>/commits?sha=<head>&per_page=10" --jq '.[] | "\(.sha[0:12]) | \(.author.login // .commit.author.name) | \(.commit.message | split("\n")[0])"'
+   bkt api "/repositories/<slug>/commits/<head>?pagelen=100" --json
+   gh api --include "repos/<slug>/commits?sha=<head>&per_page=100"
    ```
 
    The lower bound is the commit before the reviewer's first commit, including an integration merge
-   when present, never the SHA shown in activity. Check the file summary before reading the diff. A
-   delta touching files unrelated to the pull request indicates a wrong bound.
+   when present, never the SHA shown in activity. Follow the returned next-page links only until
+   that bound is found; do not fetch the remaining repository history. Check the file summary before
+   reading the diff. A delta touching files unrelated to the pull request indicates a wrong bound.
 
    ```bash
    bkt api "/repositories/<slug>/diffstat/<head>..<base>?pagelen=100" --json --jq '.values[] | "\(.status) +\(.lines_added) -\(.lines_removed) \(.new.path // .old.path)"'
@@ -87,8 +88,22 @@ through `--count`. By default, inspect the latest ten merged pull requests autho
    bkt pr comments <id> --json --jq '.comments[] | "\(.user.display_name) | \(.inline.path // "general"):\(.inline.to // "") | \(.links.html.href // .id) | \(.content.raw)"'
    bkt pr task list <id> --json
    gh pr view <id> --json comments,reviews --jq '(.comments[], (.reviews[] | select(.body != ""))) | "\(.author.login) | \(.url // .id) | \(.body)"'
-   gh api "repos/<slug>/pulls/<id>/comments" --jq '.[] | "\(.user.login) | \(.path):\(.line) | \(.html_url) | \(.body)"'
+   gh api --paginate "repos/<slug>/pulls/<id>/comments?per_page=100" --jq '.[] | "\(.user.login) | \(.path):\(.line) | \(.html_url) | \(.body)"'
    ```
+
+   For each collection in steps 3–5, verify traversal to the end or as far as the attribution
+   requires. GitHub REST uses `Link` and `gh api --paginate`; use paginated REST or a GraphQL
+   connection with `pageInfo` when `gh pr view` cannot establish completeness. For nested GraphQL
+   connections, paginate each connection separately and inspect its own `pageInfo`; a single
+   `--paginate` does not establish that every connection reached its end. On Bitbucket Cloud,
+   follow each opaque `next` URL until absent; a `pagelen` is a page size, not a total limit.
+   Do not assume `bkt` commands or `--jq` followed pages: verify their behavior for the installed
+   version or inspect each raw page before filtering. For Data Center, verify its own pagination
+   contract. A failed, inaccessible or unverifiable page, truncated patch or compare file list is
+   a collection limit: name the source and missing range, and do not claim exhaustive collection
+   or attribute a fix whose required chain or patch is missing.
+   The applicable pagination contracts are [GitHub REST](https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api)
+   and [Bitbucket Cloud](https://developer.atlassian.com/cloud/bitbucket/rest/intro/#pagination).
 
    Distinguish human reviewers, AI reviews posted by CI, and the pull request author's own notes.
    Exclude the author's notes.
