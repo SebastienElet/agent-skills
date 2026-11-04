@@ -17,13 +17,16 @@ independent review of the diff does not replace the session comparison.
 
 ## Input binding
 
+Candidate reference fingerprints refreshed for the current authored bytes. Historical base
+inputs and observations remain unchanged; no comparison was rerun for this refresh.
+
 Local base `origin/main`: `3262df60b7b9b01537494f2c74db65cf85b7b79a`. The candidate is bound to the final
 bytes by SHA-256, without claiming their execution. Paths relative to `skills/`.
 
 | Input                                        | Base SHA-256                                                       | Candidate SHA-256                                                  |
 | -------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | `codebase-design/SKILL.md`                   | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` |
-| `codebase-design/references/dependencies.md` | `80762ed9777d428e0d439ce6659cea961b3f83ef553dbfd734439d9549f2d608` | `fffafb54eb29f240b2cd869c98d3e8089fb413055e4ef292eba394579e3305be` |
+| `codebase-design/references/dependencies.md` | `80762ed9777d428e0d439ce6659cea961b3f83ef553dbfd734439d9549f2d608` | `2832be7b0ed791bf4cd632aa7e5725ebb6e7a248e6582d66b61c20a2aec4915f` |
 | `codebase-design/evals/neighbor-guards.md`   | New scenario identical for both sessions                           | `2e8e9ebf31fd7180eb9a944e93804ca041f2c453fc289d7526e689cbd6a0bd28` |
 
 The fingerprints cover the instructions and the scenario. No executable fixture exists yet; its

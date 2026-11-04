@@ -17,6 +17,9 @@ An independent static review does not replace a comparison in a session.
 
 ## Input binding
 
+Candidate reference fingerprints refreshed for the current authored bytes. Historical base
+inputs and observations remain unchanged; no comparison was rerun for this refresh.
+
 Local base before enrichment: `90acc586ed50f76b18b93e60ea28796d9be62ca0`. The candidate is bound to the
 situations described by the final bytes of the instructions and the scenario, without proof of
 execution. Paths relative to `skills/`; the modified instruction references, or those needed for
@@ -26,7 +29,7 @@ launched, which does not exist yet.
 | Input                                        | Base SHA-256                                                       | Candidate SHA-256                                                  |
 | -------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | `codebase-design/SKILL.md`                   | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` |
-| `codebase-design/references/dependencies.md` | `9bdf9fdb36df7102896c3d9baa1d13b80e9052cd0fb4f04e063cb797c1d4894d` | `fffafb54eb29f240b2cd869c98d3e8089fb413055e4ef292eba394579e3305be` |
+| `codebase-design/references/dependencies.md` | `9bdf9fdb36df7102896c3d9baa1d13b80e9052cd0fb4f04e063cb797c1d4894d` | `2832be7b0ed791bf4cd632aa7e5725ebb6e7a248e6582d66b61c20a2aec4915f` |
 | `codebase-design/evals/equivalent-paths.md`  | Current scenario identical for both sessions                       | `bc16712d768d84506ac1a8ffd781c5ba21aae786ecc8cd908ee81e7b28c043b8` |
 
 The same current scenario must be given to both sessions, even when it enriches a case already

@@ -17,16 +17,19 @@ independent review of the diff does not replace the session comparison.
 
 ## Input binding
 
+Candidate reference fingerprints refreshed for the current authored bytes. Historical base
+inputs and observations remain unchanged; no comparison was rerun for this refresh.
+
 Local base `origin/main`: `3262df60b7b9b01537494f2c74db65cf85b7b79a`. The candidate is bound to the final
 bytes by SHA-256, without claiming their execution. Paths relative to `skills/`.
 
 | Input                                        | Base SHA-256                                                       | Candidate SHA-256                                                  |
 | -------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | `tdd/SKILL.md`                               | `93f1cb0cc44f99935d95b9ae6ac450a4426c4ea7ead7c95a75a5f3c36d897687` | `93f1cb0cc44f99935d95b9ae6ac450a4426c4ea7ead7c95a75a5f3c36d897687` |
-| `tdd/references/tests.md`                    | `984bfa4bd1fdaeaa296cc509a786d012d404668e71495c00a51a8ec12369996c` | `494dd7ca2ae52a6b68a8941f3f8869f509cab92aaa196b533a3703c46e1710a4` |
+| `tdd/references/tests.md`                    | `984bfa4bd1fdaeaa296cc509a786d012d404668e71495c00a51a8ec12369996c` | `f5be8fe34db99880bd1f3176e742af7e91f0691ed6ab95713637432bc67e277b` |
 | `tdd/references/dependencies.md`             | `6db8ae3de4c3b6f2ec8e2e03ed8f3417207987b6a3b75c7d7f0c8420b51c7f8e` | `c0b8dba2bb9886c054c5c6e4e5e0546f9c0e46da9e5018e5918081c53843a804` |
 | `codebase-design/SKILL.md`                   | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` | `a5a5f48eb7019bf3465c67bcec5241c744d4f23d1d3f413a66ef550f080ccbd3` |
-| `codebase-design/references/dependencies.md` | `80762ed9777d428e0d439ce6659cea961b3f83ef553dbfd734439d9549f2d608` | `fffafb54eb29f240b2cd869c98d3e8089fb413055e4ef292eba394579e3305be` |
+| `codebase-design/references/dependencies.md` | `80762ed9777d428e0d439ce6659cea961b3f83ef553dbfd734439d9549f2d608` | `2832be7b0ed791bf4cd632aa7e5725ebb6e7a248e6582d66b61c20a2aec4915f` |
 | `tdd/evals/temporal-proposals.md`            | New scenario identical for both sessions                           | `15bfbe961886e1e36b34497d796618874cfb85c70216f06296b2ce9ac8c0c3f6` |
 
 The fingerprints cover the instructions and the scenario. No executable fixture exists yet; its

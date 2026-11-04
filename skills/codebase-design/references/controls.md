@@ -18,6 +18,22 @@ attachments and ownership transfers, or reapply the control atomically before th
 Use one canonical policy for allowlists and derived defaults. Unknown input refuses unless an
 explicit contract permits keeping it raw, isolated and replayable.
 
+When removing a blanket or transitional authorization, inventory every route it covered, including
+neighboring reads and agent tools. Preserve each route's applicable permission before any data
+access; a denied read must not reach the repository. Resolve authorization once at the request
+boundary and pass that result through the request context, rather than resolving it again downstream.
+Test every guard choice of application identity or strategy, and exercise the supported host's
+context installation and refusal when that context is missing. Remove unused resolution providers.
+Bind a versioned permission manifest's version and complete key set in the same contract assertion.
+Observe request completion or an explicit synchronization point when proving one resolution;
+a fixed delay cannot prove the request finished.
+
+Use syntax the repository's existing static controls can follow. If its error-catalog check tracks
+literal `ERRORS.orders.refundTooLate` members, emit that form instead of hiding codes behind
+`const codes = ERRORS.orders` or computed access. Do not bypass or weaken the check to admit an
+untracked construction. For a new refusal or prerequisite, use `tdd`'s affected-flow inventory before
+claiming readiness.
+
 Distinguish a complete empty set allowed by the contract from missing runtime, unreadable input,
 parser failure and incomplete discovery. A control unable to examine its required inputs refuses
 with a diagnostic; keep probe errors visible rather than converting them into a clean result.

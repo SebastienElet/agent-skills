@@ -125,6 +125,16 @@ notably by plan; distinguish these origins in the model and tests.
 Recheck a temporal rule at each step producing or transmitting its value, with that step's clock;
 an earlier confirmation does not validate a later export.
 
+For delegated or derived rights, establish the exact set of granting people, not the rows recording
+their holdings. Under a contract requiring continuous membership, any arrival or departure lapses
+the right, even if the original set returns before use; transfers within the same set preserve it.
+Use effective dates across every change point from grant to use, and recording dates to reconstruct
+what was known when the grant was recorded. Late backdated entries do not become original grantors.
+Incomplete holdings must not establish coverage. Use one coverage function and ownership projection
+across equivalent evidence, preparation, use and display; a lapsed right never silently falls back
+to older evidence. Test departure, arrival, internal transfer, departure then return, late backdating
+and incomplete records under the established contract.
+
 Enforce form rules on the server and downstream preconditions at the step producing the promised
 state, with shared stable business codes. Explicitly incomplete drafts remain allowed under their
 contract. References resolved through a global service still require caller scope and applicable
@@ -189,6 +199,27 @@ Display labels describe the query or predicate actually executed. A sum of invoi
 not a refundable amount; deciding the latter requires its own rule. Help text announcing a
 precondition needs an operation enforcing it; otherwise describe only the observed fact or remove
 the promise. See `tdd` for evidence joining the real calculation and rendered wording.
+
+Give distinct refusal causes stable codes with distinct recovery guidance, including a deliberate
+rejection of previously entered evidence. Each server-computed blocker has a screen naming the
+affected items and the available action, with translations for every shipped locale. Screens
+render the server's verdict from the canonical domain function instead of rebuilding validity
+from raw fields. A new refusal code ships server-code and rendered-message tests; distinguish
+missing evidence from lapsed evidence with the appropriate remedy for each.
+
+## Request-keyed memory
+
+An in-memory limiter, cache or counter keyed by request data needs expiry cleanup or a maximum
+size, with a behavioral test proving the bound. Use the project's injected clock, without an ad hoc
+time option. Advance it to expire inactive keys while preserving live ones; also bound growth
+within an active window when the key space is unbounded.
+
+State the actual budget in the implementation and configuration: process-local counters reset on
+restart and each replica counts independently. A fixed-window limiter can admit nearly twice its
+limit across a sliding window per active replica; rollout overlap can increase that replica count.
+Do not promise a shared budget from local counters; identify a shared-budget requirement explicitly.
+Compare sibling components changed together for the same clock and cleanup contract; extract shared
+logic only when their invariants and likely evolution coincide.
 
 ## Module boundaries and reference formats
 

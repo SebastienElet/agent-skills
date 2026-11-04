@@ -601,8 +601,13 @@ A transpiling test runner does not establish type correctness. Require the separ
 typecheck on the composed tree, including contract-consuming fixtures and port implementations;
 shared typed factories and test ports avoid dispersed stale copies. Class 13 still requires actual
 export comparison for a claimed unchanged public contract; typecheck is not a substitute.
+For a lagging branch, reread target history since the merge base and adopt its current conventions
+after integration. Where the target establishes a container-provided database client per module,
+reuse it rather than introducing a separate client service. Apply the target's table naming rules
+and place new migrations after its latest migration, without renaming applied migrations. Class 3
+covers identifier collisions.
 Replay also the checks that a commit hook or PR CI skips, such as the typecheck of test directories
-and the convention linters of the full local gate. A change of build or module-resolution tooling is
+and every static convention check in the declared full local gate. A change of build or module-resolution tooling is
 proven on the produced artifact and a started image, per `tdd` build-output guidance.
 Before production exposure of widened file types, quotas or origins, require a pre-production
 exercise naming environment and result. Missing access is a proof limit, not an invented success.
@@ -646,6 +651,16 @@ uncertainty in the affected scope and investigate existing checks rather than de
 complete suite. Record commands, output, exit statuses and tested revisions for new runs, and
 identify missing evidence. Report image names and environment; unit tests do not establish image
 usability.
+
+After changing overrides or integrating the target, compare each affected package's effective
+resolution with the target's lockfile, including the path through its parent. A targeted override
+can silently downgrade a transitive package despite a newer global override and a conflict-free
+merge. Rebuild the lockfile from the target's version using the package manager, then check frozen
+installation; do not hand-merge resolution entries or accept an unintended downgrade.
+Pin deployed images by digest. An upstream configuration copy records the revision it follows;
+verify its pairing with the pinned release through an existing native or behavioral check, rather
+than a test comparing declarations alone. Report actual exercised platforms, including emulation;
+one platform's passing recipe does not qualify the others.
 
 ## 24. A supervisor reports success before cleanup completes
 

@@ -17,6 +17,9 @@ An independent static review does not replace a comparison in a session.
 
 ## Input binding
 
+Candidate reference fingerprints refreshed for the current authored bytes. Historical base
+inputs and observations remain unchanged; no comparison was rerun for this refresh.
+
 Local base before enrichment: `90acc586ed50f76b18b93e60ea28796d9be62ca0`. The candidate is bound to the
 situations described by the final bytes of the instructions and the scenario, without proof of
 execution. Paths relative to `skills/`; the modified instruction references, or those needed for
@@ -26,10 +29,10 @@ launched, which does not exist yet.
 | Input                                      | Base SHA-256                                                       | Candidate SHA-256                                                  |
 | ------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | `implement/SKILL.md`                       | `8c6cf63cb9a4241353e14f0a6ae0d0876f7463c7905e775793a08ed48f490d27` | `8c6cf63cb9a4241353e14f0a6ae0d0876f7463c7905e775793a08ed48f490d27` |
-| `pr-verdict/references/failure-classes.md` | `8e7ef13a6d8b841e4e77fe924bf3bd61735ae86ed7c813d3bfb4d7d74dc89ebf` | `442364480b447c28fc20992914a9d143e557d5dba0ca4d4ad640d8615169407b` |
+| `pr-verdict/references/failure-classes.md` | `8e7ef13a6d8b841e4e77fe924bf3bd61735ae86ed7c813d3bfb4d7d74dc89ebf` | `277690b2fce9b005d0b02d87aedc8a9c15078fae2ff9ba24ffbdb0c24167df67` |
 | `tdd/SKILL.md`                             | `93f1cb0cc44f99935d95b9ae6ac450a4426c4ea7ead7c95a75a5f3c36d897687` | `93f1cb0cc44f99935d95b9ae6ac450a4426c4ea7ead7c95a75a5f3c36d897687` |
 | `tdd/references/dependencies.md`           | `dcaa2beb1aa80fe591dc12f52d3c415831a012708bbff4a088c7bdb55d91c3f4` | `c0b8dba2bb9886c054c5c6e4e5e0546f9c0e46da9e5018e5918081c53843a804` |
-| `tdd/references/tests.md`                  | `4ce57b83deeb0b9f7c47aa7bd81ef17ab3f9e8251f3c62f72846ab7d391d2099` | `494dd7ca2ae52a6b68a8941f3f8869f509cab92aaa196b533a3703c46e1710a4` |
+| `tdd/references/tests.md`                  | `4ce57b83deeb0b9f7c47aa7bd81ef17ab3f9e8251f3c62f72846ab7d391d2099` | `f5be8fe34db99880bd1f3176e742af7e91f0691ed6ab95713637432bc67e277b` |
 | `pr-verdict/evals/parallel-schema.md`      | Current scenario identical for both sessions                       | `ad6c4c8f77598eca67de8b4e6ae56c7cee8857795d089f29178b7252ada16f6d` |
 
 The same current scenario must be given to both sessions, even when it enriches a case already
