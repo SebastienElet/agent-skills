@@ -104,17 +104,21 @@ undated and absent required evidence. At minimum, missing and unknown must produ
 refusal; inspect the recorded examined evidence and distinguish unverifiable from verified compliant.
 Include the safe case where the applicable rule explicitly permits unlimited validity.
 
-For keyed creation, exercise concurrent identical requests against the real database: one row and
-the replayed response. Reuse the key with a different body and assert the named refusal without a
-second effect. For lists, seed more than the default limit; assert the bound, pagination continuation,
+For keyed creation, exercise concurrent identical requests against the real database and assert the
+contracted outcomes and absence of unintended duplicate effects. Reuse the key with different
+content and assert the contracted behavior and persisted effects; resolve an unspecified policy.
+For lists, seed more than the default limit; assert the bound, pagination continuation,
 stable traversal without duplicate or omitted IDs on unchanged data, terminal page and the named
 above-maximum behavior. For UI identity, include two elements with the same type and null or empty
 expiry; exercise independent selection or update so a colliding key cannot pass as a harmless render.
 
-For creation replay, verify the same status and body through the common mechanism, including
-after an interruption and with a different key order, then the `422` refusal for genuinely changed
-content. Also read the persisted state: a single creation and no personal data in the stored
-response; a uniqueness conflict is not the replayed response.
+For keyed creation, exercise actual interruption points and verify atomicity or contracted recovery
+without a lost or duplicate effect, even when replay is not promised. When creation promises replay,
+verify its contracted status and body, including recovery after an
+interruption. Exercise equivalent payloads with different key order if the contract treats them as
+equivalent, and changed content with the contracted response; `422` is one possible refusal, not a
+default. Read persisted state and verify response retention and personal-data handling against the
+applicable policy. A uniqueness conflict alone does not prove a promised replay.
 
 Measure and describe a defect through the real read path (query, filters, period bounds), not an
 isolated domain function: an impact figure taken from the function alone can overstate or hide it.
@@ -122,12 +126,13 @@ A new shape of a composed key needs a case through every path that decides "noth
 
 ## Database refusals
 
-For a multi-step operation, synchronize a concurrent cancellation between each step: checks,
-reservation, effect, transition. Verify persisted state and effects, refusal without a blocking
-reservation, then recovery after partial failure without duplicate or omitted follow-up. Change the
-technical identifier without changing the business key; verify the total already done, the
-remainder after each loop write and the derived status after cancelling the linked object. Apply
-the oracle sensitivity above: an unexpected conflict is not the failure of the targeted assertion.
+For a multi-step operation, synchronize relevant concurrent changes at its actual decision and
+effect boundaries. Verify persisted state and effects, and recovery after partial failure without
+unintended duplicates or omitted follow-ups. Where reservations are used, verify refusal and
+recovery leave no unintended blocking reservation. Where progress follows a business key, change
+the technical identifier and verify retained progress, remaining amounts and linked states under
+the contract. Apply the oracle sensitivity above: an unexpected conflict is not the failure of the
+targeted assertion.
 
 For aggregate caps, use separate real-database connections and synchronize requests to overlap
 inside the decision/write window. In `event-api`, three concurrent requests for 20 seats against
@@ -154,8 +159,9 @@ read a row created before the migration. For a migration that adds a constraint 
 data, include a violating row and assert the diagnostic refusal without modification.
 For frozen data, assert refusal preserves protections; failed sealing cannot finalize a document.
 Add a new file version and verify historical download still returns the deposited version; missing
-or corrupt deposited content refuses without fallback. Overlap first use with a label rename:
-only the contract-permitted outcome persists, and an unchanged-label replay succeeds. Test an
+or corrupt deposited content refuses without fallback. When first use affects label changes, overlap
+first use with a rename and assert only contract-permitted outcomes persist; test unchanged-label
+replay according to the contract. Test an
 authorized erasure path only under an established policy; an open purge decision is not approval.
 
 ## Display and endpoint behavior
@@ -176,12 +182,13 @@ record query-plan and representative-volume observations separately from page-si
 
 Reject arbitrary text declared as a binary format; accept valid binary and permitted text variants
 through the real content validator. Exercise changed bytes and absent objects at retrieval and
-assert no content is released. Inject failure between storage deposit and database finalization,
-then replay successfully; include concurrent identical requests, changed-content key reuse and an
-already-present object with different bytes. Inspect durable state and the atomically finalized
-object/digest/type association, not only the response. Exercise compensation after abandonment or
-conflict and prove it preserves objects referenced by another operation. Distinguish evidence for
-owned orchestration from storage-protocol evidence; a substitute alone proves no remote guarantee.
+assert no content is released. Inject failures between cross-system effects and verify the contracted
+recovery and durable state; exercise concurrent duplicates, changed-content reuse and an existing
+object with different bytes where relevant. Verify successful associations atomically preserve the
+required identity and integrity. If compensation is used, exercise abandonment or conflict and prove
+it removes abandoned objects when required and preserves objects referenced by another operation.
+Distinguish evidence for owned orchestration from storage-protocol evidence; a substitute alone
+proves no remote guarantee.
 
 For a user-supplied file, generate a decompression bomb in the test (small input, expansion
 beyond the output bound): assert the bounded refusal, a live server process and the response for
