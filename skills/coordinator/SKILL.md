@@ -75,14 +75,18 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    isolated worktree and its workspace for each existing work unit, or create them through native
    Herdr worktree operations, including the worktree's initial terminal. Do not orchestrate units
    through separate workspace, tab or pane creation, splitting, moving or closing. Changes to the
-   user's existing tabs and panes require an explicit request. Keep all agents findable through
+   user's existing tabs and panes beyond the initial role labels below require an explicit request.
+   Keep all agents findable through
    the association rows and Herdr inventory; keep user focus unchanged. Name new agents, worktrees
-   and branches by [hierarchical naming](references/naming.md): coordinator agent `c-<issue>`,
-   sub-agent `<coord>-<role>-<unit>` within Herdr's 32-character limit, a short unit id recorded
-   in the table rather than truncation, `-02` on a confirmed duplicate, never a random suffix, and
-   no pane metadata. Create worktrees with `herdr worktree create` or resume with
-   `herdr worktree open`, never `git worktree add`; label the worktree's initial tab with the
-   agent name and rename no other tab. Parse returned
+   and branches by [hierarchical naming](references/naming.md): the user manually prepares the
+   coordinator worktree `c-<parent>`; new executor worktrees, workspace labels and agents use
+   `a-<parent>-<unit>`, with `-review` or `-diag` for helpers. Keep agent names within Herdr's
+   32-character limit, using a short unit id recorded in the table rather than truncation, `-02`
+   on a confirmed duplicate, never a random suffix, and no pane metadata. Create worktrees with
+   `herdr worktree create` or resume with `herdr worktree open`, never `git worktree add`.
+   For a new coordination, label its current tab `Coordinator`; label a new executor worktree's
+   initial tab `Agent`. Preserve names when resuming existing work, and never relabel a helper's
+   shared tab. Parse returned
    IDs, confirm the shell pane's cwd and foreground availability, and start a uniquely named
    `claude` or `codex` executor there. A branch alone does not isolate shared services or real data:
    require task-local configuration before effects. Launch only dependency-ready units under the
