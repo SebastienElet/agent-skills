@@ -40,18 +40,25 @@ fix without a visual design request does not activate this skill.
    the upstream references are relative to this skill's root, represented by `<skill>` in commands.
    For an app screen also read [references/app-screens.md](references/app-screens.md); use its app
    workflow instead of the page workflow. For an existing component, use the guide's special case.
-3. Run the applicable draw and build or review workflow from the project root. Keep existing palette
-   and type with `--keep palette,type`; retain the project's other design decisions too. Treat
+3. For design work, run the applicable draw and build workflow from the project root. For a visual
+   review, skip the draw and inspect an existing running page or build without writing to the project.
+   Keep existing palette and type with `--keep palette,type`; retain the project's other design
+   decisions too. Treat
    pictures, motion, typography and layout quotas as upstream defaults only where compatible with
    the brief. Do not fabricate business facts or implement payment, pricing or access policies
    suggested by sample directions.
-4. Use only installed prerequisites. Keep working output in the project; for isolated work set
+4. Use only installed prerequisites. For design work, keep working output in the project; for isolated work set
    `TASTE_SKILL_HISTORY` to a temporary path and `TASTE_SKILL_TMP` to a dedicated temporary directory.
    Draws otherwise also write `~/.taste-skill/history.json`. Do not run an installer, fetch skill
    updates or add dependencies. Asset search and selected media downloads are optional project
    work, subject to its network, privacy and licensing policy; never submit private briefs or data.
    Fonts and optional scene CDN examples need the project's dependency and hosting approval.
 5. Run the applicable bundled lint and browser inspection, then inspect the resulting screenshots.
+   For a review, create a fresh temporary directory outside the project for each inspection, pass
+   its empty output subdirectory with `--out`, and set `TASTE_SKILL_TMP` to a separate empty temporary
+   directory for the browser profile. Keep the output available for the review and report its path.
+   If temporary writes or another prerequisite are unavailable, skip the affected inspection and
+   report the limitation; do not fall back to a project directory or an existing output directory.
    These are aesthetic diagnostics, not the project's acceptance barrier. Use inspector `--allow`
    only for named rules that conflict with established requirements; document those exceptions.
    The source linter has no `--allow`: report its conflicting findings rather than changing
@@ -69,6 +76,8 @@ fix without a visual design request does not activate this skill.
   project choices; keep the project's decisions and report the conflicting rule.
 - **Draw history outside the project** — default draws write user history; redirect
   `TASTE_SKILL_HISTORY` during isolated checks.
+- **Existing inspection screenshots** — the inspector deletes prior screenshots in its output
+  directory before starting the browser; use a fresh temporary output directory for every review.
 - **An empty scene catalogue** — this snapshot has no `library/scenes.json`, scene modules or demos;
   `--list scenes` reports that absence. Use the shared stage only when the task needs a scene.
 - **Missing browser or network** — an unrun inspector or unavailable image source supplies no
