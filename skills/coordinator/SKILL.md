@@ -14,7 +14,8 @@ metadata:
 
 ## Overview
 
-Own the whole authorized batch until every expected PR is verified and ready for delivery, or
+One coordinator per project owns all authorized work units, including units from unrelated parents,
+until every expected PR is verified and ready for delivery, or
 progress requires a genuine human decision or an unavailable essential capability. Launching
 executors is an intermediate action. Supervise and communicate; executors own implementation and
 investigation helpers own bounded research. These instructions depend on an active coordinator
@@ -70,23 +71,19 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    against allowed choices and installed native options, and otherwise retain explicit/default
    selection. Do not discover quotas or introduce a router dependency.
 
-3. **Prepare visible, isolated execution.** Keep the coordinator in its existing worktree workspace;
-   do not relocate it to the root repository or normalize workspace names. Reuse an appropriate
-   isolated worktree and its workspace for each existing work unit, or create them through native
-   Herdr worktree operations, including the worktree's initial terminal. Do not orchestrate units
-   through separate workspace, tab or pane creation, splitting, moving or closing. Changes to the
-   user's existing tabs and panes beyond the initial role labels below require an explicit request.
-   Keep all agents findable through
-   the association rows and Herdr inventory; keep user focus unchanged. Name new agents, worktrees
-   and branches by [hierarchical naming](references/naming.md): the user manually prepares the
-   coordinator worktree `c-<parent>`; new executor worktrees, workspace labels and agents use
-   `a-<parent>-<unit>`, with `-review` or `-diag` for helpers. Keep agent names within Herdr's
-   32-character limit, using a short unit id recorded in the table rather than truncation, `-02`
-   on a confirmed duplicate, never a random suffix, and no pane metadata. Create worktrees with
-   `herdr worktree create` or resume with `herdr worktree open`, never `git worktree add`.
-   For a new coordination, label its current tab `Coordinator`; label a new executor worktree's
-   initial tab `Agent`. Preserve names when resuming existing work, and never relabel a helper's
-   shared tab. Parse returned
+3. **Prepare visible, isolated execution.** Use the existing main repository workspace, named
+   exactly after the repository and showing its native branch, with the coordinator in a tab there.
+   Reconcile an existing coordinator before starting another; one coordinator supervises all
+   authorized units in the project, regardless of parent issue. Resume a legacy coordinator in
+   place; do not relocate or rename existing work automatically. Reuse an appropriate isolated
+   worktree and its workspace for each existing work unit, or create them through native Herdr
+   worktree operations, including the worktree's initial terminal. Do not orchestrate units through
+   separate workspace, tab or pane creation, splitting, moving or closing. Changes to the user's
+   existing tabs and panes beyond initial role labels require an explicit request. Keep agents
+   findable through the association rows and Herdr inventory; keep user focus unchanged. Follow
+   [naming](references/naming.md) for unit-based names and collision handling. Create worktrees
+   with `herdr worktree create` or resume with `herdr worktree open`, never `git worktree add`.
+   Label a new executor worktree's initial tab `Agent`; preserve existing tab names. Parse returned
    IDs, confirm the shell pane's cwd and foreground availability, and start a uniquely named
    `claude` or `codex` executor there. A branch alone does not isolate shared services or real data:
    require task-local configuration before effects. Launch only dependency-ready units under the
@@ -96,7 +93,7 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    canonical links, relevant available references, settled constraints, dependencies, repository
    instructions, ownership of its unit/worktree, other active writers, and expected delivery.
    State which publication and review transitions are authorized and that merge is forbidden.
-   State the coordination id, parent coordinator name and pane ID, unit and role.
+   State the coordinator name and pane ID, unit and role.
    Ask it to compose `issue-start` for eligible issue/branch recovery and `implement` or `bug-fix`
    for realization, using normal verification and review rules. It must preserve others' changes,
    discover its implementation, resolve ordinary operational choices, and avoid duplicate startup.
@@ -130,7 +127,7 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    a separate Herdr helper if authorized. Pass the exact question, relevant sources, observations,
    constraints and remaining budget; require diagnosis, evidence, uncertainty and a usable next
    action. Helpers must not edit, coordinate the batch or spawn coordinators; each keeps the same
-   coordination root, is named under it with its role, and names the executor it assists. They may use their
+   coordinator association, is named for its unit and role, and names the executor it assists. They may use their
    research tools, Agent-Reach and applicable skills. Keep large code/log reads out of this context.
    If delegation is unavailable, request a bounded investigation from the existing executor;
    disclose any capability gap instead of doing heavy research yourself.
@@ -210,5 +207,5 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
 
 ## References
 
-- [Hierarchical naming](references/naming.md) — names, limits, worktrees and tracking fields.
+- [Naming](references/naming.md) — names, limits, worktrees and tracking fields.
 - [Behavioral scenarios](evals/contract-scenarios.md) — contracts, not executed evidence.
