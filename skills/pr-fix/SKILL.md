@@ -1,10 +1,9 @@
 ---
 name: pr-fix
 description: >
-  Repair an open pull request after an independent merge review. Use when asked to correct
-  demonstrated defects on a PR. Make sure to use this skill whenever PR review repairs are
-  authorized, even if unnamed. Ordinary local implementation on a PR branch belongs to its
-  development workflow and grants no PR repair or publication authority.
+  Repair an open pull request after an independent merge review. Use only when the user explicitly
+  invokes `$pr-fix` or `/pr-fix`; never select it implicitly for a request to repair a PR.
+disable-model-invocation: true
 compatibility: >
   Requires the `pr-verdict` skill, authenticated access to the selected forge through `gh` or `bkt`,
   permissions for the authorized operations, and the repository's validation toolchain.
@@ -34,10 +33,9 @@ consent; an explicit user prohibition of approval still wins.
 PR source branch, return a verdict on the pushed head, then, when it qualifies, ask the user whether
 to publish that verdict and approve it natively.
 
-Typical cases: "fix the blockers on PR 1042", "review this PR and correct the issues directly", or
-"we can push small review fixes to the contributor's branch". A request only to judge, approve or
-re-review a PR must not mutate the branch; activate `pr-verdict` only if the user explicitly
-invokes it.
+Only an explicit `$pr-fix` or `/pr-fix` invocation selects this workflow, including when resuming
+a journal. A request only to judge, approve or re-review a PR must not mutate the branch; activate
+`pr-verdict` only if the user explicitly invokes it.
 
 An existing PR alone does not select this repair workflow for an ordinary local feature request.
 The development workflow owns that task and its local final review; PR repair requires the
@@ -236,7 +234,7 @@ its correction and evidence here without starting another workflow.
 
 ## Constraints
 
-- Never mutate a PR unless the user explicitly asked to correct it or invoked `pr-fix`.
+- Never select this workflow without an explicit `$pr-fix` or `/pr-fix` invocation.
 - Never override stricter task limits, start a concurrent local repair loop, exceed two correction
   passes or reset their count on delegation, candidate changes or resumption.
 - Never force-push, overwrite a moved head or guess the PR source repository or ref.

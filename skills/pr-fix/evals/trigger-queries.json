@@ -8,19 +8,24 @@
       "reason": "Explicit invocation authorizes the pull request repair workflow"
     },
     {
-      "query": "Review this PR and correct the blockers directly on the contributor's branch",
+      "query": "$pr-fix 1042",
       "should_activate": true,
-      "reason": "The request combines a merge review with authorized branch corrections"
+      "reason": "Explicit Codex invocation selects the repair workflow"
+    },
+    {
+      "query": "Review this PR and correct the blockers directly on the contributor's branch",
+      "should_activate": false,
+      "reason": "Natural-language repair requests do not explicitly invoke pr-fix"
     },
     {
       "query": "Nous avons le droit de pousser sur sa PR, corrige aussi les petits probl\u00e8mes objectifs",
-      "should_activate": true,
-      "reason": "Direct fixes to another contributor's PR are explicitly authorized"
+      "should_activate": false,
+      "reason": "Natural-language repair requests do not explicitly invoke pr-fix"
     },
     {
       "query": "Fix the findings you just reported on PR 17",
-      "should_activate": true,
-      "reason": "The user authorizes implementation of the current PR findings"
+      "should_activate": false,
+      "reason": "Natural-language repair requests do not explicitly invoke pr-fix"
     },
     {
       "query": "Is PR 1042 safe to merge?",
@@ -54,18 +59,18 @@
     },
     {
       "query": "Resume the authorized GitHub PR repair from its journal. Both correction passes are consumed and the independent review still rejects it.",
-      "should_activate": true,
-      "reason": "Resume the existing owner to report incomplete; do not reset the counter or start local repair"
+      "should_activate": false,
+      "reason": "Natural-language repair requests do not explicitly invoke pr-fix"
     },
     {
       "query": "Correct the confirmed findings on this Bitbucket PR. We have the required Bitbucket access and no GitHub credentials.",
-      "should_activate": true,
-      "reason": "Only the selected forge is required for its repair workflow"
+      "should_activate": false,
+      "reason": "Natural-language repair requests do not explicitly invoke pr-fix"
     },
     {
       "query": "Correct this GitHub PR locally, but do not commit, push, approve or publish.",
-      "should_activate": true,
-      "reason": "The explicit repair retains stricter limits and returns prepared local work with remote stages incomplete"
+      "should_activate": false,
+      "reason": "Natural-language repair requests do not explicitly invoke pr-fix"
     }
   ]
 }

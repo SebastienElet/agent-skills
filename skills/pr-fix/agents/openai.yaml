@@ -1,0 +1,7 @@
+interface:
+  display_name: "PR Fix"
+  short_description: "Repair an open pull request"
+  default_prompt: "Use $pr-fix to repair the specified pull request."
+
+policy:
+  allow_implicit_invocation: false
