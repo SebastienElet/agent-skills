@@ -434,6 +434,16 @@ Require a later-check failure after an earlier success, nonzero status and no ca
 a run from another worktree that executes the checks rather than replaying false success. Also
 exercise interruption, preservation of a valid entry and reuse after complete success on equal inputs.
 
+A replay fingerprint must observe every environment capability that can change the verdict,
+with strict runtime types. Missing or invalid observations cannot authorize reuse. If only
+`roleSuperuser` is modeled, ordinary grants remain unknown: use a fresh nonce and execute again
+for every non-superuser invocation. With the same schema and server version, revoke an ordinary
+role's grant after a successful SQL validation and require fresh execution exposing the refusal.
+Also exercise superuser demotion, absent observations and `roleSuperuser: "true"`; first observe
+the stale-replay assertions fail without the correction. A fully modeled unchanged environment
+remains a reusable control. Follow `codebase-design/references/controls.md` for the capability
+contract and class 21 for executor availability; identity alone is not capability evidence.
+
 **Recurrences:** [dotfiles#604](https://github.com/SebastienElet/dotfiles/pull/604#pullrequestreview-5588717443)
 — removing `.prototools` left the setup-moon manifest and `bun.lock` outside Harness task inputs;
 a `@moonrepo/cli` update selected no tasks and the required job passed without validation.
@@ -579,6 +589,15 @@ For a CI commit identifier, verify the actual supplied abbreviation against the 
 the platform contract; an invented full-length SHA does not qualify that path. A fallback disabling
 the promised feature needs an explicit diagnostic and a test proving the observed valid value avoids
 it. Before a push, verify tracked executable bits and successful execution through the actual invocation.
+
+When assertions read an environment API, the executor witness must observe its availability.
+Include `residentMemoryAvailable: boolean` or a stable capability digest in the replay fingerprint,
+never a volatile `rss` value. Probe the actual reader: missing API, thrown reads, zero, negatives,
+non-safe integers and non-numbers mean unavailable. Runtime and image identity alone do not cover
+an optional host capability. False, missing or invalid availability disables replay and forces
+fresh execution, reporting "resident memory measurement" as uncovered while preserving the
+assertions. Exercise unavailable and available readers, and show that differing valid measurements
+leave the fingerprint unchanged. See class 14 for replay admission and strict observation types.
 
 **Lift:** resolve the conflicting state within the command's contract and verify the intended ref,
 executable lookup or bootstrap in the actual execution context through native or existing checks.
@@ -854,7 +873,7 @@ where candidate dates yield different holders, maximum and first excess, every c
 each waiver plus the ordinary case. Control today-dependent comparisons as in class 28; class 26
 still governs compound calendar arithmetic. Material ambiguity needs the rule owner's decision;
 a proposal, code-aligned document or passing fictional-policy test establishes no real authority.
-Distinguish manufacture from approval dates when the source names approval. For each entered date,
+Distinguish production from approval dates when the source names approval. For each entered date,
 identify established ordering relations and enforce them at the API, domain and database boundaries, such as
 `CHECK (terminated_on >= started_on)`, and test equality, the previous day and the next day.
 A mandated duration requires or derives expiry; accepting null silently loses that bound. Class 25

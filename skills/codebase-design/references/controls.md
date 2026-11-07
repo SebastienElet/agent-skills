@@ -71,3 +71,22 @@ only after every selected check succeeds. Failures, interruptions and incomplete
 success and preserve an existing validated entry; exercise this through the cache's public interface.
 Use `proof-integrity-review` for independent assessment when verification mechanisms change;
 missing essential execution evidence remains an explicit delivery limit.
+
+For any fingerprint authorizing cache reuse or replay, enumerate environment capabilities that
+can change the verdict, including the effective role, privileges and incompletely modeled grants.
+Observe each at the execution boundary and validate its strict runtime type before creating a
+reusable fingerprint; a declared type or truthy coercion is insufficient. Missing or invalid
+observations refuse reuse or add a fresh nonce. If the capability is not fully modeled, use a nonce
+and execute afresh on every invocation, even when the observed fields are unchanged. For example,
+a SQL validation fingerprint covering only superuser status cannot authorize reuse for ordinary
+roles whose grants remain unmodeled. Write failing assertions exposing misleading replay first,
+then implement the correction; include missing and invalid observations and a reusable control.
+
+Trace environment APIs read by assertions into the executor witness. Observe availability as a
+strict boolean or a stable capability digest in the fingerprint, never the volatile measurement.
+For resident memory, probe the actual reader and accept only a strictly positive safe integer;
+a missing API, exception or invalid value means unavailable. `residentMemoryAvailable: true`
+describes that capability without hashing `rss`. Image and runtime identities alone do not prove
+optional host capabilities. Unavailable or invalid availability disables replay, forces fresh
+execution and reports the uncovered capability. Keep the assertions unchanged: fresh execution
+may fail and must not become a cached success through skipped or weakened assertions.
