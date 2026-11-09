@@ -6,7 +6,7 @@ This directory is the canonical source for user-scoped agent skills.
 
 - One skill per subdirectory.
 - Each skill must include a `SKILL.md` file.
-- Optional folders: `agents/`, `scripts/`, `references/`, `assets/`, `evals/`.
+- Optional folders: `agents/`, `scripts/`, `references/`, `assets/`.
 - Manage skills with `/skill-manager`.
 
 ## Dev

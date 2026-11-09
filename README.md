@@ -1,8 +1,10 @@
 # Agent Skills
 
 Reusable agent workflows distributed as `@sebastienelet/agent-skills`. The [derived index](skills/README.md)
-lists the skills and their purposes. Resources, attribution notices and historical evaluations
-travel with their skill; historical observations do not qualify this package or current agent versions.
+lists the skills and their purposes. Operational resources and attribution notices travel with
+their skill. Maintainer scenarios and historical campaigns ship separately under [evals/](evals/README.md),
+outside the skill directories selected for projection. Historical observations do not qualify this
+package or current agent versions.
 
 Prepared from the tracked sources at dotfiles revision
 [`89307efa`](https://github.com/SebastienElet/dotfiles/tree/89307efadc512f6021696bdf7ebb8249c820a2ff).
@@ -23,6 +25,8 @@ skills and projects their directories into the chosen host's native discovery lo
 the whole skill directory, refuse divergent destinations, and keep project and user scope distinct.
 Do not install the whole collection indiscriminately or expose the same slug twice. Maintain source
 in this repository's `skills/`, never through a deployed link or `node_modules`.
+Keep the package's `evals/` directory outside host discovery locations; access it explicitly for
+maintenance instead of projecting it with a skill.
 
 Check each selected skill's `compatibility` and workflow for prerequisites, and follow the same
 declarations for its dependencies. These are instructions for the consumer, not automatic dependency
@@ -101,15 +105,15 @@ The following synthetic mini-repositories are materialized from source maps, wit
 and executable oracles. They exercise behavior through the built service, database, public API or
 mounted form; they do not test declarative file text.
 
-| Subject                                                   | Case and retained executions                                                    |
-| --------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| Build artifact, JSX, token identity and production image  | [build-artifact-proof](skills/tdd/evals/build-artifact-proof/case.json)         |
-| Target integration and complete package checks            | [lagging-branch](skills/codebase-design/evals/lagging-branch/case.json)         |
-| Historical values, copied versions and constraint rollout | [moved-data](skills/codebase-design/evals/moved-data/case.json)                 |
-| Immutable relations and authorized deletion               | [deletion-path](skills/postgresql-engineering/evals/deletion-path/case.json)    |
-| Owner semantics and composed references                   | [module-boundaries](skills/codebase-design/evals/module-boundaries/case.json)   |
-| Bounded file parsing                                      | [user-supplied-file](skills/codebase-design/evals/user-supplied-file/case.json) |
-| Screen context, active rank and time bounds               | [screens-and-windows](skills/tdd/evals/screens-and-windows/case.json)           |
+| Subject                                                   | Case and retained executions                                             |
+| --------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Build artifact, JSX, token identity and production image  | [build-artifact-proof](evals/tdd/build-artifact-proof/case.json)         |
+| Target integration and complete package checks            | [lagging-branch](evals/codebase-design/lagging-branch/case.json)         |
+| Historical values, copied versions and constraint rollout | [moved-data](evals/codebase-design/moved-data/case.json)                 |
+| Immutable relations and authorized deletion               | [deletion-path](evals/postgresql-engineering/deletion-path/case.json)    |
+| Owner semantics and composed references                   | [module-boundaries](evals/codebase-design/module-boundaries/case.json)   |
+| Bounded file parsing                                      | [user-supplied-file](evals/codebase-design/user-supplied-file/case.json) |
+| Screen context, active rank and time bounds               | [screens-and-windows](evals/tdd/screens-and-windows/case.json)           |
 
 Each directory retains `a.txt` (common instructions), `b.txt` (the same instructions plus the
 lesson), `control.json` (the original defective fixture), `summary.json`, and run
