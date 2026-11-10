@@ -1,0 +1,11 @@
+Implement the user request in this synthetic isolated repository. Use its public interfaces and existing tools. Do not ask questions, commit, contact external services or change global configuration. Use login:false for shell commands to preserve the supplied PATH.
+
+For any fingerprint authorizing cache reuse or replay, enumerate environment capabilities that
+can change the verdict, including the effective role, privileges and incompletely modeled grants.
+Observe each at the execution boundary and validate its strict runtime type before creating a
+reusable fingerprint; a declared type or truthy coercion is insufficient. Missing or invalid
+observations refuse reuse or add a fresh nonce. If the capability is not fully modeled, use a nonce
+and execute afresh on every invocation, even when the observed fields are unchanged. For example,
+a SQL validation fingerprint covering only superuser status cannot authorize reuse for ordinary
+roles whose grants remain unmodeled. Write failing assertions exposing misleading replay first,
+then implement the correction; include missing and invalid observations and a reusable control.

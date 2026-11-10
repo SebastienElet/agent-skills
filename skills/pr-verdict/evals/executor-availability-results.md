@@ -1,6 +1,12 @@
 # Executor fingerprints observe assertion prerequisites: evaluation status
 
-## Observed status
+## Historical status — 2026-11-05 at 197809ce
+
+This record describes only the authored state in commit
+`197809ce61ec087c9e7930d97262b2e759cc4941`. Its hashes and non-execution statements below
+refer to that snapshot, not to subsequent fixtures or checks. Current executable fixtures,
+fresh oracle results and unresolved comparison limits are documented in
+[PR 149](https://github.com/SebastienElet/agent-skills/pull/149).
 
 Without/with-instruction comparison **not run in a real session**. No fresh comparison sessions,
 executable mini-repository or blind judge were launched. Base failure, candidate success, negative
