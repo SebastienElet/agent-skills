@@ -601,6 +601,8 @@ leave the fingerprint unchanged. See class 14 for replay admission and strict ob
 
 **Lift:** resolve the conflicting state within the command's contract and verify the intended ref,
 executable lookup or bootstrap in the actual execution context through native or existing checks.
+For verification replay whose assertions read environment APIs, apply
+[executor capabilities](executor-capabilities.md) before trusting an executor fingerprint.
 Pass the target explicitly and resolve target options before any other processing. Exercise
 different current directories and branches, with target options before and after a subcommand,
 and verify that only the explicit target is used.

@@ -1,0 +1,23 @@
+Implement the user request in this synthetic isolated repository. Use its public interfaces and existing tools. Do not ask questions, commit, contact external services or change global configuration. Use login:false for shell commands to preserve the supplied PATH.
+
+# Executor capabilities for verification replay
+
+When an assertion reads an environment API, observe the availability of that capability in the
+executor witness before deciding whether verification can be replayed. Image and runtime identity
+do not establish optional host capabilities. Put only an availability boolean or stable capability
+digest into the fingerprint, never the volatile reading.
+
+For resident memory, record `residentMemoryAvailable` as true only after the actual RSS reader
+returns a strictly positive safe integer. A missing API, thrown read, zero, negative, fractional,
+non-finite or unsafe value means unavailable. Treat an absent availability field in an older
+witness as unavailable too.
+
+If a required capability is unavailable, disable replay, execute the checks fresh and report the
+uncovered capability (for RSS: `resident memory measurement`). Keep the assertions unchanged;
+fresh execution may fail and that failure must remain visible. Do not turn missing measurement
+into a passing check or cache its success for later replay.
+
+Exercise unavailable and legacy witnesses, reader failures and valid readings through the public
+verification path. Confirm that two different valid RSS readings produce equal fingerprints,
+while a capability change changes replay eligibility. Also retain a safe counterexample: a check
+that does not depend on this capability need not acquire an unrelated prerequisite.

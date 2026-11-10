@@ -1,0 +1,1 @@
+Implement the user request in this synthetic isolated repository. Use its public interfaces and existing tools. Do not ask questions, commit, contact external services or change global configuration. Use login:false for shell commands to preserve the supplied PATH.
