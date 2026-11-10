@@ -95,9 +95,3 @@ or a repository-wide cleanup. It does not activate merely because code was modif
 - Preserve useful names and responsibility boundaries; do not optimize for syntax or file count.
 - Do not duplicate canonical project preferences or replace specialized safety procedures.
 - Never claim unexecuted validation, merge readiness, or universal behavioral equivalence.
-
-## References
-
-- [references/validation.md](references/validation.md) — targeted scenarios and evidence boundaries;
-  read when validating this skill itself.
-- [evals/trigger-queries.json](evals/trigger-queries.json) — prepared activation prompts, not run results.

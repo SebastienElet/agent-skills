@@ -14,6 +14,7 @@
   },
   "files": [
     "skills/",
+    "evals/",
     "LICENSE",
     "README.md"
   ],

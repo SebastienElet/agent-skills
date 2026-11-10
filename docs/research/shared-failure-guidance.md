@@ -120,7 +120,7 @@ Le catalogue actuel contient **27 classes sur 587 lignes**, dans [failure-classe
 
 Le seul workflow présent est [publish.yml](../../.github/workflows/publish.yml), déclenché manuellement, avec tests, types, format et packaging avant publication. L’instantané ne contient pas de workflow automatique de PR. Le README précise que l’interface du compagnon `agent-experiments` et l’évaluation CI restent à qualifier. Il serait faux de présenter les evals Markdown comme une barrière exécutée par `bun test`.
 
-L’[évaluation des probes du 19 octobre](../../skills/pr-verdict/evals/2026-10-19-inconclusive-probes/README.md) est particulièrement instructive : base et candidat détectaient déjà les cas ; elle établit un routage explicite et des décisions préservées, **pas un gain d’efficacité**. Les résultats historiques n’établissent pas celui du package courant.
+L’[évaluation des probes du 19 octobre](../../evals/pr-verdict/2026-10-19-inconclusive-probes/README.md) est particulièrement instructive : base et candidat détectaient déjà les cas ; elle établit un routage explicite et des décisions préservées, **pas un gain d’efficacité**. Les résultats historiques n’établissent pas celui du package courant.
 
 ## 4. Architecture proposée
 

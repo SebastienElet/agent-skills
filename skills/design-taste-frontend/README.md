@@ -48,7 +48,6 @@ scripts/lib/             zero-dependency Chrome DevTools client, the in-page pro
 library/                 directions (20), heroes, sections, type systems, palettes, photographs,
                          studied sites, motions
 assets/base.css, base.js an optional neutral foundation
-evals/evals.json         ten briefs for testing the skill against a no-skill baseline
 ```
 
 ## Requirements

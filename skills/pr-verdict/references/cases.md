@@ -389,9 +389,10 @@ enabled guard refuses, and a complete successful probe proving the guard disable
 controlled variant allowing on timeout fails the existing check, which passes after restoration.
 Expected: no class 19 finding within that supplied evidence's scope.
 
-The [decision evaluation](../evals/2026-10-19-inconclusive-probes/README.md) extends this case to
-installer results, shell status, no-match replacements, pagination and public/empty repositories.
-It records the distinction between supplied facts, observed decisions and a historical PR replay.
+The maintainer campaign at `evals/pr-verdict/2026-10-19-inconclusive-probes/` in the package root
+extends this case to installer results, shell status, no-match replacements, pagination and
+public/empty repositories. It records the distinction between supplied facts, observed decisions
+and a historical PR replay.
 
 ## Case N — symlink traversal and identity (class 20)
 
@@ -423,12 +424,12 @@ on save. Expected: no class 20 finding within these observed paths; do not ban a
 **Missing evidence.** Only ordinary-file tests are supplied, with no traced symlink failure.
 Expected: `unproven`, naming the missing cases; block only when essential under phase 5. These
 scenarios are an evaluation specification, not an executed historical-PR replay.
-See the [bounded decision comparison](../evals/2026-10-19-symlink-paths.md) for observed synthetic
-results and their limits.
+See `evals/pr-verdict/2026-10-19-symlink-paths.md` in the package root for the bounded decision
+comparison, its observed synthetic results and limits.
 
 ## Case O — execution environment assumptions (class 21)
 
-The [environment scenarios](../evals/environment-assumptions.md) cover a hard-coded Git base,
+The maintainer scenarios at `evals/pr-verdict/environment-assumptions.md` in the package root cover a hard-coded Git base,
 an executable missing from the command's PATH and undeclared or unsupported inherited state that
 contradicts the command's independent contract. They also cover verified environments and an
 intentional, declared and supported offline setting that must be preserved. A traced failure of a

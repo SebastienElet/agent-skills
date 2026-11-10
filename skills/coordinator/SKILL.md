@@ -208,4 +208,3 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
 ## References
 
 - [Naming](references/naming.md) — names, limits, worktrees and tracking fields.
-- [Behavioral scenarios](evals/contract-scenarios.md) — contracts, not executed evidence.
