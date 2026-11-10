@@ -112,6 +112,29 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    Keep concise progress updates during long supervision. A timeout is an observation, not a
    reason to abandon the batch or resend a possibly delivered prompt.
 
+   For each resume instruction, use the official `herdr` skill to resolve the live agent and
+   inspect readiness and pending input before sending. Record a local attempt identifier, the
+   agent name/kind, machine/session, pane, and pre-send state with an observation time or event
+   position in its existing row. An ambiguous target, existing draft, or explicit stop blocks
+   submission; preserve the input and report the reason to the owner. Send only once within
+   existing authority, then observe with bounded waits and classify two separate outcomes:
+
+   - Transmission: accepted, proven rejected, or uncertain. A timeout or unreadable response is
+     uncertain unless independent evidence establishes delivery or rejection.
+   - New turn: confirmed only by a fresh event or response attributable to that attempt from
+     the same live agent, newer than the pre-send observation. A command receipt, old output,
+     an isolated working/idle snapshot, or unrelated activity is insufficient. A lifecycle wait
+     satisfied by an already active turn does not identify a new one.
+
+   If the evidence is absent, stale, ambiguous, or unavailable because a read failed, retain
+   `unconfirmed` and name that uncertainty. Report proven transmission failure separately from
+   unavailable turn confirmation to the owner, with attempt/target identity and sanitized
+   observations; never include the instruction text, private terminal content, or secrets.
+   Continue independent supervision and safe read-only reconciliation within the blocker budget.
+   Do not automatically resend after uncertain receipt or accepted-but-unconfirmed transmission,
+   clear or submit an existing draft, or override an explicit stop. Any further input requires
+   reconciled live identity, preserved input, and authority for that specific recovery action.
+
    | Observation                        | Required next action                                                                              |
    | ---------------------------------- | ------------------------------------------------------------------------------------------------- |
    | Working                            | Observe bounded waits, check peers and pending CI; keep ownership.                                |
@@ -132,8 +155,9 @@ Do not invoke Wayfinder, rewrite issues or select a new parallelization strategy
    If delegation is unavailable, request a bounded investigation from the existing executor;
    disclose any capability gap instead of doing heavy research yourself.
 
-   Send the established answer or diagnosis to the executor and observe actual resumed work or
-   its acknowledged next action. For a blocked terminal dialog, use deliberate keys only after
+   Send the established answer or diagnosis to the executor and apply step 5's resume confirmation
+   procedure; an acknowledged next action alone does not confirm a new turn. For a blocked
+   terminal dialog, use deliberate keys only after
    reading it and matching it to existing authority. The user's authorization to answer ordinary
    operational questions permits those answers; it does not authorize trust, privilege, destructive
    actions or new product policy. Unknown dialog meanings require clarification. Preserve stricter
