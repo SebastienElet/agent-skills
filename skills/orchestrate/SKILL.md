@@ -61,7 +61,8 @@ authority.
      and untracked contents or hashes. For non-code work, identify the artifact and source revision.
    - Evidence tied to that candidate and its inputs: command or observation, result, location,
      environment and uncovered targets. Keep hypotheses distinct from demonstrated facts.
-   - Blockers, attempted resolutions, elapsed investigation, correction-pass counts and their limits.
+   - Blockers, attempted resolutions, elapsed investigation, correction-pass counts, progress
+     evidence and applicable limits.
 
 3. **Frame each specialist step.** Supply its bounded outcome, relevant verified source pointers,
    current candidate, decisions, permitted effects, prerequisites and success condition. Verify
@@ -97,14 +98,20 @@ authority.
    findings against the candidate before treating them as defects; preferences alone authorize
    no cleanup. Continue confirmed corrections under existing repair authority without asking
    again. Consume the repair workflow's result and retain its loop owner, ledger and counters;
-   neither a delegated writer nor its caller starts another repair sequence. Reuse a review only
+   neither a delegated writer nor its caller starts another repair sequence. Retain the repair's
+   demonstrated progress and failed approaches too; a pass count alone does not establish
+   exhaustion when the owning specialist permits further productive corrections. Reuse a review only
    with its candidate, independence and evidence basis still applicable. Failed or incomplete
    required review remains unfinished. Verdict publication, native approval and merge are
    separate actions: only explicit invocation or authorized `pr-fix` composition can select
    `pr-verdict`, and its existing checkpoints still apply.
 
 5. **Bound recovery across relays.** Apply the task's investigation budget and each specialist's
-   correction limits. If no applicable limit exists, name a finite attempt or time limit before
+   progress rules and correction limits, preserving stricter user limits and explicit stops.
+   Continuing a demonstrated productive correction under `code-review-fix` is not itself failed
+   recovery; do not introduce a pass ceiling for it. A recurring failure instead returns to its
+   owning stage with the failed approach and new evidence needed to justify another attempt.
+   If no applicable recovery limit exists, name a finite attempt or time limit before
    the first recovery loop. Charge attempts and elapsed investigation to the same blocker across
    delegates, interruptions and continuations. Each attempt must add evidence; stop uninformative
    repetition. A fresh agent, new session or new candidate does not reset consumed budgets. At a

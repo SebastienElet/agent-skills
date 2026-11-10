@@ -33,7 +33,8 @@ compose this local review without extending its authority to the PR. Do not comp
 Development workflows, including `implement` and `bug-fix`, may compose this
 stage when local review corrections are authorized. Preserve their mandate and stricter limits
 through `orchestrate`; implementation alone does not require independent review or this stage.
-The existing repair owner retains one ledger and a two-pass budget across calls and resumptions.
+The existing repair owner retains one ledger, pass history, progress evidence and applicable
+recovery budgets across calls and resumptions. Two completed passes alone do not end an authorized repair.
 A delegated writer corrects its slate and returns evidence without re-entering this workflow.
 Planning-only tasks and repairs owned by `pr-fix` do not use this composition. This routing is
 instruction-level, not host-enforced.
@@ -46,7 +47,7 @@ instruction-level, not host-enforced.
    contents outside the candidate. Record their hashes alongside HEAD: a SHA alone cannot identify
    local edits. Keep unrelated changes outside the repair slate. Recover the existing ledger,
    authorizations, pass count, disagreements and evidence before another pass. Missing required
-   history stops dependent work rather than resetting its budget.
+   history stops dependent work rather than resetting its counters or inventing progress.
 2. **Establish one writer and the runtime.** Suspend the author's writes until the correction
    ends. Use the current agent for corrections and fresh contexts for independent reviews.
    When the mandate specifically requests Codex from Claude Code, read
@@ -99,10 +100,26 @@ instruction-level, not host-enforced.
    Changed verification mechanisms require `proof-integrity-review` over the complete affected
    change. Compare candidate hashes before and after review; concurrent edits invalidate the
    affected review and require a new anchor.
-6. **Bound the loop and deliver.** Allow at most two correction passes, counted across continuation
-   of this repair. Each correction pass ends with validation and an independent review. After the
-   second, stop with unresolved findings or disagreements instead of restarting the counter or expanding
-   scope. On success, report the final candidate identity, corrections, refutations, checks and
+6. **Assess progress and deliver.** Each correction pass ends with validation and an independent
+   review. Compare their raw results with the previous candidate in the same ledger: name the
+   confirmed failure resolved, remaining or recurring mechanisms, regressions and next action.
+   Relevant passing checks and independent review must support a claimed correction; changed
+   files, a smaller finding count or a writer's assertion alone do not establish progress.
+   Continue the next confirmed, in-scope correction under existing authority, including after
+   the second pass, while this evidence shows progress and no stricter user limit is reached.
+   Newly discovered defects remain explicit; do not erase them to claim success.
+
+   When a correction fails, the same mechanism recurs or evidence contradicts the proposed cause,
+   stop repeating that correction and return to diagnosis, design or the owning check with the
+   observed failure. Before recovery, retain the applicable finite attempt or investigation-time
+   budget under `orchestrate`; charge it to the same blocker across resumptions. New causal
+   evidence may justify another correction within that budget; uninformative repetition or
+   exhaustion stops dependent work as `incomplete`. Record the failed approach and the evidence
+   needed to resume. A reserved decision, ADR contradiction, missing authority, unavailable
+   essential evidence or required independence also leaves dependent work incomplete. Continue
+   independent authorized work. An explicit user stop ends the requested work immediately.
+
+   On success, report the final candidate identity, corrections, refutations, checks and
    limits and return them to the task owner for the next authorized action. Say that no demonstrated
    defect remains in the reviewed scope; never equate that with merge approval. On timeout, failed
    checks, empty or malformed reviewer output, missing essential
@@ -125,7 +142,8 @@ instruction-level, not host-enforced.
 
 - Never mutate without repair authority, broaden the confirmed slate, or overwrite unrelated work.
 - Never let the context that wrote a correction perform its final independent review.
-- Never exceed two correction passes or reset the count on continuation.
+- Never stop solely at two passes, reset pass history or recovery budgets, repeat a failed
+  correction without new causal evidence, or override a stricter user limit or explicit stop.
 - Never treat failed, missing, stale or empty reviewer output as acceptance.
 - Never treat a proposal's passing checks or review as human approval of its sensitive policy.
 - Never approve, merge, publish a verdict, or activate `pr-verdict` from this local workflow.

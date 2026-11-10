@@ -40,7 +40,7 @@
     {
       "query": "The second correction pass still leaves a confirmed local defect; continue this code-review-fix",
       "should_activate": true,
-      "reason": "Continuation retains the pass count and must report unresolved findings after the limit"
+      "reason": "Continuation retains history and assesses progress and authority; the second pass alone does not end repair"
     },
     {
       "query": "This local implementation was started from a manual handoff. Implementation and required checks have passed; its final stage explicitly authorizes Codex to correct demonstrated defects within the original scope and requires an independent review before delivery.",
