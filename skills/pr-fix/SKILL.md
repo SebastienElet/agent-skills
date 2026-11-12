@@ -76,7 +76,8 @@ its correction and evidence here without starting another workflow.
    Verify human and bot findings against the anchored candidate; record confirmed defects,
    evidence-backed refutations and unresolved decisions separately. Allow at most two correction
    passes for this repair, including corrections to corrections. Count a pass when its slate
-   starts writing and retain it through interruptions, head changes and delegates. Once exhausted,
+   starts writing, persist that charge before the first correction write, and retain it through
+   interruptions, head changes and delegates. Once exhausted,
    preserve unresolved findings and disagreements, report incomplete and stop dependent repair;
    do not route them into a fresh local loop.
 
