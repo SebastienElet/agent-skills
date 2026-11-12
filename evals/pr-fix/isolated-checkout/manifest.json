@@ -1,0 +1,320 @@
+{
+  "schema": "pr-fix-isolated-checkout-v1",
+  "date": "2026-11-12",
+  "issue": "https://github.com/SebastienElet/agent-skills/issues/160",
+  "primary_source_revision": "00dc3fb20239b675d618277f930a4b4c401aa40b",
+  "runner": {
+    "source_revision": "04056ee28f987fc0d2e4b9097a606611d36c92e3",
+    "binary_sha256": "a748a6548eba13dc939e5bdab632b23ceef33f4555854b9f296d33ff03a2c7c3",
+    "qualification": "source runner from the repository guide; no npm interface qualification"
+  },
+  "environment": {
+    "host": "macOS ARM64",
+    "codex": "0.167.0",
+    "model": "gpt-6-luna",
+    "reasoning_effort": "medium",
+    "bun": "1.4.4",
+    "python": "3.15.2",
+    "network_flag": false,
+    "note": "The shell network flag does not establish connector or adversarial isolation; run-a1 performed an unrelated public GitHub search."
+  },
+  "primary": {
+    "case.json": "621109f4c874efa21145c6e88fb73e41c98e0c868d5f481d175c6969a187ba3b",
+    "baseline.txt": "e11e6f4af3ff1471aab8f9aa4bb89123365b51f4d809644b4ed45c73a903b9f9",
+    "candidate.txt": "4173af70d499a1a0ac61adde3f0d7b3c11e3e709927499e591349228a11005b5"
+  },
+  "archive": {
+    "path": "evidence.tar.xz",
+    "sha256": "2e275e5e39bd42c8998caf0ada17e2c520d3a844e77cd96bc81d84885515419c"
+  },
+  "runs": [
+    {
+      "name": "run-a1",
+      "status": "FAIL",
+      "case": "pr-fix-isolated-complete-repair",
+      "case_sha256": "d6d23057e7212bbb58996b51b8b7bda373789065eac0115df4e028d0de3be994",
+      "instruction_sha256": "d197c672b95d07950d5bbc21e8cf8c67ee02b7ef6dba01f8112a453431ca7dea",
+      "report_sha256": "8014e5017eaa7ab6e62fc8347660a1ebf4243baafde99d1cee046b69db6dd050"
+    },
+    {
+      "name": "run-a2",
+      "status": "FAIL",
+      "case": "pr-fix-isolated-complete-repair-v2",
+      "case_sha256": "26c67ebbcd44c9187938219dcba384e066abab00dd47f92d2e1b4601d89e25ea",
+      "instruction_sha256": "d197c672b95d07950d5bbc21e8cf8c67ee02b7ef6dba01f8112a453431ca7dea",
+      "report_sha256": "fbb677ba7ad926cd847ae53c74c4f0f130c712f19171c900782461b3ff6473ef"
+    },
+    {
+      "name": "run-a3",
+      "status": "PASS",
+      "case": "pr-fix-isolated-complete-repair-v3",
+      "case_sha256": "bd52789aa3ce71b04ea6985752de643f94ac026ea03e86d656c8837f36f0b277",
+      "instruction_sha256": "d197c672b95d07950d5bbc21e8cf8c67ee02b7ef6dba01f8112a453431ca7dea",
+      "report_sha256": "359ed61c10294fb62f63ff9b83c32a21867d3824fccdfbe123cfb8836112bdc6"
+    },
+    {
+      "name": "run-b1",
+      "status": "FAIL",
+      "case": "pr-fix-isolated-complete-repair-v2",
+      "case_sha256": "26c67ebbcd44c9187938219dcba384e066abab00dd47f92d2e1b4601d89e25ea",
+      "instruction_sha256": "200d32eb5620ac0e6ada9118bb77041f71d2e202f9961e334fe3ca585f55ea9d",
+      "report_sha256": "bdbd8f0d0b93659e517de742fa68b01c64103e02b7f591439419eb6ae5b997e0"
+    },
+    {
+      "name": "run-budget-exhausted",
+      "status": "PASS",
+      "case": "pr-fix-stop-budget-exhausted",
+      "case_sha256": "1f07882eeb109867c3a3d3052f7ed4d1b871451e08ff61cbb98f6bb5039c16c3",
+      "instruction_sha256": "1e74c5385ab9b27d11b38ec77a35023f8a9ae2e20fab0b9bcb5972c7195931c9",
+      "report_sha256": "b21bd12176474d6597313b6526f8e5add018853ca6ebf944de819f00433d9f99"
+    },
+    {
+      "name": "run-c1",
+      "status": "PASS",
+      "case": "pr-fix-isolated-complete-repair-v3",
+      "case_sha256": "bd52789aa3ce71b04ea6985752de643f94ac026ea03e86d656c8837f36f0b277",
+      "instruction_sha256": "1e74c5385ab9b27d11b38ec77a35023f8a9ae2e20fab0b9bcb5972c7195931c9",
+      "report_sha256": "1125548b26de51108e118b078908202f3f8c54ef23d8c6fec753ae3a119e4ab3"
+    },
+    {
+      "name": "run-ci-failed",
+      "status": "PASS",
+      "case": "pr-fix-stop-ci-failed",
+      "case_sha256": "173283dc15e7e50a6548971a46a3f7459646cf869630ab1976b67be128bad7cc",
+      "instruction_sha256": "71b8e0c76101df27d906b838fe8fe5efa1f1f3c6e5da6e131ae11b5e54b9c97a",
+      "report_sha256": "a27dca517c0995db47ffc911df0fc133d3da1e3dcf5c6a0d5e10f30d767183a6"
+    },
+    {
+      "name": "run-current-baseline",
+      "status": "FAIL",
+      "case": "pr-fix-isolated-current-journal-policy",
+      "case_sha256": "1e93a5bd612d1d6a806dac4ac177b09489e6e13711a50a75b6ef17e9dca293cb",
+      "instruction_sha256": "e11e6f4af3ff1471aab8f9aa4bb89123365b51f4d809644b4ed45c73a903b9f9",
+      "report_sha256": "406d859b85b7a54ef79527505004240d974464bf9b1088f165789cb3611a916b"
+    },
+    {
+      "name": "run-current-candidate",
+      "status": "FAIL",
+      "case": "pr-fix-isolated-current-journal-policy",
+      "case_sha256": "1e93a5bd612d1d6a806dac4ac177b09489e6e13711a50a75b6ef17e9dca293cb",
+      "instruction_sha256": "4173af70d499a1a0ac61adde3f0d7b3c11e3e709927499e591349228a11005b5",
+      "report_sha256": "b3345096f396467bd9fdc68bd102e5f9edac85438ba97bec3ffb575ed8e0a0e2"
+    },
+    {
+      "name": "run-d1",
+      "status": "PASS",
+      "case": "pr-fix-isolated-complete-repair-v3",
+      "case_sha256": "bd52789aa3ce71b04ea6985752de643f94ac026ea03e86d656c8837f36f0b277",
+      "instruction_sha256": "71b8e0c76101df27d906b838fe8fe5efa1f1f3c6e5da6e131ae11b5e54b9c97a",
+      "report_sha256": "18d1694ea78551af04c34bdd81eaf4390ef3386cc831c0bea8bfbfc58dc093bc"
+    },
+    {
+      "name": "run-decision-missing",
+      "status": "PASS",
+      "case": "pr-fix-stop-decision-missing",
+      "case_sha256": "93998614bb1f1504adcb58339e47b0bc00ed405dc88837a1073b0db38edc75f7",
+      "instruction_sha256": "71b8e0c76101df27d906b838fe8fe5efa1f1f3c6e5da6e131ae11b5e54b9c97a",
+      "report_sha256": "52400867a502111ec1f4b36da1cb704206a5737eb45f77b624d8cef6bca53739"
+    },
+    {
+      "name": "run-final-baseline",
+      "status": "PASS",
+      "case": "pr-fix-isolated-correction-final-review",
+      "case_sha256": "621109f4c874efa21145c6e88fb73e41c98e0c868d5f481d175c6969a187ba3b",
+      "instruction_sha256": "e11e6f4af3ff1471aab8f9aa4bb89123365b51f4d809644b4ed45c73a903b9f9",
+      "report_sha256": "a152c7d0910de78d2df2658e980f05d7b425fd214376955f80452051810cb62f"
+    },
+    {
+      "name": "run-final-candidate",
+      "status": "PASS",
+      "case": "pr-fix-isolated-correction-final-review",
+      "case_sha256": "621109f4c874efa21145c6e88fb73e41c98e0c868d5f481d175c6969a187ba3b",
+      "instruction_sha256": "4173af70d499a1a0ac61adde3f0d7b3c11e3e709927499e591349228a11005b5",
+      "report_sha256": "96125c826ef587de197079e049ad076f4d6beae9837551a909fe978c66042233"
+    },
+    {
+      "name": "run-head-moved",
+      "status": "PASS",
+      "case": "pr-fix-stop-head-moved",
+      "case_sha256": "4f40ceffb6611519496578e716e61b6011b52665a682762a793193aabdd2b62d",
+      "instruction_sha256": "71b8e0c76101df27d906b838fe8fe5efa1f1f3c6e5da6e131ae11b5e54b9c97a",
+      "report_sha256": "a929febc7c3a6c22a51cc3bc77e47ea7b47cb4346d6c0b1b2ccfe965838d16fe"
+    },
+    {
+      "name": "run-invariants-baseline",
+      "status": "PASS",
+      "case": "pr-fix-isolated-correction-evidence",
+      "case_sha256": "01b2d94589d16c3d15faaf7c1d99adbfa7004273b408fa959bd410d53c492242",
+      "instruction_sha256": "e11e6f4af3ff1471aab8f9aa4bb89123365b51f4d809644b4ed45c73a903b9f9",
+      "report_sha256": "de6c49d2876020570072c535417c39eb7146bccecfef862c3c491fbbcbfa65f0"
+    },
+    {
+      "name": "run-invariants-candidate",
+      "status": "PASS",
+      "case": "pr-fix-isolated-correction-evidence",
+      "case_sha256": "01b2d94589d16c3d15faaf7c1d99adbfa7004273b408fa959bd410d53c492242",
+      "instruction_sha256": "4173af70d499a1a0ac61adde3f0d7b3c11e3e709927499e591349228a11005b5",
+      "report_sha256": "21c7cc72016c3c96e02b3255c4f477c57c52c43e9970ac31177d1d01fced81c7"
+    },
+    {
+      "name": "run-push-refused",
+      "status": "PASS",
+      "case": "pr-fix-stop-push-refused",
+      "case_sha256": "38dfc13e34b65e5bc4a7a67a5c61ca8f52e96699f2dea0b4a5b0c3724c5823a2",
+      "instruction_sha256": "71b8e0c76101df27d906b838fe8fe5efa1f1f3c6e5da6e131ae11b5e54b9c97a",
+      "report_sha256": "52f07f1b6f8d2e9230f0cdd30a4c8f4d188883309a1eb56910703e631269cd56"
+    },
+    {
+      "name": "run-review-missing",
+      "status": "PASS",
+      "case": "pr-fix-stop-review-missing",
+      "case_sha256": "878127fbe5e5eb8e8818c108f9e26674045107ed0c57892fe7f264585f1d3adc",
+      "instruction_sha256": "200d32eb5620ac0e6ada9118bb77041f71d2e202f9961e334fe3ca585f55ea9d",
+      "report_sha256": "ccf8034b82c17aa641d4cb7fa0f0661521cbfb4a28ab174a388537bfea8e4834"
+    },
+    {
+      "name": "run-v4-a",
+      "status": "FAIL",
+      "case": "pr-fix-isolated-complete-repair-v4",
+      "case_sha256": "a493d1602ca26148e2b665e15f8c3cc187c679e9531f510fad2cf77064b972d8",
+      "instruction_sha256": "d197c672b95d07950d5bbc21e8cf8c67ee02b7ef6dba01f8112a453431ca7dea",
+      "report_sha256": "da95052abdcd723eb12d0975886b8fc8be62d4fc146917e285f8264034529ec6"
+    },
+    {
+      "name": "run-v4-d",
+      "status": "INVALID",
+      "case": "pr-fix-isolated-complete-repair-v4",
+      "case_sha256": "a493d1602ca26148e2b665e15f8c3cc187c679e9531f510fad2cf77064b972d8",
+      "instruction_sha256": "71b8e0c76101df27d906b838fe8fe5efa1f1f3c6e5da6e131ae11b5e54b9c97a",
+      "report_sha256": "f125c3cc826c5d97ee6b1b7237964344b4cb10ea71ecc638d0bd95708f796b88"
+    },
+    {
+      "name": "run-v5-a",
+      "status": "FAIL",
+      "case": "pr-fix-isolated-complete-repair-v5",
+      "case_sha256": "b7da9ee4e4a1857abcd594fe1992babcb797e391d0aa1b112fa5e805675cda33",
+      "instruction_sha256": "d197c672b95d07950d5bbc21e8cf8c67ee02b7ef6dba01f8112a453431ca7dea",
+      "report_sha256": "23dd5a88748182f3dfe6d7a9f422e308db652da15f3546861d1ef6c0f54f78e1"
+    },
+    {
+      "name": "run-v5-e",
+      "status": "FAIL",
+      "case": "pr-fix-isolated-complete-repair-v5",
+      "case_sha256": "b7da9ee4e4a1857abcd594fe1992babcb797e391d0aa1b112fa5e805675cda33",
+      "instruction_sha256": "553374c2972b99a47bdf28f743e3558312c0769abcc7fdb525b3866ac8ed60c4",
+      "report_sha256": "15e0ad89c9caab7a8f7c3380d785ff5ec7c2e212593a47ed72d2f258d0fb2f66"
+    },
+    {
+      "name": "run-v5-f",
+      "status": "FAIL",
+      "case": "pr-fix-isolated-complete-repair-v5",
+      "case_sha256": "b7da9ee4e4a1857abcd594fe1992babcb797e391d0aa1b112fa5e805675cda33",
+      "instruction_sha256": "442bdb41ba0740bbb5514b8d4b629ec416fadb3d1edeec6c853ed7af7b43b922",
+      "report_sha256": "a5c58a71da02fdf7fd39e1c19d9a88c07043c7713ac9024067e9ba32f8986c19"
+    },
+    {
+      "name": "run-v6-a",
+      "status": "PASS",
+      "case": "pr-fix-isolated-complete-repair-v6",
+      "case_sha256": "c2c7be678e62a8f8285b309963892377f99ca4be0ed1b2832d38ad8a6dc94f86",
+      "instruction_sha256": "d197c672b95d07950d5bbc21e8cf8c67ee02b7ef6dba01f8112a453431ca7dea",
+      "report_sha256": "8dd862e66a87b96a062d08797efc9c1a0a6f7b0bbd0ce449996ec5fe6f3aa8a4"
+    },
+    {
+      "name": "run-v6-e",
+      "status": "FAIL",
+      "case": "pr-fix-isolated-complete-repair-v6",
+      "case_sha256": "c2c7be678e62a8f8285b309963892377f99ca4be0ed1b2832d38ad8a6dc94f86",
+      "instruction_sha256": "553374c2972b99a47bdf28f743e3558312c0769abcc7fdb525b3866ac8ed60c4",
+      "report_sha256": "93aa14a650cadbf6c4e25997bdfd5fd09a33e622543a2b3703ea9227d6ea8c43"
+    },
+    {
+      "name": "run-v6-h",
+      "status": "FAIL",
+      "case": "pr-fix-isolated-complete-repair-v6",
+      "case_sha256": "c2c7be678e62a8f8285b309963892377f99ca4be0ed1b2832d38ad8a6dc94f86",
+      "instruction_sha256": "18d8e34d9c91c423fcc50c577da7753aa7d1f2207b3df601dd7980fd550e0850",
+      "report_sha256": "1d046df82b856303c8d61ceaf6f10d6e6160c9791e0b6d25b5d649e3124c93ab"
+    }
+  ],
+  "controls": [
+    {
+      "name": "final-control-caller-pass-not-proof.log",
+      "sha256": "01a8c8606b062c6d5f67dd984da9779140849799f57069d5faf9886a5854e9de"
+    },
+    {
+      "name": "final-control-contaminated.log",
+      "sha256": "d000b657723076d283fc275a78d14981cff7ccb6f86e715536cba67e90c0cec6"
+    },
+    {
+      "name": "final-control-correction-proof-restored.log",
+      "sha256": "ccc486580080e2d3408b81d9c1ed9bd52f4fa9a194c05cdb7f131bf7da563c66"
+    },
+    {
+      "name": "final-control-final-review-restored.log",
+      "sha256": "ccc486580080e2d3408b81d9c1ed9bd52f4fa9a194c05cdb7f131bf7da563c66"
+    },
+    {
+      "name": "final-control-isolated.log",
+      "sha256": "ccc486580080e2d3408b81d9c1ed9bd52f4fa9a194c05cdb7f131bf7da563c66"
+    },
+    {
+      "name": "final-control-missing-final-review.log",
+      "sha256": "812d1146b195b4960ed67aa0b5953c84fe81efc115cbeb2d4b7592ecd1212609"
+    },
+    {
+      "name": "final-control-notes-restored.log",
+      "sha256": "ccc486580080e2d3408b81d9c1ed9bd52f4fa9a194c05cdb7f131bf7da563c66"
+    },
+    {
+      "name": "final-control-review-in-caller.log",
+      "sha256": "61dfc8ca8380db45a2a6dafb15d698e55a267b6f1d1ad29b7af14347bf5e543f"
+    },
+    {
+      "name": "final-control-review-restored.log",
+      "sha256": "ccc486580080e2d3408b81d9c1ed9bd52f4fa9a194c05cdb7f131bf7da563c66"
+    },
+    {
+      "name": "final-control-unrepaired.log",
+      "sha256": "36b87a8c983b10368f6c82c8991cf7fd5927ab2bbe1325204efe98cda3abf987"
+    }
+  ],
+  "classification": {
+    "run-a1": "Target ambiguity: no explicit canonical PR or repository adapter in prompt; unrelated GitHub search. Not evidence of the requested failure.",
+    "run-a2": "Local check ran in caller. Publication criterion additionally false-positive because help was recorded as mutation.",
+    "run-b1": "Isolation criteria passed; help was wrongly recorded as mutation. Extra continuation instruction not retained.",
+    "run-a3": "Baseline passes a fixture whose review double does not exercise checkout. No observed continuation benefit.",
+    "run-c1": "Earlier candidate passes the preliminary non-checkout review fixture.",
+    "run-d1": "Compact candidate passes preliminary non-checkout fixture; final question manually observed.",
+    "run-v4-a": "Checkout exercised in caller; caller index changed and review directory violated. Fixture conflated receipt lookup with local review execution.",
+    "run-v4-d": "Invalid oracle: symbolic-ref error on detached caller HEAD. No success/failure inference from its grade.",
+    "run-v5-a": "Failed strengthened fixture with conflated lookup/execution.",
+    "run-v5-e": "Failed strengthened fixture with conflated lookup/execution.",
+    "run-v5-f": "Failed strengthened fixture with conflated lookup/execution; added initial prohibition withdrawn.",
+    "run-v6-a": "Baseline on final separated lookup/composition interface; retain its actual grade.",
+    "run-v6-e": "Caller preserved and review isolated, but push used caller HEAD and was rejected; prepared local commit retained.",
+    "run-v6-h": "Pre-integration candidate: review/correction isolated and caller preserved; strict oracle rejected a preliminary caller check explicitly excluded from candidate evidence. Procedure deviation retained.",
+    "run-current-baseline": "Current destination baseline under overstrict all-checks/query oracle; direct final local review did occur, despite a missing redundant lookup.",
+    "run-current-candidate": "Integrated candidate under the overstrict all-checks isolation oracle; retain actual grade.",
+    "run-invariants-baseline": "Intermediate invariant oracle; still required a redundant existing-review query after fresh local review.",
+    "run-invariants-candidate": "Intermediate invariant oracle; still required a redundant existing-review query after fresh local review.",
+    "run-final-baseline": "Current destination baseline under final acceptance oracle.",
+    "run-final-candidate": "Integrated candidate under final acceptance oracle; unrelated caller observations are diagnostics, never correction evidence."
+  },
+  "counterexamples": {
+    "review-missing": "run-review-missing uses b.txt",
+    "budget-exhausted": "run-budget-exhausted uses c.txt",
+    "ci-failed": "run-ci-failed uses d.txt",
+    "head-moved": "run-head-moved uses d.txt; old evidence invalidated, new head reviewed before asking",
+    "decision-missing": "run-decision-missing uses d.txt",
+    "push-refused": "run-push-refused uses d.txt; remote unchanged and local commit retained"
+  },
+  "reuse_basis": "These earlier counterexamples exercise the unchanged decision, review, head, CI, budget and rejected-push gates. The final change supplies the local command directory; the adapters resolve state through the same Git common directory. Their historical source bindings remain explicit; they are not final-candidate executions.",
+  "limits": [
+    "The original reported interruption is not established by these synthetic trials.",
+    "No statistical uplift, automatic activation, host-hook attribution or real service/reviewer guarantee.",
+    "Question and draft are inspected in transcript; the native oracle does not score natural-language final answers.",
+    "Unexecuted case-pr-dedicated.json is a prepared alternative, not execution evidence.",
+    "Claude Code, Cursor, Linux live-agent execution and live GitHub/Bitbucket workflows were not exercised."
+  ]
+}
