@@ -58,8 +58,13 @@ its correction and evidence here without starting another workflow.
    Before another review or correction in step 1, read [journal recovery](references/repair-journal.md#recovery)
    to open or create the stable PR journal and reconcile its history and remaining budget.
 
-   Activate `pr-verdict`, read its routed references, and run phases 1 through 5 on the exact head
-   SHA when a current applicable review is absent. Reuse traceable review and check evidence only
+   After journal recovery, fetch the anchored objects without switching the caller's checkout.
+   Create a clean detached temporary worktree at that SHA. Use its path as the working directory
+   for every subsequent command, including composed reviews, commits and pushes; pass it to
+   delegates. Preserve the caller's branch, HEAD, index and uncommitted files.
+
+   In that worktree, activate `pr-verdict`, read its routed references, and run phases 1 through 5
+   on the exact head SHA when a current applicable review is absent. Reuse traceable review and check evidence only
    after comparing candidate, scope, requirements, policy, source, oracle, configuration,
    dependencies, environment and integration inputs; record why each retained result still applies.
    Refresh affected evidence rather than replaying unaffected stages. Return the verdict here
@@ -81,8 +86,8 @@ its correction and evidence here without starting another workflow.
    preserve unresolved findings and disagreements, report incomplete and stop dependent repair;
    do not route them into a fresh local loop.
 
-3. **Isolate the work.** Create a clean temporary worktree at the anchored SHA so the caller's
-   checkout and uncommitted work remain untouched. Preserve all author commits and unrelated changes.
+3. **Integrate in the repair worktree.** Use the worktree from step 1. Preserve author commits
+   and unrelated changes.
    Keep the worktree when a failed push or unresolved conflict leaves local commits the user may need.
 
    Fetch and integrate the resolved destination before the barrier, following `pr-verdict`'s
