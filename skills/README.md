@@ -20,7 +20,6 @@ This directory is the canonical source for user-scoped agent skills.
 | `code-review-fix`               | Repair local code-review findings before delivery.                                                                  |
 | `code-simplify`                 | Simplify code to reduce understanding and maintenance costs.                                                        |
 | `codebase-design`               | Design cohesive modules with simple public interfaces.                                                              |
-| `coordinator`                   | Supervise prepared issue batches through verified, delivery-ready PRs in Herdr.                                     |
 | `design-claim-audit`            | Audit architectural and domain guarantees.                                                                          |
 | `design-taste-frontend`         | Art direction and visual critique for frontend pages and app screens.                                               |
 | `diagnosing-bugs`               | Diagnose bugs and performance regressions.                                                                          |
