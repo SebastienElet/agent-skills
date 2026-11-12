@@ -16,7 +16,8 @@ Authority: <request source and limits on edits, commits, push, publication, appr
 Current head: <SHA>
 Status: <in progress | pending validation | pending approval | pending publication | published>
 Pending: <remaining work, disagreements, decisions or history gaps; none when complete>
-Correction passes: <consumed>/2
+History: <established first launch | recovered | unknown; attributable evidence and scope>
+Correction passes: <verified consumed count | unknown>/2
 
 ## Corrections
 
@@ -32,6 +33,7 @@ Delivery: <SHA; verdict; CI result/link or none required; approval state/account
 ## Resume checks
 
 - Verify PR/source/head against the forge; recover authority, pending work and consumed passes.
-  Charge a pass when writing starts; missing history never resets the budget or grants authority.
+  Persist the charged pass before its first correction write; resume an interrupted slate without
+  charging it twice. Missing history never resets the budget or grants authority.
 - Reconcile uncertain pushes, comments by stable marker, and approvals before retrying.
 - Retain evidence on its original head/base; a new head needs current review, CI and approval.
