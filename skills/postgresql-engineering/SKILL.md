@@ -65,9 +65,7 @@ otherwise follow the project's existing workflow. Do not restart their procedure
    synthetic data for engine-owned semantics, constraints and concurrency. Include empty,
    NULL, duplicate, tenant and failure cases that can change the result. Use controlled session
    interleavings for races; in-memory substitutes do not prove them. Report the result, actual
-   server/client environment, evidence, hypotheses and untested boundaries. The optional
-   [evaluation cases](evals/cases.md) exercise this skill's reasoning; they are not a new gate
-   for every consuming project.
+   server/client environment, evidence, hypotheses and untested boundaries.
 
 ## Gotchas
 
@@ -95,5 +93,3 @@ otherwise follow the project's existing workflow. Do not restart their procedure
 
 - [Sources and decisions](references/sources.md) — reviewed revisions, official manuals and
   conditional or rejected upstream advice.
-- [Activation scenarios](evals/trigger-queries.json) — expected selection boundaries, not proof
-  of host activation.

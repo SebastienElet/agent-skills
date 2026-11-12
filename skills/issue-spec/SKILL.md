@@ -167,5 +167,3 @@ requested; it uses only draft/review responsibilities. Existing-issue editing is
 ## References
 
 - [references/simplify.md](references/simplify.md) — conditional scope-preserving simplification
-- [evals/simplification-scenarios.md](evals/simplification-scenarios.md) — offline simplification fixtures
-- [evals/synthesis-scenarios.md](evals/synthesis-scenarios.md) — standalone and conversation fixtures

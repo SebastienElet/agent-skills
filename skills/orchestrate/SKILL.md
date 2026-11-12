@@ -152,9 +152,7 @@ authority.
 
 ## References
 
-The sources below are design inspirations at fixed snapshots, not local authority. The contract
-scenarios in [evals/contract-scenarios.md](evals/contract-scenarios.md) specify expected transitions;
-they are not execution evidence or cross-host qualification.
+The sources below are design inspirations at fixed snapshots, not local authority.
 
 | Source                                                                                                                                                                                                                                                                                     | Retained or adapted                                                                             | Excluded and reason                                                                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
