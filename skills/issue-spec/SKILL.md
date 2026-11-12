@@ -83,12 +83,14 @@ requested; it uses only draft/review responsibilities. Existing-issue editing is
    Surface contradictions, missing decisions, inaccessible evidence and real dependencies before
    the draft. A contradiction changing outcome or scope blocks finalization: identify the smallest
    decision needed and continue independent preparation. Preserve applicable architectural and
-   compatibility constraints; distinguish them from speculative technical means.
+   compatibility constraints; distinguish them from speculative technical means. Use the ledger
+   for preparation; carry material provenance into the draft beside the affected requirement rather
+   than copying the ledger as a second inventory.
 
 6. **Define completeness and challenge scope.** State the observable result, required data,
    visible information, interactions, permissions and compatibility. Assess relevant initial,
    loading, empty, no-data, success, partial, error, retry, unavailable and permission states,
-   explicitly marking irrelevant states rather than silently omitting them. Name applicable
+   retaining applicable states in the draft; irrelevant states need no body section. Name applicable
    designs and product patterns. For new preparation or requested slicing, compare the increment
    with the full journey and adjacent work: it must be independently usable, verifiable and
    recognizable as product value. Propose combining work when concrete coordination or review
@@ -96,26 +98,24 @@ requested; it uses only draft/review responsibilities. Existing-issue editing is
    merely to shrink a ticket. In simplification or synthesis, retain agreed scope and present any
    reduction, addition, split or combination separately for decision.
 
-7. **Draft for the destination.** Start with material gaps and contradictions, their sources and
-   impact. Omit that preliminary section only after checking none remain. Use the requested or
-   established project format. Otherwise, scale the following structure to the actual feature:
+7. **Draft for the destination.** Report material gaps and contradictions, their sources and impact
+   before the draft; keep them visible beside the affected action or criterion in the body. Use the
+   requested or established project format. Otherwise, write a domain-language title followed by:
 
    ```text
    Title
-   Context and observable outcome
-   Persona and meaningful user journey
-   Scope and functional requirements labeled Requested, Established or Proposed
-   Required data, visible information and interactions
-   Relevant states, failures, permissions and compatibility
-   Design and existing product alignment
-   Dependencies and related work
-   Deliberate out of scope, with product rationale
+   Objective: the observable outcome and who needs it
+   Expected action: what to deliver, with applicable requirements and constraints
    Observable acceptance criteria
-   Open questions and proposed assumptions
+   Dependencies: verified prerequisites and useful canonical sources
    ```
 
-   For issue preparation or slicing, finish with `Why this scope`. For simplification, finish with
-   the semantic diff required by its reference. A standalone spec needs no issue identifier or
+   Include useful data, interactions, states, designs, permissions, compatibility, exclusions and
+   open decisions where they change the action or its criteria. Preserve Requested, Established
+   and Proposed status without repeating it in separate sections. Omit empty fields, repeated
+   context and preparation reports; no fixed section or length budget applies. Explain scope
+   rationale only when it affects a decision. For simplification, return the semantic diff required
+   by its reference outside the proposed body. A standalone spec needs no issue identifier or
    tracker template. Hand issue content to `issue-creation` for its applicable draft/review or
    authorized new-publication lifecycle, regardless of which skill activated first.
 

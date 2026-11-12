@@ -42,7 +42,9 @@ user's language and the target project's canonical vocabulary and issue conventi
    capability from a binary name, stale configuration, or historical usage.
 
 3. **Compose specialist work by responsibility.** Activate any domain skill whose trigger applies
-   and let it prepare the substantive content. For a Linear or GitHub product issue, `issue-spec` owns
+   and let it prepare the substantive content. When Wayfinder is explicitly invoked, it owns map
+   and decision content; preserve that artifact's purpose instead of imposing an implementation
+   specification. For a Linear or GitHub implementation product issue, `issue-spec` owns
    product evidence, personas, journey, functional slicing, visible states, and product acceptance
    criteria; this skill still owns the lifecycle gate and external publication. Composition is
    responsibility-based: either skill may activate first, and neither assumes that the other has
@@ -58,22 +60,29 @@ user's language and the target project's canonical vocabulary and issue conventi
    provider idempotency or uniqueness mechanism when one exists; otherwise report that concurrent
    duplicate creation remains possible.
 
-5. **Prepare the candidate.** State the title, observable outcome, promised deliverables,
-   requirements, established constraints, open questions, deliberate non-goals, and observable
-   acceptance criteria. Mark proposals as proposals rather than established facts. Preserve the
-   specialist's richer structure when applicable. Reject an empty or placeholder body unless the
-   user explicitly requests a title-only issue; record that exception as part of the approved
-   candidate.
+5. **Prepare the candidate.** Use the specialist's or established project format. Otherwise, lead
+   with a domain-language title and objective, then the expected action or decision, observable
+   acceptance or resolution criteria, and verified prerequisites with useful canonical links.
+   Include requirements, constraints, open questions and non-goals where they affect that action;
+   mark proposals as proposals. For a map, retain the destination, linked questions and remaining
+   uncertainty without copying child specs or a native inventory. Omit empty fields, repetition and
+   preparation reports; keep material uncertainty and authority limits visible. No fixed section
+   or length budget applies. Reject an empty or placeholder body unless the user explicitly requests
+   a title-only issue; record that exception as part of the approved candidate.
 
 6. **Run the coherence gate.** For an explicitly approved title-only candidate, verify that the
    title states the requested outcome and that no known contradiction changes its scope, then skip
-   checks that require a body. Otherwise, build a short trace from each title promise and deliverable
-   to at least one acceptance criterion that proves it. Compare the title, outcome, deliverables,
+   checks that require a body. Otherwise, trace each title promise and expected action to an
+   observable criterion: acceptance for delivery, resolution for a decision, and identified questions
+   and remaining uncertainty for a map. A precise open question needs a resolution criterion, not
+   its answer before publication; unresolved choices are its purpose. Verify that the question's
+   scope, options, answer authority and prerequisites are coherent. Compare title, outcome, actions,
    requirements, open questions, and non-goals in both directions. Reject the candidate when a
    deliverable lacks proof, a non-goal negates the title, outcome, or deliverable, or an unresolved
-   question materially changes scope. Remove limits of the current drafting session, such as not
-   implementing during this session, from the implementation issue's non-goals. On contradiction,
-   stop publication and ask for the smallest decision that resolves it.
+   question materially changes the promised delivery or the question to resolve. Keep this trace
+   in preparation, not as another body section. Remove limits of the current drafting session, such
+   as not implementing during this session, from the implementation issue's non-goals. On
+   contradiction, stop publication and ask for the smallest decision that resolves it.
 
 7. **Apply publication authority.** A coherent explicit request to create, open, file, or publish
    the issue authorizes one external creation without a redundant confirmation. A draft-only or

@@ -5,15 +5,19 @@ recorded in this skill. Use the established project format when it already serve
 
 ## Canonical map
 
+Use a domain-language title, then draft around the reader's next decision:
+
 ```text
-Title
-Destination: the outcome whose route this effort must clarify
-Notes: domain, relevant source pointers and established constraints
-Decisions so far: linked question titles with short answer summaries
-Open questions: question titles, canonical locations, prerequisites and current state
-Not yet specified: in-scope uncertainty that is not yet a precise question
-Out of scope: exclusions and their rationale
+Objective: the destination whose route this effort must clarify
+Next action: the linked questions to resolve and who can answer them
+Route clear when: the observable resolution of remaining decisions and uncertainty
+Prerequisites and sources: verified blocking links and material source status
 ```
+
+Keep map-specific constraints and in-scope uncertainty that is not yet a precise question beside
+the next action. Link requirements, exclusions and proof already held in canonical child tickets
+instead of summarizing them again; retain any constraint that changes navigation. Distinguish
+proposals from decisions in force.
 
 On a tracker with native child issues and dependency queries, open questions live in those child
 issues and the map links the query rather than copying their state into another inventory. With a
@@ -22,19 +26,24 @@ links. Name that representation; do not imply native blocking where only text li
 
 ## Decision ticket
 
-```text
-Title: the decision in domain language
-Type: research, prototype, grilling or task (when no established type label exists)
-Question: the precise choice or investigation
-Prerequisites: named decisions or unavailable evidence
-Resolution criterion: what makes this question answered
-Answer and evidence: populated when resolved, with proposals distinguished from facts
-```
+Use a domain-language question as the title. State the choice or investigation, the action expected
+and who can supply the answer, then the observable resolution criterion and verified prerequisites.
+Keep genuinely open options and a recommendation's proposed status. Name unavailable evidence and
+its impact. Preserve applicable established constraints and their reported source status; an
+unavailable reread does not invalidate them. A precise unanswered question can be published as open;
+publication does not choose an option or authorize a prototype or implementation. Add the answer
+and evidence only when resolved.
+
+For both artifacts, omit empty fields and repeated context. Keep preparation, coordination and
+session reports outside the body; retain any uncertainty or authority limit that changes the
+reader's next action. Link useful detail to its existing canonical source instead of repeating it.
+There is no fixed section or length budget.
 
 Use the established tracker convention for types. Where `wayfinder:` labels are already supported,
 use `wayfinder:map` for the map and `wayfinder:<type>` for each decision; read that label when
-resuming. Otherwise record the type in the ticket field above. Do not add implementation-triage
-labels such as `ready-for-agent` to decision work or remove unrelated existing tracker metadata.
+resuming. Otherwise record one explicit type field: map, research, prototype, grilling or task.
+Do not add implementation-triage labels such as `ready-for-agent` to decision work or remove
+unrelated existing tracker metadata.
 Applying labels still requires the write authority described in the skill.
 
 Choose `research` for a discoverable fact, `grilling` for a user choice, or a separately authorized
