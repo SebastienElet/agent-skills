@@ -1,0 +1,118 @@
+{
+  "context_messages": [
+    {
+      "role": "developer",
+      "bytes": 17799,
+      "sha256": "e52174f354e3970ad8de5935fff8d04ddf2890a35659283d163befb56490198c",
+      "kind": "You are Codex, an agent based on GPT-6. You and the user share one workspace, and your job is to col"
+    },
+    {
+      "role": "developer",
+      "bytes": 18968,
+      "sha256": "dbfdb58524454fc92707fdb71f03723108fd6016c378187a9cbfa6fd1fe11f23",
+      "kind": "<skills_instructions>"
+    },
+    {
+      "role": "developer",
+      "bytes": 523,
+      "sha256": "db0f8e83b710c0d8c7fcd197be160247d48a8d0bffa6b8bbeb7459732d209426",
+      "kind": "<permissions instructions>"
+    },
+    {
+      "role": "developer",
+      "bytes": 1056,
+      "sha256": "7f45d7d6986a761101d46d185824ce65c321ca0f02cea7497fc46d60ffae417b",
+      "kind": "<collaboration_mode># Collaboration Mode: Default"
+    },
+    {
+      "role": "developer",
+      "bytes": 2711,
+      "sha256": "9a22d0e52a330e245452487e19db022b371c1ba6708d1f83ad1e391ddc5a072c",
+      "kind": "<tools>"
+    },
+    {
+      "role": "developer",
+      "bytes": 740,
+      "sha256": "3dd222c168fc7fbcf052c2211bc6f0e9582fb9e53a5cb689e171a4781928e596",
+      "kind": "<recommended_plugins>"
+    },
+    {
+      "role": "developer",
+      "bytes": 2400,
+      "sha256": "3edd51083129388f52e881435e93e4b981e00c5ee3d62ab5d32e22c428fd504b",
+      "kind": "<multi_agent_role>You are `/root`, the primary agent in a team of agents collaborating to fulfill th"
+    },
+    {
+      "role": "developer",
+      "bytes": 271,
+      "sha256": "6ded806e3cdbb35599ecaf8742574bc5274908472b1729090010c404c2151e8e",
+      "kind": "<multi_agent_mode>Any earlier instruction enabling proactive multi-agent delegation no longer applie"
+    },
+    {
+      "role": "user",
+      "bytes": 26201,
+      "sha256": "c39451e42b66142d5e31dac93576745054b0f1633dd21dda1acec5675af11030",
+      "kind": "# AGENTS.md instructions"
+    },
+    {
+      "role": "user",
+      "bytes": 976,
+      "sha256": "0068644f75055c1c3433fc761136b59536f2fb61c15eab8f2a3cd12bdab76aec",
+      "kind": "environment_context (private paths omitted)"
+    },
+    {
+      "role": "user",
+      "bytes": 18226,
+      "sha256": "134ed27a9176a3d3d51b27484715a606d2f790f40dbe5a75b1bd702184f5e6bd",
+      "kind": "---"
+    },
+    {
+      "role": "user",
+      "bytes": 17716,
+      "sha256": "973d1e2012aa413e00dbc04e2c7fb2977d299d7a5999bf7e69fc0332fd4c7cb8",
+      "kind": "<skill>"
+    },
+    {
+      "role": "user",
+      "bytes": 11,
+      "sha256": "4f118e69981d1cb45022b8ab5a14a66d0bb337cbc8ec2ac4045f57d202603007",
+      "kind": "Use 7 days."
+    }
+  ],
+  "loaded_skill_files": {
+    "requirements-clarification": {
+      "sha256": "c83161845283752a84be97963078ce0bd0ca795a921af015a226c6e1657d6817"
+    },
+    "diagnosing-bugs": {
+      "sha256": "c075ec087a6b55762e35fe222bd763ac8dbbff96f93e2c46aa98f4633f24bb89"
+    },
+    "bug-fix": {
+      "sha256": "a2a2416ba0e9176ff7f3dd51bf54c53fbdd34b663066c2f81de2bbcdf80d0a3f"
+    },
+    "implement": {
+      "sha256": "37e34765c2bdc6b460b44e8d781214cd11a6ec42d4b85c131bcc1a511f7bae3b"
+    },
+    "tdd": {
+      "sha256": "5db25130df1984419bdec93132044dedfb01140c5bf94cb640c8e60e04e4b2a4"
+    }
+  },
+  "privacy": "Host instructions and tool schemas are fingerprinted, not published. Shared transcript contains only the synthetic task, commands and public skill text.",
+  "limits": "Native user instructions and globally discovered skills remained active. --ignore-user-config and project_doc_max_bytes=0 did not remove these host injections. This is not a controlled isolated-harness comparison.",
+  "observed_tool_transport": ["exec"],
+  "observed_nested_tools": ["apply_patch", "exec_command"],
+  "observed_item_types": ["agent_message", "command_execution", "file_change"],
+  "available_tool_inventory": "Top-level names come from the recorded additional_tools declaration; this establishes advertised capability, not successful execution of every tool. Complete schemas and dynamically deferred tool inventory were not retained publicly. Absence from observed calls does not prove unavailability.",
+  "declared_top_level_tools": [
+    "clock.sleep",
+    "collaboration.followup_task",
+    "collaboration.interrupt_agent",
+    "collaboration.list_agents",
+    "collaboration.send_message",
+    "collaboration.spawn_agent",
+    "collaboration.wait_agent",
+    "functions.exec",
+    "functions.request_user_input",
+    "functions.request_user_input_async",
+    "functions.wait"
+  ]
+}

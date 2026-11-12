@@ -1,0 +1,1 @@
+2026-11-12T14:53:28.517337Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected(\"`/bin/zsh -lc 'rm -rf __pycache__ && git status --short && cat retention.py && cat tags.py'` rejected: rm -f style commands are not permitted. Use a safer approach\")" }

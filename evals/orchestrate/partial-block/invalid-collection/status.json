@@ -1,0 +1,11 @@
+{
+  "classification": "INVALID",
+  "cause": "Runner snapshot rejected Python bytecode as non-UTF-8 after oracle execution. No completed report; excluded from behavioral counts.",
+  "stderr": "eval: stream did not contain valid UTF-8",
+  "retained": "All artifacts produced before runner failure.",
+  "correction": "Prepare an empty non-writable __pycache__ before agent execution; rerun all cases with the same instructions.",
+  "unchanged_controls": {
+    "stop": "original completed PASS; rerun with corrected setup",
+    "budget": "original completed PASS; rerun with corrected setup"
+  }
+}
