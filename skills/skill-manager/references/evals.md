@@ -2,8 +2,10 @@
 
 ## Purpose
 
-`evals/trigger-queries.json` records realistic positive and negative activation prompts. The file is
-a scenario format, not proof that any host executed the prompts.
+`<evaluation-root>/<slug>/trigger-queries.json` records realistic positive and negative activation
+prompts. Resolve the evaluation root from the selected distribution; this package ships
+`evals/<slug>/` beside `skills/`, outside the projected skill directories. The file is a scenario
+format, not proof that any host executed the prompts.
 
 This repository has no automatic multi-agent eval runner. Never claim activation rates or
 cross-agent validation without actual recorded executions.
@@ -12,6 +14,8 @@ Use the separately distributed `agent-experiments` capability for scenario/evide
 when its published interface has been qualified for this collection. It is not bundled here.
 Preserve existing reports with their original provenance and fingerprints; scenario validation
 and fixture smoke tests are not live evidence.
+Keep campaign prompts, transcripts and snapshots in that same maintenance tree. Retain a path map
+when moving historical records rather than rewriting their captured inputs or fingerprints.
 
 ## Schema
 

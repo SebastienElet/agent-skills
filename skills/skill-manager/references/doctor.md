@@ -85,7 +85,7 @@ For explicit invocation with composition, require:
 
 ### Resources and routing
 
-- only needed, tracked `agents/`, `references/`, `scripts/`, `assets/`, and `evals/` directories
+- only needed, tracked `agents/`, `references/`, `scripts/`, and `assets/` directories
   exist; untracked or gitignored runtime artifacts are outside the repository audit;
 - `agents/openai.yaml`, when present, is valid YAML and its interface metadata still matches the
   skill;
@@ -106,7 +106,8 @@ templated bodies.
 
 ### Optional evals
 
-When `evals/trigger-queries.json` exists, require:
+Resolve the separate evaluation root from `conventions.md` and the selected distribution.
+When `<evaluation-root>/<slug>/trigger-queries.json` exists, require:
 
 - valid JSON;
 - string `skill` equal to the directory slug;

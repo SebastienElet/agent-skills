@@ -8,7 +8,7 @@ Gather before writing:
 - concrete explicit and implicit triggers;
 - inputs, outputs, and hard constraints;
 - local category: `dev`, `support`, `product`, or `ops`;
-- required `agents/`, `references/`, `scripts/`, `assets/`, or `evals/` resources;
+- required `agents/`, `references/`, `scripts/`, or `assets/` resources;
 - scopes whose behavior genuinely differs.
 
 Ask one question at a time when an unknown answer changes behavior. Do not invent domain rules.
@@ -21,7 +21,8 @@ Ask one question at a time when an unknown answer changes behavior. Do not inven
 3. Select `<skills-root>` from the requested scope and confirm the slug exists in neither canonical
    collection. Never overwrite it.
 4. Create `<skills-root>/<slug>/` and only the resource directories established by the inputs:
-   `agents/`, `references/`, `scripts/`, `assets/`, or `evals/`.
+   `agents/`, `references/`, `scripts/`, or `assets/`. Put maintenance scenarios and campaigns
+   under the separate evaluation root declared in `conventions.md`.
 5. Write `SKILL.md` from the minimal template below.
 6. Add optional frontmatter fields only when they have a real valid value.
 7. Put executable shell with positional argument placeholders in `scripts/`, never in `SKILL.md`.
