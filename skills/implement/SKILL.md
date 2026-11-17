@@ -38,8 +38,11 @@ and cause belong to `diagnosing-bugs`.
 1. **Recover the mandate.** Apply `orchestrate` for ownership, current candidate, decisions,
    permitted effects, recovery budgets and resumption. Establish the observable outcome,
    acceptance criteria, consumers and exclusions from the user's actual request. Keep edit,
-   commit, push, PR, tracker update and further delivery authority distinct. Do not restart
-   completed preparation or introduce an approval between already authorized stages.
+   commit, local integration, fast-forward push to the designated branch, remote history rewrite,
+   PR, readiness declaration, tracker update and further delivery authority distinct. A delivery
+   mandate covers necessary local target integration and ordinary pushes to its designated branch unless
+   restricted; an existing PR alone grants neither. Do not restart completed preparation or
+   introduce an approval between already authorized stages.
 
 2. **Ground the work.** With a ticket, compose `issue-start` and `issue-workflow` unless their
    current verified context is already available. On their return, resume this step rather than
@@ -98,8 +101,12 @@ and cause belong to `diagnosing-bugs`.
 5. **Verify the complete change.** Exercise the original acceptance criteria and affected
    consumers together, beyond individual units, at the boundary owning each invariant. Before
    declaring a PR ready, resolve its real target branch, fetch it and record its SHA. Integrate it
-   into the candidate when authorized; otherwise state the missing integration in the readiness
-   declaration. Reread the target's history since the merge base for new conventions, decisions
+   into the candidate under the recovered authority; otherwise state the missing integration in
+   the readiness declaration. Preserve a recovery ref before a non-interactive rebase of exclusively
+   unpublished commits; this local integration needs no renewed consent under a delivery mandate.
+   Preserve published history with a merge unless its rewrite is explicitly authorized. Recovery
+   refs preserve commits, not untracked files; preserve working data separately before integration.
+   Reread the target's history since the merge base for new conventions, decisions
    and checks, and conform new code and tests rather than resolving only textual conflicts.
    Run the whole affected package typecheck, tests included, and the repository's declared
    readiness gate, including static checks absent from the commit hook or PR CI. A conflict-free
@@ -133,12 +140,29 @@ and cause belong to `diagnosing-bugs`.
    `issue-workflow/references/github.md` for GitHub or `issue-workflow/references/bitbucket.md` for
    Bitbucket, even without a ticket.
    Reuse the exact existing source branch and matching open PR; create a PR only when needed
-   and authorized, resolving ambiguous or terminal associations first. Before PR delivery,
-   fetch the resolved target again and compare its SHA with the verified
-   base; if it advanced, return to step 5 for integration, consumer discovery and affected checks
-   within existing authority. Verify the committed
-   delta and, after an authorized push, the remote revision. Read CI for that exact revision;
-   missing, pending, failed or inaccessible checks are not success. With a ticket, let
+   and authorized, resolving ambiguous or terminal associations first. Before PR delivery, fetch
+   the resolved target again and compare its SHA with the verified base. After the initial step 5
+   integration, allow at most two reintegrations for target advances during this task, retaining
+   the count under `orchestrate`. Each returns to step 5 for consumer discovery and affected checks.
+   At the limit, stop chasing the target and publish the verified candidate within existing authority,
+   reporting tested head/base, latest observed target SHA and remaining divergence. If repository
+   policy requires the current target, publish only as draft/progress, or use an already authorized
+   native integration queue and await its checks on the composed revision before declaring ready.
+   Do not request a stable window or claim that an untested target is covered.
+
+   Inspect the designated remote source branch before any source-history reconciliation and before
+   each ordinary push. For an existing branch, fetch it and verify its tip is an ancestor of the
+   candidate. A divergent tip stops that push: preserve both tips and report the mismatch. Reconciling
+   unexpected source history by merge or rebase requires explicit authority beyond target integration.
+   For a confirmed absent branch, create it only within publication authority; an inaccessible or
+   failed lookup is not absence. Push normally with hooks active and an explicit destination; stop
+   on rejection, preserve concurrent work and report the mismatch. Never turn it into
+   a force-push, hook bypass or replacement branch/PR without authority. Verify the committed delta
+   and, after an authorized push, the remote revision. Read CI for that exact revision; missing,
+   pending, failed or inaccessible checks are not success. When required proof is missing, launch
+   the relevant CI on the task's own branch under its verification mandate without renewed consent,
+   unless an applicable prohibition or resource policy forbids it. Reuse a matching active run;
+   “wait for the result” does not itself forbid launching a missing check. With a ticket, let
    `issue-start` own PR association and `issue-workflow` govern completion evidence and any
    permitted tracker writes. Without one, omit tracker operations. Recover uncertain external
    effects through `orchestrate` before retrying, then independently read back the actual
