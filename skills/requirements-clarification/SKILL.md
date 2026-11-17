@@ -1,10 +1,10 @@
 ---
 name: requirements-clarification
 description: >
-  Resolve undecided requirements within delegated authority. Use when missing decisions affect
-  scope, cost, policy or acceptance. Make sure to use this skill whenever analysis or planning
-  leaves a material prerequisite unresolved, even without implementation authority. Excludes
-  settled decisions, discoverable facts and delegated technical choices.
+  Resolve decisions reserved to a human. Use when an unresolved choice may exceed the mandate
+  through irreversible effects, access rights, sensitive data, amounts, retention or external
+  commitments. Make sure to use this skill for new sensitive policy, even in analysis. Excludes
+  established policy, discoverable facts and delegated product, scope or technical choices.
 metadata:
   category: dev
 ---
@@ -13,79 +13,54 @@ metadata:
 
 ## Overview
 
-Separate discoverable facts, delegated choices, and decisions requiring the user. Research first,
-prepare authorized isolated proposals, and collect sensitive policy decisions for human validation
-on the prepared result. Uncertainty alone does not require an interruption.
+Prepare decisions that require human authority, with one question on a concrete result. Ordinary
+choices stay with the task owner; uncertainty or an absent product owner does not create a veto.
 
 ## Usage
 
-Apply when undecided policy admits materially different outcomes, such as authentication boundaries,
-migration compatibility, or artifact retention. Read the user's delegation and task limits before
-choosing whether to decide, prepare a proposal, or ask. Permission to edit alone does not delegate
-missing policy decisions. An analysis, plan or review permits necessary clarification questions,
-but authorizes no implementation.
-
-Implementing or testing an established contract does not require clarification. The domain alone is
-not a trigger; discoverable facts and inconsequential local choices do not require this skill.
+Apply only when the actual effects or an explicit reservation may exceed the existing mandate.
+Read the user's delegation and applicable constraints first. Implementing established policy,
+choosing a reversible product detail or splitting work within that mandate needs no clarification.
+Analysis and review permit questions but authorize no implementation.
 
 ## Steps
 
-1. Inspect applicable instructions, ADRs in force, relevant code, tests, documentation and tools.
-   Separate established facts and their sources from working assumptions and unresolved decisions.
-2. Resolve facts available through the repository, authorized tools or current official dependency
-   documentation. For a technical blocker, use the task's additional investigation budget: test a
-   discriminating hypothesis and request an independent opinion only when useful and permitted.
-   Track elapsed investigation across continuations and delegation; stop attempts adding no evidence.
-3. For remaining choices, identify plausible alternatives and their concrete effects on behavior,
-   architecture, data, security or acceptance. Apply established constraints and the user's delegation;
-   do not reopen a settled decision or infer authority from an unanswered recommendation.
-4. Within delegated technical and product choices, select a reversible option supported by the
-   available evidence and state consequential assumptions without an interview. Apply it within the
-   requested scope: use it in the analysis, or implement and verify when implementation is authorized.
-   Confirm isolation before any speculative implementation: fixtures and local dependencies must not
-   touch real data, users, shared systems or external effects. A branch or a rollback of code alone
-   does not establish this boundary.
-5. For sensitive policy, including access rights, amounts, retention and contractual commitments,
-   prepare an isolated implementation only when that preparation is delegated. Label the policy as a
-   proposal, retain the alternatives and consequences, and test the proposed behavior. Collect these
-   decisions for one human validation on the prepared result before delivery or exposure. Existing
-   delivery authorization, passing tests and independent review cannot approve a new sensitive policy.
-6. For each material decision still reserved to the user, ask a direct question in the conversation,
-   with a concrete recommendation and its consequences. Ask during analysis too: an unresolved
-   prerequisite, a question buried in a document, or a future plan step is not a collected decision.
-   Group related decisions when useful; do not re-ask one already pending. Suspend only the action
-   dependent on the answer and continue independent work within the requested scope. If authority,
-   safe isolation or essential evidence is missing, or an ADR contradiction remains, name that limit
-   in the question. On investigation-budget expiry, include the evidence and attempted resolutions;
-   never reset the budget or waive a required check.
-7. Before delivery, account for every material prerequisite identified: resolved from a cited source,
-   decided within delegation, or awaiting an answer to a question actually asked. Deliver the analysis
-   or prepared result with those dispositions; never substitute “to be defined” or “remains to be
-   decided” for the question. Separate a proposal's passing checks from approval of its policy;
-   an unapproved sensitive proposal is not ready for delivery.
+1. Resolve facts from applicable instructions, ADRs in force, code and authorized sources. Reuse
+   established policy and acquired decisions. Identify the concrete effect that could exceed
+   authority; scope, cost or acceptance alone does not reserve a decision.
+2. Inspect effects on data, users, access and external commitments, not just code reversibility.
+   Reserve irreversible effects and new sensitive policy on access, sensitive data, amounts,
+   retention or external commitments unless already explicitly authorized. Return other choices
+   to the task owner under the existing delegation.
+3. If effects remain materially uncertain, investigate within the existing budget; seek at most
+   one independent opinion only when useful and permitted, never a systematic classifier.
+   If a named role is absent, use existing delegation or ask the user or actually designated
+   responsible person. Do not invent a validator or inherit the absent role's rights.
+4. Prepare and test a sensitive proposal before asking only when preparation is delegated and
+   isolated. Inspect dependencies and command destinations: a branch, synthetic records or a code
+   rollback do not isolate real data, shared systems or external effects. Label the proposal,
+   alternatives and consequences. Tests, review and delivery authority do not approve new policy;
+   withhold delivery or exposure until human validation.
+5. Ask the remaining reserved decision directly in the conversation, including during analysis,
+   with a recommendation, consequences and precise missing authority, isolation or evidence.
+   Group related decisions on the prepared result; ask once and keep a pending question pending.
+   Continue independent work and suspend only dependent actions. Before delivery, account for
+   material prerequisites as sourced, delegated or actually asked; a placeholder is not a question.
 
 ## Gotchas
 
-- **Asking for repository facts** — the user becomes a search interface and may provide stale
-  information; inspect the applicable sources and tools first.
-- **Stopping at every product choice** — delegated work waits unnecessarily; apply the established
-  mandate and prepare a concrete result before collecting decisions reserved to the user.
-- **Mistaking a branch for isolation** — tests or hooks may mutate shared data; inspect their actual
-  dependencies before running a speculative implementation.
-- **Treating a green test as policy approval** — the test validates an assumption the agent chose;
-  retain the sensitive proposal's human-validation requirement.
-- **Listing prerequisites instead of asking** — the analysis appears complete while the decision
-  remains untouched; ask the user directly, with the proposed choice and its consequences.
-- **Blocking the whole task on one unknown** — independent progress is lost; pause only work whose
-  result depends on the unresolved answer.
+- **Scope becomes a veto** — a delegated split waits for a nonexistent PO; decide and record the
+  rationale and revisit condition within the mandate.
+- **Small diff hides shared effects** — reverting code cannot restore deleted data or revoke a
+  commitment; inspect destinations before preparing or exposing a proposal.
+- **Green means approved** — tests validate the chosen assumption; ask the human on the prepared
+  sensitive proposal before delivery or exposure.
+- **Question only in a plan** — the decision never reaches its owner; ask once in the conversation
+  and continue independent work.
 
 ## Constraints
 
-- Never ask for information that can be established reliably in the authorized context.
-- Never infer implementation or policy authority from this skill, silence, or a recommendation.
-- Never expose a speculative choice to real data, users, shared systems or external effects.
-- Never deliver an unapproved sensitive policy or treat independent review as the user's approval.
-- Never override an ADR, expand the task, reset its investigation budget, or waive essential evidence.
-- Never replace the requested work with a specification, plan, ticket, or brainstorming session.
-- Never add host-specific routing, hooks, or frontmatter without measured failures and explicit
-  authorization.
+- Never infer policy or implementation authority from silence, review or this skill.
+- Never invent a responsible role or transfer its rights to the agent.
+- Never expose an unapproved sensitive proposal or treat a branch as isolation.
+- Never override an ADR, explicit task limit, investigation budget or essential check.

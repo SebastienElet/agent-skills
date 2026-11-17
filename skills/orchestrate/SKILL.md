@@ -46,6 +46,18 @@ authority.
    | Bug                                           | Distinguish diagnosis alone from authorized repair; use `diagnosing-bugs` for reproduction and cause before correction. |
    | Explicit open-PR repair                       | Retain the `pr-fix` owner, journal and authorization boundaries; an attached PR alone does not select repair.           |
 
+   Decide reversible product, scope and technical choices within the mandate. Monitoring the task's
+   own CI and adding relevant tests or evidence continue without another permission request.
+   Before any speculative implementation or test, inspect dependencies and command destinations
+   to establish isolation from real data, users, shared systems and external effects. A branch,
+   synthetic records or reverting code alone do not establish that boundary.
+   A draft-to-ready transition follows the task's delivery mandate. For a scope or ticket split,
+   record the decision, rationale and revisit condition in the PR and affected ticket through
+   authorized channels; make departures from the explicit request visible without silently
+   dropping required work or crossing explicit limits. An absent role does not create a veto:
+   use the existing delegation or address a reserved decision to the user or actually designated
+   responsible person; never invent a validator or inherit that role's rights.
+
    A complete request continues through its already authorized steps. A partial request ends at
    its requested deliverable. Preserve existing workflow ownership rather than adding a competing
    owner when another skill is loaded.

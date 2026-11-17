@@ -65,8 +65,8 @@ and cause belong to `diagnosing-bugs`.
    An unpublished manifest version may be coordinated for joint delivery; once published, advance
    it under the deployment contract. Never renumber an applied migration.
 
-3. **Prepare only what is needed.** Use `requirements-clarification` for material unresolved
-   requirements and `plan` for consequential design choices or a requested plan. Reuse settled
+3. **Prepare only what is needed.** Decide delegated choices within the mandate; use `requirements-clarification`
+   only for a decision whose effects may require human authority and `plan` for consequential design choices or a requested plan. Reuse settled
    decisions and proportionate preparation; an obvious declarative edit needs only its intended
    change and relevant native or existing check. Consume the plan through `orchestrate` and
    continue authorized implementation. A reserved decision or confirmed ADR contradiction blocks

@@ -34,7 +34,8 @@ tests are part of that authorization; do not ask again when the behavior and tes
 1. Locate the affected behavior, consumers, authoritative requirements and existing tests. Read
    the domain glossary when present. Name the behavior and the public boundary that can detect its
    failure. For each proposed test boundary, state in one line what it detects and what it leaves
-   uncovered. Use `requirements-clarification` only for an unresolved material policy decision.
+   uncovered. Decide delegated choices; use `requirements-clarification` only for unresolved policy
+   requiring human authority.
 2. Choose the smallest relevant existing or native oracle. For configuration without owned
    behavior, use its parser, schema, dry-run or execution instead of a declaration mirror test.
    Consult `codebase-design` when the interface itself needs design, without expanding the scope.

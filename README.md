@@ -44,7 +44,7 @@ For the interview and issue-start paths, the initial selection is:
 | `issue-start`                   | `issue-workflow` and `orchestrate`; `diagnosing-bugs`, `plan`, `tdd` and `implement` as their respective stages become needed |
 
 For conditional stages, inspect the selected specialist's own prerequisites as well: for example,
-`plan` uses `codebase-design`, `requirements-clarification` when a material decision is unresolved,
+`plan` uses `codebase-design`, `requirements-clarification` only when a decision may require human authority,
 and the `pr-verdict` catalogue. `issue-workflow` needs only the selected tracker and forge adapters.
 Reading the `pr-verdict` catalogue does not invoke its verdict workflow. Presence of these files does
 not establish that a host discovers or applies the skills.
