@@ -1,6 +1,8 @@
 # Contract scenarios
 
-These cases specify transitions for `orchestrate`; they are not recorded executions.
+These cases specify transitions for `orchestrate`; this table is not execution evidence.
+The [partial-block campaign](partial-block/README.md) separately retains executable cases and
+observed runs for independent work, stopping boundaries and a supplied decision.
 Use an existing qualified evaluation interface when available. Cross-host activation, composed
 implementation and bug runs require separate observed qualification. No runner or gate is added here.
 
