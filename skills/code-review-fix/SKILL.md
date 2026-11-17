@@ -66,8 +66,8 @@ instruction-level, not host-enforced.
    the author's verdict and supplied findings until the reviewer records its first analysis, then reconcile
    them. For each finding, record the location, failure mechanism, violated requirement and relevant
    check in a scratchpad outside Git. Mark it `confirmed`, `refuted` with evidence, or
-   `decision-required`. Style preferences do not enter the repair slate. Route unsettled policy
-   through `requirements-clarification` under the user's delegation. Review authorized isolated
+   `decision-required`. Style preferences do not enter the repair slate. Apply established policy and decide delegated choices; route only decisions whose effects
+   may require human authority through `requirements-clarification`. Review authorized isolated
    proposals against their explicit assumptions; keep sensitive policy `decision-required` until
    the user validates it on the prepared result. Missing authority, an ADR contradiction or essential
    evidence stops only the dependent correction. If the independent review finds no confirmed defect

@@ -37,7 +37,7 @@ This directory is the canonical source for user-scoped agent skills.
 | `pr-fix`                        | Repair an open pull request after an independent merge review.                                                      |
 | `pr-verdict`                    | Deliver a PR verdict on an open pull request, yours or another author's.                                            |
 | `prepare-next`                  | Select and prepare the next available project ticket before development.                                            |
-| `requirements-clarification`    | Resolve undecided requirements within delegated authority.                                                          |
+| `requirements-clarification`    | Resolve decisions reserved to a human.                                                                              |
 | `tdd`                           | Develop owned behavior with test-driven development.                                                                |
 | `visual-explanation`            | Explain relationships, diagnostics and changes visually.                                                            |
 
