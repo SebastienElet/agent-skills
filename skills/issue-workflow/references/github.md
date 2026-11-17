@@ -44,5 +44,18 @@ output when available; inspect `statusCheckRollup` and the source revision as ne
 failed, cancelled, missing or inaccessible checks are distinct from passing checks. Verify required
 checks through the existing repository policy; an empty result is not green CI.
 
+An unreadable branch protection or ruleset remains unknown. Inspect it when the requested action
+requires an enforcement claim; do not make administrative read access a universal prerequisite for
+an otherwise authorized push or draft PR. Report an authentication or permission failure once,
+preserve local drafts and stop retrying that operation until its prerequisites change. Continue
+independent authorized operations without escalating rights.
+
+Bound CI observation by the task's existing recovery budget. Preserve the last exact revision and
+check state with a resumption condition when observation cannot finish. A failed check reproduced
+on the base remains failed: retain the paired evidence and dependency, keep mandatory gates
+blocking the stage they protect, and distinguish an allowed progress push/draft PR from readiness.
+When `implement` owns the task, use its verification-outcomes procedure for attribution, private
+proof environments and indicative third-party compositions. Never silently exclude a failing check.
+
 Use current native help for command fields and official provider contracts before relying on API
 semantics. Do not assume issue relations, conditional updates or Projects permissions from PR access.
