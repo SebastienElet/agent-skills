@@ -5,7 +5,7 @@ description: >
   requested, including an authorized review stage in a development workflow. Use this
   skill for authorized local corrections even if unnamed. Excludes review-only requests and
   open-PR repairs, which belong to pr-fix.
-compatibility: Requires Git, code-review, repository checks and independent reviewers. An explicitly requested Codex stage in Claude Code additionally requires the official codex@openai-codex plugin.
+compatibility: Requires Git, code-review and repository checks; completing independent review requires an authorized fresh reviewer. An explicitly requested Codex stage in Claude Code additionally requires the official codex@openai-codex plugin.
 metadata:
   category: dev
 ---
@@ -29,6 +29,13 @@ A request only to review authorizes no correction. Commits, pushes and PR public
 authorization from the surrounding task; this skill never approves or merges. Repairing existing
 open-PR findings routes to `pr-fix`. Ordinary local implementation on an existing PR branch can
 compose this local review without extending its authority to the PR. Do not compose `pr-verdict`.
+
+Under existing repair authority, correct verified minor, reversible defects in the task's own diff
+without asking again, including additions already committed or pushed. Apply the repository's
+comment rule to those additions: remove only inadmissible comments, preserve its exceptions,
+base comments and third-party work. Commit and push corrections only within the existing delivery
+mandate; a pushed addition still belongs to the task. Review the affected delta under step 5 rather
+than restarting a full review solely because the correction is editorial.
 
 Development workflows, including `implement` and `bug-fix`, may compose this
 stage when local review corrections are authorized. Preserve their mandate and stricter limits
@@ -54,8 +61,11 @@ instruction-level, not host-enforced.
    [references/claude-code.md](references/claude-code.md) and verify that transport before delegating;
    do not substitute another writer for an explicitly requested runtime. Otherwise no Codex plugin
    is required. Do not invoke Claude from Codex or Cursor. An unavailable required runtime or
-   independent reviewer leaves this stage incomplete; preserve work and report the missing
-   capability. An absent optional integration alone does not block ordinary development.
+   independent reviewer leaves this stage incomplete. Use `code-review` step 4 to seek an already
+   authorized alternative or report the missing review and reason in any authorized PR delivery.
+   Preserve the candidate; self-review cannot satisfy required independence, and delivery that
+   requires this review first remains blocked. An absent optional integration alone does not
+   block ordinary development.
 3. **Review before accepting findings.** Run the relevant repository checks on the anchored
    candidate when raw evidence is missing or stale, even if the candidate has not changed. Record
    their results; if a check changes the candidate, re-anchor and rerun affected checks. Unavailable

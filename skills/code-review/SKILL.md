@@ -48,11 +48,21 @@ an authorized `pr-fix` retains responsibility for open-PR repair.
    the user's request, a supplied spec or linked issue via the existing authorized tracker tools.
    No dedicated tracker configuration or setup skill is required. If the requirement is unavailable,
    continue the standards review and report the spec axis as unavailable.
-4. Launch independent standards and spec reviews together with fresh subagents when available,
-   then wait for both reports before consolidating. Give each the exact scope, file inventory and
-   source references, without the author's prior verdict.
-   Locate sources in the main thread before delegation. Reviewers must not edit or publish.
-   If subagents are unavailable, perform the axes sequentially and state the independence limit.
+4. When delegation is permitted, launch independent standards and spec reviews together with
+   fresh subagents when available; read-only review needs no additional permission within that
+   authority. Give each the exact scope, file inventory and source references, without the author's
+   prior verdict. Locate sources in the main thread before delegation. Reviewers must not edit or
+   publish. Wait for their reports before consolidating.
+   If the transport is unavailable or refused, preserve the candidate and failure evidence; do not
+   repeat the same launch or rephrase it to evade a restriction. Look for another already authorized
+   fresh session or human reviewer and provide the same candidate, requirements and raw evidence
+   without a prescribed conclusion. Respect human prohibitions and runtime refusals; an alternative
+   must be permitted by both. If none is available, perform the axes sequentially and label this
+   self-review as lacking independence. A required independent review remains incomplete.
+   Return the exact missing review, reason and condition for obtaining it to the task owner.
+   Continue delivery steps already authorized without that review; when PR publication is permitted,
+   record there that independent review was not performed and why. Do not claim readiness or take
+   a delivery step whose mandate requires the missing review first.
 5. For standards, identify concrete violations with the rule and location. Use
    [references/smells.md](references/smells.md) for design heuristics only. Repository conventions
    override those heuristics; style and abstraction preferences alone do not block the change.
