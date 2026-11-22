@@ -18,7 +18,7 @@ metadata:
 
 Turn an authorized outcome into a proportionate design and verifiable units of work. Reuse
 `codebase-design` for responsibilities, interfaces and test boundaries, and
-`requirements-clarification` for material undecided requirements. A standalone plan is a deliverable;
+`requirements-clarification` for decisions whose effects may require human authority. A standalone plan is a deliverable;
 a plan inside authorized development returns to the same task owner through `orchestrate`.
 
 ## Usage
@@ -48,8 +48,9 @@ an ADR contradiction or a decision reserved to the user still bounds continuatio
    dependency behavior against its official documentation and local configuration. Cite relevant
    source revisions so a later implementer can recheck them.
 
-3. **Resolve the prerequisites.** Use `requirements-clarification` for material missing decisions;
-   it owns research, delegated choices, isolated proposals and questions reserved to the user.
+3. **Resolve the prerequisites.** Resolve facts and delegated choices within the mandate. Use
+   `requirements-clarification` only for decisions whose effects may require human authority;
+   it owns isolated sensitive proposals and the remaining human questions.
    Preserve decisions already acquired. An apparent ADR conflict calls for investigation; a
    confirmed contradiction blocks the affected path, not an opportunistic ADR edit. Continue
    independent preparation within the mandate. Do not turn a bounded plan into a questionnaire,
@@ -94,7 +95,7 @@ an ADR contradiction or a decision reserved to the user still bounds continuatio
 
 7. **Revise on contrary evidence.** When diagnosis or implementation refutes an assumption,
    identify the observation, affected decision and dependent units. Reopen that design choice
-   through `codebase-design` or the missing requirement through `requirements-clarification`;
+   through `codebase-design` or a newly reserved decision through `requirements-clarification`;
    route reproduction or cause questions back to `diagnosing-bugs` when applicable. Revise the
    affected plan and verification criteria, retaining still-valid decisions and evidence. Repeated
    workarounds are a reason to reassess the design, not accumulate exceptions. Return the revision

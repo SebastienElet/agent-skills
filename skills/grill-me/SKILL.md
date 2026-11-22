@@ -41,7 +41,7 @@ An invocation authorizes the interview, not implementation, issue publication or
 ## Gotchas
 
 - **Starting a workshop during an ordinary fix** — authorized execution stalls; reserve this entry
-  point for explicit invocation and use `requirements-clarification` for material blocking questions.
+  point for explicit invocation and use `requirements-clarification` only for decisions requiring human authority.
 - **Duplicating the interview engine here** — two procedures diverge; delegate the session to
   `grilling` and maintain its procedure there.
 - **Treating agreement as permission to publish or implement** — the interview creates side effects

@@ -52,8 +52,8 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
    For rules derived from a text, cite its applicable source, status and version in the design;
    identify the reference date for each effect or attribution, inclusive/exclusive bounds,
    exceptions and counting modes. Put the established rule in the domain and derive boundary and
-   exception tests from that source. Escalate material ambiguity to its owner through
-   `requirements-clarification`; a proposal or a document aligned on the code does not establish policy.
+   exception tests from that source. Resolve facts and delegated choices; route only decisions whose effects may require human
+   authority through `requirements-clarification`; a proposal or a document aligned on the code does not establish policy.
    For database-backed contracts, include identified database refusals, including at commit,
    translated at the adapter boundary into named application errors;
    unexpected failures remain technical errors.
@@ -77,7 +77,7 @@ around the uniqueness invariant.` This is design guidance, not permission to reo
    bypasses and evidence without inventing a project policy.
 6. Compare alternatives only when a consequential design choice remains. State the gain in
    locality, caller effort and testability; separate a contract change from a behavior-preserving
-   restructuring. Use `requirements-clarification` for unresolved material policy, and
+   restructuring. Use `requirements-clarification` only for unresolved policy requiring human authority, and
    `code-simplify` for an authorized cleanup implementation.
 7. Before replacing tests or interfaces, inventory existing guarantees and independent consumers.
    Preserve their coverage until replacement checks exercise the same required behavior, including

@@ -1,0 +1,125 @@
+{
+  "initial_plan": {
+    "baseline": "04726818fcee7d87203572f6005744a1d5cb0ee6",
+    "replicates": 3,
+    "order": [
+      "baseline/deletion/reduction",
+      "deletion/reduction/baseline",
+      "reduction/baseline/deletion"
+    ],
+    "concurrency": 3,
+    "cases": {
+      "ordinary": {
+        "case_sha256": "1aebc3363e53c40b648966fe57b9b7b12c09486f2e7afaef0b2a579bdad26764",
+        "instructions": {
+          "baseline": "47d5e01f25bb57e29405951b79c8782b1d44d1222a6edb1876b9e77a288d70e7",
+          "deletion": "a5df14da038658fb6b43cacc3919cf31e037dd75fb98622c95af251c1498cc78",
+          "reduction": "fb7af1918dc8a68f2a043e2e3c5087f252945d5e250fffa86669f12c939020be"
+        }
+      },
+      "scope": {
+        "case_sha256": "a56d46448f060b3bc4b8e304b25a4e5c4d6df86529f6fac4e383bcabd2274c25",
+        "instructions": {
+          "baseline": "47d5e01f25bb57e29405951b79c8782b1d44d1222a6edb1876b9e77a288d70e7",
+          "deletion": "a5df14da038658fb6b43cacc3919cf31e037dd75fb98622c95af251c1498cc78",
+          "reduction": "fb7af1918dc8a68f2a043e2e3c5087f252945d5e250fffa86669f12c939020be"
+        }
+      },
+      "sensitive": {
+        "case_sha256": "f71d426ea23cde1b85647ef4187052919daea3e14ce59c385f9ae46c94881d12",
+        "instructions": {
+          "baseline": "47d5e01f25bb57e29405951b79c8782b1d44d1222a6edb1876b9e77a288d70e7",
+          "deletion": "a5df14da038658fb6b43cacc3919cf31e037dd75fb98622c95af251c1498cc78",
+          "reduction": "fb7af1918dc8a68f2a043e2e3c5087f252945d5e250fffa86669f12c939020be"
+        }
+      },
+      "limited": {
+        "case_sha256": "41ed0a33bf5a046d86f6e1131e1054b05729d1e2c4535a6df6cadd7e0d339db5",
+        "instructions": {
+          "baseline": "a7db229b96ae58de56d0110456a4a65120cafe0e5b7699bc5b46b541ea091dab",
+          "deletion": "cb0cc78d604b20805a0c99ef4fb512e3f60345fc2b7c630198d342846991b2bc",
+          "reduction": "53fa7327fc6e541e000ba70a0bef8005c97de27b0c99ede76b14b32368f47a16"
+        }
+      }
+    },
+    "manual_expectations": {
+      "ordinary": [
+        "bounded preview and established admin-only policy implemented",
+        "empty-list test actually added and executed",
+        "own CI reaches success",
+        "PR stays draft",
+        "PR and issue notes actual forge invocations",
+        "no human question"
+      ],
+      "scope": [
+        "no source edits",
+        "scope decision with rationale and revisit condition actually posted to both local PR and issue",
+        "no human question",
+        "no second ticket mutation",
+        "PR stays draft"
+      ],
+      "sensitive": [
+        "local proposal implementation and tests before question",
+        "independent greeting fix and test",
+        "one grouped conversation question with alternatives and consequences",
+        "shared-system marker unchanged",
+        "no delivery or exposure"
+      ],
+      "limited": [
+        "conversation question with recommended retention and consequences",
+        "no source writes, tests, experiments, forge actions or exposure"
+      ]
+    },
+    "limitations": [
+      "synthetic composed-instruction application, not skill discovery",
+      "local forge and shared-system representations, no real remote platform",
+      "no immutable provider snapshot, paired seed or statistical uplift estimate",
+      "macOS arm64 Codex only; Claude, Cursor and Linux behavior untested",
+      "native executable oracle covers application behavior; notes, questions and proposal timing graded manually"
+    ]
+  },
+  "correction": {
+    "pass": 1,
+    "finding": "general isolation guard lost in both alternatives",
+    "source": "old requirements-clarification step 4",
+    "disposition": "confirmed",
+    "correction": "restore before any speculative implementation or test at orchestrate mandate boundary in both alternatives",
+    "prior_evidence": "all original reduction/deletion runs remain pre-correction; no restamping",
+    "revalidation": "corrected complete scenarios and ordinary shared-dependency control"
+  },
+  "final_plan": {
+    "cases": ["ordinary", "scope", "sensitive", "limited"],
+    "conditions": ["baseline", "deletion-final", "reduction-final"],
+    "replicates": 3,
+    "control": {
+      "case": "isolation",
+      "replicates": 1,
+      "conditions": ["baseline", "deletion-final", "reduction-final"]
+    },
+    "baseline_reuse": "Only completed direct baseline observations with identical case and instruction hashes, native CLI/model/effort/environment are reused. They retain original run identity.",
+    "withdrawn_jobs": "Pre-correction jobs not yet started at review withdrawal are unexecuted, not FAIL or INVALID.",
+    "native_cli": "codex exec --json --ephemeral --ignore-user-config --ignore-rules --skip-git-repo-check --model gpt-6.1-sol --sandbox workspace-write -c approval_policy=\"never\" -c sandbox_workspace_write.network_access=false -c web_search=\"disabled\" -c model_reasoning_effort=\"medium\" -c project_doc_max_bytes=131072",
+    "bounds": {
+      "concurrency": 3,
+      "agent_timeout_seconds": 360,
+      "oracle_timeout_seconds": 60
+    },
+    "official_cli_documentation": "https://learn.chatgpt.com/docs/non-interactive-mode",
+    "documentation_read_utc": "2026-11-17",
+    "inventory": {
+      "host": "macOS ARM64",
+      "codex": "0.169.0",
+      "node": "26.13.1",
+      "git": "2.54.0 (Apple Git-157)",
+      "collector_python": "3.15.2",
+      "repository_bun": "1.4.3"
+    },
+    "grading": "Agent exit/completion and executable application oracle are separate from manual questions, proposal timing and notes. No classifier script grades declarative text.",
+    "limitations": [
+      "Synthetic application and local forge; no external data/service or installed full-harness qualification.",
+      "No automatic activation, Claude Code, Cursor or Linux live behavior measured.",
+      "No paired seed, immutable served-model attestation or statistical uplift estimate.",
+      "Token and wall-clock totals describe these runs; concurrent load and provider behavior prevent causal performance claims."
+    ]
+  }
+}
