@@ -60,21 +60,29 @@ authority.
 
    A complete request continues through its already authorized steps. A partial request ends at
    its requested deliverable. Preserve existing workflow ownership rather than adding a competing
-   owner when another skill is loaded.
+   owner when another skill is loaded. Attribute each permission and prohibition to its source and
+   scope: current task, previous task or permanent rule. A task restriction expires with that task,
+   not with an interruption or specialist return; retain permanent and still-applicable human
+   restrictions. Do not import a previous task's ban into a new mandate or treat a newer suggestion
+   as authorization. Resolve uncertain scope before the affected action, while continuing independent
+   authorized work.
 
 2. **Keep compact task state.** Reuse the conversation or the workflow's existing scratchpad or
    journal. Persist enough state at an interruption or handoff to recover these facts; no new
    repository document or fixed serialization is required:
 
    - Owner, outcome, request class, acceptance criteria and scope limits.
-   - Decisions and authorizations already acquired, their sources, and pending user questions.
+   - Decisions and authorizations already acquired, their sources and task/permanent scope, and
+     pending user questions. Keep local integration, designated-branch fast-forward push, remote
+     history rewrite and readiness authority separate.
    - Current stage, independent work and prerequisites, active writer or delegates, and next action.
    - Candidate identity: repository/worktree, comparison base, HEAD and relevant staged, unstaged
      and untracked contents or hashes. For non-code work, identify the artifact and source revision.
    - Evidence tied to that candidate and its inputs: command or observation, result, location,
      environment and uncovered targets. Keep hypotheses distinct from demonstrated facts.
-   - Blockers, attempted resolutions, elapsed investigation, correction-pass counts, progress
-     evidence and applicable limits.
+   - Blockers, attempted resolutions, elapsed investigation, correction-pass counts, target-advance
+     reintegration count and limit, tested head/base and latest observed target SHA, progress evidence
+     and applicable limits.
 
 3. **Frame each specialist step.** Supply its bounded outcome, relevant verified source pointers,
    current candidate, decisions, permitted effects, prerequisites and success condition. Verify
