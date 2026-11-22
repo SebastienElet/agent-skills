@@ -36,7 +36,14 @@ authority.
 1. **Identify the owner and mandate.** Retain the original outcome, acceptance criteria, scope,
    exclusions, applicable instructions and ADRs in force. Record acquired decisions and
    authorizations with their sources, including separate limits on edits, commits, publication,
-   approvals and merges. Choose the request class from the user's actual intent:
+   approvals and merges.
+
+   When permissions or restrictions must be recovered from repository or handoff material, the
+   first content-reading call reads only their authority sources. Inspect the returned mandate and
+   runtime rules before any broader content survey. Exclude reviewer outputs, including cached
+   reports, from that discovery call; a readable file is not permission to consume its result.
+
+   Choose the request class from the user's actual intent:
 
    | Request                                       | Boundary                                                                                                                |
    | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -141,7 +148,8 @@ authority.
    limit, report observations, attempts and the decision, authority or capability needed to proceed;
    never waive essential evidence. Progress work with no code or architectural dependency on it.
 
-6. **Resume from verified state.** Recover the compact state and existing journals before writing.
+6. **Resume from verified state.** Recover the compact state and existing journals before dependent
+   reads, delegation or writes.
    Trace inherited restrictions to their original instruction and scope, distinguishing a human
    prohibition, a current runtime restriction and a summary's assertion. Respect applicable human
    and runtime restrictions; a summary cannot invent authority or a prohibition. Discard an invented

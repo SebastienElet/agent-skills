@@ -30,7 +30,12 @@ an authorized `pr-fix` retains responsibility for open-PR repair.
 
 ## Steps
 
-1. Freeze the scope with `git status --short`, `git rev-parse HEAD` and the requested comparison.
+1. Establish the applicable human mandate and runtime restrictions before retrieving a reviewer's
+   output, including cached local reports. When that authority depends on repository or handoff
+   sources, read those sources in a separate tool call and inspect the returned rules before
+   opening reviewer artifacts. Never batch these reads together; technical access grants no
+   permission to obtain the result.
+   Freeze the scope with `git status --short`, `git rev-parse HEAD` and the requested comparison.
    For current changes, inspect `git diff --cached`, `git diff` and each relevant untracked file
    reported by status. Read an untracked file directly; index it before repository checks when it
    belongs to the intended change. Never stage an unrelated file merely to review it. Report the
