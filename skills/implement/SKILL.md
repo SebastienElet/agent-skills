@@ -114,8 +114,11 @@ and cause belong to `diagnosing-bugs`.
    the target. Beyond that declared gate, select existing checks for affected files and consumers;
    do not invent a fixed checklist or invoke unrelated checks. Index intended new files before the
    relevant checks. Retain commands or observations, candidate, environment and
-   uncovered targets under `orchestrate`. For a failure, return to its owning stage with the new
-   observations and remaining recovery budget, correct within scope and rerun affected checks.
+   uncovered targets under `orchestrate`. When a check fails or cannot run, follow
+   [verification outcomes](references/verification-outcomes.md) to distinguish a candidate regression,
+   a reproduced base defect, unavailable execution and an unknown result before deciding delivery.
+   Return candidate failures to their owning stage with the observations and remaining recovery
+   budget, correct within scope and rerun affected checks.
    Contrary design evidence returns to `plan`; reproduction or cause questions return to
    `diagnosing-bugs`. Never weaken the oracle or replace missing essential evidence with a green
    substitute. Reassess affected units and consumers after changes without repeating unaffected
@@ -167,6 +170,9 @@ and cause belong to `diagnosing-bugs`.
    permitted tracker writes. Without one, omit tracker operations. Recover uncertain external
    effects through `orchestrate` before retrying, then independently read back the actual
    delivery result. Do not infer approval, merge or deployment permission from a push or PR.
+   Carry unresolved verification outcomes into the PR with their evidence, dependency and replay
+   steps. An authorized progress push or draft PR does not establish readiness; a mandatory gate
+   still blocks the delivery it protects.
 
    Before publication, inspect each outgoing commit against the resolved destination: connect it
    to the stated outcome, remove unrelated changes within authority or disclose them, and separate
