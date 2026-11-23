@@ -4,8 +4,7 @@ Reusable agent workflows distributed as `@sebastienelet/agent-skills`. The [deri
 lists the skills and their purposes. Operational resources and attribution notices travel with
 their skill. In the source checkout, reusable evaluation scenarios and fixtures live under
 `skills/<slug>/evals/`. The package contains the operational skill directories and excludes
-evaluations. The [maintainer guide](https://github.com/SebastienElet/agent-skills/blob/main/docs/evaluations.md) explains source
-replay and access to historical campaigns.
+evaluations.
 
 Prepared from the tracked sources at dotfiles revision
 [`89307efa`](https://github.com/SebastienElet/dotfiles/tree/89307efadc512f6021696bdf7ebb8249c820a2ff).
@@ -96,3 +95,15 @@ publisher. Local checks do not establish registry installation, provenance or ho
 
 The root MIT license covers original contributions. Skill-local licenses and attributions retain
 their own applicability, including Matt Pocock, Ayoub Ghriss and the visual explanation references.
+
+## Evaluation replay
+
+Start from the source checkout. For example, `skills/codebase-design/evals/module-boundaries/`
+contains `case.json` (fixture, setup and oracle), `a.txt` (baseline instructions) and `b.txt`
+(lesson instructions). Use the [pinned source runner](https://github.com/SebastienElet/agent-experiments/tree/04056ee28f987fc0d2e4b9097a606611d36c92e3#repository-trials)
+with a disposable workspace. Follow the runner's isolation requirements for cases that need Docker.
+
+The [historical archive](https://github.com/SebastienElet/agent-skills/tree/b63e5f44cc61abf978a804bd49c2a84a2930eaff/evals)
+holds the original reports, snapshots and fingerprints. Look up a migrated case under
+`evals/<slug>/<case>/` at that revision. Use its summary and report to verify the exact input hashes
+before reusing evidence. Store new run logs and snapshots with the PR or campaign artifacts.
