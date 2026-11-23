@@ -1,7 +1,0 @@
-{
-  "baseline": "FAIL",
-  "candidate": "PASS",
-  "case": "moved-data",
-  "instruction_changed": true,
-  "observed_gain": true
-}

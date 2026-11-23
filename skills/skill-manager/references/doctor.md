@@ -106,8 +106,8 @@ templated bodies.
 
 ### Optional evals
 
-Resolve the separate evaluation root from `conventions.md` and the selected distribution.
-When `<evaluation-root>/<slug>/trigger-queries.json` exists, require:
+Resolve the source checkout as described in `conventions.md`.
+When `<skills-root>/<slug>/evals/trigger-queries.json` exists, require:
 
 - valid JSON;
 - string `skill` equal to the directory slug;

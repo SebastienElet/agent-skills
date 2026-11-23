@@ -126,14 +126,13 @@ Every skill physically lives at:
   references/   optional detailed guidance
   scripts/      optional executable reusable logic
   assets/       optional output resources
+  evals/        optional source-only evaluation scenarios and fixtures
 ```
 
-Maintainer evaluations live outside the projected collection. In this distribution,
-`evals/<slug>/` sits beside `skills/` and ships separately in the same package. Keep activation
-scenarios, campaign prompts, transcripts, reports and snapshots there, together with their
-provenance. Keep references, scripts and assets required for ordinary skill use inside the skill
-directory. Resolve another collection's evaluation root from its distribution documentation;
-never assume it is available through a projected skill directory.
+In this collection, maintain reusable evaluations under `skills/<slug>/evals/` in the source
+checkout. The package omits these directories. Keep operational references, scripts and assets
+with the skill and project its directory from the installed package. For another collection,
+verify its evaluation and distribution paths in its documentation.
 
 Do not create a local `rules/` directory. Add only tracked resource directories the skill actually
 needs; ignore untracked or gitignored runtime artifacts during repository audits.
@@ -241,8 +240,7 @@ only to prevent a broken skill from activating is evidence that the skill should
 
 ## 10. Evals
 
-Critical skills may store `<evaluation-root>/<slug>/trigger-queries.json`. Resolve the evaluation
-root as described above. When present, doctor requires:
+Critical skills may store `<skills-root>/<slug>/evals/trigger-queries.json` in the source checkout. When present, doctor requires:
 
 - `skill`: string equal to the directory slug;
 - `version`: string;
@@ -250,13 +248,11 @@ root as described above. When present, doctor requires:
 - every query has string `query`, boolean `should_activate`, and string `reason`;
 - at least one positive and one negative case.
 
-The repository provides no automatic multi-agent eval runner. Scenario files alone are not executed
-evidence. The published `agent-experiments` capability owns scenario/evidence validation; use its
-qualified public interface when available. Scenario files alone are not execution evidence.
-Preserve historical inputs and recorded fingerprints when relocating campaigns. Keep a path map
-in the evaluation root for references to the captured layout; do not restamp historical evidence
-as a current run. Inspect the native package and a disposable projection when changing this
-distribution boundary; do not add a check that scans declarative text.
+Use the qualified public interface of `agent-experiments` when available. Scenario files alone
+provide inputs for evaluation. Retain campaign journals, reports and snapshots as PR or campaign
+artifacts with their source revision, exact input provenance and fingerprints. Preserve those
+bindings when relocating evidence. Inspect the native package and a disposable installed
+projection when changing this distribution boundary.
 
 ## 11. README index
 

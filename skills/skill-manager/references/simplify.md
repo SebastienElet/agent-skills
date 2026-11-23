@@ -39,7 +39,7 @@ index-only work and other functional changes use their ordinary operation refere
    refusals explicitly. For a reproduced defect, retain the variant only if it corrects that defect;
    withdraw neutral or regressive proposals and report the withdrawal. Shorter text or a different
    form alone is no improvement. Distinguish written scenarios, manual analysis and actual executions.
-   The maintainer fixtures at `evals/skill-manager/simplification-scenarios.md` in the package root
+   The maintainer fixtures at `skills/skill-manager/evals/simplification-scenarios.md` in the source checkout
    evaluate this operation, not every target; do not load them for routine target simplification.
 7. For diagnosis only, return the proposal without writing. For authorized changes with a clear
    contract, follow `fix.md` with that contract, evidence and scenarios; it owns editing, doctor and
