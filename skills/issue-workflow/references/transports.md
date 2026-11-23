@@ -13,8 +13,7 @@ The business workflow remains in its composing skill and `issue-workflow`.
 - GitHub work follows the repository's established ownership/start policy and the explicit mandate.
   When assignment is required, verify that the current identity is among the assignees. An absent
   policy or an unassigned issue does not imply permission to take ownership; resolve the uncertainty
-  before writes. Never self-assign to bypass a refusal. Synchronization without explicit issue
-  scope defaults to the current identity's assigned issues in the verified repository.
+  before writes. Never self-assign to bypass a refusal.
 - Read structured blockers, parent and every direct child for both providers. Missing fields,
   truncated lists and denied relation reads are unknown, not proof of no blockers or children.
   Only active blockers prevent startup; a prerequisite hyperlink is not a native blocking relation.
