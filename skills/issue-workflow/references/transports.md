@@ -44,12 +44,11 @@ command help. The installed CLI may expose fewer fields on a different host or v
   comments first, add only a missing exact URL, then independently read it back. Such a comment
   is an explicit association record, not a native closing relation or evidence of acceptance.
   Do not infer arbitrary prose links as work associations.
-- Do not add automatic closing keywords to PRs or commits to bypass evidence checks. Report any
-  existing auto-closure and unproven residue; closure does not establish acceptance.
-- No conditional description-dependent closure or child-dependent parent completion has been
+- For a GitHub PR, use the [closing-link policy](github.md#creation-and-association).
+  Report any auto-closure with unproven residue. Closure does not establish acceptance.
+- No conditional direct description-dependent closure or child-dependent parent completion has been
   qualified here. Ordinary issue close/edit and a read-before-write do not supply that guarantee.
-  Classify and report eligible completion; leave such writes to a human unless a current provider
-  contract and an authorized isolated check verify an appropriate mechanism.
+  Classify and report eligible completion when a direct write needs that guard.
 - Body/checkbox edits require a verified anchored or version-conditional operation preserving
   concurrent edits. Do not substitute a full-body update with `gh issue edit --body-file`.
 

@@ -7,11 +7,17 @@ state names and its dated guard observations remain provider-specific; GitHub Is
 while work is under review or awaiting verification, with the queue reported rather than stored
 as an invented workflow state.
 
-Any description-dependent lifecycle write requires a verified conditional mechanism at the write
-boundary, including completion based on the absence of an evidence section. No GitHub mechanism
-is qualified here; ordinary close/edit operations do not qualify. Classify and report when that
-capability is missing. Parent completion separately requires a condition over every direct child.
-A named user decision can accept residue but does not turn unchecked boxes into proven criteria.
+A direct description-dependent lifecycle write requires a verified conditional mechanism at the
+write boundary, including completion based on the absence of an evidence section. Ordinary
+GitHub close/edit operations provide no qualified guard here. Parent completion separately
+requires a condition over every direct child. A named user decision can accept residue but
+does not turn unchecked boxes into proven criteria.
+
+For an authorized GitHub closing link on a leaf issue, verify the current criteria against the
+candidate before adding the link. Record the named checks or observations in the PR even when
+the issue uses prose or unchecked boxes. The native link delegates closure to the default-branch
+merge and leaves the issue open during review. GitHub does not revalidate the criteria at merge.
+Use a non-closing reference while any required acceptance evidence is missing.
 
 ## What a checked box asserts
 
@@ -67,7 +73,8 @@ They are two axes, and converging them destroys the only record of what is still
 
 ## Merged work whose verification boxes are unchecked
 
-A merge proves the code landed. It proves nothing about a line the merge did not run.
+Use this section to classify issues that still need a completion decision after merge. A merge
+establishes that the code landed. Each verification criterion still needs its own evidence.
 
 1. Identify the issue's verification boxes: the checkboxes carrying acceptance criteria or
    validation scenarios. A checkbox is a task-list line — `- [ ]`, `- [x]`, or `- [X]` — outside any
@@ -188,10 +195,10 @@ writing.
 
 ## Guarding a state write with the boxes it rests on
 
-This requirement applies to both trackers: a conditional write must cover the classified evidence
-and state together. Until a provider mechanism is verified, report eligibility rather than
-writing. The inspected transports and disabled candidate below concern Linear only and do not establish
-GitHub semantics.
+This requirement applies to direct state writes in both trackers. A conditional write must cover
+the classified evidence and state together. Until a provider mechanism is verified, report
+eligibility rather than writing. The inspected transports and disabled candidate below concern
+Linear only.
 
 A workflow state decided from checkboxes must not be written from a classification that has since
 gone stale. A pre-write read only narrows that window; a valid payload does not close it.

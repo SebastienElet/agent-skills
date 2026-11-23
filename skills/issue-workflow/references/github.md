@@ -31,9 +31,21 @@ before reusing the verified source branch with `gh pr checkout <number> --repo <
 ## Creation and association
 
 Only with publication authority, confirm the remote source branch and target, then use the verified
-`gh pr create` surface with explicit repository, head, base, title and `--body-file`. Do not add
-closing keywords that bypass completion evidence. Independently retrieve the resulting PR and
-canonical URL before associating it with the selected tracker through its transport adapter.
+`gh pr create` surface with explicit repository, head, base, title and `--body-file`.
+
+Read [completion-evidence.md](completion-evidence.md) before adding a closing link. Use
+`Closes #<number>` in the PR body when the PR targets the default branch,
+finishes the issue, and named evidence covers its current acceptance criteria. Use
+`Closes <owner>/<repo>#<number>` for a verified cross-repository issue. Use `Refs` for partial work
+or pending evidence. If that evidence arrives during review, refresh the issue and promote the link
+on the authorized open PR. If a revision invalidates the evidence, restore the non-closing reference.
+Keep closing keywords out of commit messages so the PR body controls the link. See the
+[GitHub closing-link contract](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue)
+for native link behavior.
+
+Read back the PR URL and exact issue association. For a closing link, verify the target with
+`gh pr view --json closingIssuesReferences`. Reuse the native link as the tracker association.
+For other links, follow the selected tracker adapter.
 If creation succeeds and linking fails, keep the PR and retry only the safe missing association.
 If creation times out, recover remote facts before any retry; a search miss is not proof of failure.
 

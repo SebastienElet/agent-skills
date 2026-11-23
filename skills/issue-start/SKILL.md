@@ -82,7 +82,8 @@ it does not require a tracker or create an issue.
    uncertain create response by reading remote state; an empty search after a timeout does not
    prove failure. If linking fails, retain the PR and retry only a safe missing link operation
    after rereading both systems. Read every stored link back. Do not publish merely because this
-   step exists, and do not add closing keywords that bypass the completion-evidence policy.
+   step exists. For GitHub Issues and a GitHub PR, apply the closing-link policy in the GitHub
+   adapter of the `issue-workflow` skill.
 
 ## Gotchas
 

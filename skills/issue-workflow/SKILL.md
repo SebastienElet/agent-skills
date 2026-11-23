@@ -76,7 +76,7 @@ owner under `orchestrate`; do not require tracker access or create an issue to c
   retain the full tracker identity in the handoff and verify every branch association.
 - Never require a separate PR for every sub-issue, or an unrelated forge's client or credentials.
 - Never derive checkbox state from workflow state or a merge. Check only evidence a named run proves.
-- Never write a description-dependent state without the verified conditional mechanism required by
-  completion evidence; never complete a parent through a read followed by an unconditional write.
+- Apply the completion-evidence guard to direct description-dependent state writes and parent
+  completion. For GitHub closing links, apply the GitHub adapter's publication policy.
 - Never invent GitHub workflow states, impose Projects, or treat a closed issue as proof of acceptance.
 - Never infer push, PR publication, approval, merge or tracker-write authority from skill activation.
