@@ -30,6 +30,8 @@ source snapshots and native control outputs, including superseded and inconclusi
 Extract it into a fresh directory to inspect or replay a particular historical case. Do not
 rewrite a recorded grade when an oracle or fixture is corrected. `manifest.json` identifies
 these artifacts and their provenance; the raw reports retain the executed candidate bindings.
+The historical `case.json` identified by the manifest is in `run-final-baseline/` and
+`run-final-candidate/` inside the archive. The adjacent `case.json` is the maintained replay input.
 
 These are explicit instruction-injection experiments on macOS ARM64 with Codex CLI 0.167.0,
 `gpt-6-luna` medium, Bun 1.4.4 and Python 3.15.2. They do not establish automatic activation,

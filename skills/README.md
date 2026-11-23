@@ -28,7 +28,6 @@ This directory is the canonical source for user-scoped agent skills.
 | `improve-codebase-architecture` | Survey architectural friction and present improvement candidates.                                                   |
 | `issue-creation`                | Draft, validate, review, and publish tracker issues across forges.                                                  |
 | `issue-start`                   | Start or resume implementation from a Linear or GitHub issue.                                                       |
-| `issue-sync`                    | Reconcile Linear or GitHub Issues with GitHub or Bitbucket pull-request facts.                                      |
 | `issue-workflow`                | Apply shared issue execution and completion policy.                                                                 |
 | `orchestrate`                   | Preserve task ownership and state across skill transitions.                                                         |
 | `plan`                          | Prepare an architecture or actionable development plan.                                                             |
@@ -54,7 +53,6 @@ This directory is the canonical source for user-scoped agent skills.
 
 | Skill                 | Description                                                                          |
 | --------------------- | ------------------------------------------------------------------------------------ |
-| `harness-simplify`    | Simplify a real harness workflow.                                                    |
 | `obsidian-retrieval`  | Retrieve read-only knowledge from Obsidian vaults or local Markdown corpora with rg. |
 | `output-discipline`   | Shape responses so decisive information and next actions are easy to find.           |
 | `prose-edit`          | Revise existing prose while preserving the writer's voice and meaning.               |

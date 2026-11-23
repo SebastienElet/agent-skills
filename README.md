@@ -50,7 +50,7 @@ Reading the `pr-verdict` catalogue does not invoke its verdict workflow. Presenc
 not establish that a host discovers or applies the skills.
 
 Use `implement` for changes, `bug-fix` for repairs and `plan` for planning, with `orchestrate` retaining
-the task across stages. `issue-start`, `issue-workflow`, `issue-spec` and `issue-sync` keep tracker
+the task across stages. `issue-start`, `issue-workflow` and `issue-spec` keep tracker
 (Linear or GitHub Issues) separate from forge (GitHub or Bitbucket): Linear + GitHub and
 Linear + Bitbucket are both supported paths. Probe only the selected providers.
 Independent review is optional unless requested or
@@ -74,8 +74,7 @@ its exact package version; availability and their consumer paths still require q
 
 Evaluation CI remains pending the qualified
 `agent-experiments` interface; its validator is not copied here. Each skill declares its own other
-prerequisites, including forge access or third-party tools. `issue-sync` remains a manual tracker reconciliation
-workflow; it neither calls nor replaces the retired Bitbucket–Linear synchronization CLI.
+prerequisites, including forge access or third-party tools.
 
 `output-discipline-hook` belongs to `output-discipline` and requires Bun. Its
 [integration reference](skills/output-discipline/references/integration.md) describes the opt-in and

@@ -21,7 +21,7 @@ state nor a merge proves acceptance criteria.
 
 ## Usage
 
-Load `issue-workflow` alongside `issue-start` or `issue-sync`. Do not invoke it alone to shape,
+Load `issue-workflow` alongside `issue-start`. Do not invoke it alone to shape,
 implement or review an issue. An explicit request to verify merged work enters the verification pass
 in [completion evidence](references/completion-evidence.md). Without a ticket, return to the task
 owner under `orchestrate`; do not require tracker access or create an issue to continue.
