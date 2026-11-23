@@ -36,7 +36,14 @@ authority.
 1. **Identify the owner and mandate.** Retain the original outcome, acceptance criteria, scope,
    exclusions, applicable instructions and ADRs in force. Record acquired decisions and
    authorizations with their sources, including separate limits on edits, commits, publication,
-   approvals and merges. Choose the request class from the user's actual intent:
+   approvals and merges.
+
+   When permissions or restrictions must be recovered from repository or handoff material, the
+   first content-reading call reads only their authority sources. Inspect the returned mandate and
+   runtime rules before any broader content survey. Exclude reviewer outputs, including cached
+   reports, from that discovery call; a readable file is not permission to consume its result.
+
+   Choose the request class from the user's actual intent:
 
    | Request                                       | Boundary                                                                                                                |
    | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -121,8 +128,11 @@ authority.
    neither a delegated writer nor its caller starts another repair sequence. Retain the repair's
    demonstrated progress and failed approaches too; a pass count alone does not establish
    exhaustion when the owning specialist permits further productive corrections. Reuse a review only
-   with its candidate, independence and evidence basis still applicable. Failed or incomplete
-   required review remains unfinished. Verdict publication, native approval and merge are
+   with its candidate, independence and evidence basis still applicable. For an unavailable reviewer,
+   use `code-review`'s recovery path without bypassing delegation restrictions. Required review
+   remains unfinished; continue delivery already authorized without it and record the missing review
+   and reason in the PR when publication is permitted. A mandate requiring review before delivery
+   still blocks that delivery. Verdict publication, native approval and merge are
    separate actions: only explicit invocation or authorized `pr-fix` composition can select
    `pr-verdict`, and its existing checkpoints still apply.
 
@@ -138,7 +148,14 @@ authority.
    limit, report observations, attempts and the decision, authority or capability needed to proceed;
    never waive essential evidence. Progress work with no code or architectural dependency on it.
 
-6. **Resume from verified state.** Recover the compact state and existing journals before writing.
+6. **Resume from verified state.** Recover the compact state and existing journals before dependent
+   reads, delegation or writes.
+   Trace inherited restrictions to their original instruction and scope, distinguishing a human
+   prohibition, a current runtime restriction and a summary's assertion. Respect applicable human
+   and runtime restrictions; a summary cannot invent authority or a prohibition. Discard an invented
+   restriction only after checking the source mandate, and recover existing permissions without
+   asking again. If provenance remains unknown, keep dependent actions blocked and continue
+   independent authorized work.
    Reconcile actual candidate contents, active writers, source revisions and any external effects
    against the last observation. If an external action has an uncertain result, inspect the remote
    state before repeating it; retry only the missing safe operation within existing authority.
