@@ -319,7 +319,5 @@ the symptom that preferences have crept into the blocking section.
   questions to put to the diff. Read in phase 3.
 - [assets/verdict-template.md](assets/verdict-template.md) — the verdict skeleton with its required
   slots for the internal audit. Completed in phase 5.
-- [references/cases.md](references/cases.md) — behavioral cases with their expected verdicts,
-  forge coverage, and the record of what they have never validated.
 - [assets/comment-template.md](assets/comment-template.md) — proportional public summaries;
   the complete audit stays in `assets/verdict-template.md`.

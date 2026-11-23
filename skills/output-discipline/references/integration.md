@@ -77,7 +77,5 @@ Higher-priority host and user instructions continue to apply.
 
 ## Verification record
 
-Historical dotfiles checks and live observations are retained under `evals/output-discipline/`
-in the package root. Those observations do not qualify this extracted loader.
 The adjacent `scripts/output-discipline-hook.test.ts`
 exercises the companion’s process boundary with temporary files; it does not execute host lifecycle events.

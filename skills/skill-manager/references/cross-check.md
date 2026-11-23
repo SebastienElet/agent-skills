@@ -204,8 +204,8 @@ the project where a user skill is being used.
   Recommendation: satisfy the prerequisite in its proper scope; preserve mandatory validation
 ```
 
-Run the targeted examples in [d3-scenarios.md](d3-scenarios.md) when changing D3. They exercise
-reference resolution only, not the complete six-detector audit or host activation.
+When maintaining D3, run the examples in `skills/skill-manager/evals/d3-scenarios.md` in the
+source checkout. Their scope is reference resolution.
 
 ---
 
