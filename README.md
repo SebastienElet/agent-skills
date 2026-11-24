@@ -32,6 +32,9 @@ resolution. Project required skill directories from the same package version int
 discovery location; keep the required resources reachable. If a required capability is unavailable,
 report the affected step without claiming it ran.
 
+Select `unslop` for standalone revision. For drafting articles and documentation, select
+`writing-style` and `unslop` from the same package version.
+
 For the interview and issue-start paths, the initial selection is:
 
 | Selected path                   | Same-version prerequisites                                                                                                    |

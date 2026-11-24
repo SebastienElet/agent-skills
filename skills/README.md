@@ -55,6 +55,7 @@ This directory is the canonical source for user-scoped agent skills.
 | --------------------- | ------------------------------------------------------------------------------------ |
 | `obsidian-retrieval`  | Retrieve read-only knowledge from Obsidian vaults or local Markdown corpora with rg. |
 | `output-discipline`   | Shape responses so decisive information and next actions are easy to find.           |
-| `prose-edit`          | Revise existing prose while preserving the writer's voice and meaning.               |
 | `skill-manager`       | Manage and simplify skills and their indexes.                                        |
+| `unslop`              | Revise existing prose with minimal edits that preserve the author's voice.           |
 | `workflow-automation` | Turn evidenced repeated human or agent workflows into supported automation.          |
+| `writing-style`       | Draft articles and documentation for human readers in French or English.             |
