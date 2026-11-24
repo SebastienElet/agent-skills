@@ -8,7 +8,8 @@ description: >
 compatibility: >
   Requires the `pr-verdict` and `issue-workflow` skills from the same package version for the
   failure-class catalogue and forge adapters, respectively; report the reference unavailable when
-  its skill is absent.
+  its skill is absent. Requires same-version `codebase-design` for persistence, lifecycle or
+  collection API changes and for permission checks, validators, hooks or blocking checks.
 metadata:
   category: dev
 ---
@@ -82,11 +83,15 @@ and cause belong to `diagnosing-bugs`.
 
 4. **Realize verifiable units.** Identify each unit's observable result, genuine prerequisites
    and relevant oracle, including affected failure paths. Use the plan's units when still valid;
-   do not require a ticket, commit, worktree or PR for each unit. Apply `tdd` to owned executable
-   behavior and native or existing validation to declarative changes without owned behavior.
+   do not require a ticket, commit, worktree or PR for each unit.
    For persistence, lifecycle or collection API changes, consult `codebase-design` and its
    `codebase-design/references/dependencies.md` dependency guidance before implementation.
-   For a permission check, validator, hook or blocking check, read `codebase-design/references/controls.md` before implementation; use its rollout procedure when activating a gate.
+   For a permission check, validator, hook or blocking check, read
+   `codebase-design/references/controls.md` before implementation and use its rollout procedure
+   when activating a gate. If required `codebase-design` guidance is unavailable, report the
+   missing resource and pause the units that require it. Continue independent units.
+   Apply `tdd` to owned executable behavior and native or existing validation to declarative
+   changes without owned behavior.
    Compose other relevant specialists rather than reproducing their procedures. Delegation is
    optional and follows `orchestrate`'s ownership and isolation rules; actual dependencies govern
    readiness. Inspect each returned delta and evidence before accepting the unit. A green test or
