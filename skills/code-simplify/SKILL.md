@@ -5,6 +5,9 @@ description: >
   lighten an implementation, or reduce abstractions. Make sure to use this skill whenever a code
   cleanup request targets conceptual complexity, even without naming refactoring. Excludes routine
   edits, merge reviews, and simplification of skills, issues, or the harness.
+compatibility: >
+  Requires `codebase-design` from the same package version when simplifying security or refusal
+  controls.
 metadata:
   category: dev
 ---
@@ -62,9 +65,9 @@ or a repository-wide cleanup. It does not activate merely because code was modif
    code, propose the smallest characterization of the threatened observable behavior; establish
    that protection before a risky refactor, following existing authorization for tests. For a
    security or refusal control, read `codebase-design/references/controls.md` before changing it.
-   Upstream validation alone
-   does not prove a downstream trust-boundary check redundant. If the required specialized
-   procedure is unavailable, pause that control's change and report the missing procedure.
+   Upstream validation alone does not prove a downstream trust-boundary check redundant. If the
+   guide is unavailable, report it and pause the affected control change. Continue independent
+   simplifications.
 8. Apply the supported simplifications and run the relevant checks. Use native syntax, schema,
    dry-run, or public execution for declarative configuration. Do not add mirror suites,
    tests of tests, or reflexive new gates. Preserve failure behavior as well as successful results;

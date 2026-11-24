@@ -5,6 +5,8 @@ description: >
   a branch or work before committing. Make sure to use this skill whenever local implementation
   needs review, even if the changes are uncommitted. Excludes open-PR merge verdicts and PR repairs.
 license: MIT
+compatibility: >
+  Requires `codebase-design` from the same package version when reviewing refusal controls.
 metadata:
   category: dev
 ---
@@ -77,6 +79,8 @@ an authorized `pr-fix` retains responsibility for open-PR repair.
    rules change; preserve its independence and execution-evidence requirements.
    For refusal controls, read `codebase-design/references/controls.md` and inspect alternate
    entry points, the protected value and the evidence for both refusal and permitted behavior.
+   If the guide is unavailable, report the missing guide and mark the refusal-control portion of
+   the spec review incomplete. Continue reviewing independent requirements and standards.
 7. Consolidate the two axes into one concise severity-ranked report, retaining each finding's axis,
    location, failure mechanism and source. Omit unsupported suspicions. Report check outcomes,
    environment, files actually covered, untested supported targets and unresolved limitations; do

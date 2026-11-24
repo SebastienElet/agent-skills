@@ -7,7 +7,8 @@ description: >
 license: MIT
 compatibility: >
   Requires the `pr-verdict` skill from the same package version for its failure-class catalogue;
-  report the reference unavailable when absent.
+  report the reference unavailable when absent. Requires same-version `codebase-design` when
+  designing an interface or testing a refusal control.
 metadata:
   category: dev
 ---
@@ -39,6 +40,8 @@ tests are part of that authorization; do not ask again when the behavior and tes
 2. Choose the smallest relevant existing or native oracle. For configuration without owned
    behavior, use its parser, schema, dry-run or execution instead of a declaration mirror test.
    Consult `codebase-design` when the interface itself needs design, without expanding the scope.
+   If it is unavailable, report it and pause the work that depends on that interface design.
+   Continue independent test cycles.
    Before adding a test, identify its actual CI step and prerequisites, including whether
    dependencies are installed. Replay in that context, using a commit archive without
    `node_modules` when that is how CI runs; module-level resolution of an installed CLI can fail
@@ -58,6 +61,8 @@ tests are part of that authorization; do not ask again when the behavior and tes
    assertions above. This does not invoke `pr-verdict` or apply its verdict policy.
    For refusal controls, use `codebase-design/references/controls.md` for the applicable contract,
    bypasses and refusal evidence; retain both permitted and unavailable-input cases.
+   If the guide is unavailable, report it and pause the affected refusal-control cycle before RED.
+   Continue independent test cycles.
 4. Write one failing test for the next behavior. Include the affected failure paths. Run it and
    confirm the expected assertion fails because of the missing or broken behavior, rather than a
    setup or syntax error. A test already passing does not demonstrate the regression.
