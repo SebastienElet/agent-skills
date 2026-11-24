@@ -1,0 +1,11 @@
+version: 1
+waivers:
+  - id: PR-VERDICT-SSH-SCP-USER
+    category: emails
+    file: skills/pr-verdict/references/failure-classes.md
+    line: 338
+    evidence_sha256: 4771f42cf2abaa1fb9697af3925c3bc0924ceac5e724f00f1762833b075cfa14
+    reason: The matched value is the SSH user and host in the SCP-style Git remote example used to check repository identity.
+    owner: SebastienElet
+    created: 2026-11-24
+    expires: 2027-02-22

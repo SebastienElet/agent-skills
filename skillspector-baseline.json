@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "scanner_version": "2.13.6",
+  "rules": [],
+  "fingerprints": [
+    {
+      "hash": "sha256:f5ab4136cbbf06f852a6559593fa7c9842bccb8c629f742c4699309f84990a90",
+      "rule_id": "MP3",
+      "file": "SKILL.md",
+      "reason": "pr-verdict SKILL.md line 194 describes loss of application state as a blocking review finding."
+    },
+    {
+      "hash": "sha256:1acc69aaa5fb8de4a5b4c4518945d08f5df845756d975b99851bdff0320f07a2",
+      "rule_id": "AR2",
+      "file": "references/dependencies.md",
+      "reason": "codebase-design references/dependencies.md line 143 requires complete evidence before a domain compliance check can report no warnings."
+    }
+  ]
+}
