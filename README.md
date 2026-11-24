@@ -104,6 +104,8 @@ contains `case.json` (fixture, setup and oracle), `a.txt` (baseline instructions
 with a disposable workspace. Follow the runner's isolation requirements for cases that need Docker.
 
 The [historical archive](https://github.com/SebastienElet/agent-skills/tree/b63e5f44cc61abf978a804bd49c2a84a2930eaff/evals)
-holds the original reports, snapshots and fingerprints. Look up a migrated case under
+holds the original reports, snapshots and fingerprints, including the complete
+[`orchestrate` partial-block campaign](https://github.com/SebastienElet/agent-skills/tree/b63e5f44cc61abf978a804bd49c2a84a2930eaff/evals/orchestrate/partial-block).
+Look up a migrated case under
 `evals/<slug>/<case>/` at that revision. Use its summary and report to verify the exact input hashes
 before reusing evidence. Store new run logs and snapshots with the PR or campaign artifacts.
