@@ -67,7 +67,10 @@ const HEIGHT = { 1440: 900, 1280: 800, 1024: 768, 768: 1024, 390: 844, 375: 812 
 mkdirSync(outDir, { recursive: true });
 // Screenshots from an earlier run would sit beside the new ones when the page got shorter.
 for (const f of readdirSync(outDir)) if (isInspectionScreenshot(f)) unlinkSync(join(outDir, f));
-const browser = await Browser.launch();
+const browser = await Browser.launch().catch((error) => {
+  console.error('Could not start Chrome: ' + error.message);
+  process.exit(1);
+});
 const helper = await browser.newPage({ width: 1600, height: 1000 });
 const report = { url: server ? target : url, at: new Date().toISOString(), allow, viewports: [], findings: [], images: [] };
 

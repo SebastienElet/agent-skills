@@ -16,8 +16,10 @@
   and its inventory identifies the entry point, relocated guide and ten bundled evaluation briefs. Generated image credits are
   qualified as `<project>/assets/credits.json` in the README and imagery reference to distinguish
   runtime project output from bundled resources.
-- Markdown and JSON are formatted with the collection's Prettier configuration. Scripts, browser
-  helpers, CSS and JavaScript assets are unchanged; no runtime dependencies or installers are added.
+- Markdown and JSON are formatted with the collection's Prettier configuration. The inspection CLIs
+  report browser launch errors, scene capture filenames encode scene IDs, and asset command examples
+  quote output directories for POSIX shells or PowerShell. No runtime dependencies or installers
+  are added.
 - The full upstream skill subtree, including its library and evaluation briefs, is distributed.
   Repository installers, marketplace declarations, promotional images and upstream repository tests
   are outside that subtree and are not needed to use it.

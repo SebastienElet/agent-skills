@@ -144,8 +144,14 @@ const o = {
   maxMb: number('max-mb', 25, 1, 2000),
   check: !args['no-check'],
   to: resolve(String(args.to || 'assets')),
-  toArg: args.to ? ` --to ${args.to}` : '',
+  toArg: args.to ? ` --to=${quoteOutputDirectory(args.to)}` : '',
 };
+
+function quoteOutputDirectory(value) {
+  if (/^[a-zA-Z0-9_./:-]+$/.test(value)) return value;
+  const escaped = value.replaceAll("'", process.platform === 'win32' ? "''" : "'\\''");
+  return `'${escaped}'`;
+}
 
 // ---------- small helpers ----------
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

@@ -45,7 +45,10 @@ if (!/^https?:\/\//.test(target)) {
   url = `http://127.0.0.1:${server.address().port}/${relative(root, file).split(sep).map(encodeURIComponent).join('/')}`;
 }
 mkdirSync(outDir, { recursive: true });
-const browser = await Browser.launch();
+const browser = await Browser.launch().catch((error) => {
+  console.error('Could not start Chrome: ' + error.message);
+  process.exit(1);
+});
 const helper = await browser.newPage({ width: 1600, height: 1000 });
 const problems = [];
 
@@ -85,7 +88,7 @@ async function run(label, vp) {
       labels.push(`${sc.id} ${p.l}`);
     }
     const cw = vp.width >= 1000 ? 480 : 240, ch = Math.round((cw * H) / vp.width);
-    const path = join(outDir, `${sc.id}-${label}.jpg`);
+    const path = join(outDir, `${encodeURIComponent(sc.id)}-${label}.jpg`);
     await sheet(frames, labels, cw, ch, vp.width >= 1000 ? 4 : 7, path);
     console.log(`${label.padEnd(8)} ${sc.id}: ${(sc.height / H).toFixed(1)} screens tall, ${sc.live ? 'running' : sc.rest ? 'finished composition' : 'not started'} → ${rel(path)}`);
   }

@@ -102,6 +102,7 @@ export class Browser {
     const wsUrl = await new Promise((resolve, reject) => {
       let buf = '';
       const t = setTimeout(() => reject(new Error('Chrome did not start within 20s')), 20000);
+      proc.on('error', (error) => { clearTimeout(t); reject(error); });
       proc.stderr.on('data', (d) => {
         buf += d.toString();
         const m = buf.match(/DevTools listening on (ws:\/\/[^\s]+)/);
