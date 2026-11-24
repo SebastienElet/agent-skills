@@ -55,13 +55,23 @@ requests.
 
 ## Gotchas
 
-| Excuse                        | Reality                                      |
-| ----------------------------- | -------------------------------------------- |
-| Ticket Done or pipeline green | Workflow state is not a behavioral oracle.   |
-| Parent is the author          | The task returning the change is the author. |
-| Receipt proves completeness   | Received items cannot reveal omissions.      |
-| Missing mechanism is a target | Only an approved decision creates a target.  |
-| Self-review is equivalent     | Author assumptions survive self-review.      |
+- **Using a Done ticket or green pipeline as proof** — the ledger can mark a guarantee `held`
+  without exercising its behavior. Name the green behavioral check for the exact claim and scope.
+  If the check is missing and no other status is supported, record `unverified` and name the gap.
+- **Recording the caller as the author** — the task responsible for reconciling the draft is
+  misidentified. Record the task returning the document change as `author_task` and the distinct
+  child auditor as `auditor_task`.
+- **Using a receipt to prove completeness** — the receipt lists what arrived, so omissions can go
+  unnoticed. Identify who owns the expected set and name a check that detects omissions. If evidence
+  establishes an omission within the claimed scope, record the evidence and mark the claim
+  `contradicted`. If completeness evidence is missing and no other status is supported, mark it
+  `unverified` and name the gap. Remove or weaken the present guarantee in either case.
+- **Calling a missing mechanism a target** — the draft can turn an implementation gap into an
+  unapproved commitment. Cite the approved decision before using `target` and state it as a future
+  commitment. If no status is supported, use `unverified` and name the missing evidence.
+- **Substituting self-review for the child audit** — the ledger can carry the author's unchecked
+  assumptions. Start the dedicated child before reading evidence or drafting and wait for its
+  ledger. If the child is unavailable, stop and report the audit as absent.
 
 ## Constraints
 
