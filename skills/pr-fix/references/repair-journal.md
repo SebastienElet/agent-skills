@@ -12,35 +12,64 @@ Keep this operational journal outside Git, any temporary worktree and durable ag
 Read earlier passes before planning; reconcile them against the current diff and commits.
 One repair session owns a PR journal at a time.
 
-If the journal is missing or damaged, distinguish these states before assigning a pass count:
+If the journal is missing or damaged, preserve the surviving evidence and read relevant
+handoffs, conversation, local worktrees and refs, and forge records. Reconcile visible fixes
+against the current head before proposing a new slate. Recover prior pass boundaries, active
+work, decisions, authorizations and limits only when attributable evidence supports them.
+Commits or pushes alone do not identify pass boundaries or account for unpushed work.
 
-- **Established first launch.** Verify an attributable record from the original repair owner or
-  an independent controller that explicitly accounts for all repair activity for this canonical PR
-  since creation, including local and unpushed writes, and establishes zero prior correction
-  passes. Reconcile it with available local and forge evidence; a contradictory or incomplete
-  record leaves history unknown. Record the proof and initialize `0/2` under the current request's
-  authority, then continue authorized diagnosis and repair without another confirmation.
-- **Recoverable history.** Reconstruct only verifiable facts from surviving journals, handoffs,
-  conversation and forge records. Recover consumed passes, the active slate, authorizations,
-  unresolved disagreements and pending actions, with their sources. Commits or pushes alone do
-  not identify pass boundaries, and a complete forge timeline need not include local writes.
-- **Unknown history.** Neither a missing journal nor an empty search proves a first launch.
-  Preserve damaged evidence and record the gaps with `Correction passes: unknown/2`; never infer
-  zero or restore an unverified authorization. An unknown consumed budget blocks another correction,
-  while independent read-only diagnosis may continue. Name the missing evidence needed to resume.
+Record history as recovered, partial or unknown, with its sources and scope. An attributable
+first-pass statement from the repair owner or controller may describe the scope it knows after
+comparison with available traces. Carry forward contradictions and gaps. Neither a statement
+nor an empty search resets a known budget or proves zero passes throughout the PR's lifetime.
 
-Create or reconstruct the journal only from those established facts. An available budget does not
-establish delivery or approval authority; retain only authorizations supported by their sources.
+For a legacy `Correction passes: N/2` entry, preserve the verified numerator and pass evidence.
+Carry forward a two-pass limit only if its source is an applicable human or resource limit;
+the old workflow's denominator alone is historical policy.
+
+Count passes observed in this execution separately from verified earlier passes. Resume a
+recovered charged slate under its existing number. With unknown earlier numbering, identify a
+new pass by execution and ordinal. Uncertain history alone leaves explicitly authorized work
+eligible. If an applicable human or resource limit cannot be shown to permit another pass or
+recovery attempt, pause that dependent action with its lift condition. Recover only supported
+authority and never overlap a repair with an identified active owner.
+
+## Finding dispositions and convergence
+
+Give each finding a recorded mechanism, scope, evidence and current disposition:
+
+- Corrected and verified on the identified candidate.
+- Refuted with evidence.
+- Outside the mandate, with rationale and a local follow-up draft when actionable.
+- Nonessential evidence limit, with consequence and lift condition.
+- Pending correction, essential evidence, actual blocker or reserved decision, with the
+  condition that would resolve it.
+
+A local follow-up draft grants no tracker write and cannot dispose of a required in-scope
+correction or essential proof. Continue open in-scope findings with available corrections or
+lift checks. Record essential missing proof as blocking approval.
+
+For each pass, record the starting candidate, distinct failure mechanisms, lift checks and
+expected progress. Compare the observed checks, diff and independent findings with earlier
+attempts. Continue while independent evidence shows progress, such as a mechanism eliminated
+or a required check newly exercised. Before repeating a mechanism, an oscillation or an
+attempt with no new causal evidence, enter bounded recovery: record the recurrence, what new
+observation could distinguish a next attempt, and the finite remaining investigation budget.
+Use the user's limit when given and otherwise apply the finite recovery rule in `orchestrate`.
+Charge elapsed investigation and attempts to the same mechanism across names, heads, sessions
+and delegates. Stop the dependent work at exhaustion or when no informative next attempt
+remains. Preserve the result and resumption condition, and continue independent work within
+the remaining global resources.
 
 ## Updating the journal
 
-Before a slate's first correction write, persist its charged pass and starting head using the
-replacement procedure below. A failed journal write blocks that correction. On resumption,
+Before a slate's first correction write, persist its charged pass, starting head, isolated
+worktree path and the scope and mechanisms of the slate using the replacement procedure below. A failed journal write blocks that correction. On resumption,
 reconcile the interrupted slate with actual edits: continuing its already charged pass does not
 charge it twice; a new correction pass still consumes the remaining budget.
 
 Complete the journal replacement in its own tool call and inspect its exit status and the stored
-pass and head before issuing any correction-write command. A successful final command in a shell
+pass, head, worktree and slate before issuing any correction-write command. A successful final command in a shell
 invocation does not prove that an earlier journal replacement succeeded.
 
 Update the journal after each correction and validation: problem, final behavior, commits,
