@@ -61,6 +61,43 @@ User instructions supply preferences,
 including note naming and the default Obsidian corpus. This package supplies
 no personal instructions, corpus, agent/model selection, credentials or service configuration.
 
+### Frontend design dependency (Bun)
+
+`design-taste-frontend` is acquired transitively from the official
+[Taste Skill repository](https://github.com/Leonxlnx/taste-skill/tree/12af471f627f866411b4bd785b19646d3672784c),
+pinned to `12af471f627f866411b4bd785b19646d3672784c` (v2.1.5). Install this package with
+Bun 1.4.3 or later and `--ignore-scripts`. npm installation is unsupported while that upstream
+revision has no root `package.json`; an archive of the same tree does not supply one either.
+
+Keep only `@sebastienelet/agent-skills` as a direct dependency. With Bun's default hoisted
+installation, select `node_modules/design-taste-frontend/skills/taste-skill` and expose that whole
+directory once per host as `design-taste-frontend`:
+
+| Host        | User destination                         |
+| ----------- | ---------------------------------------- |
+| Claude Code | `~/.claude/skills/design-taste-frontend` |
+| Codex       | `~/.agents/skills/design-taste-frontend` |
+| Cursor      | `~/.cursor/skills/design-taste-frontend` |
+
+For dotfiles, change only this skill's manifest `source` from
+`node_modules/@sebastienelet/agent-skills/skills/design-taste-frontend` to
+`node_modules/design-taste-frontend/skills/taste-skill`. Retire each existing link only after
+verifying it targets the former source, then rerun the consumer's installer. Its refusal of a
+divergent destination still applies. Other linker layouts must locate the dependency before
+projecting it; a path in this table is not proof of host activation.
+
+This is the unmodified upstream entry point, with its original description, house style and
+resources. The former local activation, scope, review-output and design-system adaptations are
+removed. Project instructions must establish the desired scope and design system; the upstream
+inspector's aesthetic findings can conflict with those decisions. Node 22+ and an installed
+Chrome, Edge or Chromium remain runtime prerequisites. Upstream scripts and their known defects
+are unchanged by this distribution migration.
+
+To upgrade, change the full Git revision in this package's dependency, regenerate `bun.lock`,
+then rebuild and reinstall this package in the consumer. Roll back both the dependency pin and
+lockfile together and reinstall. No upstream installer, lifecycle script or second direct
+dependency is required.
+
 ## Optional companions
 
 These separately owned capabilities are not bundled or installed automatically. Each is listed with

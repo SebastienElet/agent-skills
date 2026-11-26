@@ -5,6 +5,7 @@
     "": {
       "name": "@sebastienelet/agent-skills",
       "dependencies": {
+        "design-taste-frontend": "github:Leonxlnx/taste-skill#12af471f627f866411b4bd785b19646d3672784c",
         "zod": "4.6.7",
       },
       "devDependencies": {
@@ -67,6 +68,8 @@
     "@typescript/typescript-win32-x64": ["@typescript/typescript-win32-x64@7.0.2", "", { "os": "win32", "cpu": "x64" }, "sha512-0BQ3HkAHHlKLSp1qRvf3SUhGpGsDuhB/jgFw75guyqbxJqEaS0Cw/VFO8i2nHglJUzQCRtMMR/IBAKE3ETMC4g=="],
 
     "bun-types": ["bun-types@1.4.4", "", { "dependencies": { "@types/node": "*", "undici-types": "*" } }, "sha512-yjrJh5oGX7mMPKGd19YXyIjmEuj4G4zNC30bs7PM9Az7NQ3ndF3j6hbeRdvJTRQEhJ/FYQwW0a2moweEi2hMxQ=="],
+
+    "design-taste-frontend": ["taste-skill@github:Leonxlnx/taste-skill#12af471", {}, "Leonxlnx-taste-skill-12af471", "sha512-QLmheI1MJP8Oz/6mimq4rj2olj4OxOTldaX0x1X8ftWrpnKOHMr9OgefT3DuV/MOy0Nzugg21igs6d3OTrqgSQ=="],
 
     "prettier": ["prettier@3.10.1", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-70vp3ZUYoPlFbF9uiTdXHUUCGEIp7d4+6p+8DYbkm2jP7x/3i/paXVF6dopSI3zd/CEitrZN1rc4i85xWmmXlg=="],
 
