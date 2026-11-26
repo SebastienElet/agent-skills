@@ -99,6 +99,98 @@ publisher. Local checks do not establish registry installation, provenance or ho
 The root MIT license covers original contributions. Skill-local licenses and attributions retain
 their own applicability, including Matt Pocock, Ayoub Ghriss and the visual explanation references.
 
+## Reference audits
+
+Scan a disposable installation of the native tarball. Scanning the checkout also reads source-only
+evaluation fixtures; scanning one skill cannot establish whether its sibling skills are available.
+
+Use Bun `1.4.3`, SkillEvaluator `1.0.1` from
+[`4964c8b301cadbc121e126c268d06e201047133c`](https://github.com/NVIDIA/SkillEvaluator/tree/4964c8b301cadbc121e126c268d06e201047133c)
+and SkillSpector `2.13.6`. Prepare these tools separately. The commands below use their installed
+executables and make no model calls. Record their version output and the OS and architecture.
+
+### Build and install
+
+From the repository root, with the intended changes indexed:
+
+```sh
+bun --version
+skillevaluator --version
+skillspector --version
+uname -sm
+audit_dir="$(mktemp -d)"
+git rev-parse HEAD > "$audit_dir/source-revision"
+git diff --binary HEAD > "$audit_dir/source.patch"
+bun install --frozen-lockfile --ignore-scripts
+bun pm pack --ignore-scripts --destination "$audit_dir" > "$audit_dir/pack.log"
+tarball="$(find "$audit_dir" -maxdepth 1 -name '*.tgz' -type f)"
+shasum -a 256 "$tarball" > "$audit_dir/package.sha256"
+mkdir "$audit_dir/consumer"
+printf '%s\n' '{"private":true}' > "$audit_dir/consumer/package.json"
+bun add --cwd "$audit_dir/consumer" --ignore-scripts --no-save "$tarball"
+package_dir="$audit_dir/consumer/node_modules/@sebastienelet/agent-skills"
+```
+
+Retain the tarball, source revision, patch and package digest with the reports. A tarball installation
+exercises this candidate's package boundary; it does not verify a registry release or host activation.
+
+### Retain both native reports
+
+Use a clean child environment to avoid inherited scanner policy, baselines or provider settings.
+The focused run selects only the security check; it is not a complete Tier 1 audit. SkillEvaluator
+scans each skill separately even when its target is the collection. Its
+[reference contract](https://github.com/NVIDIA/SkillEvaluator/blob/4964c8b301cadbc121e126c268d06e201047133c/docs/tier1-reference.mdx#the-checks)
+explains the conditions under which a missing reference leaves the scan incomplete.
+
+```sh
+evaluator="$(command -v skillevaluator)"
+scanner="$(command -v skillspector)"
+if env -i PATH="$PATH" TMPDIR="${TMPDIR:-/tmp}" \
+  SKILLEVALUATOR_SKILLSPECTOR_PATH="$scanner" \
+  "$evaluator" validate "$package_dir/skills" --tiers 1 --checks security \
+  --no-llm --continue-on-failure --workers 4 --report json \
+  --output-dir "$audit_dir/evaluator" > "$audit_dir/evaluator.log" 2>&1
+then status=0; else status=$?; fi
+printf '%s\n' "$status" > "$audit_dir/evaluator.exit"
+mkdir "$audit_dir/skillspector"
+for skill_dir in "$package_dir"/skills/*/; do
+  slug="$(basename "$skill_dir")"
+  if env -i PATH="$PATH" TMPDIR="${TMPDIR:-/tmp}" \
+    "$scanner" scan "$skill_dir" --no-llm --format json --fail-on-incomplete \
+    --output "$audit_dir/skillspector/$slug.json" \
+    > "$audit_dir/skillspector/$slug.log" 2>&1
+  then status=0; else status=$?; fi
+  printf '%s\n' "$status" > "$audit_dir/skillspector/$slug.exit"
+done
+```
+
+Preserve nonzero exits, missing reports, findings, caveats and completeness ledgers. A successful
+process exit alone does not mean the scanner inspected every referenced resource.
+
+### Qualify each unresolved occurrence
+
+For every native `analysis_completeness.references` entry with status `missing` or `ambiguous`,
+record the source file, line, quoted evidence, intended target, owner and availability evidence.
+Keep rejected external links separate from unresolved local references.
+
+| Owner                          | Availability evidence                                                                                                                                                                                        |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| The skill                      | Locate the operational resource in its installed directory. An absent required resource is a defect.                                                                                                         |
+| Another skill                  | Locate the resource in the same installed package version, then verify its reachability through the consumer's actual selected projection. Package presence alone leaves projection availability unverified. |
+| The consumer project or corpus | Identify the selected repository or vault and any conditional requirement, such as “when present.” Without that consumer context, availability remains unverified.                                           |
+| An example or generated output | Read the surrounding passage to establish its role. Do not create placeholder files to make the scan pass. A generated output is unverified until the relevant operation produces it.                        |
+| An external tool               | Check the declared exact version's distribution or documentation. Distinguish a verified published resource from an unverified local installation.                                                           |
+
+Attribute checkout diagnostics under `skills/<slug>/evals/` to source fixtures, preserving their
+source revision and path. They are not evidence that the installed package contains those fixtures;
+confirm the package boundary from the tarball and installation. Do not merge checkout and installed
+findings into one undifferentiated count.
+
+Store the occurrence table, native reports, commands, exits and hashes with the PR or campaign
+artifacts. State which package resources were located, which consumer projections were inspected,
+and which resources were outside the scan. Preserve the scanner's incomplete status alongside that
+qualification; locating a target neither scans its contents nor clears an unrelated analysis gap.
+
 ## Evaluation replay
 
 Start from the source checkout. For example, `skills/codebase-design/evals/module-boundaries/`
