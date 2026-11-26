@@ -43,6 +43,12 @@ an authorized `pr-fix` retains responsibility for open-PR repair.
    belongs to the intended change. Never stage an unrelated file merely to review it. Report the
    paths and versions each check exercises; when staged and working-tree versions differ, do not
    claim a check on one proves the other.
+   Declare initial review or follow-up. Preserve initial candidate/comparison, requirements,
+   covered scope, applicable controls, evidence, limits and every identified finding with a stable
+   ID. A follow-up covers open findings, corrective delta, affected consumers and invalidated
+   evidence; retain the initial reference and justify reuse instead of repeating the whole scan.
+   Read `pr-verdict/references/finding-origins.md` for origins and targeted reopening; this shared
+   reference does not activate `pr-verdict`. If unavailable, name the continuity gap.
 2. For a branch or supplied ref, resolve the ref and capture `git diff <ref>...HEAD` and
    `git log <ref>..HEAD --oneline`. Report staged, unstaged or untracked changes outside that
    committed comparison explicitly. Include them when the requested scope is the complete current
@@ -60,6 +66,8 @@ an authorized `pr-fix` retains responsibility for open-PR repair.
    authority. Give each the exact scope, file inventory and source references, without the author's
    prior verdict. Locate sources in the main thread before delegation. Reviewers must not edit or
    publish. Wait for their reports before consolidating.
+   Supply the declared mode, comparison and scope before their first analysis, then reconcile the
+   initial coverage and open findings; an independent follow-up keeps its declared scope.
    If the transport is unavailable or refused, preserve the candidate and failure evidence; do not
    repeat the same launch or rephrase it to evade a restriction. Look for another already authorized
    fresh session or human reviewer and provide the same candidate, requirements and raw evidence

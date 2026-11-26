@@ -66,15 +66,20 @@ its correction and evidence here without starting another workflow.
    temporary worktree at the anchored head. Keep repair commands and delegates in the isolated
    worktree and preserve the caller's branch, HEAD, index and uncommitted files.
 
-   Activate `pr-verdict`, read its routed references, and run phases 1 through 5 on the
-   exact head SHA when a current applicable review is absent. Use a separate clean detached
+   Recover the initial audit reference, coverage, all finding IDs and dispositions from the
+   journal before selecting a review. Activate `pr-verdict`, read its routed references, and run
+   phases 1 through 5 on the exact head SHA when a current applicable review is absent. Declare
+   an initial audit when no baseline exists; otherwise declare the follow-up comparison, open
+   findings, corrective delta, affected consumers and invalidated evidence. Missing coverage
+   requires explicit recovery, not a claim that it was examined. Use a separate clean detached
    worktree for that review if the recovered repair worktree contains pending changes. Reuse traceable review and check evidence only
    after comparing candidate, scope, requirements, policy, source, oracle, configuration,
    dependencies, environment and integration inputs; record why each retained result still applies.
    Refresh affected evidence rather than replaying unaffected stages. Return the verdict here
    without opening a ticket or publishing it. `pr-verdict` owns conditional activation of
    `proof-integrity-review`; do not start a second parallel audit. Carry its findings and evidence
-   locations into the journal with the head they concern.
+   locations into the journal with the head they concern. Retain the initial candidate, scope,
+   controls, evidence, limits and complete findings even when the public summary is shorter.
 
 2. **Bound the repair.** Before editing, verify human and bot findings against the anchored
    candidate. Record every finding and its disposition in the journal using
@@ -85,10 +90,18 @@ its correction and evidence here without starting another workflow.
    Pause only the affected work for decisions reserved to the user, including new policies on
    access, personal data, amounts, retention or external commitments. Continue independent work.
 
+   Classify every new finding with `pr-verdict/references/finding-origins.md` before deciding
+   its disposition. A late discovery is not automatically outside the mandate. A demonstrated
+   contract defect or essential proof gap reopens its targeted control, including unchanged
+   consumers; a late non-blocking observation alone does not start another corrective slate.
+
    Number and charge each pass before its first correction write. Continue productive passes
    while permitted resources remain. Repeated mechanisms, oscillation or repeated attempts with
    no new causal evidence enter bounded recovery. Preserve human limits, charged passes and
    consumed recovery budgets through interruptions, head changes and delegates.
+   Aim to close the findings in one corrective pass. Beyond two, explain convergence using the
+   origins, resolved and remaining mechanisms, new evidence and consumed resources; continue
+   productive authorized corrections without an automatic pass ceiling.
 
 3. **Integrate in the repair worktree.** Use the worktree from step 1. Preserve author commits
    and unrelated changes.
@@ -148,15 +161,18 @@ its correction and evidence here without starting another workflow.
 7. **Judge the pushed head independently.** If no correction was needed and step 1 already supplies
    an independent review covering this exact candidate and all required evidence, retain it after
    verifying the same input basis; no duplicate review is needed. Otherwise resolve the SHA now
-   shown by the PR and delegate a full
+   shown by the PR and delegate a follow-up
    `pr-verdict` review of that exact head to a distinct auditor in a fresh context with no inherited
    conversation history, including its barrier. Withhold earlier verdicts and author conclusions until the auditor records its
-   independent first analysis; then reconcile earlier findings and traceable evidence. Verify the
+   independent first analysis. Supply the declared comparison and scope first: corrective delta,
+   affected consumers and invalidated evidence. Then reconcile the initial audit, all open finding
+   IDs, origins, dispositions and traceable evidence. Verify the
    candidate remains unchanged. Write-capable tools alone do not invalidate independence; retain
    unknown capabilities and enforce technical isolation only for an explicit security obligation.
    Finish the executable slate before delegating. A blocked independent finding remains open and
    bars approval when essential. It does not prevent a permitted push and review of completed work.
-   Return newly confirmed in-scope findings to step 2. Scope the next independent review to the
+   Return newly confirmed required corrections to step 2; record other observations with their
+   disposition rather than automatically expanding the slate. Scope the next independent review to the
    delta and affected checks when retained evidence still applies to the aggregate candidate.
    If the aggregate PR diff changes a verification mechanism, require `pr-verdict` to renew its `proof-integrity-review` audit over the complete aggregate diff at the
    new head, even when the latest correction is editorial. An audit of the previous head cannot

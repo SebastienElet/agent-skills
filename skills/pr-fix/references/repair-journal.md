@@ -12,6 +12,11 @@ Keep this operational journal outside Git, any temporary worktree and durable ag
 Read earlier passes before planning; reconcile them against the current diff and commits.
 One repair session owns a PR journal at a time.
 
+Recover the initial audit's candidate/base, contract, covered scope, applicable controls,
+evidence, limits and complete finding IDs. Reconcile subsequent review scopes, dispositions
+and reopenings against it. Preserve gaps when that reference is partial; recover missing
+coverage before an aggregate approval without restarting already evidenced controls by default.
+
 If the journal is missing or damaged, preserve the surviving evidence and read relevant
 handoffs, conversation, local worktrees and refs, and forge records. Reconcile visible fixes
 against the current head before proposing a new slate. Recover prior pass boundaries, active
@@ -36,7 +41,12 @@ authority and never overlap a repair with an identified active owner.
 
 ## Finding dispositions and convergence
 
-Give each finding a recorded mechanism, scope, evidence and current disposition:
+Give each finding a stable ID, mechanism or missing proof, impact, scope, first observed
+candidate, evidence and current disposition. Read
+`pr-verdict/references/finding-origins.md` to distinguish initial findings,
+correction regressions, late discoveries, outside-mandate defects, changed inputs and unknown
+origins with their comparison basis. Unchanged consumer lines do not exclude a regression.
+Use these dispositions:
 
 - Corrected and verified on the identified candidate.
 - Refuted with evidence.
@@ -49,6 +59,11 @@ A local follow-up draft grants no tracker write and cannot dispose of a required
 correction or essential proof. Continue open in-scope findings with available corrections or
 lift checks. Record essential missing proof as blocking approval.
 
+Record each targeted reopening with its mechanism or proof gap, impact, origin, affected
+control and consumers, lift condition, evidence and consumed investigation resources. Late
+discovery alone neither removes a contract defect from the mandate nor restarts a full sweep.
+Keep late non-blocking observations dispositioned without automatically charging another slate.
+
 For each pass, record the starting candidate, distinct failure mechanisms, lift checks and
 expected progress. Compare the observed checks, diff and independent findings with earlier
 attempts. Continue while independent evidence shows progress, such as a mechanism eliminated
@@ -60,6 +75,11 @@ Charge elapsed investigation and attempts to the same mechanism across names, he
 and delegates. Stop the dependent work at exhaustion or when no informative next attempt
 remains. Preserve the result and resumption condition, and continue independent work within
 the remaining global resources.
+
+Distinguish initial audits, follow-up reviews, corrective batches charged on first write and
+reassessments without writes. Record each review's comparison, affected scope, justified reused
+observations and invalidated evidence. Beyond two corrective passes, explain convergence from
+resolved and recurring mechanisms and new evidence; the count alone does not end productive work.
 
 ## Updating the journal
 

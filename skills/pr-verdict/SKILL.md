@@ -42,12 +42,6 @@ Activation is instruction-scoped, not host-enforced: the description and this us
 selection. Keep model invocation available because a host-level manual-only flag also blocks the
 composed call; reading files manually after a rejected invocation is not the composition mechanism.
 
-After explicit invocation, typical cases are: "is this PR safe to merge?" (phase 1 checks its
-actual base), "review this PR before I approve it" (phase 3
-turns a vague unease into a named mechanism, or drops it), "they pushed the fixes, re-review"
-(phase 6 finds the previous marker, sees a new SHA, and publishes a second verdict rather than
-editing the first).
-
 Run the six phases in order; phase 4 precedes phase 5 because a verdict without an executed barrier
 is an opinion. When `pr-fix` composes this skill for an initial or delegated review, stop after
 phase 5 and return the unpublished verdict to that workflow. This skill and its references are
@@ -71,8 +65,16 @@ says to post directly.
    Before declaring readiness in phase 1, read the [integration checks](references/forges.md#integration-checks)
    for destination integration and barrier replay requirements.
 
+   Declare `initial` or `follow-up`. Preserve the initial audit's candidate/base, contract and
+   covered scope, applicable controls, per-control evidence and limits, behavior ledger and all
+   finding IDs. Recover that reference on resumption. A follow-up declares its comparison and
+   covers open findings, corrective delta, affected consumers and invalidated evidence; identify
+   missing initial coverage explicitly and recover it before claiming aggregate approval.
+   Read [finding origins](references/finding-origins.md) before recording or reconciling findings.
+
 2. **Understand before judging.** Read the PR description, the design documents it cites, and the
-   whole diff. The attachments are part of the description: a screenshot or an uploaded log is
+   whole diff for an initial audit. For a follow-up, read the corrective delta and affected flows,
+   retaining the initial coverage and ledger with a justified input comparison. The attachments are part of the description: a screenshot or an uploaded log is
    evidence the author supplied, and the forge returns it as raw markup that a text pass slides
    over — download every one and look at it, in the comments too (`references/forges.md`).
    Restate the invariant the code claims to hold, in one sentence. Producing a blocking defect
@@ -95,8 +97,12 @@ says to post directly.
    established external workflow. Reuse relevant observed commands on the same inputs instead of
    running a duplicate barrier; preserve the proof auditor's fresh context and independent first pass.
 
-3. **Sweep the failure classes.** Put every question in `references/failure-classes.md` to the
-   diff. Record, per class, one of: not applicable, holds because `<evidence>`, unproven, or broken by
+3. **Apply the failure classes.** For an initial audit, put every question in
+   `references/failure-classes.md` to the diff and return all identified findings together.
+   For a follow-up, apply the relevant classes to its declared scope and reconcile retained
+   coverage; do not restart an exploratory sweep automatically. A demonstrated contract defect
+   or essential proof gap reopens its targeted control under `finding-origins.md` regardless of
+   when the affected code appeared. Record, per applicable class, one of: not applicable, holds because `<evidence>`, unproven, or broken by
    `<mechanism>`. Explain non-applicability in one clause and name the constraint, transaction,
    schema or executed test supporting `holds`. For unproven, name the missing evidence: block only when that proof is essential
    to approval under phase 5, explaining why and what would lift the gap; otherwise retain a bounded
@@ -106,11 +112,11 @@ says to post directly.
    rewritten instructions. For class 14, check that every behavior-changing manifest, lockfile,
    tool configuration and pinned version is in the relevant task inputs, that file removal carries
    its role over to those inputs, and that a required job cannot silently pass with an empty
-   affected-task selection on such changes. When the head under review was written in this session, delegate the review to a distinct auditor in a fresh context with no inherited
-   conversation history, scoped to the diff. Every review requires an auditor distinct from the author
+   affected-task selection on such changes. Every review requires an auditor distinct from the author
    in a fresh context with no inherited conversation history and an independent first analysis:
    withhold prior verdicts and author conclusions until
-   that pass is recorded. Instruct
+   that pass is recorded. Supply the declared review mode, comparison and scope before the first
+   analysis; independence does not expand a follow-up into an initial audit. Instruct
    the auditor not to modify the candidate and verify its state before and after. Available write
    tools alone do not block; technical isolation is mandatory only for an explicit security
    obligation. Keep unknown capabilities unknown. Reconcile the sweep with the changed-behavior ledger:
@@ -153,7 +159,8 @@ says to post directly.
    structured receipt was explicitly required, its missing, stale or rejected gate also blocks;
    absence of an optional receipt alone does not.
    Retain the full audit and its evidence in the review context or a local artifact; return it to
-   `pr-fix` when composed. Use `assets/comment-template.md` for the public summary. A shorter comment
+   `pr-fix` when composed, including initial coverage, retained evidence, origins, dispositions
+   and targeted reopenings with consumed resources. Use `assets/comment-template.md` for the public summary. A shorter comment
    never waives an audit step, ledger row, negative witness or approval prerequisite.
    Do not publish a separate proof verdict or interpret a path-only `NOT_APPLICABLE` as an exemption.
 

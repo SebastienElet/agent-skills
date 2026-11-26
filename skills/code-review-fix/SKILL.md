@@ -55,6 +55,9 @@ instruction-level, not host-enforced.
    local edits. Keep unrelated changes outside the repair slate. Recover the existing ledger,
    authorizations, pass count, disagreements and evidence before another pass. Missing required
    history stops dependent work rather than resetting its counters or inventing progress.
+   Recover the initial review's candidate, comparison, coverage, controls, evidence and limits.
+   Retain every finding ID and its origin/disposition using
+   `pr-verdict/references/finding-origins.md`; reading that shared reference grants no PR verdict.
 2. **Establish one writer and the runtime.** Suspend the author's writes until the correction
    ends. Use the current agent for corrections and fresh contexts for independent reviews.
    When the mandate specifically requests Codex from Claude Code, read
@@ -74,7 +77,9 @@ instruction-level, not host-enforced.
    and why it remains applicable. Otherwise obtain a fresh `code-review` of the anchored
    candidate, with requirements, applicable ADRs and raw check evidence. Withhold
    the author's verdict and supplied findings until the reviewer records its first analysis, then reconcile
-   them. For each finding, record the location, failure mechanism, violated requirement and relevant
+   them against the initial review. Declare initial or follow-up and its comparison/scope before
+   that first analysis. Preserve the full initial coverage and all identified findings outside
+   the public summary. For each finding, record the location, failure mechanism, violated requirement and relevant
    check in a scratchpad outside Git. Mark it `confirmed`, `refuted` with evidence, or
    `decision-required`. Style preferences do not enter the repair slate. Apply established policy and decide delegated choices; route only decisions whose effects
    may require human authority through `requirements-clarification`. Review authorized isolated
@@ -107,6 +112,12 @@ instruction-level, not host-enforced.
    in step 3, even without a candidate change. Supply the final candidate, requirements and raw
    evidence before earlier conclusions;
    reconcile the finding ledger after its first analysis. Review the affected delta and consumers.
+   Record evidence reused with its basis and newly invalidated evidence. Classify new findings
+   before disposition: a regression may affect unchanged consumers; a late discovery does not
+   itself establish scope. A demonstrated contract defect or essential proof gap reopens its
+   targeted control with impact, origin, lift condition and resources consumed. A late non-blocking
+   observation alone starts no new slate; retain its disposition and any useful local follow-up
+   draft without creating a ticket. Do not restart a general exploratory scan automatically.
    Changed verification mechanisms require `proof-integrity-review` over the complete affected
    change. Compare candidate hashes before and after review; concurrent edits invalidate the
    affected review and require a new anchor.
@@ -118,6 +129,8 @@ instruction-level, not host-enforced.
    Continue the next confirmed, in-scope correction under existing authority, including after
    the second pass, while this evidence shows progress and no stricter user limit is reached.
    Newly discovered defects remain explicit; do not erase them to claim success.
+   Aim for one corrective pass; beyond two, explain convergence with origins, remaining
+   mechanisms, new evidence and consumed resources without imposing a pass ceiling.
 
    When a correction fails, the same mechanism recurs or evidence contradicts the proposed cause,
    stop repeating that correction and return to diagnosis, design or the owning check with the
