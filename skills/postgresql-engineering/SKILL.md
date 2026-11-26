@@ -34,7 +34,8 @@ otherwise follow the project's existing workflow. Do not restart their procedure
 
 1. **Establish the actual boundary.** Identify server major/minor version, client/ORM/pool and
    configuration, relevant ADRs in force, application callers and deployed schema: types,
-   constraints, indexes and tenant keys. Gather relevant volumes, distributions, skew and
+   constraints, indexes and tenant keys. Compare versioned migrations with the deployed catalog
+   when a difference could change the decision. Gather relevant volumes, distributions, skew and
    existing observations. Use authorized metadata or synthetic equivalents; identify missing
    facts and keep hypotheses separate. Verify version-sensitive behavior in that major's
    official manual, including the client's documented transaction and parameter APIs.
@@ -45,10 +46,12 @@ otherwise follow the project's existing workflow. Do not restart their procedure
    affected path; investigate plausible migration intent before proposing an exception.
 3. **Choose the smallest correct operation.** Read [SQL semantics](references/sql-semantics.md)
    for queries and ORM SQL; [schema and integrity](references/schema-integrity.md) for model
-   changes; [transactions](references/transactions.md) for writes or races. Choose JOIN, EXISTS,
-   pre-aggregation, window, LATERAL or CTE by their result semantics. Prefer set operations when
-   they simplify the work without unbounded fan-out. Bind values; use the client's supported
-   identifier composition and an authorized name set for dynamic identifiers.
+   changes, cardinality or history; [data types](references/data-types.md) for storage, coercion or
+   driver/API type contracts; [transactions](references/transactions.md) for writes or races.
+   Choose JOIN, EXISTS, pre-aggregation, window, LATERAL or CTE by their result semantics.
+   Prefer set operations when they simplify the work without unbounded fan-out. Bind values;
+   use the client's supported identifier composition and an authorized name set for dynamic
+   identifiers.
 4. **Diagnose before tuning.** For latency, blocking or index changes, read
    [performance](references/performance.md). Obtain the SQL actually executed, representative
    parameters and available observations, then start with EXPLAIN. EXPLAIN ANALYZE executes the
@@ -64,8 +67,12 @@ otherwise follow the project's existing workflow. Do not restart their procedure
 6. **Prove the relevant behavior.** Reuse repository checks and real, isolated PostgreSQL with
    synthetic data for engine-owned semantics, constraints and concurrency. Include empty,
    NULL, duplicate, tenant and failure cases that can change the result. Use controlled session
-   interleavings for races; in-memory substitutes do not prove them. Report the result, actual
-   server/client environment, evidence, hypotheses and untested boundaries.
+   interleavings for races; in-memory substitutes do not prove them. Match rejected writes to the
+   expected SQLSTATE and constraint. Test changed type contracts through the real driver and
+   application entry point when they own coercion or serialization. When a plausible broken
+   implementation could pass, exercise it against the same assertions and require the intended
+   failure. Report the result, actual server/client environment, evidence, hypotheses and
+   untested boundaries.
 
 ## Gotchas
 
