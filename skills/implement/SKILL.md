@@ -172,7 +172,9 @@ and cause belong to `diagnosing-bugs`.
    unless an applicable prohibition or resource policy forbids it. Reuse a matching active run;
    “wait for the result” does not itself forbid launching a missing check. With a ticket, let
    `issue-start` own PR association and `issue-workflow` govern completion evidence and any
-   permitted tracker writes. Without one, omit tracker operations. Recover uncertain external
+   permitted tracker writes. Before handing off a GitHub PR with a provisional issue reference,
+   apply the GitHub adapter's closing-link recheck to the latest observed evidence.
+   Without a ticket, omit tracker operations. Recover uncertain external
    effects through `orchestrate` before retrying, then independently read back the actual
    delivery result. Do not infer approval, merge or deployment permission from a push or PR.
    Carry unresolved verification outcomes into the PR with their evidence, dependency and replay

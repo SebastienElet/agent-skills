@@ -17,7 +17,8 @@ For an authorized GitHub closing link on a leaf issue, verify the current criter
 candidate before adding the link. Record the named checks or observations in the PR even when
 the issue uses prose or unchecked boxes. The native link delegates closure to the default-branch
 merge and leaves the issue open during review. GitHub does not revalidate the criteria at merge.
-Use a non-closing reference while any required acceptance evidence is missing.
+Use a non-closing reference while any required acceptance evidence is missing. A pending merge gate
+is missing acceptance evidence only when its result is still needed to verify a current criterion.
 
 ## What a checked box asserts
 
