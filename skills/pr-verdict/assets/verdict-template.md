@@ -33,6 +33,13 @@ inputs. Required negative witnesses identify observed test-first RED or a contro
 rationale for other witnesses. A demonstrated defect or essential missing proof prevents approval;
 document other limits without automatically blocking.>
 
+<Review continuity — REQUIRED. Initial or follow-up; initial candidate/base and audit reference;
+declared coverage, applicable controls, evidence and limits. On follow-up, name the corrective
+comparison, affected consumers, invalidated evidence and justified retained observations. Keep all
+finding IDs with origins and dispositions, including items omitted from the public summary.
+Record targeted reopenings with mechanism or missing proof, impact, origin, lift condition and
+resources consumed. This record claims coverage examined, not absence of every possible defect.>
+
 <For normalization or redaction changes, map the hostile-input table and complete display-output
 inventory to the relevant ledger rows (classes 11 and 12). For an unchanged public schema, MCP or
 CLI contract claim, cite the byte comparison of the actual base/head exports or label the claim
