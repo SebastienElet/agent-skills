@@ -92,14 +92,23 @@ the SHA and the observation time in the evidence linked from `Delivery`; keep it
 that line. Only `confirmed` and `already present` may appear as an approval for the current head
 in the repair record; report `present — age unknown` accurately, and never call it renewed.
 
+## Description preparation
+
+During repair, read the raw description and retain its snapshot with the observed PR head. Draft
+the factual changes locally with the final repair result. Preserve the author's objectives and
+unrelated text. Update claims affected by the repair, and link evidence with its actual tested
+candidate, environment and limits. Label older evidence with its original provenance. Keep the
+draft and its diff against the captured body in the journal even when publication is declined or
+the gate cannot yet be reached.
+
 ## Step 8 publication protocol
 
 Read this protocol whenever step 8 continues past its verdict, CI and pending-correction checks.
 The repair-record construction and publication rules below apply even when native approval is not
 performed for an own PR, a user prohibition or a user decline, and when approval is already present.
 
-When the [approval gate](#gate) holds, present these three items and
-wait for the answer:
+When the [approval gate](#gate) holds, present these three items, alongside any proposed
+description diff and its separate question, and wait for the applicable answers:
 
 1. the independent verdict (`approved`), the head SHA and the SHA of the CI run;
 2. the draft verdict comment, built from `pr-verdict/assets/comment-template.md` in the PR's
@@ -113,16 +122,49 @@ an earlier general authorization or silence is not one. The answer binds the pre
 it, re-read the head, and if it moved discard the answer and ask again on the new head. When no
 user can answer, keep the journal pending, record the awaited answer and report it.
 
+Present the description diff against its captured body at this same gate when there is a change,
+including on an own PR or when approval is otherwise unavailable. Ask separately whether to apply
+that exact diff. Record the authorization with the full original raw body snapshot, proposed diff
+and PR head shown to the user. Keep those anchors when refreshing a draft. Respect each answer
+and any prior prohibition for the action it covers. A refusal
+of all publication also bars the factual repair record. Silence grants no description, verdict or
+approval authority.
+
+Check existing publication decisions before asking. Collect the applicable choices
+on the same head. Re-read the head before acting; a moved head requires re-anchoring,
+review and CI as applicable. Before publishing a verdict or approving, compare the current body
+with the body used for the review and reconcile any material change to its inputs.
+
+Before issuing a description edit, retrieve the current raw body into a separate local
+file. Compare the entire body with the authorized snapshot byte for byte and compare
+the current head with the authorized head. Inspect both results in a completed tool
+call. A missing snapshot, failed read or comparison, or mismatch blocks the edit,
+even when the approved hunk still applies. If only the body changed, save a new local
+diff that preserves the current text and record the stale consent. Present the new
+diff for fresh authorization, or retain it in the journal when no user can answer.
+
+If the body changes material review inputs,
+refresh the affected review and suspend dependent publication until those inputs are reconciled.
+Re-evaluate independent approval, required CI and pending corrections after reassessment. If the
+verdict draft or its material evidence changes, the earlier answer does not authorize publishing
+the revised verdict or approving on that basis. Present the revised decision and obtain new consent.
+Use a supported conditional write when the forge provides it. A read before a write alone
+cannot guarantee concurrency protection. After a write, independently read the resulting body
+and head and record what was observed. A mismatch or uncertain result pauses dependent publication.
+Read remote state before retrying, and retry only if the original authorization and both anchors
+remain valid. Never restore a prior body automatically.
+
+Use the journal's evidence for each permitted publication. Complete any authorized description
+update that affects review inputs, and reconcile its read-back, before publishing the verdict or
+approving. An authorized factual correction is not a new independent verdict: refresh review if
+its inputs changed.
+
 - **Publish and approve:** publish the draft through `pr-verdict/references/forges.md` (its
   marker lookup updates a same-head verdict in place), read it back, record its comment ID and URL
   in the journal, then approve. A failed or uncertain publication pauses the approval until a
   remote read by marker settles it.
 - **Approve only:** approve without publishing the verdict.
 - **Do nothing:** publish no verdict and do not approve; record `approval: not performed — user declined` in `Delivery`.
-
-Use the journal's evidence for the publications permitted by this step. Update the PR description
-only if the user explicitly authorized the presented evidence update on this same head; permission
-to publish a verdict or approve alone does not authorize that description change.
 
 Approve by applying the [native approval procedure](#procedure). Keep the current approval state in `Delivery`
 and each transition in its linked evidence with account, SHA and time. A confirmed or already
@@ -132,7 +174,8 @@ withdrawn approval or an approval of unknown age when approval for this head was
 The approval never authorizes merging or adding the PR to a merge queue; each requires a
 separate explicit request.
 
-Build `assets/repair-record.md` from all journal passes in the PR's language: one opening sentence
+When the user's publication limits permit the factual repair record, build
+`assets/repair-record.md` from all journal passes in the PR's language: one opening sentence
 with the final SHA, one short bullet per corrected problem, validation counts and limits, then
 the independent verdict and the verified native approval state as separate lines.
 Consolidate repeated fixes by their final outcome and omit superseded attempts; retain their

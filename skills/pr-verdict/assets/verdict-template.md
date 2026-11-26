@@ -57,9 +57,9 @@ not cover. The verdict is invalid without that second half. Evidence the author 
 attachment, a pasted output — is named as theirs: never counted as measured here, never reported
 as absent.>
 
-<Non-blocking remarks — three lines at most, one per remark, each prefixed "Non-blocking:". Keep
-the ones that would change a reviewer's decision, drop the rest: past three, the section is a
-second review competing with the verdict for attention. Drop it entirely rather than pad it.>
+<Non-blocking remarks. In a composed pr-fix handoff, include every actionable finding and
+evidence limit with its proof and lift condition. For standalone use, keep at most three other
+non-blocking remarks, each prefixed "Non-blocking:". Omit this section when empty.>
 
 Fix: <url>                REQUIRED when the verdict blocks
 Initial review: <url>     REQUIRED when a previous verdict exists on this PR
@@ -130,7 +130,8 @@ Do not approve or merge this head; this verdict is advisory.
 - Every attachment in the description and the comments was opened, and evidence the author supplied
   is attributed to them rather than reported missing.
 - No lift criterion asks for a run the PR already shows; it names the control the repository lacks.
-- At most three non-blocking lines; a fourth means the section is competing with the verdict.
+- A composed handoff retains every actionable finding and evidence limit. The standalone limit
+  applies only to its non-blocking remarks.
 - No re-review ticket or `Re-review:` slot; the head-specific verdict is the re-review record.
-- Outside the required ledger, total under about thirty lines. Past that, preferences have leaked
-  into the blocking section.
+- For standalone use, keep the audit concise outside the required ledger. Preserve the full
+  findings and evidence limits in a composed handoff.
