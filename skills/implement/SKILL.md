@@ -75,6 +75,9 @@ and cause belong to `diagnosing-bugs`.
    change and relevant native or existing check. Consume the plan through `orchestrate` and
    continue authorized implementation. A reserved decision or confirmed ADR contradiction blocks
    dependent work; progress independent authorized units within the existing mandate.
+   For a prerequisite in another repository, use `orchestrate`'s external-prerequisite procedure
+   to prepare the follow-up or reuse existing work, retain the resumption condition and continue
+   eligible independent units through verification.
 
    When the change touches a concern in the
    failure-class domain index in the `pr-verdict` skill's `pr-verdict/references/failure-classes.md`,

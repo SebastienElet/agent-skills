@@ -86,7 +86,11 @@ authority.
    - Candidate identity: repository/worktree, comparison base, HEAD and relevant staged, unstaged
      and untracked contents or hashes. For non-code work, identify the artifact and source revision.
    - Evidence tied to that candidate and its inputs: command or observation, result, location,
-     environment and uncovered targets. Keep hypotheses distinct from demonstrated facts.
+     environment and uncovered targets. Keep hypotheses distinct from demonstrated facts, with
+     their scope and revisit condition.
+   - External prerequisites: existing requests or prepared drafts, verified target and sources,
+     dependent units, missing facts and exact resumption condition. Keep the artifact accessible
+     beyond temporary worktree deletion; hand over its contents or an actually accessible reference.
    - Blockers, attempted resolutions, elapsed investigation, correction-pass counts, target-advance
      reintegration count and limit, tested head/base and latest observed target SHA, progress evidence
      and applicable limits.
@@ -117,6 +121,27 @@ authority.
    | Discoverable unknown                                                                | Investigate through authorized sources; do not ask the user to supply repository facts.                                                                                                                                                  |
    | Reserved decision or missing authorization (`decision-required`)                    | Use `requirements-clarification` to prepare the permitted result and ask the smallest material question; pause only dependent actions. Silence is not approval.                                                                          |
    | ADR contradiction, exhausted budget or unavailable essential capability (`blocked`) | Preserve the candidate, evidence and exact missing condition; report the limit and continue independent authorized work.                                                                                                                 |
+
+   For a prerequisite in another repository, distinguish a verified missing capability from an
+   unknown contract or unavailable access. Use accessible authoritative sources and search existing
+   work within the recovery budget before concluding absence. Identify dependent and independent
+   units; a structured active blocker still forbids starting its issue. Continue other eligible,
+   authorized work through verification without asking whether to prepare a follow-up.
+
+   When the capability is verified missing, prepare an actionable prerequisite using
+   `issue-creation` in draft mode: verified target repository, title, expected outcome, complete
+   body, observable acceptance criteria, sources and exact resumption condition. Describe the
+   needed result without prescribing speculative implementation. Reference a relevant existing
+   request instead of drafting a duplicate. Keep an unknown target or contract explicit; do not
+   invent either or turn inaccessible evidence into proof of absence.
+
+   Keep this preparation in the conversation, prepared PR description or established private task
+   storage. Recover acquired authorizations without asking again. Drafting grants no authority to
+   create a ticket, message another team, modify its repository or make commitments; apply existing
+   publication authority separately. Address only decisions genuinely beyond the mandate to their
+   human owner. If no independent work remains, preserve the result and report the event, evidence
+   or decision needed to resume and the next authorized action. A draft never resolves an ADR
+   contradiction, supplies essential proof or makes the overall acceptance complete.
 
    Independent review is optional unless requested or already required. Route review-only work
    to `code-review`; local review corrections to `code-review-fix`; explicit open-PR
