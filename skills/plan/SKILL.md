@@ -53,7 +53,10 @@ an ADR contradiction or a decision reserved to the user still bounds continuatio
    it owns isolated sensitive proposals and the remaining human questions.
    Preserve decisions already acquired. An apparent ADR conflict calls for investigation; a
    confirmed contradiction blocks the affected path, not an opportunistic ADR edit. Continue
-   independent preparation within the mandate. Do not turn a bounded plan into a questionnaire,
+   independent preparation within the mandate.
+   For a prerequisite in another repository, use `orchestrate`'s external-prerequisite procedure
+   for the draft or existing request, unknowns and resumption condition; continue independent
+   preparation within the plan-only boundary. Do not turn a bounded plan into a questionnaire,
    functional specification or multi-session decision map. `issue-spec` owns requested specification
    synthesis; `wayfinder` and interview skills retain their invocation restrictions.
 
