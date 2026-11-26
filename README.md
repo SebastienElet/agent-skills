@@ -61,6 +61,11 @@ User instructions supply preferences,
 including note naming and the default Obsidian corpus. This package supplies
 no personal instructions, corpus, agent/model selection, credentials or service configuration.
 
+`design-taste-frontend` is installed transitively from [Taste Skill](https://github.com/Leonxlnx/taste-skill) with Bun.
+npm is unsupported because upstream has no root `package.json`. Select the whole directory
+`node_modules/design-taste-frontend/skills/taste-skill` and expose it as
+`design-taste-frontend`.
+
 ## Optional companions
 
 These separately owned capabilities are not bundled or installed automatically. Each is listed with

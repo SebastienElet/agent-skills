@@ -31,6 +31,7 @@
     "format:check": "prettier --check \"**/*.{md,json,yml,yaml,ts}\" .github"
   },
   "dependencies": {
+    "design-taste-frontend": "github:Leonxlnx/taste-skill#12af471f627f866411b4bd785b19646d3672784c",
     "zod": "4.6.7"
   },
   "devDependencies": {
