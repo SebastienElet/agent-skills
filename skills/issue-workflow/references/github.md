@@ -36,9 +36,18 @@ Only with publication authority, confirm the remote source branch and target, th
 Read [completion-evidence.md](completion-evidence.md) before adding a closing link. Use
 `Closes #<number>` in the PR body when the PR targets the default branch,
 finishes the issue, and named evidence covers its current acceptance criteria. Use
-`Closes <owner>/<repo>#<number>` for a verified cross-repository issue. Use `Refs` for partial work
-or pending evidence. If that evidence arrives during review, refresh the issue and promote the link
-on the authorized open PR. If a revision invalidates the evidence, restore the non-closing reference.
+`Closes <owner>/<repo>#<number>` for a verified cross-repository issue. Base this decision on the
+issue's acceptance criteria. Pending repository-wide checks do not delay the closing link when
+the current candidate already has the required acceptance evidence. Apply merge gates separately.
+Use `Refs` for partial work, a non-default base, or missing required acceptance evidence.
+
+When a required check finishes during delivery or review, and before handing off an open PR with a
+provisional `Refs`, refresh the issue, PR head and base, and relevant check results. If the closing
+conditions now hold, replace `Refs` with `Closes` in the authorized PR body edit, even on a draft,
+and verify the native association. If the edit is outside the mandate or the evidence is still
+missing, report the exact pending edit or criterion. If revised work invalidates the evidence,
+restore the non-closing reference within the same edit authority.
+
 Keep closing keywords out of commit messages so the PR body controls the link. See the
 [GitHub closing-link contract](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue)
 for native link behavior.
