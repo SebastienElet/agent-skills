@@ -22,10 +22,10 @@ approval of that head. It does not authorize a force-push, issue creation, verdi
 native approval, merge or merge queue entry: verdict publication and approval each wait for the
 user's explicit answer in step 8. The repaired head earns its own verdict from a
 fresh context because the context that wrote a fix cannot independently validate it.
-Accumulate corrections in a local journal across passes and sessions. Ask, then act on the answer,
-then publish one cumulative repair record, only when the current head is independently approved and
-its required remote CI is green. The repair record engages no merge decision and needs no separate
-consent; an explicit user prohibition of approval still wins.
+Accumulate corrections and dispositions in a local journal across passes and sessions. Prepare
+the factual description diff locally. Present it at the publication gate with its own authorization.
+Publish a cumulative repair record only after independent approval and required CI on the current
+head, subject to the user's publication limits.
 
 ## Usage
 
@@ -59,12 +59,16 @@ its correction and evidence here without starting another workflow.
    to open or create the stable PR journal and reconcile its history and remaining budget.
 
    After journal recovery, fetch the anchored objects without switching the caller's checkout.
-   Create a clean detached temporary worktree at that SHA. Use its path as the working directory
-   for every subsequent command, including composed reviews, commits and pushes; pass it to
-   delegates. Preserve the caller's branch, HEAD, index and uncommitted files.
+   Reconcile any recovered charged slate with its worktree, local commits and the current
+   remote head. Resume that worktree only when its identity and pending corrections match.
+   Preserve unresolved local edits and commits if the remote head moved, then re-anchor
+   before reapplying any remaining correction. For a new slate, create a clean detached
+   temporary worktree at the anchored head. Keep repair commands and delegates in the isolated
+   worktree and preserve the caller's branch, HEAD, index and uncommitted files.
 
-   In that worktree, activate `pr-verdict`, read its routed references, and run phases 1 through 5
-   on the exact head SHA when a current applicable review is absent. Reuse traceable review and check evidence only
+   Activate `pr-verdict`, read its routed references, and run phases 1 through 5 on the
+   exact head SHA when a current applicable review is absent. Use a separate clean detached
+   worktree for that review if the recovered repair worktree contains pending changes. Reuse traceable review and check evidence only
    after comparing candidate, scope, requirements, policy, source, oracle, configuration,
    dependencies, environment and integration inputs; record why each retained result still applies.
    Refresh affected evidence rather than replaying unaffected stages. Return the verdict here
@@ -72,19 +76,19 @@ its correction and evidence here without starting another workflow.
    `proof-integrity-review`; do not start a second parallel audit. Carry its findings and evidence
    locations into the journal with the head they concern.
 
-2. **Bound the repair.** Present one repair slate before editing: every blocker has its failure
-   mechanism, broken invariant and lift test; at most three non-blocking items may follow, and only
-   when they are objective, localized and observable. Continue without another confirmation because
-   invoking this workflow authorized the repair. Stop before editing when a correction requires an
-   unresolved product, architecture, migration or public-contract decision.
+2. **Bound the repair.** Before editing, verify human and bot findings against the anchored
+   candidate. Record every finding and its disposition in the journal using
+   [finding dispositions and convergence](references/repair-journal.md#finding-dispositions-and-convergence).
+   Present the slate with each confirmed mechanism, invariant and lift check. Group related
+   findings for presentation while retaining every actionable item. Continue corrections already
+   covered by the mandate, including objective reservations whose lift check is available.
+   Pause only the affected work for decisions reserved to the user, including new policies on
+   access, personal data, amounts, retention or external commitments. Continue independent work.
 
-   Verify human and bot findings against the anchored candidate; record confirmed defects,
-   evidence-backed refutations and unresolved decisions separately. Allow at most two correction
-   passes for this repair, including corrections to corrections. Count a pass when its slate
-   starts writing, persist that charge before the first correction write, and retain it through
-   interruptions, head changes and delegates. Once exhausted,
-   preserve unresolved findings and disagreements, report incomplete and stop dependent repair;
-   do not route them into a fresh local loop.
+   Number and charge each pass before its first correction write. Continue productive passes
+   while permitted resources remain. Repeated mechanisms, oscillation or repeated attempts with
+   no new causal evidence enter bounded recovery. Preserve human limits, charged passes and
+   consumed recovery budgets through interruptions, head changes and delegates.
 
 3. **Integrate in the repair worktree.** Use the worktree from step 1. Preserve author commits
    and unrelated changes.
@@ -127,8 +131,8 @@ its correction and evidence here without starting another workflow.
    If the head moved, do not push: anchor the new head, inspect the overlap, and reapply only
    corrections that remain valid. Push every correction of the slate together, normally, to the
    resolved source ref; never use a force option. A rejected push or missing permission leaves the
-   commits local and becomes an explicit delivery blocker. One repair produces one judged head:
-   every extra push discards a verdict already delegated and buys another review pass.
+   commits local and becomes an explicit delivery blocker. Each pushed slate produces one
+   independently judged head. Push a further slate only for newly confirmed corrections.
 
    Before each push, inspect `git diff --summary <resolved-destination>...HEAD` and indexed file modes
    for unintended changes, especially after edits on another host or mount. Restore an unintended
@@ -139,7 +143,7 @@ its correction and evidence here without starting another workflow.
    result. On interruption or an ambiguous push result, reconcile remote commits before resuming.
    In the same push step, refresh evidence in the journal under `pr-verdict` phase 4: current
    head/base, commands, statuses and environment, or explicit historical/unproven labels. Keep this
-   refresh local through step 7, including composed reviews; do not update the remote description.
+   refresh local through step 7, including composed reviews.
 
 7. **Judge the pushed head independently.** If no correction was needed and step 1 already supplies
    an independent review covering this exact candidate and all required evidence, retain it after
@@ -150,12 +154,11 @@ its correction and evidence here without starting another workflow.
    independent first analysis; then reconcile earlier findings and traceable evidence. Verify the
    candidate remains unchanged. Write-capable tools alone do not invalidate independence; retain
    unknown capabilities and enforce technical isolation only for an explicit security obligation.
-   Do not delegate
-   while a correction is still pending — a head you intend to amend is a head whose verdict you are
-   about to throw away. When that review does find a defect in the repair itself, correct it, push
-   once, and scope the second delegation to the new delta and its affected checks instead of repeating
-   the whole sweep. Exception: if the aggregate PR diff changes a verification mechanism, require
-   `pr-verdict` to renew its `proof-integrity-review` audit over the complete aggregate diff at the
+   Finish the executable slate before delegating. A blocked independent finding remains open and
+   bars approval when essential. It does not prevent a permitted push and review of completed work.
+   Return newly confirmed in-scope findings to step 2. Scope the next independent review to the
+   delta and affected checks when retained evidence still applies to the aggregate candidate.
+   If the aggregate PR diff changes a verification mechanism, require `pr-verdict` to renew its `proof-integrity-review` audit over the complete aggregate diff at the
    new head, even when the latest correction is editorial. An audit of the previous head cannot
    satisfy that requirement; refresh the report's candidate and policy bindings while reusing
    traceable observations, including CI, when their relevant inputs are unchanged. Regenerate
@@ -164,31 +167,40 @@ its correction and evidence here without starting another workflow.
    guarantees; other missing evidence blocks only when essential to the decision.
    Record dated review evidence with its verdict, SHA and policy, linked from the pass. Preserve older
    verdicts, including a rejection on the same SHA; policy correction never approves them retroactively.
-   Keep corrections within step 2's remaining budget; unresolved findings at exhaustion, failed or
-   empty reviewer output, material disagreement or missing essential evidence is incomplete, never approval.
+   Apply step 2's convergence and recovery rules. Unresolved required findings at exhaustion,
+   failed or empty reviewer output, material disagreement or missing essential evidence leave
+   the result incomplete and bar approval.
    All delegated passes stop after phase 5 without publishing comments or opening tickets.
    Return only the final head's verdict as current. Repair authority alone adds only the factual
-   summary in step 8; verdict publication and native approval follow the user's answer there.
+   summary in step 8, subject to the user's limits. Description, verdict and native approval
+   follow their respective authorizations there.
 
-8. **Ask, approve, then publish.** Re-read the PR head and required remote checks. Continue only when
-   the independent verdict is exactly `approved`, the required remote CI has succeeded on that
-   same SHA, and no correction remains pending. Failed or pending CI, unavailable evidence, or a
-   moved head keeps the journal pending with no intermediate comment.
-   When no remote check is required, record that fact explicitly instead of claiming CI passed.
-   A merged PR still requires evidence for the reviewed source head; merge alone is no substitute.
+8. **Reconcile findings and present publication choices.** Prepare the local
+   [description diff](references/native-approval.md#description-preparation) from the final
+   candidate even when no push or publication follows. Preserve it on pause.
 
-   `approved with reservations` keeps the journal pending and proposes no approval: list each
-   reservation and the decision expected from the user, then stop.
+   For `approved with reservations` or `changes required`, reconcile each finding under step 2.
+   Continue actionable work and available
+   lift checks inside the mandate. If evidence changes without a commit, obtain an independent
+   reassessment on the same head with the new evidence. When no actionable work remains, record
+   residual dispositions and lift conditions and report the exact verdict without proposing approval.
+   After independent work, ask one direct question that names the remaining reserved
+   decisions. Record each answer in the journal with its source, scope and supporting
+   evidence. On resumption, reconcile it with the current finding and pass the applicable
+   decision and its evidence to the independent reassessment.
+
+   Re-read the head and checks. Proceed to publication only with independent `approved`, required
+   remote CI successful on the same SHA and no pending correction. When no remote check is required,
+   record that fact. A moved head requires re-anchoring. Failed or pending CI or essential missing
+   evidence keeps publication pending. A merge alone supplies no reviewed-head evidence.
 
    After these checks pass, read and follow the [step 8 publication protocol](references/native-approval.md#step-8-publication-protocol)
    even when native approval is not performed.
-   When the [approval gate](references/native-approval.md#gate) holds, present the verdict, draft
-   and question and wait for the explicit answer on this SHA.
-   Never publish the verdict or approve before an explicit answer; the invocation of this workflow,
-   an earlier general authorization or silence is not one. A moved head voids the answer.
 
 9. **Close or pause the repair.** Report the final SHA, verdict, native approval state, journal path
-   and either the summary URL or the reason publication is pending. On Bitbucket, report the PR state
+   and description draft with its publication status. Give the summary URL or the reason it was
+   not published. If incomplete, report unresolved work once with its resumption conditions after
+   pursuing independent work. On Bitbucket, report the PR state
    beside the reviewer approval. Keep the journal across sessions and after publication; a later
    correction resumes it and updates the same comment only after renewed independent approval and
    CI. Follow the native approval protocol for renewal and its forge-specific evidence limits.
@@ -206,8 +218,8 @@ its correction and evidence here without starting another workflow.
 - **The contributor pushes concurrently** — corrections based on the old head become stale or a
   push collides with new work. Re-query the exact head, refuse every force option, and re-anchor when
   it moved.
-- **Small remarks become a cleanup pass** — the PR gains unrelated churn and review risk. Keep at
-  most three objective, localized non-blockers and drop preferences.
+- **Small remarks become a cleanup pass** — the PR gains unrelated churn and review risk. Keep every
+  verified actionable item in scope and drop preferences.
 - **Repair publication and verdict publication are conflated** — either a team-visible merge
   decision appears without consent or each pass solicits premature replies. Keep intermediate
   results in the journal and publish the cumulative factual summary after final approval and CI;
@@ -241,18 +253,19 @@ its correction and evidence here without starting another workflow.
 ## Constraints
 
 - Never select this workflow without an explicit `$pr-fix` or `/pr-fix` invocation.
-- Never override stricter task limits, start a concurrent local repair loop, exceed two correction
-  passes or reset their count on delegation, candidate changes or resumption.
+- Never override stricter task limits, start a concurrent local repair loop or reset charged
+  passes and recovery budgets on delegation, candidate changes or resumption.
 - Never force-push, overwrite a moved head or guess the PR source repository or ref.
 - Never publish a verdict, create an issue or open another PR from repair authority alone; the
-  mandatory factual repair record is not a verdict and requires no confirmation. Publish a verdict
+  factual repair record requires no separate confirmation unless the user restricts publication.
+  Publish a verdict
   only after the user answers "publish and approve" on the presented head.
 - Never approve natively before independent `approved`, successful required remote CI on the
   freshly re-read head and no pending correction, without the user's explicit "publish and approve"
   or "approve only" answer on that head, against an explicit user prohibition, or on a PR the
   authenticated account authored.
-- Never propose approval for `approved with reservations`; list the reservation and the decision
-  expected.
+- Never propose approval for `approved with reservations`; continue authorized lift work and
+  report residual evidence limits or reserved decisions with their lift conditions.
 - Never report a native approval that was not read back from the forge, and never replace a
   refused or uncertain approval with a comment, task or reaction.
 - Never merge a PR or add it to a merge queue from repair authority or a native approval.
@@ -265,7 +278,8 @@ its correction and evidence here without starting another workflow.
 - Never claim a defect fixed before its failure-path test and the existing affected checks
   both pass, and never report a gate you did not run.
 - Never let the context that wrote the repaired head perform its final failure-class sweep.
-- Never delegate a verdict on a head you still intend to amend; one repair lands one judged head.
+- Never delegate a verdict while writes for the current slate are pending; each pushed slate lands
+  one judged head.
 - Never repair subjective preferences or broaden the change beyond proven findings.
 - Never remove a temporary worktree that contains commits not yet pushed or uncommitted changes.
 

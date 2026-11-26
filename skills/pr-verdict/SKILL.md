@@ -239,10 +239,9 @@ Missing evidence follows phase 5; do not infer a runtime failure from an unexecu
 Classes are not exhaustive: apply phase 5 to defects and evidence gaps outside the catalogue too.
 Never downgrade a defect because no class names it; a preference never blocks.
 
-For other non-blocking findings, report at most three, one line each, or drop them. The cap is what stops the sweep from
-turning into a second review that competes with the verdict — rank them by whether they would change
-a reviewer's decision and keep the top three. If the verdict runs past about thirty lines, that is
-the symptom that preferences have crept into the blocking section.
+For a standalone public summary, keep at most three other non-blocking remarks. When composing
+with `pr-fix`, return every actionable finding and evidence limit with its proof and lift
+condition in the local handoff. The public summary limit applies only to presentation.
 
 ## Gotchas
 
